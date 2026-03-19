@@ -1,0 +1,27 @@
+@import './fonts.css';
+@import './tailwind.css';
+@import './theme.css';
+
+/* Motion's useScroll({ target }) uses document.scrollingElement (<html>) as the
+   default scroll container. That element is position:static by default, which
+   triggers Motion's "non-static container" dev warning. Setting position:relative
+   here satisfies the check without affecting layout.
+   NOTE: overflow-x:clip (not hidden) is used because "hidden" creates a new BFC
+   which makes <html> itself the scroll container, breaking Motion's useScroll.
+   "clip" is a paint-only operation — it clips overflow without affecting the
+   scroll container, so Motion's scroll tracking continues to work correctly. */
+html {
+  position: relative;
+  overflow-x: clip;
+}
+
+body {
+  overflow-x: clip;
+}
+
+/* ── ContactInfoSection responsive ───────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .contact-info-section {
+    padding: 0 24px !important;
+  }
+}

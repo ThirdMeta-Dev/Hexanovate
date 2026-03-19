@@ -1,0 +1,73 @@
+import { SmokeCardDemo } from "../components/SmokeCardDemo";
+import { WhyWeStartedSection } from "../components/WhyWeStartedSection";
+import { SolutionsSection } from "../components/SolutionsSection";
+import { WhyChooseUsSection } from "../components/WhyChooseUsSection";
+import { TeamCultureSection } from "../components/TeamCultureSection";
+import { TestimonialSection } from "../components/TestimonialSection";
+import { ValuesApproachSection } from "../components/ValuesApproachSection";
+import { AwardsLogoWallSection } from "../components/AwardsLogoWallSection";
+import { ResourcesSection } from "../components/ResourcesSection";
+import { TestimonialsHeaderSection } from "../components/TestimonialsHeaderSection";
+import { FaqSection } from "../components/FaqSection";
+import { DemoFormSection } from "../components/DemoFormSection";
+import { TagsCarouselSection } from "../components/TagsCarouselSection";
+import { FooterSection } from "../components/FooterSection";
+import { WhatDefinesUsSection } from "../components/WhatDefinesUsSection";
+import { motion } from "motion/react";
+import { FmcgSection } from "../components/FmcgSection";
+import { B2bSection } from "../components/B2bSection";
+import { EducationSection } from "../components/EducationSection";
+import { LogoMarqueeSection } from "../components/LogoMarqueeSection";
+import { BannerSection } from "../components/BannerSection";
+import { SectionsBgWrapper } from "../components/SectionsBgWrapper";
+import { useState, useEffect } from "react";
+
+export default function HomePage() {
+  const [vw, setVw] = useState(typeof window !== "undefined" ? window.innerWidth : 1440);
+  useEffect(() => {
+    const onResize = () => setVw(window.innerWidth);
+    window.addEventListener("resize", onResize, { passive: true });
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  const isMobile = vw <= 1024;
+
+  return (
+    <div className="min-h-screen w-full" style={{ background: "#0a0a0a", position: "relative" }}>
+      <BannerSection />
+
+      <motion.div
+        id="fmcg-portfolio"
+        style={{ marginTop: isMobile ? "0px" : "0px", position: "relative", zIndex: 1 }}
+        initial={{ y: 60, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <FmcgSection />
+      </motion.div>
+
+      <div style={{ marginTop: "80px" }}><B2bSection /></div>
+      <div style={{ marginTop: "80px" }}><EducationSection /></div>
+      <div id="what-defines-us" style={{ marginTop: "80px", marginBottom: isMobile ? "0px" : "120px" }}><WhatDefinesUsSection /></div>
+      <div style={{ marginTop: isMobile ? "40px" : "240px" }}><LogoMarqueeSection /></div>
+      <div style={{ marginTop: isMobile ? "48px" : "140px" }}><WhyWeStartedSection /></div>
+      <div style={{ marginTop: "140px" }}><SolutionsSection /></div>
+      <div style={{ marginTop: "140px" }}><WhyChooseUsSection /></div>
+      <div id="team-culture" style={{ marginTop: "140px" }}><TeamCultureSection /></div>
+      <div style={{ marginTop: "140px" }}><TestimonialSection /></div>
+
+      <SectionsBgWrapper>
+        <div style={{ marginTop: "140px" }}><ValuesApproachSection /></div>
+        <div style={{ marginTop: "140px" }}><AwardsLogoWallSection /></div>
+        <div style={{ marginTop: "140px" }}><ResourcesSection /></div>
+      </SectionsBgWrapper>
+
+      <div style={{ marginTop: "140px" }}><TestimonialsHeaderSection /></div>
+      <div style={{ marginTop: "140px" }}><FaqSection /></div>
+      <div id="get-in-touch" style={{ marginTop: "140px" }}><DemoFormSection /></div>
+      <div style={{ marginTop: "140px" }}><TagsCarouselSection /></div>
+      <div style={{ marginTop: "140px" }}><FooterSection /></div>
+    </div>
+  );
+}
