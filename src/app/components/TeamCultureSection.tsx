@@ -14,7 +14,7 @@ import img10 from "@/assets/08ad4b6dca12bdd8a662a5973390d31479223094.png";
 
 /* ─── CONSTANTS ────────────────────────────────────────────────────────── */
 const SLIDE_DURATION = 5000;
-const NUM_SLIDES = 3;
+const NUM_SLIDES = 10;
 const CARD_W = 259;
 const CARD_H = 300;
 const MOBILE_CARD_W = 220;
@@ -55,9 +55,16 @@ function mod(n: number, m: number) {
 
 /* ─── SLIDE DATA ─────────────────────────────────���──────────────────────── */
 const slides = [
-  { img: img1,  label: "The High-Performance Hub",       desc: ["Our culture isn't about beanbags and free snacks.", "It's about autonomy, extreme ownership, and the relentless pursuit of excellence."] },
-  { img: img2,  label: "A Global Engine",               desc: ["We operate as a distributed powerhouse,", "bringing together the best minds in tech, strategy, and creative from across the globe."] },
-  { img: img3,  label: "Growth as a Standard",          desc: ["At Hexanovate, we don't just grow businesses;", "we grow people. Every team member is an owner of the mission."] },
+  { img: img1,  label: "Arjun Mehta",       desc: ["Co-Founder & CEO",           "Visionary growth strategist"] },
+  { img: img2,  label: "Rohan Sharma",       desc: ["Head of Performance",        "Paid media & funnel expert"] },
+  { img: img3,  label: "Priya Nair",         desc: ["Creative Director",          "Brand identity & storytelling"] },
+  { img: img4,  label: "Vikram Desai",       desc: ["SEO & Content Lead",         "Organic reach architect"] },
+  { img: img5,  label: "Faiz Ansari",        desc: ["Social Media Strategist",    "Community & engagement driver"] },
+  { img: img6,  label: "Karan Joshi",        desc: ["B2B Marketing Manager",      "Account-based growth leader"] },
+  { img: img7,  label: "Nikhil Patel",       desc: ["Data & Analytics Head",      "Insight-driven decision maker"] },
+  { img: img8,  label: "Rahul Verma",        desc: ["Video & Content Producer",   "High-impact visual storyteller"] },
+  { img: img9,  label: "Aditya Kapoor",      desc: ["Client Success Manager",     "Long-term retention specialist"] },
+  { img: img10, label: "Sneha Rajput",       desc: ["Brand & PR Strategist",      "Media relations & reputation"] },
 ];
 
 /* ─── DIAGONAL ARROW SVG ─────────────────────────────────────────────────── */
@@ -270,11 +277,10 @@ function SectionTitle() {
         className="wcu-section-title"
         style={{ fontFamily: "Manrope, sans-serif", fontSize: "clamp(32px, 5vw, 60px)", lineHeight: 1.24, color: "white", width: 670, maxWidth: "90vw", margin: 0, textTransform: "capitalize" }}
       >
-        <RevealWord text="Great Businesses"  weight={300} color="#8e8e8e" progress={scrollYProgress} range={[0, 0.2]} />{" "}
-        <RevealWord text="Aren't Built by"  weight={300} color="#8e8e8e" progress={scrollYProgress} range={[0.2, 0.4]} />{" "}
-        <RevealWord text="Individuals."  weight={700} color="white"   progress={scrollYProgress} range={[0.4, 0.6]} />{" "}
-        <RevealWord text="They're Built by Teams" weight={700} color="white"   progress={scrollYProgress} range={[0.6, 0.8]} />{" "}
-        <RevealWord text="That Refuse to Be Average." weight={300} color="#8e8e8e" progress={scrollYProgress} range={[0.8, 1]} />
+        <RevealWord text="Lorem"  weight={300} color="#8e8e8e" progress={scrollYProgress} range={[0, 0.25]} />{" "}
+        <RevealWord text="ipsum"  weight={700} color="white"   progress={scrollYProgress} range={[0.25, 0.5]} />{" "}
+        <RevealWord text="is"     weight={700} color="white"   progress={scrollYProgress} range={[0.5, 0.75]} />{" "}
+        <RevealWord text="simply" weight={300} color="#8e8e8e" progress={scrollYProgress} range={[0.75, 1]} />
       </p>
     </div>
   );

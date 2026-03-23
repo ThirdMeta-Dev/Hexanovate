@@ -148,23 +148,27 @@ function SectionTitle() {
       }}
     >
       <span style={{ fontFamily: "Manrope, sans-serif", fontWeight: 600, color: "white" }}>
-        <RevealWord progress={scrollYProgress} range={r(0)}>Because</RevealWord>
+        <RevealWord progress={scrollYProgress} range={r(0)}>Lorem</RevealWord>
         {" "}
-        <RevealWord progress={scrollYProgress} range={r(1)}>Growth</RevealWord>
+        <RevealWord progress={scrollYProgress} range={r(1)}>ipsum</RevealWord>
         {" "}
-        <RevealWord progress={scrollYProgress} range={r(2)}>Is</RevealWord>
-        {" "}
-        <RevealWord progress={scrollYProgress} range={r(3)}>Never</RevealWord>
+        <RevealWord progress={scrollYProgress} range={r(2)}>is</RevealWord>
       </span>
       {" "}
       <span style={{ fontFamily: "Manrope, sans-serif", fontWeight: 400, color: "#8e8e8e" }}>
-        <RevealWord progress={scrollYProgress} range={r(4)}>Just</RevealWord>
+        <RevealWord progress={scrollYProgress} range={r(3)}>simply</RevealWord>
         {" "}
-        <RevealWord progress={scrollYProgress} range={r(5)}>About</RevealWord>
+        <RevealWord progress={scrollYProgress} range={r(4)}>dummy</RevealWord>
         {" "}
-        <RevealWord progress={scrollYProgress} range={r(6)}>One</RevealWord>
+        <RevealWord progress={scrollYProgress} range={r(5)}>is</RevealWord>
+      </span>
+      {" "}
+      <span style={{ fontFamily: "Manrope, sans-serif", fontWeight: 300, color: "#8e8e8e" }}>
+        <RevealWord progress={scrollYProgress} range={r(6)}>text</RevealWord>
         {" "}
-        <RevealWord progress={scrollYProgress} range={r(7)}>Thing.</RevealWord>
+        <RevealWord progress={scrollYProgress} range={r(7)}>lorem</RevealWord>
+        {" "}
+        <RevealWord progress={scrollYProgress} range={r(8)}>typesetting</RevealWord>
       </span>
     </p>
   );
@@ -196,9 +200,10 @@ function WhyChooseUsBadge() {
 /* ─── WHY CHOOSE US SECTION ─────────────────────────────────────────────── */
 export function WhyChooseUsSection() {
   const featureData = [
-    { title: "The Ecosystem Advantage", description: "Stop hiring agencies that only look at one piece of the puzzle. We build growth ecosystems where tech, marketing, and operations work as one." },
-    { title: "Precision Over Hacks", description: "We don't believe in \"viral\" flukes or \"overnight\" success. We believe in mathematical precision, human psychology, and systems that produce predictable growth." },
-    { title: "Skin In The Game", description: "We don't just consult; we operate. Our success is directly tied to yours, making us more than a vendor—we're your dedicated growth partner." },
+    { title: "Cracked Market Fit, But", description: `what's leaking conversion, retention,  lorem repeation growth` },
+    { title: "Cracked Market Fit, But", description: `what's leaking conversion, retention,  lorem repeation growth` },
+    { title: "Cracked Market Fit, But", description: `what's leaking conversion, retention,  lorem repeation growth` },
+    { title: "Cracked Market Fit, But", description: `what's leaking conversion, retention,  lorem repeation growth` },
   ];
 
   return (
@@ -271,6 +276,7 @@ export function WhyChooseUsSection() {
             {/* Right column */}
             <div style={{ display: "flex", flexDirection: "column", gap: 68, width: 300, flexShrink: 0, alignItems: "flex-end" }} className="wcu-col">
               <FeatureItem title={featureData[2].title} description={featureData[2].description} align="right" delay={0.1} />
+              <FeatureItem title={featureData[3].title} description={featureData[3].description} align="right" delay={0.18} />
             </div>
           </div>
         </div>

@@ -421,6 +421,52 @@ function GlassNavPill() {
   );
 }
 
+/* ── Hero Badge ───────────────────────────────────────────────────────────── */
+// Figma Frame23: bg-[#111] border-[#414141] rounded-[40px] px-[20px] py-[6px]
+// "Hero Section" — Poppins Regular 12px #ffa600
+function HeroBadge() {
+  return (
+    <motion.div
+      style={{
+        background: "#111",
+        borderRadius: 40,
+        padding: "6px 20px",
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        position: "relative",
+      }}
+      initial={{ opacity: 0, scale: 0.88 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.45, delay: 0.48, ease: [0.22, 1, 0.36, 1] }}
+    >
+      {/* Border overlay — avoids border affecting layout */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          inset: 0,
+          border: "1px solid #414141",
+          borderRadius: 40,
+          pointerEvents: "none",
+        }}
+      />
+      <span
+        style={{
+          fontFamily: "Poppins, sans-serif",
+          fontWeight: 400,
+          fontSize: 12,
+          color: "#FFA600",
+          lineHeight: "normal",
+          whiteSpace: "nowrap",
+          position: "relative",
+        }}
+      >
+        Hero Section
+      </span>
+    </motion.div>
+  );
+}
 
 /* ── CTA Button (label + arrow pill pair) ─────────────────────────────────── */
 // Primary   (Frame33=Frame29+Frame25): bg-#1b61db · shadow rgba(0,0,0,0.30)
@@ -821,6 +867,9 @@ function MobileHeroContent() {
           maxWidth: "680px",
         }}
       >
+        {/* Badge — auto-width, left-aligned */}
+        <HeroBadge />
+
         {/* Headline */}
         <div
           style={{
@@ -840,7 +889,7 @@ function MobileHeroContent() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
           >
-            The Future of Business Deserves
+            We unlock scale
           </motion.div>
           <motion.div
             style={{ display: "block", margin: 0 }}
@@ -848,7 +897,7 @@ function MobileHeroContent() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.63, ease: [0.22, 1, 0.36, 1] }}
           >
-            a Better World. We're Building It.
+            fixing what's leaking conversion lorem
           </motion.div>
         </div>
 
@@ -866,7 +915,7 @@ function MobileHeroContent() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.78, ease: [0.22, 1, 0.36, 1] }}
         >
-          A connected business ecosystem built around your vision. Bringing together systems, growth engines, teams, and capabilities so you can focus on what you do best.
+          Short explanation that Hexanovate powers two specialized domains.
         </motion.p>
 
         {/* CTAs — left-aligned row */}
@@ -1199,6 +1248,7 @@ export function BannerSection() {
                     gap: 24,
                   }}
                 >
+                  <HeroBadge />
 
                   <div
                     style={{
@@ -1222,7 +1272,7 @@ export function BannerSection() {
                         overflow: "hidden",
                       }}
                     >
-                      {["The Future of Business Deserves", "a Better World. We're Building It."].map(
+                      {["We unlock scale", "fixing what's leaking conversion lorem"].map(
                         (line, i) => (
                           <motion.div
                             key={i}
@@ -1256,7 +1306,7 @@ export function BannerSection() {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.55, delay: 1.0, ease: [0.22, 1, 0.36, 1] }}
                     >
-                      A connected business ecosystem built around your vision. Bringing together systems, growth engines, teams, and capabilities so you can focus on what you do best.
+                      Short explanation that Hexanovate powers two specialized domains.
                     </motion.p>
                   </div>
                 </div>

@@ -27,13 +27,13 @@ export function TextRevealParagraph() {
     offset: ["start 0.85", "start 0.15"],
   });
 
-  // Segment 1 — bold white: "We Don't Do Generalist"
-  const boldWords = "We Don't Do Generalist".split(" ");
- 
+  // Segment 1 — bold white: "We unlock scale by fixing what's"
+  const boldWords = "We unlock scale by fixing what's".split(" ");
+
   // Segment 2 — light white: ":"
-  // Segment 3 — light gray: "Three Distinct Specialisms. Three Dedicated Growth Engines."
-  const grayWords = "Three Distinct Specialisms. Three Dedicated Growth Engines.".split(" ");
- 
+  // Segment 3 — light gray: "lorem conversion, retention, repeat; so growth We lorem is"
+  const grayWords = "lorem conversion, retention, repeat; so growth We lorem is".split(" ");
+
   const totalWords = boldWords.length + 1 + grayWords.length; // +1 for ":"
 
   const getRange = (index: number): [number, number] => {

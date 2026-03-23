@@ -113,7 +113,7 @@ function B2bBadge() {
               lineHeight: "normal",
             }}
           >
-            ThirdMeta
+            B2B Portfolio
           </span>
         </div>
       </div>
@@ -682,10 +682,11 @@ function TitleRow() {
           }}
         >
           <motion.p style={{ margin: 0, opacity: line1Opacity, y: line1Y }}>
-            <span style={{ fontWeight: 700, color: "white" }}>Qualified Leads. Closed Deals. </span>
+            <span style={{ fontWeight: 700, color: "white" }}>Real Work. Real Results </span>
+            <span style={{ fontWeight: 300, color: "#8e8e8e" }}>for </span>
           </motion.p>
           <motion.p style={{ margin: 0, fontWeight: 300, color: "#8e8e8e", opacity: line2Opacity, y: line2Y }}>
-            B2B Growth Done Right
+            B2B brands worldwide
           </motion.p>
         </div>
       </div>
@@ -802,7 +803,7 @@ function B2bMobileLayout() {
               whiteSpace: "nowrap",
             }}
           >
-            ThirdMeta
+            B2B Portfolio
           </span>
         </div>
       </div>
@@ -811,10 +812,11 @@ function B2bMobileLayout() {
       <div style={{ padding: "0 20px", boxSizing: "border-box", marginBottom: "32px" }}>
         <div style={{ fontFamily: "Manrope, sans-serif", lineHeight: "1.35" }}>
           <p style={{ margin: 0, fontSize: "clamp(26px, 7vw, 38px)" }}>
-            <span style={{ fontWeight: 700, color: "white" }}>Qualified Leads. Closed Deals. </span>
+            <span style={{ fontWeight: 700, color: "white" }}>Real Work. Real Results </span>
+            <span style={{ fontWeight: 300, color: "#8e8e8e" }}>for</span>
           </p>
           <p style={{ margin: 0, fontWeight: 300, color: "#8e8e8e", fontSize: "clamp(26px, 7vw, 38px)" }}>
-            B2B Growth Done Right
+            B2B brands worldwide
           </p>
         </div>
       </div>
