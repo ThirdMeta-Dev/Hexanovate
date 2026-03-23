@@ -206,16 +206,16 @@ function TitleRow() {
       >
         <p className="capitalize" style={{ fontFamily: "Manrope, sans-serif", fontSize: "48px", lineHeight: "1.32", margin: 0, width: "100%" }}>
           <span style={{ fontWeight: 700, color: "white" }}>
-            {["We", "unlock", "scale", "by", "fixing"].flatMap((word, wi) => [
+            {["We'd", "Say", "We're", "Different,", "But"].flatMap((word, wi) => [
               <RevealWord key={wi} delay={0.15 + wi * 0.07}>{word}</RevealWord>,
               wi < 4 ? " " : null,
             ])}
           </span>
           <span style={{ fontFamily: "Manrope, sans-serif", fontWeight: 300, color: "#8e8e8e" }}>
-            {["what's", "leaking", "conversion"].flatMap((word, wi) => [
+            {["That", "Would", "Be", "an", "Insult", "to", "How", "Different", "We", "Actually", "Are."].flatMap((word, wi) => [
               wi === 0 ? " " : null,
               <RevealWord key={wi} delay={0.5 + wi * 0.07}>{word}</RevealWord>,
-              wi < 2 ? " " : null,
+              wi < 10 ? " " : null,
             ])}
           </span>
         </p>
@@ -225,7 +225,14 @@ function TitleRow() {
 }
 
 /* ─── LIST ROW — desktop ─────────────────────────────────────────────────── */
-function ListRow() {
+const BULLET_DATA = [
+  { title: "A Vision Worth Building For", desc: "To become the most complete growth ecosystem ever built, where every business finds exactly what it needs to become unstoppable." },
+  { title: "What Hexanovate Actually Is", desc: "A parent ecosystem housing three specialized growth brands, each built to dominate a distinct market with depth, precision, and purpose." },
+  { title: "Built Different. Stays Different", desc: "Trends come and go. The ecosystem was built on timeless principles of human psychology and mathematical precision." },
+];
+
+function ListRow({ index }: { index: number }) {
+  const { title, desc } = BULLET_DATA[index];
   return (
     <div style={{ display: "flex", gap: "60px", alignItems: "center", width: "100%", flexShrink: 0 }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
@@ -244,7 +251,7 @@ function ListRow() {
             paddingLeft: "22.5px",
           }}
         >
-          <li style={{ whiteSpace: "pre-wrap" }}>Cracked Market Fit, But </li>
+          <li style={{ whiteSpace: "pre-wrap" }}>{title}</li>
         </ul>
       </div>
       <p
@@ -260,7 +267,7 @@ function ListRow() {
           minHeight: 0,
         }}
       >
-        We unlock scale by fixing what's leaking conversion, retention,
+        {desc}
       </p>
     </div>
   );
@@ -351,7 +358,7 @@ function ContentRow() {
               visible: { x: 0, opacity: 1, transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] } },
             }}
           >
-            <ListRow />
+            <ListRow index={i} />
           </motion.div>
         )).flatMap((el, i, arr) =>
           i < arr.length - 1
@@ -378,6 +385,7 @@ function ContentRow() {
 function MobileListItem({ index }: { index: number }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-40px" });
+  const { title, desc } = BULLET_DATA[index];
   return (
     <motion.div
       ref={ref}
@@ -400,7 +408,7 @@ function MobileListItem({ index }: { index: number }) {
           paddingLeft: "22px",
         }}
       >
-        <li>Cracked Market Fit, But</li>
+        <li>{title}</li>
       </ul>
       {/* Description */}
       <p
@@ -413,7 +421,7 @@ function MobileListItem({ index }: { index: number }) {
           margin: 0,
         }}
       >
-        We unlock scale by fixing what's leaking conversion, retention,
+        {desc}
       </p>
     </motion.div>
   );
@@ -460,8 +468,8 @@ function WhatDefinesUsMobileLayout() {
             margin: 0,
           }}
         >
-          <span style={{ fontWeight: 700, color: "white" }}>We unlock scale by fixing </span>
-          <span style={{ fontWeight: 300, color: "#8e8e8e" }}>what's leaking conversion</span>
+          <span style={{ fontWeight: 700, color: "white" }}>We'd Say We're Different, But </span>
+          <span style={{ fontWeight: 300, color: "#8e8e8e" }}>That Would Be an Insult to How Different We Actually Are.</span>
         </p>
       </motion.div>
 

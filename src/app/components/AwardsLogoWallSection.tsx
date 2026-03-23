@@ -287,14 +287,17 @@ export function AwardsLogoWallSection() {
     target: titleRef,
     offset: ["start 0.85", "end 0.35"],
   });
-  // 7 words total — each illuminates across its 1/7 slice of the scroll range
-  const tw0 = useTransform(titleP, [0 / 7, 1 / 7], [0.2, 1]);   // Lorem
-  const tw1 = useTransform(titleP, [1 / 7, 2 / 7], [0.2, 1]);   // ipsum
-  const tw2 = useTransform(titleP, [2 / 7, 3 / 7], [0.2, 1]);   // is
-  const tw3 = useTransform(titleP, [3 / 7, 4 / 7], [0.2, 1]);   // simply
-  const tw4 = useTransform(titleP, [4 / 7, 5 / 7], [0.2, 1]);   // dummy
-  const tw5 = useTransform(titleP, [5 / 7, 6 / 7], [0.2, 1]);   // text
-  const tw6 = useTransform(titleP, [6 / 7, 1],     [0.2, 1]);   // lorem
+  // 9 words total — each illuminates across its 1/9 slice of the scroll range
+  const tw = (i: number) => [i / 9, (i + 1) / 9];
+  const t0 = useTransform(titleP, tw(0), [0.2, 1]);
+  const t1 = useTransform(titleP, tw(1), [0.2, 1]);
+  const t2 = useTransform(titleP, tw(2), [0.2, 1]);
+  const t3 = useTransform(titleP, tw(3), [0.2, 1]);
+  const t4 = useTransform(titleP, tw(4), [0.2, 1]);
+  const t5 = useTransform(titleP, tw(5), [0.2, 1]);
+  const t6 = useTransform(titleP, tw(6), [0.2, 1]);
+  const t7 = useTransform(titleP, tw(7), [0.2, 1]);
+  const t8 = useTransform(titleP, tw(8), [0.2, 1]);
 
   return (
     <section
@@ -320,12 +323,6 @@ export function AwardsLogoWallSection() {
           borderRadius: 24,
         }}
       >
-        {/* ── HEADER: badge centered + title centered ── */}
-        {/*
-         * Figma Frame13: flex-col, items-center, gap-16, w-full
-         * Frame24 (badge wrapper): w-155px → centered by parent items-center
-         * Title: 40px Manrope, text-center, mixed gray/bold-white spans
-         */}
         <div
           className="alw-header"
           style={{
@@ -336,19 +333,14 @@ export function AwardsLogoWallSection() {
             width: "100%",
           }}
         >
-          {/* Badge — Figma Frame24: w-155px, badge centered within it */}
+          {/* Badge */}
           <div style={{ width: 155, flexShrink: 0, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-            <div style={{ display: "flex", alignItems: "center", width: "100%" }}>
+            <div style={{ display: "center", alignItems: "center", width: "100%" }}>
               <SectionBadge />
             </div>
           </div>
 
-          {/* Title — "Lorem ipsum is simply dummy text lorem" */}
-          {/*
-           * Gray: "Lorem " and " text lorem"
-           * Bold white: "ipsum is simply dummy"
-           * 40px Manrope, capitalize, text-center
-           */}
+          {/* Title */}
           <p
             ref={titleRef}
             style={{
@@ -363,22 +355,35 @@ export function AwardsLogoWallSection() {
               marginBottom: 0,
             }}
           >
-            {/* gray words */}
-            <motion.span style={{ color: "#8e8e8e", fontWeight: 400, opacity: tw0 }}>Proud</motion.span>
+            <motion.span style={{ color: "white", fontWeight: 700, opacity: t0 }}>When</motion.span>
             {" "}
-            {/* bold white words */}
-            <motion.span style={{ fontWeight: 700, opacity: tw1 }}>to</motion.span>
+            <motion.span style={{ color: "#8e8e8e", fontWeight: 400, opacity: t1 }}>You</motion.span>
             {" "}
-            <motion.span style={{ fontWeight: 700, opacity: tw2 }}>be</motion.span>
+            <motion.span style={{ color: "white", fontWeight: 700, opacity: t2 }}>Focus</motion.span>
             {" "}
-            <motion.span style={{ fontWeight: 700, opacity: tw3 }}>recognized</motion.span>
+            <motion.span style={{ color: "#8e8e8e", fontWeight: 400, opacity: t3 }}>on</motion.span>
             {" "}
-            <motion.span style={{ fontWeight: 700, opacity: tw4 }}>by</motion.span>
+            <motion.span style={{ color: "white", fontWeight: 700, opacity: t4 }}>Excellence,</motion.span>
             {" "}
-            {/* gray words */}
-            <motion.span style={{ color: "#8e8e8e", fontWeight: 400, opacity: tw5 }}>industry</motion.span>
+            <motion.span style={{ color: "#8e8e8e", fontWeight: 400, opacity: t5 }}>the</motion.span>
             {" "}
-            <motion.span style={{ color: "#8e8e8e", fontWeight: 400, opacity: tw6 }}>leaders</motion.span>
+            <motion.span style={{ color: "white", fontWeight: 700, opacity: t6 }}>World</motion.span>
+            {" "}
+            <motion.span style={{ color: "white", fontWeight: 700, opacity: t7 }}>Notices.</motion.span>
+          </p>
+          <p
+            style={{
+              fontFamily: "Poppins, sans-serif",
+              fontWeight: 400,
+              fontSize: 16,
+              color: "#727272",
+              textAlign: "center",
+              lineHeight: 1.6,
+              maxWidth: 600,
+              margin: 0,
+            }}
+          >
+            Recognition is great, but the real reward is the growth we unlock for our partners every single day.
           </p>
         </div>
 

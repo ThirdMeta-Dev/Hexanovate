@@ -522,29 +522,42 @@ function QuoteText({ scrollYProgress }: { scrollYProgress: MotionValue<number> }
           }}
         >
           <p style={{ width: "100%", margin: 0 }}>
-            {["We", "unlock", "scale", "by", "fixing", "what's", "leaking:", "conversion,", "retention,", "repeat", "—", "so", "growth", "compounds", "naturally."].flatMap((word, wi) => [
+            {["We", "didn't", "start", "this", "because", "we", "saw", "an", "opportunity.", "We", "started", "this", "because", "we", "felt", "a", "responsibility", "to", "every", "ambitious", "business", "that", "deserved", "far", "better", "than", "what", "existed."].flatMap((word, wi) => [
               wi > 0 ? " " : null,
               <RevealWord
                 key={wi}
                 progress={scrollYProgress}
-                range={[0.25 + wi * 0.010, 0.25 + wi * 0.010 + 0.09]}
+                range={[0.25 + wi * 0.015, 0.25 + wi * 0.015 + 0.15]}
               >
                 {word}
               </RevealWord>,
             ])}
           </p>
-          <p style={{ width: "100%", margin: 0 }}>
-            {["We", "power", "discovery,", "engagement,", "and", "recall", "—", "where", "most", "purchase", "decisions", "begin:", "digitally."].flatMap((word, wi) => [
-              wi > 0 ? " " : null,
-              <RevealWord
-                key={wi}
-                progress={scrollYProgress}
-                range={[0.50 + wi * 0.010, 0.50 + wi * 0.010 + 0.09]}
-              >
-                {word}
-              </RevealWord>,
-            ])}
-          </p>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "20px",
+              marginTop: "24px",
+              width: "100%",
+            }}
+          >
+            <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+              <p style={{ fontFamily: "Manrope, sans-serif", fontWeight: 600, fontSize: "16px", color: "white", margin: 0 }}>From Chaos to Systems</p>
+              <p style={{ fontFamily: "Poppins, sans-serif", fontWeight: 300, fontSize: "14px", lineHeight: "22px", color: "#727272", margin: 0 }}>
+                Most growth is accidental. We wanted to make it scientific, predictable, and scalable.
+              </p>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+              <p style={{ fontFamily: "Manrope, sans-serif", fontWeight: 600, fontSize: "16px", color: "white", margin: 0 }}>The Ecosystem Gap</p>
+              <p style={{ fontFamily: "Poppins, sans-serif", fontWeight: 300, fontSize: "14px", lineHeight: "22px", color: "#727272", margin: 0 }}>
+                We saw businesses struggling with fragmented tools and siloed teams. We built Hexanovate to bridge that gap.
+              </p>
+            </div>
+            <p style={{ fontFamily: "Poppins, sans-serif", fontWeight: 300, fontSize: "14px", lineHeight: "22px", color: "#727272", margin: "4px 0 0" }}>
+              There is a certain kind of frustration that only founders and top management know. It&apos;s the frustration of having a world-class vision but being held back by systems that don&apos;t talk to each other, marketing that doesn&apos;t convert, and teams that don&apos;t quite &apos;get it&apos;. We saw brilliant ideas dying in the gap between strategy and execution. We saw growth being treated as a series of hacks instead of a connected ecosystem. So, we built Hexanovate. Not as another agency, but as a complete growth partner that actually takes ownership.
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -618,7 +631,7 @@ function LeftColumn() {
             position: "relative",
           }}
         >
-          We unlock scale by fixing what&apos;s leaking conversion
+          The day ordinary stopped being acceptable to us.
         </p>
       </div>
     </div>
@@ -925,28 +938,29 @@ function TabletLayout() {
             }}
           >
             <p style={{ margin: 0 }}>
-              {["We", "unlock", "scale", "by", "fixing", "what's", "leaking:", "conversion,", "retention,", "repeat", "—", "so", "growth", "compounds", "naturally."].flatMap((word, wi) => [
+              {["We", "didn't", "start", "this", "because", "we", "saw", "an", "opportunity.", "We", "started", "this", "because", "we", "felt", "a", "responsibility", "to", "every", "ambitious", "business", "that", "deserved", "far", "better", "than", "what", "existed."].flatMap((word, wi) => [
                 wi > 0 ? " " : null,
                 <RevealWord
                   key={wi}
                   progress={scrollYProgress}
-                  range={[0.25 + wi * 0.010, 0.25 + wi * 0.010 + 0.09]}
+                  range={[0.25 + wi * 0.010, 0.25 + wi * 0.010 + 0.15]}
                 >
                   {word}
                 </RevealWord>,
               ])}
             </p>
-            <p style={{ margin: 0 }}>
-              {["We", "power", "discovery,", "engagement,", "and", "recall", "—", "where", "most", "purchase", "decisions", "begin:", "digitally."].flatMap((word, wi) => [
-                wi > 0 ? " " : null,
-                <RevealWord
-                  key={wi}
-                  progress={scrollYProgress}
-                  range={[0.50 + wi * 0.010, 0.50 + wi * 0.010 + 0.09]}
-                >
-                  {word}
-                </RevealWord>,
-              ])}
+            <p
+              style={{
+                fontFamily: "Poppins, sans-serif",
+                fontWeight: 300,
+                fontSize: "12px",
+                lineHeight: "18px",
+                color: "#727272",
+                margin: "12px 0 0",
+                opacity: 0.8,
+              }}
+            >
+              There is a certain kind of frustration that only founders and top management know. It&apos;s the frustration of having a world-class vision but being held back by systems that don&apos;t talk to each other, marketing that doesn&apos;t convert, and teams that don&apos;t quite &apos;get it&apos;. We saw brilliant ideas dying in the gap between strategy and execution. We saw growth being treated as a series of hacks instead of a connected ecosystem. So, we built Hexanovate. Not as another agency, but as a complete growth partner that actually takes ownership.
             </p>
           </div>
         </div>
@@ -964,7 +978,7 @@ function TabletLayout() {
           marginBottom: 0,
         }}
       >
-        We unlock scale by fixing what&apos;s leaking conversion
+        The day ordinary stopped being acceptable to us.
       </p>
     </motion.div>
   );
@@ -1072,28 +1086,29 @@ function MobileLayout() {
           }}
         >
           <p style={{ margin: 0 }}>
-            {["We", "unlock", "scale", "by", "fixing", "what's", "leaking:", "conversion,", "retention,", "repeat", "—", "so", "growth", "compounds", "naturally."].flatMap((word, wi) => [
+            {["We", "didn't", "start", "this", "because", "we", "saw", "an", "opportunity.", "We", "started", "this", "because", "we", "felt", "a", "responsibility", "to", "every", "ambitious", "business", "that", "deserved", "far", "better", "than", "what", "existed."].flatMap((word, wi) => [
               wi > 0 ? " " : null,
               <RevealWord
                 key={wi}
                 progress={scrollYProgress}
-                range={[0.25 + wi * 0.010, 0.25 + wi * 0.010 + 0.09]}
+                range={[0.25 + wi * 0.010, 0.25 + wi * 0.010 + 0.15]}
               >
                 {word}
               </RevealWord>,
             ])}
           </p>
-          <p style={{ margin: 0 }}>
-            {["We", "power", "discovery,", "engagement,", "and", "recall", "—", "where", "most", "purchase", "decisions", "begin:", "digitally."].flatMap((word, wi) => [
-              wi > 0 ? " " : null,
-              <RevealWord
-                key={wi}
-                progress={scrollYProgress}
-                range={[0.50 + wi * 0.010, 0.50 + wi * 0.010 + 0.09]}
-              >
-                {word}
-              </RevealWord>,
-            ])}
+          <p
+            style={{
+              fontFamily: "Poppins, sans-serif",
+              fontWeight: 300,
+              fontSize: "12px",
+              lineHeight: "18px",
+              color: "#727272",
+              margin: "12px 0 0",
+              opacity: 0.8,
+            }}
+          >
+            There is a certain kind of frustration that only founders and top management know. It&apos;s the frustration of having a world-class vision but being held back by systems that don&apos;t talk to each other, marketing that doesn&apos;t convert, and teams that don&apos;t quite &apos;get it&apos;. We saw brilliant ideas dying in the gap between strategy and execution. We saw growth being treated as a series of hacks instead of a connected ecosystem. So, we built Hexanovate. Not as another agency, but as a complete growth partner that actually takes ownership.
           </p>
         </div>
       </div>
@@ -1110,7 +1125,7 @@ function MobileLayout() {
           marginBottom: 0,
         }}
       >
-        We unlock scale by fixing what&apos;s leaking conversion
+        The day ordinary stopped being acceptable to us.
       </p>
     </motion.div>
   );

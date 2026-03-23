@@ -4,6 +4,8 @@ import { useRef, useId, useState, useEffect, useCallback } from "react";
 import elmoImg       from "@/assets/d6712a28c4427451654076b57057128fe4979cf4.png";
 import cybernetyxImg from "@/assets/2bde221ff9288c4d81474060fcb820a6a1113526.png";
 import eyrisImg      from "@/assets/131456e21cf49af42a068b828a52cbe44337bec0.png";
+import socialImg     from "@/assets/7b03408bcffa240a069a479d7048ae964cb0e0cc.png";
+import funnelImg     from "@/assets/08ad4b6dca12bdd8a662a5973390d31479223094.png";
 
 /* ─── SLIDE DATA (5 real education portfolio items) ──────────────────────── */
 const SLIDE_CARDS = [
@@ -29,13 +31,13 @@ const SLIDE_CARDS = [
     num: "04",
     title: "Education Brand & Social",
     desc: "Built a cohesive social media presence for an ed-tech brand, achieving 4.2× engagement growth and 60K new followers in 6 months.",
-    image: "https://images.unsplash.com/photo-1758272421542-b6bd81729cb5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
+    image: socialImg,
   },
   {
     num: "05",
     title: "Coaching Institute Digital Funnel",
     desc: "Redesigned the full digital funnel for a coaching chain — from paid ads to landing pages — cutting cost-per-lead by 52%.",
-    image: "https://images.unsplash.com/photo-1758685848521-ff7e4d136384?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
+    image: funnelImg,
   },
 ];
 const NUM_CARDS = SLIDE_CARDS.length; // 5
@@ -120,7 +122,7 @@ function EducationBadge() {
             whiteSpace: "nowrap",
           }}
         >
-          Education Domain Portfolio
+          EduHexa
         </span>
       </div>
     </div>
@@ -238,21 +240,21 @@ function LeftColumn() {
           initial={{ opacity: 0.25 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.55, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-        >Education</motion.span>
+        >EdTech</motion.span>
         {" "}
         <motion.span
           style={{ fontWeight: 700, color: "white" }}
           initial={{ opacity: 0.25 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.55, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
-        >Portfolio</motion.span>
+        >Growth</motion.span>
         {" "}
         <motion.span
           style={{ fontWeight: 300, color: "#8e8e8e" }}
           initial={{ opacity: 0.25 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.55, delay: 0.34, ease: [0.22, 1, 0.36, 1] }}
-        >That Drives Admissions</motion.span>
+        >That Makes Admissions Look Easy</motion.span>
       </p>
     </div>
   );
@@ -693,7 +695,7 @@ function EducationMobileLayout() {
               whiteSpace: "nowrap",
             }}
           >
-            Education Domain Portfolio
+            EduHexa
           </span>
         </div>
       </div>
@@ -702,8 +704,8 @@ function EducationMobileLayout() {
       <div style={{ padding: "0 20px", boxSizing: "border-box", marginBottom: "32px" }}>
         <div style={{ fontFamily: "Manrope, sans-serif", lineHeight: "1.35" }}>
           <p style={{ margin: 0, fontSize: "clamp(26px, 7vw, 38px)" }}>
-            <span style={{ fontWeight: 700, color: "white" }}>Education Portfolio </span>
-            <span style={{ fontWeight: 300, color: "#8e8e8e" }}>That Drives Admissions</span>
+            <span style={{ fontWeight: 700, color: "white" }}>EdTech Growth </span>
+            <span style={{ fontWeight: 300, color: "#8e8e8e" }}>That Makes Admissions Look Easy</span>
           </p>
         </div>
       </div>

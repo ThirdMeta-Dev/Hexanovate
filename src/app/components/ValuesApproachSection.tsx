@@ -9,32 +9,25 @@ import imgSlide3 from "@/assets/b2c2a05ac379979ca68fe1d5fde4df76497203c5.png";
 /* ─── SLIDES DATA ────────────────────────────────────────────────────────── */
 const SLIDES = [
   {
-    title: "Cracked Market Fit, But",
+    title: "Empathy First",
     description:
-      "We unlock scale by fixing what's leaking conversion, lor lorem retention, repeat",
-    cardTitle: "Cracked Market Fit, But Stuck",
+      "We build for humans, not just algorithms. Understanding the person behind the screen is how we create lasting growth.",
+    cardTitle: "Empathy First",
     image: imgSlide0,
   },
   {
-    title: "Distribution Without Friction",
+    title: "Innovation as a Habit",
     description:
-      "We power discovery across digital and physical touchpoints that convert intent to purchase.",
-    cardTitle: "Distribution Without Friction",
+      "We don't settle for 'what works'. We constantly experiment and build new tools to stay ahead of the curve.",
+    cardTitle: "Innovation as a Habit",
     image: imgSlide1,
   },
   {
-    title: "Data-Driven Brand Voice",
+    title: "Scalability by Design",
     description:
-      "We craft messaging that resonates by learning what your audience responds to at every stage.",
-    cardTitle: "Data-Driven Brand Voice",
+      "We build for tomorrow. Every system we implement is designed to handle 10x growth without breaking.",
+    cardTitle: "Scalability by Design",
     image: imgSlide2,
-  },
-  {
-    title: "Scalable Growth Loops",
-    description:
-      "We build systems that compound — turning one-time buyers into lifetime advocates.",
-    cardTitle: "Scalable Growth Loops",
-    image: imgSlide3,
   },
 ];
 
@@ -228,7 +221,7 @@ function TitleReveal() {
     offset: ["start 0.9", "start 0.15"],
   });
 
-  const total = 10;
+  const total = 14;
   const r = (i: number): [number, number] => [i / total, (i + 1) / total];
 
   return (
@@ -236,27 +229,18 @@ function TitleReveal() {
       ref={ref}
       style={{ fontWeight: 700, lineHeight: 1.48, marginTop: 0, marginBottom: 0 }}
     >
-      {/* Line 1 */}
-      <RevealWord weight={700} color="white"   progress={scrollYProgress} range={r(0)}>Lorem</RevealWord>
+      {/* Line 1: Built On Belief. Powered By a */}
+      <RevealWord weight={700} color="white"   progress={scrollYProgress} range={r(0)}>Timeless</RevealWord>
       {" "}
-      <RevealWord weight={700} color="white"   progress={scrollYProgress} range={r(1)}>ipsum</RevealWord>
+      <RevealWord weight={700} color="white"   progress={scrollYProgress} range={r(1)}>Principles</RevealWord>
       {" "}
-      <RevealWord weight={700} color="white"   progress={scrollYProgress} range={r(2)}>is</RevealWord>
+      <RevealWord weight={700} color="white"   progress={scrollYProgress} range={r(2)}>in</RevealWord>
       {" "}
-      <RevealWord weight={700} color="white"   progress={scrollYProgress} range={r(3)}>simply</RevealWord>
+      <RevealWord weight={700} color="white"   progress={scrollYProgress} range={r(3)}>a</RevealWord>
       {" "}
-      <RevealWord weight={700} color="white"   progress={scrollYProgress} range={r(4)}>dummy</RevealWord>
-      <br />
-      {/* Line 2 */}
-      <RevealWord weight={700} color="white"   progress={scrollYProgress} range={r(5)}>text</RevealWord>
+      <RevealWord weight={700} color="white"   progress={scrollYProgress} range={r(4)}>Changing</RevealWord>
       {" "}
-      <RevealWord weight={700} color="white"   progress={scrollYProgress} range={r(6)}>of</RevealWord>
-      {" "}
-      <RevealWord weight={300} color="#8e8e8e" progress={scrollYProgress} range={r(7)}>the</RevealWord>
-      {" "}
-      <RevealWord weight={300} color="#8e8e8e" progress={scrollYProgress} range={r(8)}>lorem</RevealWord>
-      {" "}
-      <RevealWord weight={300} color="#8e8e8e" progress={scrollYProgress} range={r(9)}>typeset</RevealWord>
+      <RevealWord weight={700} color="white"   progress={scrollYProgress} range={r(5)}>World.</RevealWord>
     </p>
   );
 }
@@ -371,7 +355,7 @@ export function ValuesApproachSection() {
               <TitleReveal />
             </div>
             <p style={{ fontFamily: "Poppins, sans-serif", fontWeight: 400, fontSize: 16, lineHeight: "29px", color: "#727272", marginTop: 0, marginBottom: 0 }}>
-              We power discovery, engagement, and recall—where most purchase
+              Not a slide deck. Not a poster on the wall. This is genuinely how we operate.
             </p>
           </div>
         </div>

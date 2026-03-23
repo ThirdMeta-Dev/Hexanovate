@@ -25,6 +25,13 @@ import imgFoodriteRedChilly from "@/assets/62101aad23ca30f4d7b0f2d1557823af3e2ed
 import imgCreditCard from "@/assets/d11b72bafb73375ebedb3c8ed6fe8452fb412a33.png";
 import imgFoodriteKetchup from "@/assets/3e7e50869b3f586ec239e79e0714db484b037067.png";
 import imgEyeRis from "@/assets/b0015ce0a5a601ba8e77012c9ad259ee7e4cbd0f.png";
+import imgPlaceholder1 from "@/assets/393466a8f00e06a6dea5f6fbcd4d2c2de7939ace.png";
+import imgPlaceholder2 from "@/assets/ea697fd1c8734ef50383a75ad5b573e938d827a7.png";
+import imgPlaceholder3 from "@/assets/069f59e29dcfa5fdf46d9b87bab576654e88b958.png";
+import imgPlaceholder4 from "@/assets/eec164b068f12d93431a8bacd150bf580ca70702.png";
+import imgPlaceholder5 from "@/assets/efd98944bc6f56588be3895179bc887a6f605839.png";
+import imgPlaceholder6 from "@/assets/3ef0c2306bfbc4191425edd723ba9de0447ca13b.png";
+import imgPlaceholder7 from "@/assets/41c0422ed85993e6c6e32ab7f0dbec890b778a42.png";
 
 /* ─── IMAGE CONSTANTS ────────────────────────────────────────────────────── */
 const IMG_HERO = imgFoodriteRedChilly;
@@ -105,7 +112,7 @@ function FmcgBadge() {
           lineHeight: "normal",
         }}
       >
-        FMCG Portfolio
+        The Native Unit
       </span>
     </div>
   );
@@ -397,7 +404,7 @@ function MasonryGrid({
   activeClientIndex,
 }: {
   scrollYProgress: MotionValue<number>;
-  heroCardRef: RefObject<HTMLDivElement>;
+  heroCardRef: RefObject<HTMLDivElement | null>;
   activeClientIndex: number;
 }) {
   // Phase C (0.40 → 1.0): grid scrolls up
@@ -606,15 +613,7 @@ const LIST_ITEMS = [
 const CLIENT_PORTFOLIOS = [
   // Foodrite
   {
-    posts: [
-      "https://images.unsplash.com/photo-1669384536597-99ae8c881e65?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1760754726716-45970152ebd5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1759167632930-298bca6b4268?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1757800945895-a08e7eff9702?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1760020945158-3e953b4d7ea6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1642294541583-c58730caa762?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1526383426426-c1716158d22a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-    ],
+    posts: [imgPlaceholder1, imgPlaceholder2, imgPlaceholder3, imgPlaceholder4, imgPlaceholder5, imgPlaceholder6, imgPlaceholder7],
     metrics: {
       metric1: { value: 156, suffix: "+", label: "Products Launched Successfully" },
       metric2: { value: 87, suffix: "%", label: "Market Share Growth Rate" },
@@ -622,15 +621,7 @@ const CLIENT_PORTFOLIOS = [
   },
   // NutriBlend
   {
-    posts: [
-      "https://images.unsplash.com/photo-1683343960120-830be550f611?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1734773557735-8fc50f94b473?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1661668998418-ff67c6b0194e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1621601928608-35b5e634e6da?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1768850418251-17480117ac9b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1616662707741-9f32deea4863?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1771209935035-26c1b6635d54?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-    ],
+    posts: [imgPlaceholder7, imgPlaceholder6, imgPlaceholder5, imgPlaceholder4, imgPlaceholder3, imgPlaceholder2, imgPlaceholder1],
     metrics: {
       metric1: { value: 240, suffix: "+", label: "We power discovery engagement" },
       metric2: { value: 92, suffix: "%", label: "Customer retention rate achieved" },
@@ -638,15 +629,7 @@ const CLIENT_PORTFOLIOS = [
   },
   // FreshHarvest
   {
-    posts: [
-      "https://images.unsplash.com/photo-1634825881542-9bd54ca437ea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1641693148759-843d17ceac24?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1741519301128-8426ea15d03e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1734018959142-cf239ce90c82?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1763686483398-730a9555b3f5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1629148302952-75d79bb167ad?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1766871138860-bff0f7a91395?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-    ],
+    posts: [imgPlaceholder2, imgPlaceholder4, imgPlaceholder6, imgPlaceholder1, imgPlaceholder3, imgPlaceholder5, imgPlaceholder7],
     metrics: {
       metric1: { value: 189, suffix: "+", label: "Brand campaigns delivered" },
       metric2: { value: 95, suffix: "%", label: "Organic reach improvement" },
@@ -654,15 +637,7 @@ const CLIENT_PORTFOLIOS = [
   },
   // PureVitality
   {
-    posts: [
-      "https://images.unsplash.com/photo-1678875525705-1952dd9dd430?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1617570794101-8d64becb0167?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1772900764482-ea6c74fb3bfa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1757856632627-0c2b8453348f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1582587931228-ea9fc296ffb0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1619995746608-bef3de4f075a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1555932450-31a8aec2adf1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-    ],
+    posts: [imgPlaceholder3, imgPlaceholder5, imgPlaceholder7, imgPlaceholder2, imgPlaceholder4, imgPlaceholder6, imgPlaceholder1],
     metrics: {
       metric1: { value: 310, suffix: "+", label: "Social media posts created" },
       metric2: { value: 88, suffix: "%", label: "Conversion rate uplift" },
@@ -670,15 +645,7 @@ const CLIENT_PORTFOLIOS = [
   },
   // GoldenGrain
   {
-    posts: [
-      "https://images.unsplash.com/photo-1645549826194-1956802d83c2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1607522154446-86a1b4b90556?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1651927192156-7d4b2360a31d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1765850257647-811b8d3c20ca?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1633360821154-1935fb5671e6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1622766815178-641bef2b4630?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1646980990815-1e97d5ee932f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-    ],
+    posts: [imgPlaceholder4, imgPlaceholder6, imgPlaceholder1, imgPlaceholder3, imgPlaceholder5, imgPlaceholder7, imgPlaceholder2],
     metrics: {
       metric1: { value: 275, suffix: "+", label: "Content assets produced" },
       metric2: { value: 91, suffix: "%", label: "Brand awareness increase" },
@@ -870,18 +837,16 @@ function TitleRow() {
           }}
         >
           <p style={{ margin: 0 }}>
-            {W("FMCG", 0, 700, "white")}{" "}
-            {W("Portfolio", 1, 700, "white")}{" "}
-            {W("is", 2, 700, "white")}{" "}
-            {W("sim", 3, 700, "white")}{" "}
-            {W("dummy", 4, 300, "#8e8e8e")}
+            {W("Built", 0, 700, "white")}{" "}
+            {W("For", 1, 700, "white")}{" "}
+            {W("Baskets,", 2, 700, "white")}{" "}
+            {W("Designed", 3, 700, "white")}{" "}
+            {W("For", 4, 300, "#8e8e8e")}
           </p>
           <p style={{ margin: 0, fontWeight: 300, color: "#8e8e8e" }}>
-            {W("text", 5, 300, "#8e8e8e")}{" "}
-            {W("of", 6, 300, "#8e8e8e")}{" "}
-            {W("the", 7, 300, "#8e8e8e")}{" "}
-            {W("lorem", 8, 300, "#8e8e8e")}{" "}
-            {W("type", 9, 300, "#8e8e8e")}
+            {W("Loyalty", 5, 300, "#8e8e8e")}{" "}
+            {W("And", 6, 300, "#8e8e8e")}{" "}
+            {W("Repeat", 7, 300, "#8e8e8e")}
           </p>
         </div>
       </div>
@@ -913,7 +878,7 @@ function ContentRow({
   activeClientIndex,
 }: {
   scrollYProgress: MotionValue<number>;
-  heroCardRef: RefObject<HTMLDivElement>;
+  heroCardRef: React.RefObject<any>;
   activeClientIndex: number;
 }) {
   return (
@@ -1061,11 +1026,11 @@ function FmcgMobileLayout() {
           }}
         >
           <p style={{ margin: 0, fontSize: "clamp(26px, 7vw, 38px)" }}>
-            <span style={{ fontWeight: 700, color: "white" }}>FMCG Portfolio is sim </span>
-            <span style={{ fontWeight: 300, color: "#8e8e8e" }}>dummy</span>
+            <span style={{ fontWeight: 700, color: "white" }}>Built For Baskets, </span>
+            <span style={{ fontWeight: 300, color: "#8e8e8e" }}>Designed </span>
           </p>
           <p style={{ margin: 0, fontWeight: 300, color: "#8e8e8e", fontSize: "clamp(26px, 7vw, 38px)" }}>
-            text of the lorem type
+            For Loyalty And Repeat
           </p>
         </div>
       </div>
@@ -1345,7 +1310,7 @@ function FmcgDesktopLayout() {
                   color: "#FFA600",
                 }}
               >
-                FMCG Portfolio
+                The Native Unit
               </span>
             </div>
             <div

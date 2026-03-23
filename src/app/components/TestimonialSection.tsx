@@ -7,72 +7,48 @@ import imgAvatar from "@/assets/afff7ef028d184ff017e3aeb8b7773dc4f4ffaef.png";
 const TESTIMONIALS = [
   {
     quote:
-      "Hexanovate redefined how we approach revenue growth. Their data-driven FMCG strategy fixed our funnel leaks and compounded results month over month without extra spend.",
-    name: "Mr Vikram Mehta",
-    role: "Supply Chain Head",
+      "Hexanovate didn't just give us a marketing plan; they gave us a growth engine. We saw a 3x increase in enterprise leads within the first four months.",
+    name: "Arnav Sethi",
+    role: "Founder",
     metrics: [
       {
-        value: 98,
+        value: 300,
         suffix: "%",
         suffixSize: 32,
         suffixWeight: 400,
-        label: "On-time delivery rate achieved",
+        label: "Increase in enterprise leads",
         labelWidth: "auto" as const,
       },
       {
-        value: 123,
-        suffix: "+",
+        value: 4,
+        suffix: "mos",
         suffixSize: 48,
         suffixWeight: 200,
-        label: "Markets successfully activated",
+        label: "Time to initial impact",
         labelWidth: 156,
       },
     ],
   },
   {
     quote:
-      "Hexanovate transformed our brand visibility entirely. Their FMCG marketing expertise brought measurable growth across all channels and target demographics.",
-    name: "Ms Priya Sharma",
-    role: "Marketing Director",
+      "Working with the NativeUnit team changed how we look at our own brand. They understand consumer psychology at a level we haven't seen before.",
+    name: "Sarah Jenkins",
+    role: "CEO",
     metrics: [
       {
-        value: 87,
+        value: 95,
         suffix: "%",
         suffixSize: 32,
         suffixWeight: 400,
-        label: "Customer retention rate improved",
+        label: "Brand perception score",
         labelWidth: "auto" as const,
       },
       {
-        value: 245,
-        suffix: "+",
+        value: 10,
+        suffix: "x",
         suffixSize: 48,
         suffixWeight: 200,
-        label: "Campaigns successfully launched",
-        labelWidth: 156,
-      },
-    ],
-  },
-  {
-    quote:
-      "Our B2B pipeline tripled in just six months. The team's account-based marketing approach exceeded all of our revenue and lead generation targets.",
-    name: "Mr Rahul Kapoor",
-    role: "VP Sales, TechCorp",
-    metrics: [
-      {
-        value: 312,
-        suffix: "%",
-        suffixSize: 32,
-        suffixWeight: 400,
-        label: "ROI on marketing investment",
-        labelWidth: "auto" as const,
-      },
-      {
-        value: 89,
-        suffix: "+",
-        suffixSize: 48,
-        suffixWeight: 200,
-        label: "Enterprise clients acquired",
+        label: "Customer insight depth",
         labelWidth: 156,
       },
     ],
@@ -278,14 +254,14 @@ function SectionTitle() {
   const ref = useRef<HTMLParagraphElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 0.9", "center 0.35"] });
   const words: { text: string; fontWeight: number; color: string }[] = [
-    { text: "Real",      fontWeight: 700, color: "white"   },
-    { text: "results,",  fontWeight: 300, color: "#8e8e8e" },
-    { text: "real",      fontWeight: 700, color: "white"   },
-    { text: "voices",    fontWeight: 700, color: "#1b61db" },
-    { text: "hear",      fontWeight: 300, color: "#8e8e8e" },
-    { text: "directly",  fontWeight: 300, color: "#8e8e8e" },
-    { text: "from",      fontWeight: 300, color: "#8e8e8e" },
-    { text: "clients",   fontWeight: 700, color: "white"   },
+    { text: "Don't",      fontWeight: 700, color: "white"   },
+    { text: "Take",       fontWeight: 300, color: "#8e8e8e" },
+    { text: "Our",        fontWeight: 700, color: "white"   },
+    { text: "Word",       fontWeight: 700, color: "#1b61db" },
+    { text: "for",        fontWeight: 300, color: "#8e8e8e" },
+    { text: "It.",        fontWeight: 300, color: "#8e8e8e" },
+    { text: "Take",       fontWeight: 300, color: "#8e8e8e" },
+    { text: "Theirs.",    fontWeight: 700, color: "white"   },
   ];
   return (
     <p ref={ref} className="ts-title" style={{ fontFamily: "Manrope, sans-serif", fontSize: "clamp(32px, 5vw, 60px)", lineHeight: 1.36, color: "white", margin: 0, textTransform: "capitalize", width: "100%", maxWidth: 867 }}>
