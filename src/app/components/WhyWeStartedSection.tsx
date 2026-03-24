@@ -426,7 +426,7 @@ function QuoteMarks() {
       style={{
         width: "34px",
         height: "39.831px",
-        marginBottom: "-22px",
+        marginBottom: "4px",
         position: "relative",
         flexShrink: 0,
       }}
@@ -489,7 +489,6 @@ function QuoteText({ scrollYProgress }: { scrollYProgress: MotionValue<number> }
         alignItems: "flex-start",
         minWidth: 0,
         position: "relative",
-        marginTop: "-12px",
       }}
     >
       <div
@@ -518,10 +517,10 @@ function QuoteText({ scrollYProgress }: { scrollYProgress: MotionValue<number> }
             fontSize: "22px",
             lineHeight: "34px",
             color: "#ffa600",
-            marginBottom: "-22px",
+            marginBottom: "0",
           }}
         >
-          <p style={{ width: "100%", margin: 0, textIndent: "42px" }}>
+          <p style={{ width: "100%", margin: 0 }}>
             {["We", "didn’t", "start", "Hexanovate", "to", "just", "build", "another", "agency.", "We", "started", "it", "to", "build", "the", "infrastructure", "of", "growth."].flatMap((word, wi) => [
               wi > 0 ? " " : null,
               <RevealWord

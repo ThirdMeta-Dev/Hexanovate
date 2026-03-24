@@ -139,7 +139,7 @@ function SectionTitle() {
       style={{
         fontFamily: "Manrope, sans-serif",
         fontWeight: 400,
-        fontSize: "clamp(28px, 4vw, 48px)",
+        fontSize: "clamp(22px, 2.8vw, 34px)",
         lineHeight: 1.36,
         color: "#8e8e8e",
         width: "min(698px, 100%)",
@@ -148,27 +148,47 @@ function SectionTitle() {
       }}
     >
       <span style={{ fontFamily: "Manrope, sans-serif", fontWeight: 600, color: "white" }}>
-        <RevealWord progress={scrollYProgress} range={r(0)}>Lorem</RevealWord>
+        <RevealWord progress={scrollYProgress} range={r(0)}>Other</RevealWord>
         {" "}
-        <RevealWord progress={scrollYProgress} range={r(1)}>ipsum</RevealWord>
+        <RevealWord progress={scrollYProgress} range={r(1)}>Options</RevealWord>
         {" "}
-        <RevealWord progress={scrollYProgress} range={r(2)}>is</RevealWord>
+        <RevealWord progress={scrollYProgress} range={r(2)}>Are</RevealWord>
+        {" "}
+        <RevealWord progress={scrollYProgress} range={r(3)}>Fine,</RevealWord>
+        {" "}
+        <RevealWord progress={scrollYProgress} range={r(4)}>Sure.</RevealWord>
       </span>
       {" "}
       <span style={{ fontFamily: "Manrope, sans-serif", fontWeight: 400, color: "#8e8e8e" }}>
-        <RevealWord progress={scrollYProgress} range={r(3)}>simply</RevealWord>
+        <RevealWord progress={scrollYProgress} range={r(5)}>But</RevealWord>
         {" "}
-        <RevealWord progress={scrollYProgress} range={r(4)}>dummy</RevealWord>
+        <RevealWord progress={scrollYProgress} range={r(6)}>Fine</RevealWord>
         {" "}
-        <RevealWord progress={scrollYProgress} range={r(5)}>is</RevealWord>
-      </span>
-      {" "}
-      <span style={{ fontFamily: "Manrope, sans-serif", fontWeight: 300, color: "#8e8e8e" }}>
-        <RevealWord progress={scrollYProgress} range={r(6)}>text</RevealWord>
+        <RevealWord progress={scrollYProgress} range={r(7)}>Was</RevealWord>
         {" "}
-        <RevealWord progress={scrollYProgress} range={r(7)}>lorem</RevealWord>
+        <RevealWord progress={scrollYProgress} range={r(8)}>Never</RevealWord>
         {" "}
-        <RevealWord progress={scrollYProgress} range={r(8)}>typesetting</RevealWord>
+        <RevealWord progress={scrollYProgress} range={r(9)}>Going</RevealWord>
+        {" "}
+        <RevealWord progress={scrollYProgress} range={r(10)}>to</RevealWord>
+        {" "}
+        <RevealWord progress={scrollYProgress} range={r(11)}>Get</RevealWord>
+        {" "}
+        <RevealWord progress={scrollYProgress} range={r(12)}>You</RevealWord>
+        {" "}
+        <RevealWord progress={scrollYProgress} range={r(13)}>to</RevealWord>
+        {" "}
+        <RevealWord progress={scrollYProgress} range={r(14)}>Where</RevealWord>
+        {" "}
+        <RevealWord progress={scrollYProgress} range={r(15)}>You</RevealWord>
+        {" "}
+        <RevealWord progress={scrollYProgress} range={r(16)}>Actually</RevealWord>
+        {" "}
+        <RevealWord progress={scrollYProgress} range={r(17)}>Want</RevealWord>
+        {" "}
+        <RevealWord progress={scrollYProgress} range={r(18)}>to</RevealWord>
+        {" "}
+        <RevealWord progress={scrollYProgress} range={r(19)}>Go.</RevealWord>
       </span>
     </p>
   );
@@ -200,10 +220,10 @@ function WhyChooseUsBadge() {
 /* ─── WHY CHOOSE US SECTION ─────────────────────────────────────────────── */
 export function WhyChooseUsSection() {
   const featureData = [
-    { title: "Cracked Market Fit, But", description: `what's leaking conversion, retention,  lorem repeation growth` },
-    { title: "Cracked Market Fit, But", description: `what's leaking conversion, retention,  lorem repeation growth` },
-    { title: "Cracked Market Fit, But", description: `what's leaking conversion, retention,  lorem repeation growth` },
-    { title: "Cracked Market Fit, But", description: `what's leaking conversion, retention,  lorem repeation growth` },
+    { title: "Strategy That Actually Executes.", description: `Vision without execution is just a slide deck. Everything inside Hexanovate is built to move from thinking to doing without losing momentum.` },
+    { title: "Empathy Built Into Everything.", description: `We understand businesses because we spent years watching brilliant ones struggle needlessly.` },
+    { title: "Human Intelligence, System Powered.", description: `Technology handles the scale. People handle the thinking. Together they produce outcomes that neither could ever manage alone.` },
+    { title: "Built for Every Stage.", description: `Startup or scaling, early or established, the ecosystem was designed to hold every ambition at every stage without asking you to outgrow it.` },
   ];
 
   return (

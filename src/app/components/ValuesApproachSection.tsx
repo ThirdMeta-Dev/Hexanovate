@@ -4,37 +4,29 @@ import svgPaths from "../../imports/svg-z7psrjnrcc";
 import imgSlide0 from "@/assets/cd0d3c71464504d6e4fd1662e5128b67cbe4dfdc.png";
 import imgSlide1 from "@/assets/455b6c3830e6c866d6b397b00c2dcdf87ae3df2d.png";
 import imgSlide2 from "@/assets/a9faff04fbb40b4297efb717f05795a3e749ebf7.png";
-import imgSlide3 from "@/assets/b2c2a05ac379979ca68fe1d5fde4df76497203c5.png";
 
 /* ─── SLIDES DATA ────────────────────────────────────────────────────────── */
 const SLIDES = [
   {
-    title: "Cracked Market Fit, But",
+    title: "Empathy First, Always",
     description:
-      "We unlock scale by fixing what's leaking conversion, lor lorem retention, repeat",
-    cardTitle: "Cracked Market Fit, But Stuck",
+      "We understand businesses because we listen before we prescribe. Every strategy begins with genuine curiosity about where you are, what you need, and what you are truly trying to become.",
+    cardTitle: "Empathy First",
     image: imgSlide0,
   },
   {
-    title: "Distribution Without Friction",
+    title: "Obsessed With Outcomes",
     description:
-      "We power discovery across digital and physical touchpoints that convert intent to purchase.",
-    cardTitle: "Distribution Without Friction",
+      "Deliverables are the minimum. What we actually care about is the number that moves, the market that shifts, and the business that looks completely different six months from now.",
+    cardTitle: "Outcome Obsessed",
     image: imgSlide1,
   },
   {
-    title: "Data-Driven Brand Voice",
+    title: "Always Start With Why",
     description:
-      "We craft messaging that resonates by learning what your audience responds to at every stage.",
-    cardTitle: "Data-Driven Brand Voice",
+      "Before a single strategy is written, we ask the question underneath the question. What is this business truly trying to achieve? That answer changes everything that follows.",
+    cardTitle: "Start With Why",
     image: imgSlide2,
-  },
-  {
-    title: "Scalable Growth Loops",
-    description:
-      "We build systems that compound — turning one-time buyers into lifetime advocates.",
-    cardTitle: "Scalable Growth Loops",
-    image: imgSlide3,
   },
 ];
 
@@ -228,7 +220,7 @@ function TitleReveal() {
     offset: ["start 0.9", "start 0.15"],
   });
 
-  const total = 10;
+  const total = 14;
   const r = (i: number): [number, number] => [i / total, (i + 1) / total];
 
   return (
@@ -237,26 +229,30 @@ function TitleReveal() {
       style={{ fontWeight: 700, lineHeight: 1.48, marginTop: 0, marginBottom: 0 }}
     >
       {/* Line 1 */}
-      <RevealWord weight={700} color="white"   progress={scrollYProgress} range={r(0)}>Lorem</RevealWord>
+      <RevealWord weight={700} color="white"   progress={scrollYProgress} range={r(0)}>Built</RevealWord>
       {" "}
-      <RevealWord weight={700} color="white"   progress={scrollYProgress} range={r(1)}>ipsum</RevealWord>
+      <RevealWord weight={700} color="white"   progress={scrollYProgress} range={r(1)}>On</RevealWord>
       {" "}
-      <RevealWord weight={700} color="white"   progress={scrollYProgress} range={r(2)}>is</RevealWord>
+      <RevealWord weight={700} color="white"   progress={scrollYProgress} range={r(2)}>Belief.</RevealWord>
       {" "}
-      <RevealWord weight={700} color="white"   progress={scrollYProgress} range={r(3)}>simply</RevealWord>
+      <RevealWord weight={700} color="white"   progress={scrollYProgress} range={r(3)}>Powered</RevealWord>
       {" "}
-      <RevealWord weight={700} color="white"   progress={scrollYProgress} range={r(4)}>dummy</RevealWord>
+      <RevealWord weight={700} color="white"   progress={scrollYProgress} range={r(4)}>By</RevealWord>
       <br />
       {/* Line 2 */}
-      <RevealWord weight={700} color="white"   progress={scrollYProgress} range={r(5)}>text</RevealWord>
+      <RevealWord weight={300} color="#8e8e8e" progress={scrollYProgress} range={r(5)}>a</RevealWord>
       {" "}
-      <RevealWord weight={700} color="white"   progress={scrollYProgress} range={r(6)}>of</RevealWord>
+      <RevealWord weight={300} color="#8e8e8e" progress={scrollYProgress} range={r(6)}>Philosophy</RevealWord>
       {" "}
-      <RevealWord weight={300} color="#8e8e8e" progress={scrollYProgress} range={r(7)}>the</RevealWord>
+      <RevealWord weight={300} color="#8e8e8e" progress={scrollYProgress} range={r(7)}>Nobody</RevealWord>
       {" "}
-      <RevealWord weight={300} color="#8e8e8e" progress={scrollYProgress} range={r(8)}>lorem</RevealWord>
+      <RevealWord weight={300} color="#8e8e8e" progress={scrollYProgress} range={r(8)}>Talked</RevealWord>
       {" "}
-      <RevealWord weight={300} color="#8e8e8e" progress={scrollYProgress} range={r(9)}>typeset</RevealWord>
+      <RevealWord weight={300} color="#8e8e8e" progress={scrollYProgress} range={r(9)}>Us</RevealWord>
+      {" "}
+      <RevealWord weight={300} color="#8e8e8e" progress={scrollYProgress} range={r(10)}>Out</RevealWord>
+      {" "}
+      <RevealWord weight={300} color="#8e8e8e" progress={scrollYProgress} range={r(11)}>Of.</RevealWord>
     </p>
   );
 }
@@ -371,7 +367,7 @@ export function ValuesApproachSection() {
               <TitleReveal />
             </div>
             <p style={{ fontFamily: "Poppins, sans-serif", fontWeight: 400, fontSize: 16, lineHeight: "29px", color: "#727272", marginTop: 0, marginBottom: 0 }}>
-              We power discovery, engagement, and recall—where most purchase
+              Not a slide deck. Not a poster on the wall. This is genuinely how we operate.
             </p>
           </div>
         </div>

@@ -287,14 +287,20 @@ export function AwardsLogoWallSection() {
     target: titleRef,
     offset: ["start 0.85", "end 0.35"],
   });
-  // 7 words total — each illuminates across its 1/7 slice of the scroll range
-  const tw0 = useTransform(titleP, [0 / 7, 1 / 7], [0.2, 1]);   // Lorem
-  const tw1 = useTransform(titleP, [1 / 7, 2 / 7], [0.2, 1]);   // ipsum
-  const tw2 = useTransform(titleP, [2 / 7, 3 / 7], [0.2, 1]);   // is
-  const tw3 = useTransform(titleP, [3 / 7, 4 / 7], [0.2, 1]);   // simply
-  const tw4 = useTransform(titleP, [4 / 7, 5 / 7], [0.2, 1]);   // dummy
-  const tw5 = useTransform(titleP, [5 / 7, 6 / 7], [0.2, 1]);   // text
-  const tw6 = useTransform(titleP, [6 / 7, 1],     [0.2, 1]);   // lorem
+  // 13 words total — each illuminates across its 1/13 slice of the scroll range
+  const tw0  = useTransform(titleP, [0 / 13, 1 / 13],   [0.2, 1]);
+  const tw1  = useTransform(titleP, [1 / 13, 2 / 13],   [0.2, 1]);
+  const tw2  = useTransform(titleP, [2 / 13, 3 / 13],   [0.2, 1]);
+  const tw3  = useTransform(titleP, [3 / 13, 4 / 13],   [0.2, 1]);
+  const tw4  = useTransform(titleP, [4 / 13, 5 / 13],   [0.2, 1]);
+  const tw5  = useTransform(titleP, [5 / 13, 6 / 13],   [0.2, 1]);
+  const tw6  = useTransform(titleP, [6 / 13, 7 / 13],   [0.2, 1]);
+  const tw7  = useTransform(titleP, [7 / 13, 8 / 13],   [0.2, 1]);
+  const tw8  = useTransform(titleP, [8 / 13, 9 / 13],   [0.2, 1]);
+  const tw9  = useTransform(titleP, [9 / 13, 10 / 13],  [0.2, 1]);
+  const tw10 = useTransform(titleP, [10 / 13, 11 / 13], [0.2, 1]);
+  const tw11 = useTransform(titleP, [11 / 13, 12 / 13], [0.2, 1]);
+  const tw12 = useTransform(titleP, [12 / 13, 1],       [0.2, 1]);
 
   return (
     <section
@@ -363,22 +369,29 @@ export function AwardsLogoWallSection() {
               marginBottom: 0,
             }}
           >
-            {/* gray words */}
-            <motion.span style={{ color: "#8e8e8e", fontWeight: 400, opacity: tw0 }}>Proud</motion.span>
+            <motion.span style={{ fontWeight: 700, opacity: tw0 }}>Turns</motion.span>
             {" "}
-            {/* bold white words */}
-            <motion.span style={{ fontWeight: 700, opacity: tw1 }}>to</motion.span>
+            <motion.span style={{ fontWeight: 700, opacity: tw1 }}>Out</motion.span>
             {" "}
-            <motion.span style={{ fontWeight: 700, opacity: tw2 }}>be</motion.span>
+            <motion.span style={{ fontWeight: 700, opacity: tw2 }}>Doing</motion.span>
             {" "}
-            <motion.span style={{ fontWeight: 700, opacity: tw3 }}>recognized</motion.span>
+            <motion.span style={{ fontWeight: 700, opacity: tw3 }}>Great</motion.span>
             {" "}
-            <motion.span style={{ fontWeight: 700, opacity: tw4 }}>by</motion.span>
+            <motion.span style={{ fontWeight: 700, opacity: tw4 }}>Work</motion.span>
             {" "}
-            {/* gray words */}
-            <motion.span style={{ color: "#8e8e8e", fontWeight: 400, opacity: tw5 }}>industry</motion.span>
+            <motion.span style={{ color: "#8e8e8e", fontWeight: 400, opacity: tw5 }}>Eventually</motion.span>
             {" "}
-            <motion.span style={{ color: "#8e8e8e", fontWeight: 400, opacity: tw6 }}>leaders</motion.span>
+            <motion.span style={{ color: "#8e8e8e", fontWeight: 400, opacity: tw6 }}>Gets</motion.span>
+            {" "}
+            <motion.span style={{ color: "#8e8e8e", fontWeight: 400, opacity: tw7 }}>You</motion.span>
+            {" "}
+            <motion.span style={{ color: "#8e8e8e", fontWeight: 400, opacity: tw8 }}>A</motion.span>
+            {" "}
+            <motion.span style={{ color: "#8e8e8e", fontWeight: 400, opacity: tw9 }}>Trophy</motion.span>
+            {" "}
+            <motion.span style={{ color: "#8e8e8e", fontWeight: 400, opacity: tw10 }}>Or</motion.span>
+            {" "}
+            <motion.span style={{ color: "#8e8e8e", fontWeight: 400, opacity: tw11 }}>Several.</motion.span>
           </p>
         </div>
 

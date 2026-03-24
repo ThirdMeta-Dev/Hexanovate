@@ -275,12 +275,21 @@ function SectionTitle() {
     <div ref={ref}>
       <p
         className="wcu-section-title"
-        style={{ fontFamily: "Manrope, sans-serif", fontSize: "clamp(32px, 5vw, 60px)", lineHeight: 1.24, color: "white", width: 670, maxWidth: "90vw", margin: 0, textTransform: "capitalize" }}
+        style={{ fontFamily: "Manrope, sans-serif", fontSize: "clamp(24px, 3.2vw, 38px)", lineHeight: 1.3, color: "white", width: 670, maxWidth: "90vw", margin: 0, textTransform: "capitalize" }}
       >
-        <RevealWord text="Lorem"  weight={300} color="#8e8e8e" progress={scrollYProgress} range={[0, 0.25]} />{" "}
-        <RevealWord text="ipsum"  weight={700} color="white"   progress={scrollYProgress} range={[0.25, 0.5]} />{" "}
-        <RevealWord text="is"     weight={700} color="white"   progress={scrollYProgress} range={[0.5, 0.75]} />{" "}
-        <RevealWord text="simply" weight={300} color="#8e8e8e" progress={scrollYProgress} range={[0.75, 1]} />
+        <RevealWord text="Brilliant"  weight={700} color="white"   progress={scrollYProgress} range={[0, 0.12]} />{" "}
+        <RevealWord text="People"  weight={700} color="white"   progress={scrollYProgress} range={[0.08, 0.2]} />{" "}
+        <RevealWord text="Do"     weight={300} color="#8e8e8e"   progress={scrollYProgress} range={[0.16, 0.28]} />{" "}
+        <RevealWord text="Brilliant" weight={700} color="white" progress={scrollYProgress} range={[0.24, 0.36]} />{" "}
+        <RevealWord text="Things." weight={700} color="white" progress={scrollYProgress} range={[0.32, 0.44]} />{" "}
+        <RevealWord text="We" weight={300} color="#8e8e8e" progress={scrollYProgress} range={[0.40, 0.52]} />{" "}
+        <RevealWord text="Just" weight={300} color="#8e8e8e" progress={scrollYProgress} range={[0.48, 0.60]} />{" "}
+        <RevealWord text="Made" weight={300} color="#8e8e8e" progress={scrollYProgress} range={[0.56, 0.68]} />{" "}
+        <RevealWord text="Sure" weight={300} color="#8e8e8e" progress={scrollYProgress} range={[0.64, 0.76]} />{" "}
+        <RevealWord text="to" weight={300} color="#8e8e8e" progress={scrollYProgress} range={[0.72, 0.84]} />{" "}
+        <RevealWord text="Hire" weight={700} color="white" progress={scrollYProgress} range={[0.80, 0.92]} />{" "}
+        <RevealWord text="Them" weight={700} color="white" progress={scrollYProgress} range={[0.84, 0.96]} />{" "}
+        <RevealWord text="First." weight={700} color="white" progress={scrollYProgress} range={[0.88, 1]} />
       </p>
     </div>
   );

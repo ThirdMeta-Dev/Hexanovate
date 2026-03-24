@@ -278,14 +278,16 @@ function SectionTitle() {
   const ref = useRef<HTMLParagraphElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 0.9", "center 0.35"] });
   const words: { text: string; fontWeight: number; color: string }[] = [
-    { text: "Real",      fontWeight: 700, color: "white"   },
-    { text: "results,",  fontWeight: 300, color: "#8e8e8e" },
-    { text: "real",      fontWeight: 700, color: "white"   },
-    { text: "voices",    fontWeight: 700, color: "#1b61db" },
-    { text: "hear",      fontWeight: 300, color: "#8e8e8e" },
-    { text: "directly",  fontWeight: 300, color: "#8e8e8e" },
-    { text: "from",      fontWeight: 300, color: "#8e8e8e" },
-    { text: "clients",   fontWeight: 700, color: "white"   },
+    { text: "We",      fontWeight: 700, color: "white"   },
+    { text: "Told",    fontWeight: 700, color: "white"   },
+    { text: "You",     fontWeight: 700, color: "white"   },
+    { text: "We",      fontWeight: 300, color: "#8e8e8e" },
+    { text: "Were",    fontWeight: 300, color: "#8e8e8e" },
+    { text: "Good.",   fontWeight: 700, color: "white"   },
+    { text: "Turns",   fontWeight: 300, color: "#8e8e8e" },
+    { text: "Out",     fontWeight: 300, color: "#8e8e8e" },
+    { text: "They",    fontWeight: 700, color: "#1b61db" },
+    { text: "Agree.",  fontWeight: 700, color: "#1b61db" },
   ];
   return (
     <p ref={ref} className="ts-title" style={{ fontFamily: "Manrope, sans-serif", fontSize: "clamp(32px, 5vw, 60px)", lineHeight: 1.36, color: "white", margin: 0, textTransform: "capitalize", width: "100%", maxWidth: 867 }}>

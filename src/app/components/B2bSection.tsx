@@ -683,9 +683,7 @@ function TitleRow() {
         >
           <motion.p style={{ margin: 0, opacity: line1Opacity, y: line1Y }}>
             <span style={{ fontWeight: 700, color: "white" }}>Qualified Leads. Closed Deals. </span>
-          </motion.p>
-          <motion.p style={{ margin: 0, fontWeight: 300, color: "#8e8e8e", opacity: line2Opacity, y: line2Y }}>
-            B2B Growth Done Right.
+            <span style={{ fontWeight: 300, color: "#8e8e8e" }}>B2B Growth Done Right.</span>
           </motion.p>
         </div>
       </div>

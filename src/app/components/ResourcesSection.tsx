@@ -254,13 +254,12 @@ export function ResourcesSection() {
     target: titleRef,
     offset: ["start 0.85", "end 0.35"],
   });
-  // 6 words — each illuminates across its 1/6 slice of the scroll range
-  const tw0 = useTransform(titleP, [0 / 6, 1 / 6], [0.2, 1]); // Insights
-  const tw1 = useTransform(titleP, [1 / 6, 2 / 6], [0.2, 1]); // &
-  const tw2 = useTransform(titleP, [2 / 6, 3 / 6], [0.2, 1]); // resources
-  const tw3 = useTransform(titleP, [3 / 6, 4 / 6], [0.2, 1]); // for
-  const tw4 = useTransform(titleP, [4 / 6, 5 / 6], [0.2, 1]); // modern
-  const tw5 = useTransform(titleP, [5 / 6, 1],     [0.2, 1]); // brands.
+  // 5 words — each illuminates across its 1/5 slice of the scroll range
+  const tw0 = useTransform(titleP, [0 / 5, 1 / 5], [0.2, 1]);
+  const tw1 = useTransform(titleP, [1 / 5, 2 / 5], [0.2, 1]);
+  const tw2 = useTransform(titleP, [2 / 5, 3 / 5], [0.2, 1]);
+  const tw3 = useTransform(titleP, [3 / 5, 4 / 5], [0.2, 1]);
+  const tw4 = useTransform(titleP, [4 / 5, 1],     [0.2, 1]);
 
   return (
     <section
@@ -347,18 +346,15 @@ export function ResourcesSection() {
                 marginBottom: 0,
               }}
             >
-              {/* bold white words */}
-              <motion.span style={{ fontWeight: 700, opacity: tw0 }}>Insights</motion.span>
+              <motion.span style={{ fontWeight: 700, opacity: tw0 }}>Good</motion.span>
               {" "}
-              <motion.span style={{ fontWeight: 700, opacity: tw1 }}>&amp;</motion.span>
-              {/* gray words */}
-              <motion.span style={{ fontWeight: 400, color: "#8e8e8e", opacity: tw2 }}>{` resources`}</motion.span>
+              <motion.span style={{ fontWeight: 700, opacity: tw1 }}>Reads</motion.span>
               {" "}
-              <motion.span style={{ fontWeight: 400, color: "#8e8e8e", opacity: tw3 }}>for</motion.span>
+              <motion.span style={{ fontWeight: 400, color: "#8e8e8e", opacity: tw2 }}>For</motion.span>
               {" "}
-              <motion.span style={{ fontWeight: 400, color: "#8e8e8e", opacity: tw4 }}>modern</motion.span>
+              <motion.span style={{ fontWeight: 400, color: "#8e8e8e", opacity: tw3 }}>Growing</motion.span>
               {" "}
-              <motion.span style={{ fontWeight: 400, color: "#8e8e8e", opacity: tw5 }}>brands.</motion.span>
+              <motion.span style={{ fontWeight: 400, color: "#8e8e8e", opacity: tw4 }}>Businesses.</motion.span>
             </p>
 
             {/* Description (Frame16): pt-20, w-192, Poppins Regular 14px #727272 leading-24 */}
@@ -381,8 +377,7 @@ export function ResourcesSection() {
                   marginBottom: 0,
                 }}
               >
-                Explore our latest insights on growth strategy, digital
-                marketing, and brand acceleration.
+                Perspectives on growth, strategy, and building brands that actually last.
               </p>
             </div>
           </div>
