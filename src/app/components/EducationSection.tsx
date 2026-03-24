@@ -27,14 +27,14 @@ const SLIDE_CARDS = [
   },
   {
     num: "04",
-    title: "Education Brand & Social",
-    desc: "Built a cohesive social media presence for an ed-tech brand, achieving 4.2× engagement growth and 60K new followers in 6 months.",
+    title: "native.academy – 4.2x Engagement Growth",
+    desc: "Built a cohesive digital learning ecosystem for native.academy, achieving 4.2x engagement growth and 60K new enrollments through a refined student acquisition funnel.",
     image: "https://images.unsplash.com/photo-1758272421542-b6bd81729cb5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
   },
   {
     num: "05",
-    title: "Coaching Institute Digital Funnel",
-    desc: "Redesigned the full digital funnel for a coaching chain — from paid ads to landing pages — cutting cost-per-lead by 52%.",
+    title: "Future Skills Funnel – 52% CPL Reduction",
+    desc: "Redesigned the full digital funnel for a global skills training platform — from paid demand gen to landing pages — cutting cost-per-lead by 52% while scaling reach.",
     image: "https://images.unsplash.com/photo-1758685848521-ff7e4d136384?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
   },
 ];
@@ -120,7 +120,7 @@ function EducationBadge() {
             whiteSpace: "nowrap",
           }}
         >
-          Education Domain Portfolio
+          native.academy
         </span>
       </div>
     </div>

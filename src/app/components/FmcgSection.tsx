@@ -105,7 +105,7 @@ function FmcgBadge() {
           lineHeight: "normal",
         }}
       >
-        FMCG Portfolio
+        The Native Unit
       </span>
     </div>
   );
@@ -870,18 +870,18 @@ function TitleRow() {
           }}
         >
           <p style={{ margin: 0 }}>
-            {W("FMCG", 0, 700, "white")}{" "}
-            {W("Portfolio", 1, 700, "white")}{" "}
-            {W("is", 2, 700, "white")}{" "}
-            {W("sim", 3, 700, "white")}{" "}
-            {W("dummy", 4, 300, "#8e8e8e")}
+            {W("The", 0, 700, "white")}{" "}
+            {W("Native", 1, 700, "white")}{" "}
+            {W("Unit", 2, 700, "white")}
           </p>
           <p style={{ margin: 0, fontWeight: 300, color: "#8e8e8e" }}>
-            {W("text", 5, 300, "#8e8e8e")}{" "}
-            {W("of", 6, 300, "#8e8e8e")}{" "}
-            {W("the", 7, 300, "#8e8e8e")}{" "}
-            {W("lorem", 8, 300, "#8e8e8e")}{" "}
-            {W("type", 9, 300, "#8e8e8e")}
+            {W("Scale", 3, 300, "#8e8e8e")}{" "}
+            {W("That", 4, 300, "#8e8e8e")}{" "}
+            {W("Converts.", 5, 300, "#8e8e8e")}{" "}
+            {W("From", 6, 300, "#8e8e8e")}{" "}
+            {W("Shelf", 7, 300, "#8e8e8e")}{" "}
+            {W("to", 8, 300, "#8e8e8e")}{" "}
+            {W("Cart.", 9, 300, "#8e8e8e")}
           </p>
         </div>
       </div>
@@ -913,7 +913,7 @@ function ContentRow({
   activeClientIndex,
 }: {
   scrollYProgress: MotionValue<number>;
-  heroCardRef: RefObject<HTMLDivElement>;
+  heroCardRef: RefObject<HTMLDivElement | null>;
   activeClientIndex: number;
 }) {
   return (
@@ -1061,11 +1061,8 @@ function FmcgMobileLayout() {
           }}
         >
           <p style={{ margin: 0, fontSize: "clamp(26px, 7vw, 38px)" }}>
-            <span style={{ fontWeight: 700, color: "white" }}>FMCG Portfolio is sim </span>
-            <span style={{ fontWeight: 300, color: "#8e8e8e" }}>dummy</span>
-          </p>
-          <p style={{ margin: 0, fontWeight: 300, color: "#8e8e8e", fontSize: "clamp(26px, 7vw, 38px)" }}>
-            text of the lorem type
+            <span style={{ fontWeight: 700, color: "white" }}>The Native Unit </span>
+            <span style={{ fontWeight: 300, color: "#8e8e8e" }}>Scale That Converts. From Shelf to Cart.</span>
           </p>
         </div>
       </div>
@@ -1163,7 +1160,7 @@ function FmcgMobileLayout() {
               123<span style={{ fontWeight: 200, fontSize: "40px" }}>+</span>
             </p>
             <p style={{ margin: 0, fontFamily: "Poppins, sans-serif", fontWeight: 300, fontSize: "14px", lineHeight: "22px", color: "#747474" }}>
-              We power discover engagement
+              Revenue Growth for Clients
             </p>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: "6px", flex: "1 1 120px" }}>
@@ -1171,7 +1168,7 @@ function FmcgMobileLayout() {
               98<span style={{ fontWeight: 400, fontSize: "30px" }}>%</span>
             </p>
             <p style={{ margin: 0, fontFamily: "Poppins, sans-serif", fontWeight: 300, fontSize: "14px", lineHeight: "22px", color: "#747474" }}>
-              We power discovery, lorem engagement
+              Repeat Purchase Strategy Success
             </p>
           </div>
         </div>
@@ -1345,7 +1342,7 @@ function FmcgDesktopLayout() {
                   color: "#FFA600",
                 }}
               >
-                FMCG Portfolio
+                The Native Unit
               </span>
             </div>
             <div

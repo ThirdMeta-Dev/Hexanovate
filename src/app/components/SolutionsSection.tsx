@@ -69,21 +69,21 @@ function SolutionsBadge() {
 function FmcgBadge() {
   return (
     <div style={{ background: "#111", border: "1px solid #414141", borderRadius: 40, padding: "6px 20px", display: "inline-flex", alignItems: "center", flexShrink: 0 }}>
-      <span style={{ fontFamily: "Poppins, sans-serif", fontWeight: 400, fontSize: 13, color: "#FFA600", whiteSpace: "pre" }}>{`FMCG  Marketing`}</span>
+      <span style={{ fontFamily: "Poppins, sans-serif", fontWeight: 400, fontSize: 13, color: "#FFA600", whiteSpace: "pre" }}>{`TheNative Unit`}</span>
     </div>
   );
 }
 function B2bBadge() {
   return (
     <div style={{ background: "#0b295c", border: "1px solid #13459b", borderRadius: 40, padding: "6px 20px", display: "inline-flex", alignItems: "center", flexShrink: 0 }}>
-      <span style={{ fontFamily: "Poppins, sans-serif", fontWeight: 400, fontSize: 13, color: "white", whiteSpace: "pre" }}>{`B2B  Growth`}</span>
+      <span style={{ fontFamily: "Poppins, sans-serif", fontWeight: 400, fontSize: 13, color: "white", whiteSpace: "pre" }}>{`ThirdMeta`}</span>
     </div>
   );
 }
 function EduHexaBadge() {
   return (
     <div style={{ background: "#111", border: "1px solid #414141", borderRadius: 40, padding: "6px 20px", display: "inline-flex", alignItems: "center", flexShrink: 0 }}>
-      <span style={{ fontFamily: "Poppins, sans-serif", fontWeight: 400, fontSize: 13, color: "#FFA600", whiteSpace: "nowrap" }}>EduHexa</span>
+      <span style={{ fontFamily: "Poppins, sans-serif", fontWeight: 400, fontSize: 13, color: "#FFA600", whiteSpace: "nowrap" }}>native.academy</span>
     </div>
   );
 }
@@ -129,11 +129,11 @@ function FmcgLeftCard({ isMobile }: { isMobile: boolean }) {
       >
         <div style={{ padding: "24px 20px 20px", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 12, position: "relative", zIndex: 1 }}>
           <FmcgBadge />
-          <p style={{ fontFamily: "Manrope, sans-serif", fontWeight: 600, fontSize: 18, lineHeight: "1.4", color: "white", margin: 0, width: "100%" }}>FMCG Growth Engine</p>
+          <p style={{ fontFamily: "Manrope, sans-serif", fontWeight: 600, fontSize: 18, lineHeight: "1.4", color: "white", margin: 0, width: "100%" }}>TheNative Unit</p>
           <p style={{ fontFamily: "Poppins, sans-serif", fontWeight: 300, fontSize: 13, lineHeight: "1.7", color: "#888", margin: 0, width: "100%" }}>
-            We unlock scale by fixing what's leaking: conversion, retention, repeat; so growth We power discovery
+            Scale That Converts. From Shelf to Cart.
           </p>
-          <div style={{ marginTop: 4 }}><CtaGroup label="TheNative Unit" compact href="https://thenativeunit.com/" /></div>
+          <div style={{ marginTop: 4 }}><CtaGroup label="Get Scaled" compact href="https://thenativeunit.com/" /></div>
         </div>
       </GradientBorderCard>
     );
@@ -213,15 +213,15 @@ function FmcgLeftCard({ isMobile }: { isMobile: boolean }) {
           display: "flex", flexDirection: "column", gap: 8,
           opacity: hovered ? 0 : 1, transition: "opacity 0.3s ease", zIndex: 3,
         }}>
-          <p style={{ fontFamily: "Manrope, sans-serif", fontWeight: 600, fontSize: 24, lineHeight: "34px", color: "white", margin: 0 }}>FMCG Growth Engine</p>
+          <p style={{ fontFamily: "Manrope, sans-serif", fontWeight: 600, fontSize: 24, lineHeight: "34px", color: "white", margin: 0 }}>TheNative Unit</p>
           <p style={{ fontFamily: "Poppins, sans-serif", fontWeight: 300, fontSize: 15, lineHeight: "26px", color: "#727272", margin: 0, marginBottom: 28 }}>
-            We unlock scale by fixing what's leaking: conversion, retention, repeat; so growth We power discovery
+            Scale That Converts. From Shelf to Cart.
           </p>
         </div>
 
         {/* CTA — always visible */}
         <div style={{ position: "absolute", left: 0, bottom: 0, paddingTop: 8, paddingRight: 8, zIndex: 4 }}>
-          <CtaGroup label="TheNative Unit" href="https://thenativeunit.com/" />
+          <CtaGroup label="Get Scaled" href="https://thenativeunit.com/" />
         </div>
 
       </div>
@@ -261,9 +261,9 @@ function B2bRightCard({ isMobile }: { isMobile: boolean }) {
           <B2bBadge />
           <p style={{ fontFamily: "Manrope, sans-serif", fontWeight: 600, fontSize: 18, lineHeight: "1.4", color: "white", margin: 0, width: "100%" }}>ThirdMeta</p>
           <p style={{ fontFamily: "Poppins, sans-serif", fontWeight: 300, fontSize: 13, lineHeight: "1.7", color: "#888", margin: 0, width: "100%" }}>
-            We power discovery, engagement, and recall—where most purchase decisions now begin: digitally.
+            Cracked Market Fit, But Stuck in the Valley of Death? We Help B2B Founders Break Through.
           </p>
-          <div style={{ marginTop: 4 }}><CtaGroup label="ThirdMeta" semibold compact href="https://thirdmeta.in/" /></div>
+          <div style={{ marginTop: 4 }}><CtaGroup label="Explore High Growth" semibold compact href="https://thirdmeta.in/" /></div>
         </div>
       </GradientBorderCard>
     );
@@ -344,13 +344,13 @@ function B2bRightCard({ isMobile }: { isMobile: boolean }) {
         }}>
           <p style={{ fontFamily: "Manrope, sans-serif", fontWeight: 600, fontSize: 24, lineHeight: "34px", color: "white", margin: 0 }}>ThirdMeta</p>
           <p style={{ fontFamily: "Poppins, sans-serif", fontWeight: 300, fontSize: 15, lineHeight: "25px", color: "white", margin: 0, marginBottom: 28 }}>
-            We power discovery, engagement, and recall—where most purchase decisions now begin: digitally.
+            Cracked Market Fit, But Stuck in the Valley of Death? We Help B2B Founders Break Through.
           </p>
         </div>
 
         {/* CTA — always visible */}
         <div style={{ position: "absolute", left: 0, bottom: 0, paddingTop: 8, paddingRight: 8, zIndex: 4 }}>
-          <CtaGroup label="ThirdMeta" semibold href="https://thirdmeta.in/" />
+          <CtaGroup label="Explore High Growth" semibold href="https://thirdmeta.in/" />
         </div>
 
       </div>
@@ -387,11 +387,11 @@ function FmcgBottomCard({ isMobile }: { isMobile: boolean }) {
       >
         <div style={{ padding: "24px 20px 20px", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 12, position: "relative", zIndex: 1 }}>
           <EduHexaBadge />
-          <p style={{ fontFamily: "Manrope, sans-serif", fontWeight: 600, fontSize: 18, lineHeight: "1.4", color: "white", margin: 0, width: "100%" }}>EduHexa Growth Engine</p>
+          <p style={{ fontFamily: "Manrope, sans-serif", fontWeight: 600, fontSize: 18, lineHeight: "1.4", color: "white", margin: 0, width: "100%" }}>native.academy</p>
           <p style={{ fontFamily: "Poppins, sans-serif", fontWeight: 300, fontSize: 13, lineHeight: "1.7", color: "#888", margin: 0, width: "100%" }}>
-            We unlock scale by fixing what's leaking: conversion, retention, repeat; so growth We power discovery, engagement
+            Learning That Actually Builds Careers. Master The Skills of the Future.
           </p>
-          <div style={{ marginTop: 4 }}><CtaGroup label="EduHexa" compact href="https://eduhexa.in/" /></div>
+          <div style={{ marginTop: 4 }}><CtaGroup label="Start Learning" compact href="https://eduhexa.in/" /></div>
         </div>
       </GradientBorderCard>
     );
@@ -464,15 +464,15 @@ function FmcgBottomCard({ isMobile }: { isMobile: boolean }) {
           display: "flex", flexDirection: "column", justifyContent: "flex-end", height: "60%", gap: 8,
           opacity: hovered ? 0 : 1, transition: "opacity 0.3s ease", zIndex: 3,
         }}>
-          <p style={{ fontFamily: "Manrope, sans-serif", fontWeight: 600, fontSize: 24, lineHeight: "34px", color: "white", margin: 0 }}>EduHexa Growth Engine</p>
+          <p style={{ fontFamily: "Manrope, sans-serif", fontWeight: 600, fontSize: 24, lineHeight: "34px", color: "white", margin: 0 }}>native.academy</p>
           <p style={{ fontFamily: "Poppins, sans-serif", fontWeight: 300, fontSize: 15, lineHeight: "26px", color: "#727272", margin: 0, marginBottom: 28 }}>
-            We unlock scale by fixing what's leaking: conversion, retention, repeat; so growth We power discovery, engagement
+            Learning That Actually Builds Careers. Master The Skills of the Future.
           </p>
         </div>
 
         {/* CTA — always visible */}
         <div style={{ position: "absolute", left: "80.2%", bottom: 0, paddingTop: 8, paddingRight: 8, zIndex: 4 }}>
-          <CtaGroup label="EduHexa" href="https://eduhexa.in/" />
+          <CtaGroup label="Start Learning" href="https://eduhexa.in/" />
         </div>
 
       </div>

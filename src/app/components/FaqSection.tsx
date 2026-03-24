@@ -412,24 +412,24 @@ const FAQS = [
 const FAQS_BY_TAB: Record<number, typeof FAQS> = {
   0: [
     {
+      question: "Is Hexanovate an agency?",
+      answer:
+        "No. Hexanovate is a connected growth ecosystem. Think of us as the infrastructure your business needs to scale. We house specialized brands like ThirdMeta (B2B), The Native Unit (FMCG), and native.academy (Education), all working under one unified vision.",
+    },
+    {
       question: "What industries do you typically work with?",
       answer:
-        "We work across B2B SaaS, FMCG, D2C, and enterprise brands. Our modular Growth OS adapts to your industry's specific GTM motions and compliance requirements.",
+        "We work across B2B SaaS, FMCG, D2C, and enterprise brands. Our specialized brands adapt to your industry's specific GTM motions and compliance requirements.",
     },
     {
       question: "How long before we see results?",
       answer:
-        "Most clients see measurable pipeline impact within 60–90 days. Full Growth OS deployment and optimisation typically reaches peak velocity by month 4–6.",
+        "Most clients see measurable pipeline impact within 60–90 days. Full integration with our ecosystem typically reaches peak velocity by month 4–6.",
     },
     {
       question: "Do you work with early-stage startups?",
       answer:
         "We partner with growth-stage and scale-up companies that have product-market fit. If you're pre-revenue, our advisory retainer may be a better starting point.",
-    },
-    {
-      question: "What makes Hexanovate different from a traditional agency?",
-      answer:
-        "We operate as an embedded growth partner, not a vendor. Our system thinking, proprietary frameworks, and cross-functional execution make us a true extension of your team.",
     },
   ],
   1: [

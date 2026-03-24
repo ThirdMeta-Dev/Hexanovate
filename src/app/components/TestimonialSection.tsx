@@ -7,7 +7,7 @@ import imgAvatar from "@/assets/afff7ef028d184ff017e3aeb8b7773dc4f4ffaef.png";
 const TESTIMONIALS = [
   {
     quote:
-      "Hexanovate redefined how we approach revenue growth. Their data-driven FMCG strategy fixed our funnel leaks and compounded results month over month without extra spend.",
+      "Hexanovate redefined how we approach revenue growth. The Native Unit’s data-driven FMCG strategy fixed our funnel leaks and compounded results month over month without extra spend.",
     name: "Mr Vikram Mehta",
     role: "Supply Chain Head",
     metrics: [
@@ -55,7 +55,7 @@ const TESTIMONIALS = [
   },
   {
     quote:
-      "Our B2B pipeline tripled in just six months. The team's account-based marketing approach exceeded all of our revenue and lead generation targets.",
+      "Our B2B pipeline tripled in just six months. ThirdMeta’s account-based marketing approach exceeded all of our revenue and lead generation targets.",
     name: "Mr Rahul Kapoor",
     role: "VP Sales, TechCorp",
     metrics: [

@@ -522,7 +522,7 @@ function QuoteText({ scrollYProgress }: { scrollYProgress: MotionValue<number> }
           }}
         >
           <p style={{ width: "100%", margin: 0 }}>
-            {["We", "unlock", "scale", "by", "fixing", "what's", "leaking:", "conversion,", "retention,", "repeat", "—", "so", "growth", "compounds", "naturally."].flatMap((word, wi) => [
+            {["We", "didn’t", "start", "Hexanovate", "to", "just", "build", "another", "agency.", "We", "started", "it", "to", "build", "the", "infrastructure", "of", "growth."].flatMap((word, wi) => [
               wi > 0 ? " " : null,
               <RevealWord
                 key={wi}
@@ -534,12 +534,12 @@ function QuoteText({ scrollYProgress }: { scrollYProgress: MotionValue<number> }
             ])}
           </p>
           <p style={{ width: "100%", margin: 0 }}>
-            {["We", "power", "discovery,", "engagement,", "and", "recall", "—", "where", "most", "purchase", "decisions", "begin:", "digitally."].flatMap((word, wi) => [
+            {["The", "business", "world", "is", "fragmented.", "Founders", "are", "forced", "to", "stitch", "together", "disconnected", "tools,", "teams,", "and", "strategies.", "We", "saw", "the", "gap", "and", "decided", "to", "fill", "it", "with", "a", "connected", "ecosystem", "where", "every", "part", "works", "in", "harmony", "to", "drive", "one", "thing:", "Unstoppable", "Growth."].flatMap((word, wi) => [
               wi > 0 ? " " : null,
               <RevealWord
                 key={wi}
                 progress={scrollYProgress}
-                range={[0.50 + wi * 0.010, 0.50 + wi * 0.010 + 0.09]}
+                range={[0.45 + wi * 0.008, 0.45 + wi * 0.008 + 0.07]}
               >
                 {word}
               </RevealWord>,
@@ -618,7 +618,7 @@ function LeftColumn() {
             position: "relative",
           }}
         >
-          We unlock scale by fixing what&apos;s leaking conversion
+          In a World of Quick Fixes, We Chose to Build Something That Lasts.
         </p>
       </div>
     </div>
@@ -925,7 +925,7 @@ function TabletLayout() {
             }}
           >
             <p style={{ margin: 0 }}>
-              {["We", "unlock", "scale", "by", "fixing", "what's", "leaking:", "conversion,", "retention,", "repeat", "—", "so", "growth", "compounds", "naturally."].flatMap((word, wi) => [
+              {["We", "didn’t", "start", "Hexanovate", "to", "just", "build", "another", "agency.", "We", "started", "it", "to", "build", "the", "infrastructure", "of", "growth."].flatMap((word, wi) => [
                 wi > 0 ? " " : null,
                 <RevealWord
                   key={wi}
@@ -937,12 +937,12 @@ function TabletLayout() {
               ])}
             </p>
             <p style={{ margin: 0 }}>
-              {["We", "power", "discovery,", "engagement,", "and", "recall", "—", "where", "most", "purchase", "decisions", "begin:", "digitally."].flatMap((word, wi) => [
+              {["The", "business", "world", "is", "fragmented.", "Founders", "are", "forced", "to", "stitch", "together", "disconnected", "tools,", "teams,", "and", "strategies.", "We", "saw", "the", "gap", "and", "decided", "to", "fill", "it", "with", "a", "connected", "ecosystem", "where", "every", "part", "works", "in", "harmony", "to", "drive", "one", "thing:", "Unstoppable", "Growth."].flatMap((word, wi) => [
                 wi > 0 ? " " : null,
                 <RevealWord
                   key={wi}
                   progress={scrollYProgress}
-                  range={[0.50 + wi * 0.010, 0.50 + wi * 0.010 + 0.09]}
+                  range={[0.45 + wi * 0.008, 0.45 + wi * 0.008 + 0.07]}
                 >
                   {word}
                 </RevealWord>,
@@ -964,7 +964,7 @@ function TabletLayout() {
           marginBottom: 0,
         }}
       >
-        We unlock scale by fixing what&apos;s leaking conversion
+        In a World of Quick Fixes, We Chose to Build Something That Lasts.
       </p>
     </motion.div>
   );
@@ -1072,7 +1072,7 @@ function MobileLayout() {
           }}
         >
           <p style={{ margin: 0 }}>
-            {["We", "unlock", "scale", "by", "fixing", "what's", "leaking:", "conversion,", "retention,", "repeat", "—", "so", "growth", "compounds", "naturally."].flatMap((word, wi) => [
+            {["We", "didn’t", "start", "Hexanovate", "to", "just", "build", "another", "agency.", "We", "started", "it", "to", "build", "the", "infrastructure", "of", "growth."].flatMap((word, wi) => [
               wi > 0 ? " " : null,
               <RevealWord
                 key={wi}
@@ -1084,12 +1084,12 @@ function MobileLayout() {
             ])}
           </p>
           <p style={{ margin: 0 }}>
-            {["We", "power", "discovery,", "engagement,", "and", "recall", "—", "where", "most", "purchase", "decisions", "begin:", "digitally."].flatMap((word, wi) => [
+            {["The", "business", "world", "is", "fragmented.", "Founders", "are", "forced", "to", "stitch", "together", "disconnected", "tools,", "teams,", "and", "strategies.", "We", "saw", "the", "gap", "and", "decided", "to", "fill", "it", "with", "a", "connected", "ecosystem", "where", "every", "part", "works", "in", "harmony", "to", "drive", "one", "thing:", "Unstoppable", "Growth."].flatMap((word, wi) => [
               wi > 0 ? " " : null,
               <RevealWord
                 key={wi}
                 progress={scrollYProgress}
-                range={[0.50 + wi * 0.010, 0.50 + wi * 0.010 + 0.09]}
+                range={[0.45 + wi * 0.008, 0.45 + wi * 0.008 + 0.07]}
               >
                 {word}
               </RevealWord>,
@@ -1110,7 +1110,7 @@ function MobileLayout() {
           marginBottom: 0,
         }}
       >
-        We unlock scale by fixing what&apos;s leaking conversion
+        In a World of Quick Fixes, We Chose to Build Something That Lasts.
       </p>
     </motion.div>
   );

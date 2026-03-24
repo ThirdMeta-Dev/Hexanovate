@@ -113,7 +113,7 @@ function B2bBadge() {
               lineHeight: "normal",
             }}
           >
-            B2B Portfolio
+            ThirdMeta
           </span>
         </div>
       </div>
@@ -682,11 +682,10 @@ function TitleRow() {
           }}
         >
           <motion.p style={{ margin: 0, opacity: line1Opacity, y: line1Y }}>
-            <span style={{ fontWeight: 700, color: "white" }}>Real Work. Real Results </span>
-            <span style={{ fontWeight: 300, color: "#8e8e8e" }}>for </span>
+            <span style={{ fontWeight: 700, color: "white" }}>Cracked Market Fit, But Stuck in the Valley of Death? </span>
           </motion.p>
           <motion.p style={{ margin: 0, fontWeight: 300, color: "#8e8e8e", opacity: line2Opacity, y: line2Y }}>
-            B2B brands worldwide
+            We Help B2B Founders Break Through.
           </motion.p>
         </div>
       </div>
@@ -803,7 +802,7 @@ function B2bMobileLayout() {
               whiteSpace: "nowrap",
             }}
           >
-            B2B Portfolio
+            ThirdMeta
           </span>
         </div>
       </div>
@@ -812,11 +811,8 @@ function B2bMobileLayout() {
       <div style={{ padding: "0 20px", boxSizing: "border-box", marginBottom: "32px" }}>
         <div style={{ fontFamily: "Manrope, sans-serif", lineHeight: "1.35" }}>
           <p style={{ margin: 0, fontSize: "clamp(26px, 7vw, 38px)" }}>
-            <span style={{ fontWeight: 700, color: "white" }}>Real Work. Real Results </span>
-            <span style={{ fontWeight: 300, color: "#8e8e8e" }}>for</span>
-          </p>
-          <p style={{ margin: 0, fontWeight: 300, color: "#8e8e8e", fontSize: "clamp(26px, 7vw, 38px)" }}>
-            B2B brands worldwide
+            <span style={{ fontWeight: 700, color: "white" }}>Cracked Market Fit, But Stuck in the Valley of Death? </span>
+            <span style={{ fontWeight: 300, color: "#8e8e8e" }}>We Help B2B Founders Break Through.</span>
           </p>
         </div>
       </div>

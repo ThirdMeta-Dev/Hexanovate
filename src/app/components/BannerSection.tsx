@@ -142,7 +142,7 @@ const NAV_DROPDOWNS: Record<string, { label: string; sub?: string; href?: string
   Solutions: [
     { label: "ThirdMeta", sub: "B2B Growth & Revenue", href: "https://thirdmeta.in/" },
     { label: "The Native Unit", sub: "FMCG & D2C Acceleration", href: "https://thenativeunit.com/" },
-    { label: "EduHexa", sub: "Education Growth Solutions" },
+    { label: "native.academy", sub: "Education Growth Solutions" },
   ],
   Company: [
     { label: "About Hexanovate", sub: "Our story & mission", anchor: "what-defines-us" },
@@ -867,8 +867,7 @@ function MobileHeroContent() {
           maxWidth: "680px",
         }}
       >
-        {/* Badge — auto-width, left-aligned */}
-        <HeroBadge />
+
 
         {/* Headline */}
         <div
@@ -889,7 +888,7 @@ function MobileHeroContent() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
           >
-            We unlock scale
+            The Future of Business Deserves
           </motion.div>
           <motion.div
             style={{ display: "block", margin: 0 }}
@@ -897,7 +896,7 @@ function MobileHeroContent() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.63, ease: [0.22, 1, 0.36, 1] }}
           >
-            fixing what's leaking conversion lorem
+            a Better World. We're Building It.
           </motion.div>
         </div>
 
@@ -915,7 +914,7 @@ function MobileHeroContent() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.78, ease: [0.22, 1, 0.36, 1] }}
         >
-          Short explanation that Hexanovate powers two specialized domains.
+          A connected business ecosystem built around your vision. Bringing together systems, growth engines, teams, and capabilities so you can focus on what you do best.
         </motion.p>
 
         {/* CTAs — left-aligned row */}
@@ -1248,7 +1247,7 @@ export function BannerSection() {
                     gap: 24,
                   }}
                 >
-                  <HeroBadge />
+
 
                   <div
                     style={{
@@ -1272,7 +1271,7 @@ export function BannerSection() {
                         overflow: "hidden",
                       }}
                     >
-                      {["We unlock scale", "fixing what's leaking conversion lorem"].map(
+                      {["The Future of Business Deserves", "a Better World. We're Building It."].map(
                         (line, i) => (
                           <motion.div
                             key={i}
@@ -1306,7 +1305,7 @@ export function BannerSection() {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.55, delay: 1.0, ease: [0.22, 1, 0.36, 1] }}
                     >
-                      Short explanation that Hexanovate powers two specialized domains.
+                      A connected business ecosystem built around your vision. Bringing together systems, growth engines, teams, and capabilities so you can focus on what you do best.
                     </motion.p>
                   </div>
                 </div>
