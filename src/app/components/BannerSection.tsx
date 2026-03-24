@@ -888,15 +888,7 @@ function MobileHeroContent() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
           >
-            The Future of Business Deserves
-          </motion.div>
-          <motion.div
-            style={{ display: "block", margin: 0 }}
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: 0.63, ease: [0.22, 1, 0.36, 1] }}
-          >
-            a Better World. We're Building It.
+            The Future of Business Deserves a Better World. We're Building It.
           </motion.div>
         </div>
 
@@ -914,7 +906,7 @@ function MobileHeroContent() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.78, ease: [0.22, 1, 0.36, 1] }}
         >
-          A connected business ecosystem built around your vision. Bringing together systems, growth engines, teams, and capabilities so you can focus on what you do best.
+          A connected business ecosystem built around your vision. Bringing together systems, growth engines,<br /> teams, and capabilities so you can focus on what you do best.
         </motion.p>
 
         {/* CTAs — left-aligned row */}
@@ -1271,23 +1263,18 @@ export function BannerSection() {
                         overflow: "hidden",
                       }}
                     >
-                      {["The Future of Business Deserves", "a Better World. We're Building It."].map(
-                        (line, i) => (
-                          <motion.div
-                            key={i}
-                            style={{ display: "block", margin: 0 }}
-                            initial={{ opacity: 0, y: 32 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{
-                              duration: 0.7,
-                              delay: 0.65 + i * 0.13,
-                              ease: [0.22, 1, 0.36, 1],
-                            }}
-                          >
-                            {line}
-                          </motion.div>
-                        )
-                      )}
+                      <motion.div
+                        style={{ display: "block", margin: 0 }}
+                        initial={{ opacity: 0, y: 32 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{
+                          duration: 0.7,
+                          delay: 0.65,
+                          ease: [0.22, 1, 0.36, 1],
+                        }}
+                      >
+                        The Future of Business Deserves a Better World. We're Building It.
+                      </motion.div>
                     </div>
 
                     {/* Subtitle — Poppins Regular 16px */}
@@ -1305,7 +1292,7 @@ export function BannerSection() {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.55, delay: 1.0, ease: [0.22, 1, 0.36, 1] }}
                     >
-                      A connected business ecosystem built around your vision. Bringing together systems, growth engines, teams, and capabilities so you can focus on what you do best.
+                      A connected business ecosystem built around your vision. Bringing together systems, growth engines,<br /> teams, and capabilities so you can focus on what you do best.
                     </motion.p>
                   </div>
                 </div>

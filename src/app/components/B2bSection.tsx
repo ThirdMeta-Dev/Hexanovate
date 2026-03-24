@@ -682,10 +682,10 @@ function TitleRow() {
           }}
         >
           <motion.p style={{ margin: 0, opacity: line1Opacity, y: line1Y }}>
-            <span style={{ fontWeight: 700, color: "white" }}>Cracked Market Fit, But Stuck in the Valley of Death? </span>
+            <span style={{ fontWeight: 700, color: "white" }}>Qualified Leads. Closed Deals. </span>
           </motion.p>
           <motion.p style={{ margin: 0, fontWeight: 300, color: "#8e8e8e", opacity: line2Opacity, y: line2Y }}>
-            We Help B2B Founders Break Through.
+            B2B Growth Done Right.
           </motion.p>
         </div>
       </div>
@@ -811,8 +811,8 @@ function B2bMobileLayout() {
       <div style={{ padding: "0 20px", boxSizing: "border-box", marginBottom: "32px" }}>
         <div style={{ fontFamily: "Manrope, sans-serif", lineHeight: "1.35" }}>
           <p style={{ margin: 0, fontSize: "clamp(26px, 7vw, 38px)" }}>
-            <span style={{ fontWeight: 700, color: "white" }}>Cracked Market Fit, But Stuck in the Valley of Death? </span>
-            <span style={{ fontWeight: 300, color: "#8e8e8e" }}>We Help B2B Founders Break Through.</span>
+            <span style={{ fontWeight: 700, color: "white" }}>Qualified Leads. Closed Deals. </span>
+            <span style={{ fontWeight: 300, color: "#8e8e8e" }}>B2B Growth Done Right.</span>
           </p>
         </div>
       </div>

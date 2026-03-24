@@ -484,12 +484,12 @@ function QuoteText({ scrollYProgress }: { scrollYProgress: MotionValue<number> }
     <div
       style={{
         flex: "1 0 0",
-        height: "303px",
         display: "flex",
         flexDirection: "column",
         alignItems: "flex-start",
         minWidth: 0,
         position: "relative",
+        marginTop: "-12px",
       }}
     >
       <div
@@ -521,7 +521,7 @@ function QuoteText({ scrollYProgress }: { scrollYProgress: MotionValue<number> }
             marginBottom: "-22px",
           }}
         >
-          <p style={{ width: "100%", margin: 0 }}>
+          <p style={{ width: "100%", margin: 0, textIndent: "42px" }}>
             {["We", "didn’t", "start", "Hexanovate", "to", "just", "build", "another", "agency.", "We", "started", "it", "to", "build", "the", "infrastructure", "of", "growth."].flatMap((word, wi) => [
               wi > 0 ? " " : null,
               <RevealWord

@@ -231,7 +231,7 @@ const WDU_ITEMS = [
 /* ─── LIST ROW — desktop ─────────────────────────────────────────────────── */
 function ListRow({ title, desc }: { title: string; desc: string }) {
   return (
-    <div style={{ display: "flex", gap: "60px", alignItems: "center", width: "100%", flexShrink: 0 }}>
+    <div style={{ display: "flex", gap: "60px", alignItems: "flex-start", width: "100%", flexShrink: 0 }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
         <ul
           style={{
