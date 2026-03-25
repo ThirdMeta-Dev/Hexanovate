@@ -330,6 +330,7 @@ function DropdownItem({ label, sub, href, anchor }: { label: string; sub?: strin
 // CTA pair (Book a Demo + arrow) now animates identically to the primary CtaBtn
 function GlassNavPill() {
   const [ctaHov, setCtaHov] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <div
@@ -368,7 +369,7 @@ function GlassNavPill() {
         }}
         onHoverStart={() => setCtaHov(true)}
         onHoverEnd={() => setCtaHov(false)}
-        onClick={() => window.location.href = "/schedule-demo"}
+        onClick={() => navigate("/schedule-demo")}
       >
         {/* Label — Book a Demo */}
         <div
@@ -810,7 +811,7 @@ function MobileNav() {
             {/* Book a Demo in mobile menu */}
             <div style={{ padding: "16px 20px 0" }}>
               <button
-                onClick={() => { scrollToSection("get-in-touch"); closeAll(); }}
+                onClick={() => { navigate("/schedule-demo"); closeAll(); }}
                 style={{
                   width: "100%",
                   background: "#1b61db",

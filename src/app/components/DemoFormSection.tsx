@@ -278,6 +278,7 @@ function ContactForm({ onSuccess }: { onSuccess: () => void }) {
       );
       const json = await res.json();
       if (!res.ok) throw new Error(json.error || "Submission failed.");
+      onSuccess();
       navigate("/thank-you");
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : "Something went wrong. Please try again.";
