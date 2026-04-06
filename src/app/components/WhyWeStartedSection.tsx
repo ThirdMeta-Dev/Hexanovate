@@ -551,7 +551,7 @@ function QuoteText({ scrollYProgress }: { scrollYProgress: MotionValue<number> }
 }
 
 /* ─── LEFT COLUMN ─────────────────────────────────────────────────────────── */
-function LeftColumn() {
+function LeftColumn({ transparent = false }: { transparent?: boolean }) {
   return (
     /*
      * Frame1: w-169, h-full (self-stretch), shrink-0
@@ -581,26 +581,28 @@ function LeftColumn() {
           position: "relative",
         }}
       >
-        {/* Hex cluster — absolutely positioned, overflows card left edge */}
-        <div
-          style={{
-            position: "absolute",
-            left: "-55.33px",
-            top: "300.26px",
-            width: "173.329px",
-            height: "145.581px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <div style={{ transform: "scaleY(-1)", flexShrink: 0 }}>
-            <HexCluster />
+        {/* Hex cluster — hidden when transparent */}
+        {!transparent && (
+          <div
+            style={{
+              position: "absolute",
+              left: "-55.33px",
+              top: "300.26px",
+              width: "173.329px",
+              height: "145.581px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <div style={{ transform: "scaleY(-1)", flexShrink: 0 }}>
+              <HexCluster />
+            </div>
           </div>
-        </div>
+        )}
 
-        {/* Badge */}
-        <WhyBadge />
+        {/* Badge — hidden when transparent */}
+        {!transparent && <WhyBadge />}
 
         {/* Subtitle */}
         <p
@@ -658,7 +660,7 @@ function ContentColumns({ scrollYProgress }: { scrollYProgress: MotionValue<numb
 }
 
 /* ─── MAIN CARD (Frame3) ─────────────────────────────────────────────────── */
-function MainCard() {
+function MainCard({ transparent = false }: { transparent?: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
@@ -683,10 +685,10 @@ function MainCard() {
       style={{
         scale,
         opacity: cardOpacity,
-        backdropFilter: "blur(50px)",
-        WebkitBackdropFilter: "blur(50px)",
-        background: "rgba(27,97,219,0.15)",
-        borderRadius: "30px",
+        backdropFilter: transparent ? undefined : "blur(50px)",
+        WebkitBackdropFilter: transparent ? undefined : "blur(50px)",
+        background: transparent ? "transparent" : "rgba(27,97,219,0.15)",
+        borderRadius: transparent ? 0 : "30px",
         width: "100%",
         maxWidth: "1104px",
         position: "relative",
@@ -708,83 +710,89 @@ function MainCard() {
           position: "relative",
         }}
       >
-        {/* ── Gradient deco 1: top-left blue sweep ── */}
-        <div
-          aria-hidden="true"
-          style={{
-            position: "absolute",
-            left: 0,
-            top: 0,
-            width: "1104px",
-            height: "275px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            pointerEvents: "none",
-          }}
-        >
-          <div style={{ transform: "rotate(90deg)", flexShrink: 0 }}>
-            <div
-              style={{
-                width: "275px",
-                height: "1104px",
-                borderBottomLeftRadius: "30px",
-                borderTopLeftRadius: "30px",
-                backgroundImage:
-                  "linear-gradient(76.9202deg, rgba(27,97,219,0.25) 0.14447%, rgba(27,97,219,0) 53.962%)",
-              }}
-            />
+        {/* ── Gradient deco 1: top-left blue sweep — hidden when transparent ── */}
+        {!transparent && (
+          <div
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              left: 0,
+              top: 0,
+              width: "1104px",
+              height: "275px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              pointerEvents: "none",
+            }}
+          >
+            <div style={{ transform: "rotate(90deg)", flexShrink: 0 }}>
+              <div
+                style={{
+                  width: "275px",
+                  height: "1104px",
+                  borderBottomLeftRadius: "30px",
+                  borderTopLeftRadius: "30px",
+                  backgroundImage:
+                    "linear-gradient(76.9202deg, rgba(27,97,219,0.25) 0.14447%, rgba(27,97,219,0) 53.962%)",
+                }}
+              />
+            </div>
           </div>
-        </div>
+        )}
 
-        {/* ── Gradient deco 2: bottom-right amber sweep ── */}
-        <div
-          aria-hidden="true"
-          style={{
-            position: "absolute",
-            left: "793px",
-            top: "427px",
-            width: "311px",
-            height: "78px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            pointerEvents: "none",
-          }}
-        >
-          <div style={{ transform: "rotate(-90deg)", flexShrink: 0 }}>
-            <div
-              style={{
-                width: "78px",
-                height: "311px",
-                borderBottomLeftRadius: "30px",
-                backgroundImage:
-                  "linear-gradient(76.8336deg, rgba(255,166,0,0.2) 0.14447%, rgba(255,166,0,0) 53.962%)",
-              }}
-            />
+        {/* ── Gradient deco 2: bottom-right amber sweep — hidden when transparent ── */}
+        {!transparent && (
+          <div
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              left: "793px",
+              top: "427px",
+              width: "311px",
+              height: "78px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              pointerEvents: "none",
+            }}
+          >
+            <div style={{ transform: "rotate(-90deg)", flexShrink: 0 }}>
+              <div
+                style={{
+                  width: "78px",
+                  height: "311px",
+                  borderBottomLeftRadius: "30px",
+                  backgroundImage:
+                    "linear-gradient(76.8336deg, rgba(255,166,0,0.2) 0.14447%, rgba(255,166,0,0) 53.962%)",
+                }}
+              />
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Column 1: left info */}
         <div style={{ display: "flex", flexDirection: "row", alignItems: "center", alignSelf: "stretch" }}>
-          <LeftColumn />
+          <LeftColumn transparent={transparent} />
         </div>
 
         {/* Columns 2+3: photo + quote */}
         <ContentColumns scrollYProgress={scrollYProgress} />
       </div>
 
-      {/* Card border overlay */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: "absolute",
-          inset: 0,
-          border: "1px solid #0d1729",
-          borderRadius: "30px",
-          pointerEvents: "none",
-        }}
-      />
+      {/* Card border overlay — hidden when transparent */}
+      {!transparent && (
+        <div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            inset: 0,
+            border: "1px solid #0d1729",
+            borderRadius: "30px",
+            pointerEvents: "none",
+          }}
+        />
+      )}
     </motion.div>
   );
 }
@@ -809,7 +817,7 @@ function RevealWord({
 }
 
 /* ─── TABLET LAYOUT ───────────────────────────────────────────────────────── */
-function TabletLayout() {
+function TabletLayout({ transparent = false }: { transparent?: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
@@ -834,11 +842,11 @@ function TabletLayout() {
       style={{
         scale,
         opacity,
-        backdropFilter: "blur(50px)",
-        WebkitBackdropFilter: "blur(50px)",
-        background: "rgba(27,97,219,0.15)",
-        border: "1px solid #0d1729",
-        borderRadius: "24px",
+        backdropFilter: transparent ? undefined : "blur(50px)",
+        WebkitBackdropFilter: transparent ? undefined : "blur(50px)",
+        background: transparent ? "transparent" : "rgba(27,97,219,0.15)",
+        border: transparent ? undefined : "1px solid #0d1729",
+        borderRadius: transparent ? 0 : "24px",
         width: "100%",
         maxWidth: "760px",
         padding: "32px 32px 36px",
@@ -847,39 +855,45 @@ function TabletLayout() {
         transformOrigin: "center center",
       }}
     >
-      {/* Gradient deco 1 */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: "absolute",
-          left: 0,
-          top: 0,
-          right: 0,
-          height: "180px",
-          background:
-            "linear-gradient(to right, rgba(27,97,219,0.2) 0%, transparent 60%)",
-          pointerEvents: "none",
-        }}
-      />
-      {/* Gradient deco 2 */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: "absolute",
-          right: 0,
-          bottom: 0,
-          width: "200px",
-          height: "80px",
-          background:
-            "linear-gradient(to left, rgba(255,166,0,0.15) 0%, transparent 100%)",
-          pointerEvents: "none",
-        }}
-      />
+      {/* Gradient deco 1 — hidden when transparent */}
+      {!transparent && (
+        <div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            left: 0,
+            top: 0,
+            right: 0,
+            height: "180px",
+            background:
+              "linear-gradient(to right, rgba(27,97,219,0.2) 0%, transparent 60%)",
+            pointerEvents: "none",
+          }}
+        />
+      )}
+      {/* Gradient deco 2 — hidden when transparent */}
+      {!transparent && (
+        <div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            right: 0,
+            bottom: 0,
+            width: "200px",
+            height: "80px",
+            background:
+              "linear-gradient(to left, rgba(255,166,0,0.15) 0%, transparent 100%)",
+            pointerEvents: "none",
+          }}
+        />
+      )}
 
-      {/* Badge */}
-      <div style={{ marginBottom: "20px" }}>
-        <WhyBadge />
-      </div>
+      {/* Badge — hidden when transparent */}
+      {!transparent && (
+        <div style={{ marginBottom: "20px" }}>
+          <WhyBadge />
+        </div>
+      )}
 
       {/* Two-column: photo + text */}
       <div
@@ -970,7 +984,7 @@ function TabletLayout() {
 }
 
 /* ─── MOBILE LAYOUT ──────────────────────────────────────────────────────── */
-function MobileLayout() {
+function MobileLayout({ transparent = false }: { transparent?: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
@@ -995,10 +1009,10 @@ function MobileLayout() {
       style={{
         scale,
         opacity: mobileOpacity,
-        backdropFilter: "blur(50px)",
-        WebkitBackdropFilter: "blur(50px)",
-        background: "rgba(27,97,219,0.15)",
-        border: "1px solid #0d1729",
+        backdropFilter: transparent ? undefined : "blur(50px)",
+        WebkitBackdropFilter: transparent ? undefined : "blur(50px)",
+        background: transparent ? "transparent" : "rgba(27,97,219,0.15)",
+        border: transparent ? undefined : "1px solid #0d1729",
         borderRadius: "20px",
         width: "100%",
         padding: "24px 20px 28px",
@@ -1007,25 +1021,29 @@ function MobileLayout() {
         transformOrigin: "center center",
       }}
     >
-      {/* Gradient top */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: "absolute",
-          left: 0,
-          top: 0,
-          right: 0,
-          height: "120px",
-          background:
-            "linear-gradient(to right, rgba(27,97,219,0.18) 0%, transparent 70%)",
-          pointerEvents: "none",
-        }}
-      />
+      {/* Gradient top — hidden when transparent */}
+      {!transparent && (
+        <div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            left: 0,
+            top: 0,
+            right: 0,
+            height: "120px",
+            background:
+              "linear-gradient(to right, rgba(27,97,219,0.18) 0%, transparent 70%)",
+            pointerEvents: "none",
+          }}
+        />
+      )}
 
-      {/* Badge */}
-      <div style={{ marginBottom: "20px" }}>
-        <WhyBadge />
-      </div>
+      {/* Badge — hidden when transparent */}
+      {!transparent && (
+        <div style={{ marginBottom: "20px" }}>
+          <WhyBadge />
+        </div>
+      )}
 
       {/* Photo centered with blue bg */}
       <div
@@ -1116,7 +1134,7 @@ function MobileLayout() {
 }
 
 /* ─── WHY WE STARTED SECTION — exported ─────────────────────────────────── */
-export function WhyWeStartedSection() {
+export function WhyWeStartedSection({ transparent = false }: { transparent?: boolean } = {}) {
   return (
     <section
       style={{
@@ -1133,17 +1151,17 @@ export function WhyWeStartedSection() {
     >
       {/* ── Desktop card (≥1104px): full Figma spec ── */}
       <div className="w-full hidden xl:flex justify-center">
-        <MainCard />
+        <MainCard transparent={transparent} />
       </div>
 
       {/* ── Tablet / small desktop (640px–1279px): scaled-down card ── */}
       <div className="w-full hidden sm:flex xl:hidden justify-center">
-        <TabletLayout />
+        <TabletLayout transparent={transparent} />
       </div>
 
       {/* ── Mobile (<640px): stacked layout ── */}
       <div className="w-full flex sm:hidden flex-col">
-        <MobileLayout />
+        <MobileLayout transparent={transparent} />
       </div>
     </section>
   );

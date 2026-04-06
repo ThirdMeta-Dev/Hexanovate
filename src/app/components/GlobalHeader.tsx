@@ -59,8 +59,8 @@ const NAV_DROPDOWNS: Record<string, { label: string; sub?: string; href?: string
     { label: "native.academy", sub: "Education Growth Solutions" },
   ],
   Company: [
-    { label: "About Hexanovate", sub: "Our story & mission", anchor: "what-defines-us" },
-    { label: "Our Team", sub: "The people behind the work", anchor: "team-culture" },
+    { label: "About Hexanovate", sub: "Our story & mission", href: "/about-us" },
+    { label: "Our Team", sub: "Leadership & team", href: "/leadership-and-team" },
   ],
 };
 
@@ -68,11 +68,15 @@ const NAV_DROPDOWNS: Record<string, { label: string; sub?: string; href?: string
 function DropdownItem({ label, sub, href, anchor }: { label: string; sub?: string; href?: string; anchor?: string }) {
   const navigate = useNavigate();
   const [hov, setHov] = useState(false);
+  const handleClick = () => {
+    if (href?.startsWith("/")) { navigate(href); return; }
+    navigateTo(anchor, href, navigate);
+  };
   return (
     <div
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
-      onClick={() => navigateTo(anchor, href, navigate)}
+      onClick={handleClick}
       style={{
         padding: "10px 18px", cursor: "pointer",
         background: hov ? "rgba(27,97,219,0.12)" : "transparent",
@@ -259,7 +263,8 @@ function MobileNav() {
                           <div
                             key={i}
                             onClick={() => {
-                              if (sub.href) window.open(sub.href, "_blank", "noopener,noreferrer");
+                              if (sub.href?.startsWith("/")) { navigate(sub.href); closeAll(); }
+                              else if (sub.href) window.open(sub.href, "_blank", "noopener,noreferrer");
                               else if (sub.anchor) { window.location.href = `/#${sub.anchor}`; closeAll(); }
                             }}
                             style={{ padding: "10px 20px 10px 32px", borderBottom: "1px solid rgba(255,255,255,0.03)", cursor: "pointer", display: "flex", flexDirection: "column", gap: 2 }}
@@ -310,7 +315,7 @@ export function GlobalHeader() {
       style={{
         position: "sticky",
         top: 0,
-        zIndex: 100,
+        zIndex: 9999,
         width: "100%",
         background: scrolled ? "rgba(10,10,10,0.97)" : "rgba(10,10,10,0.92)",
         backdropFilter: "blur(20px)",

@@ -1,0 +1,419 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   AboutContactSection — Section 8 of About Us page
+   Figma: node 11479-733
+
+   Layout:
+   • Section: full-width, padding 0 24px (no maxWidth constraint)
+   • Card: 100% width, padding 60px 96px, rounded 30px, dark gradient
+   • LEFT (540px fixed): tag + heading + 3 bullets
+   • RIGHT (flex-1): form fields + submit
+   • Submit: two separate fully-rounded blue elements (pill + circle) per Figma
+
+   Submit: POST to Supabase edge fn /contact (source:"about-us") → /thank-you
+   ───────────────────────────────────────────────────────────────────────────── */
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router";
+import { motion } from "motion/react";
+import { projectId, publicAnonKey } from "../../../utils/supabase/info";
+
+const SERVICE_OPTIONS = [
+  "FMCG Brand Marketing",
+  "B2B Lead Generation",
+  "Digital Strategy & Consulting",
+  "Social Media Marketing",
+  "Content Marketing",
+  "SEO & Performance Marketing",
+  "Other / Not Sure",
+];
+
+interface FormValues {
+  name: string;
+  phone: string;
+  email: string;
+  service: string;
+  notes: string;
+}
+
+/* ── Arrow icon ──────────────────────────────────────────────────────────── */
+function ArrowIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 16 16" fill="none">
+      <path
+        d="M4 12L12 4M12 4H6M12 4V10"
+        stroke="#ffffff"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+/* ── Bullet point ────────────────────────────────────────────────────────── */
+function Bullet({ bold, muted }: { bold: string; muted: string }) {
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+      <div
+        style={{
+          width: 20,
+          height: 20,
+          borderRadius: "50%",
+          background: "#1b61db",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexShrink: 0,
+        }}
+      >
+        <ArrowIcon size={10} />
+      </div>
+      <p style={{ margin: 0, fontFamily: "Poppins, sans-serif", fontSize: 16, lineHeight: "26px" }}>
+        <span style={{ fontWeight: 600, color: "#ffffff" }}>{bold} </span>
+        <span style={{ fontWeight: 400, color: "#727272" }}>{muted}</span>
+      </p>
+    </div>
+  );
+}
+
+/* ── Glass input — matches Figma rgba(255,255,255,0.32) ─────────────────── */
+const glass: React.CSSProperties = {
+  backdropFilter: "blur(2px)",
+  WebkitBackdropFilter: "blur(2px)",
+  background: "rgba(255,255,255,0.12)",
+  border: "1px solid rgba(255,255,255,0.18)",
+  borderRadius: 12,
+  color: "#ffffff",
+  fontFamily: "Poppins, sans-serif",
+  fontSize: 15,
+  outline: "none",
+  boxSizing: "border-box",
+  transition: "border-color 0.2s",
+};
+const glassErr: React.CSSProperties = { borderColor: "#ef4444" };
+const errText: React.CSSProperties = {
+  fontFamily: "Poppins, sans-serif",
+  fontSize: 12,
+  color: "#ef4444",
+  marginTop: -8,
+};
+
+/* ── Contact form ────────────────────────────────────────────────────────── */
+function ContactForm() {
+  const navigate = useNavigate();
+  const [serverError, setServerError] = useState<string | null>(null);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<FormValues>({ mode: "onSubmit" });
+
+  const onSubmit = async (data: FormValues) => {
+    setServerError(null);
+    try {
+      const res = await fetch(
+        `https://${projectId}.supabase.co/functions/v1/make-server-c15aa933/contact`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${publicAnonKey}`,
+          },
+          body: JSON.stringify({ ...data, source: "about-us" }),
+        }
+      );
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error || "Submission failed.");
+      navigate("/thank-you");
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Something went wrong. Please try again.";
+      setServerError(msg);
+    }
+  };
+
+  return (
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      noValidate
+      style={{ display: "flex", flexDirection: "column", gap: 12, width: "100%" }}
+    >
+      {/* Name — full width */}
+      <input
+        placeholder="Tell us your name"
+        style={{ ...glass, ...(errors.name ? glassErr : {}), height: 48, padding: "0 16px", width: "100%" }}
+        {...register("name", {
+          required: "Name is required.",
+          minLength: { value: 2, message: "At least 2 characters." },
+        })}
+      />
+      {errors.name && <span style={errText}>{errors.name.message}</span>}
+
+      {/* Phone + Email row — equal flex-1 each, matching Figma */}
+      <div style={{ display: "flex", gap: 12 }}>
+        <input
+          placeholder="Number for a quick call"
+          style={{ ...glass, ...(errors.phone ? glassErr : {}), height: 48, padding: "0 16px", flex: 1, minWidth: 0 }}
+          {...register("phone", {
+            required: "Phone is required.",
+            pattern: { value: /^[0-9+\s\-()]{7,15}$/, message: "Enter a valid phone number." },
+          })}
+        />
+        <input
+          placeholder="Drop your email ID"
+          style={{ ...glass, ...(errors.email ? glassErr : {}), height: 48, padding: "0 16px", flex: 1, minWidth: 0 }}
+          {...register("email", {
+            required: "Email is required.",
+            pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: "Enter a valid email." },
+          })}
+        />
+      </div>
+      {(errors.phone || errors.email) && (
+        <div style={{ display: "flex", gap: 12, marginTop: -8 }}>
+          <span style={{ ...errText, flex: 1, marginTop: 0 }}>{errors.phone?.message ?? ""}</span>
+          <span style={{ ...errText, flex: 1, marginTop: 0 }}>{errors.email?.message ?? ""}</span>
+        </div>
+      )}
+
+      {/* Service dropdown */}
+      <div style={{ position: "relative" }}>
+        <select
+          defaultValue=""
+          style={{
+            ...glass,
+            ...(errors.service ? glassErr : {}),
+            height: 48,
+            padding: "0 40px 0 16px",
+            width: "100%",
+            appearance: "none",
+            WebkitAppearance: "none",
+            cursor: "pointer",
+            color: "rgba(255,255,255,0.7)",
+          }}
+          {...register("service", { required: "Please select a service." })}
+        >
+          <option value="" disabled style={{ background: "#1a1a1a" }}>
+            Joining for Lorem ipsum is simply?
+          </option>
+          {SERVICE_OPTIONS.map((opt) => (
+            <option key={opt} value={opt} style={{ background: "#1a1a1a", color: "#fff" }}>
+              {opt}
+            </option>
+          ))}
+        </select>
+        <div style={{ position: "absolute", right: 14, top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }}>
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M5 7L9 11L13 7" stroke="rgba(255,255,255,0.6)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </div>
+      </div>
+      {errors.service && <span style={errText}>{errors.service.message}</span>}
+
+      {/* Notes textarea */}
+      <textarea
+        placeholder="What are you looking for?"
+        style={{
+          ...glass,
+          ...(errors.notes ? glassErr : {}),
+          padding: "14px 16px",
+          resize: "none",
+          height: 123,
+          width: "100%",
+          lineHeight: "22px",
+        }}
+        {...register("notes", {
+          required: "Please describe what you're looking for.",
+          minLength: { value: 10, message: "Please add more detail (min 10 characters)." },
+        })}
+      />
+      {errors.notes && <span style={errText}>{errors.notes.message}</span>}
+
+      {serverError && (
+        <p style={{ fontFamily: "Poppins, sans-serif", fontSize: 13, color: "#ef4444", margin: 0 }}>
+          {serverError}
+        </p>
+      )}
+
+      {/* Submit — two SEPARATE fully-rounded elements per Figma */}
+      <div style={{ display: "flex", alignItems: "center", gap: 0, marginTop: 4 }}>
+        <motion.button
+          type="submit"
+          disabled={isSubmitting}
+          whileHover={{ opacity: isSubmitting ? 1 : 0.88 }}
+          whileTap={{ scale: isSubmitting ? 1 : 0.97 }}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            border: "none",
+            background: "transparent",
+            cursor: isSubmitting ? "not-allowed" : "pointer",
+            padding: 0,
+            gap: 6,
+          }}
+        >
+          {/* Text pill — fully rounded */}
+          <div
+            style={{
+              background: "#1b61db",
+              borderRadius: 30,
+              padding: "12px 24px",
+              fontFamily: "Poppins, sans-serif",
+              fontWeight: 500,
+              fontSize: 16,
+              color: "#ffffff",
+              whiteSpace: "nowrap",
+              boxShadow: "0 4px 4px rgba(0,0,0,0.3)",
+            }}
+          >
+            {isSubmitting ? "Sending…" : "Get in Touch"}
+          </div>
+          {/* Arrow circle — fully rounded */}
+          <div
+            style={{
+              background: "#1b61db",
+              borderRadius: 30,
+              width: 48,
+              height: 48,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              boxShadow: "0 4px 4px rgba(0,0,0,0.3)",
+              flexShrink: 0,
+            }}
+          >
+            <ArrowIcon size={16} />
+          </div>
+        </motion.button>
+      </div>
+    </form>
+  );
+}
+
+/* ── Main export ─────────────────────────────────────────────────────────── */
+export function AboutContactSection() {
+  return (
+    /* Full-width card — no side padding, borderRadius only on desktop */
+    <div
+      style={{
+        position: "relative",
+        width: "100%",
+        borderRadius: 30,
+        border: "1px solid #212121",
+        background: "linear-gradient(-42.66deg, #0a0a0a 0%, #222222 100%)",
+        overflow: "hidden",
+        boxSizing: "border-box",
+      }}
+    >
+      {/* Blue top-left corner glow */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          top: -1,
+          left: -1,
+          width: 510,
+          height: 147,
+          pointerEvents: "none",
+          overflow: "hidden",
+        }}
+      >
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            transform: "rotate(90deg)",
+            backgroundImage: "linear-gradient(71.22deg, rgba(27,97,219,0.25) 0.16%, rgba(27,97,219,0) 48.91%)",
+          }}
+        />
+      </div>
+
+      {/* Inner box — max-width centered, two columns */}
+      <div
+        className="ac-inner"
+        style={{
+          position: "relative",
+          zIndex: 1,
+          maxWidth: 1200,
+          margin: "0 auto",
+          padding: "60px 96px",
+          display: "flex",
+          alignItems: "center",
+          gap: 44,
+          boxSizing: "border-box",
+        }}
+      >
+        {/* ── LEFT column (540px fixed) ── */}
+        <div
+          className="ac-left"
+          style={{
+            width: 540,
+            flexShrink: 0,
+            display: "flex",
+            flexDirection: "column",
+            gap: 28,
+          }}
+        >
+          {/* Tag + line */}
+          <div style={{ display: "flex", alignItems: "center", gap: 12, maxWidth: 308 }}>
+            <div
+              style={{
+                background: "#111",
+                border: "1px solid #414141",
+                borderRadius: 40,
+                padding: "6px 20px",
+                flexShrink: 0,
+              }}
+            >
+              <span style={{ fontFamily: "Poppins, sans-serif", fontSize: 13, color: "#FFA600", whiteSpace: "nowrap" }}>
+                Lorem Ipsum
+              </span>
+            </div>
+            <div style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.15)" }} />
+          </div>
+
+          {/* Heading */}
+          <p style={{ fontFamily: "Manrope, sans-serif", fontSize: 48, lineHeight: 1.32, margin: 0, textTransform: "capitalize" }}>
+            <span style={{ fontWeight: 300, color: "#ffffff" }}>Lorem </span>
+            <span style={{ fontWeight: 700, color: "#ffffff" }}>Ipsum Is Simply</span>
+            <br />
+            <span style={{ fontWeight: 300, color: "#ffffff" }}>Dummy Text Of The</span>
+          </p>
+
+          {/* Bullet points */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            <Bullet bold="123 Accuracy" muted="learning lorem simply" />
+            <Bullet bold="99%+ Self-learning" muted="learning lorem simply" />
+            <Bullet bold="3,999 Accuracy" muted="lorem simply" />
+          </div>
+        </div>
+
+        {/* ── RIGHT column (flex-1, form) ── */}
+        <div
+          className="ac-right"
+          style={{
+            flex: 1,
+            minWidth: 0,
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <ContactForm />
+        </div>
+      </div>
+
+      {/* Responsive */}
+      <style>{`
+        @media (max-width: 1024px) {
+          .ac-inner {
+            flex-direction: column !important;
+            padding: 40px 28px !important;
+            gap: 32px !important;
+          }
+          .ac-left {
+            width: 100% !important;
+          }
+        }
+      `}</style>
+    </div>
+  );
+}
