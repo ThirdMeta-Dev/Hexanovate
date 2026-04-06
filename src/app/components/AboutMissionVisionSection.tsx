@@ -1,26 +1,27 @@
 /* ─────────────────────────────────────────────────────────────────────────────
    AboutMissionVisionSection — Section 6 of About Us page
-   Figma: node 11456-5357
+   Figma: node 11561-45
 
-   Layout (desktop 1008px):
+   Desktop layout (1008px content width):
    ┌──────────────────────────────────────────────────────────────────────────┐
-   │                                         [Category Defination ──────────] │
-   │  ┌────────────────────────────┐                                          │
-   │  │  Mission card (578×296)    │    We unlock scale                       │
-   │  │  (absolute, offset top+60) │    by fixing what                        │
-   │  │  amber title + body text   │    leaking conver                        │
-   │  └────────────────────────────┘   ┌──────────────────────────────────┐  │
-   │                                   │ Vision card (512px)              │  │
-   │                                   │ amber title + body text          │  │
-   │                                   └──────────────────────────────────┘  │
+   │ [Category Defination ────────────────────────────] [Heading bold+grey]  │
+   │ ┌──────────────────────────────────────┐                                 │
+   │ │  Mission card (578×296, top+60)       │          [Heading text]         │
+   │ │  amber "Mission" + body white         │  ┌────────────────────────────┐│
+   │ │                                       │  │ Vision card (512px)         ││
+   │ └──────────────────────────────────────┘  │ amber "Vision" + body white │ │
+   │                                           └────────────────────────────┘ │
    └──────────────────────────────────────────────────────────────────────────┘
 
-   Animations:
-   • Entrance  : y 60→0, opacity 0→1 (standard, applied by parent)
-   • Mission   : x -80→0, opacity 0→1  (slides from LEFT)
-   • Vision    : x  80→0, opacity 0→1  (slides from RIGHT)
-   • Heading   : word-by-word scroll-driven opacity reveal
-   • Tag row   : fade + slide down on enter
+   Figma pixel-exact specs:
+   - Mission card : 578×296 px, padding 44px 132px 44px 48px
+   - Vision card  : 512px wide, padding 44px 48px
+   - Card bg      : rgba(27,97,219,0.15), backdrop-blur 50px, border #0d1729
+   - Card glow    : linear-gradient(64.47°, rgba(27,97,219,0.25)→transparent) rotated 90°
+   - Card title   : Poppins Regular 28px #FFA600
+   - Card body    : Poppins ExtraLight 15px white, lineHeight 25px
+   - Heading      : Manrope Bold 36px white + Manrope Light 36px #8e8e8e, w=381
+   - Tag          : Poppins Regular 13px #FFA600, bg #111, border #414141
    ───────────────────────────────────────────────────────────────────────────── */
 import { useRef } from "react";
 import { motion, useScroll, useTransform, MotionValue } from "motion/react";
@@ -28,8 +29,11 @@ import { motion, useScroll, useTransform, MotionValue } from "motion/react";
 const EASE = [0.22, 1, 0.36, 1] as const;
 const VP   = { once: true, margin: "-80px" } as const;
 
-/* ── Card inner blue corner glow ─────────────────────────────────────────── */
-function CardGlow({ width, height }: { width: number; height: number }) {
+const CARD_BODY =
+  "We unlock scale by fixing lorem ipsum what's leaking conversion, retention, repeation growth lorem compounds. We unlock scale by fixing lorem ipsum what's leaking conversion, retention, repeation growth";
+
+/* ── Card inner corner glow (Figma-exact) ────────────────────────────────── */
+function CardGlow({ cardW, cardH }: { cardW: number; cardH: number }) {
   return (
     <div
       aria-hidden="true"
@@ -37,28 +41,33 @@ function CardGlow({ width, height }: { width: number; height: number }) {
         position: "absolute",
         top: -1,
         left: -1,
-        width,
-        height,
+        width: cardW,
+        height: cardH,
         pointerEvents: "none",
-        borderRadius: 20,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
         overflow: "hidden",
+        borderRadius: 20,
       }}
     >
-      {/* Rotate 90° so gradient bleeds from the correct corner */}
+      {/* Figma: inner div is cardH × cardW (swapped) then rotated 90° */}
       <div
         style={{
-          position: "absolute",
-          inset: 0,
+          flexShrink: 0,
           transform: "rotate(90deg)",
+          width: cardH,
+          height: cardW,
+          borderRadius: 20,
           backgroundImage:
-            "linear-gradient(64.47deg, rgba(27,97,219,0.25) 0%, rgba(27,97,219,0) 54%)",
+            "linear-gradient(64.47deg, rgba(27,97,219,0.25) 0.14%, rgba(27,97,219,0) 53.96%)",
         }}
       />
     </div>
   );
 }
 
-/* ── Glassmorphism card shell ─────────────────────────────────────────────── */
+/* ── Glassmorphism card ───────────────────────────────────────────────────── */
 function GlassCard({
   children,
   style,
@@ -71,7 +80,7 @@ function GlassCard({
       style={{
         backdropFilter: "blur(50px)",
         WebkitBackdropFilter: "blur(50px)",
-        background: "rgba(27, 97, 219, 0.15)",
+        background: "rgba(27,97,219,0.15)",
         border: "1px solid #0d1729",
         borderRadius: 20,
         overflow: "hidden",
@@ -84,103 +93,6 @@ function GlassCard({
       }}
     >
       {children}
-    </div>
-  );
-}
-
-/* ── Per-word scroll opacity ─────────────────────────────────────────────── */
-function RevealWord({
-  children,
-  progress,
-  range,
-  wordStyle,
-}: {
-  children: string;
-  progress: MotionValue<number>;
-  range: [number, number];
-  wordStyle?: React.CSSProperties;
-}) {
-  const opacity = useTransform(progress, range, [0.15, 1]);
-  return (
-    <motion.span style={{ opacity, ...wordStyle }}>
-      {children}{" "}
-    </motion.span>
-  );
-}
-
-/* ── Heading definition ──────────────────────────────────────────────────── */
-const HEADING_WORDS = [
-  { text: "We",      color: "#ffffff", weight: 700 },
-  { text: "unlock",  color: "#ffffff", weight: 700 },
-  { text: "scale",   color: "#ffffff", weight: 700 },
-  { text: "by",      color: "#ffffff", weight: 700 },
-  { text: "fixing",  color: "#ffffff", weight: 700 },
-  { text: "what",    color: "#8e8e8e", weight: 300 },
-  { text: "leaking", color: "#8e8e8e", weight: 300 },
-  { text: "conver",  color: "#8e8e8e", weight: 300 },
-];
-
-function HeadingReveal() {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start 0.82", "start 0.25"],
-  });
-  const n = HEADING_WORDS.length;
-
-  return (
-    <div ref={ref}>
-      <p
-        style={{
-          fontFamily: "Manrope, sans-serif",
-          fontSize: 36,
-          lineHeight: 1.32,
-          margin: 0,
-          textTransform: "capitalize",
-          width: 381,
-        }}
-      >
-        {HEADING_WORDS.map((w, i) => (
-          <RevealWord
-            key={i}
-            progress={scrollYProgress}
-            range={[i / n, Math.min((i + 2) / n, 1)]}
-            wordStyle={{ fontWeight: w.weight, color: w.color }}
-          >
-            {w.text}
-          </RevealWord>
-        ))}
-      </p>
-    </div>
-  );
-}
-
-/* ── Amber pill tag ──────────────────────────────────────────────────────── */
-function AmberTag({ label }: { label: string }) {
-  return (
-    <div
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "6px 20px",
-        borderRadius: 40,
-        border: "1px solid #414141",
-        background: "#111",
-        flexShrink: 0,
-      }}
-    >
-      <span
-        style={{
-          fontFamily: "Poppins, sans-serif",
-          fontWeight: 400,
-          fontSize: 13,
-          color: "#FFA600",
-          whiteSpace: "nowrap",
-        }}
-      >
-        {label}
-      </span>
     </div>
   );
 }
@@ -221,53 +133,134 @@ function CardContent({ title, body }: { title: string; body: string }) {
   );
 }
 
-const CARD_BODY =
-  "We unlock scale by fixing lorem ipsum what's leaking conversion, retention, repeation growth lorem compounds. We unlock scale by fixing lorem ipsum what's leaking conversion, retention, repeation growth";
+/* ── Amber pill tag ──────────────────────────────────────────────────────── */
+function AmberTag({ label }: { label: string }) {
+  return (
+    <div
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "6px 20px",
+        borderRadius: 40,
+        border: "1px solid #414141",
+        background: "#111",
+        flexShrink: 0,
+      }}
+    >
+      <span
+        style={{
+          fontFamily: "Poppins, sans-serif",
+          fontWeight: 400,
+          fontSize: 13,
+          color: "#FFA600",
+          whiteSpace: "nowrap",
+        }}
+      >
+        {label}
+      </span>
+    </div>
+  );
+}
+
+/* ── Scroll-driven word reveal for heading ───────────────────────────────── */
+const HEADING_WORDS = [
+  { text: "We",      color: "#ffffff", weight: 700 },
+  { text: "unlock",  color: "#ffffff", weight: 700 },
+  { text: "scale",   color: "#ffffff", weight: 700 },
+  { text: "by",      color: "#ffffff", weight: 700 },
+  { text: "fixing",  color: "#ffffff", weight: 700 },
+  { text: "what",    color: "#8e8e8e", weight: 300 },
+  { text: "leaking", color: "#8e8e8e", weight: 300 },
+  { text: "conver",  color: "#8e8e8e", weight: 300 },
+];
+
+function RevealWord({
+  children,
+  progress,
+  range,
+  wordStyle,
+}: {
+  children: string;
+  progress: MotionValue<number>;
+  range: [number, number];
+  wordStyle?: React.CSSProperties;
+}) {
+  const opacity = useTransform(progress, range, [0.15, 1]);
+  return <motion.span style={{ opacity, ...wordStyle }}>{children}{" "}</motion.span>;
+}
+
+function HeadingReveal({ containerRef }: { containerRef: React.RefObject<HTMLDivElement | null> }) {
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start 0.82", "start 0.25"],
+  });
+  const n = HEADING_WORDS.length;
+
+  return (
+    <p
+      style={{
+        fontFamily: "Manrope, sans-serif",
+        fontSize: 36,
+        lineHeight: 1.32,
+        margin: 0,
+        textTransform: "capitalize",
+      }}
+    >
+      {HEADING_WORDS.map((w, i) => (
+        <RevealWord
+          key={i}
+          progress={scrollYProgress}
+          range={[i / n, Math.min((i + 2) / n, 1)]}
+          wordStyle={{ fontWeight: w.weight, color: w.color }}
+        >
+          {w.text}
+        </RevealWord>
+      ))}
+    </p>
+  );
+}
 
 /* ── Main export ─────────────────────────────────────────────────────────── */
 export function AboutMissionVisionSection() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+
   return (
     <section
+      ref={sectionRef}
       style={{
         width: "100%",
-        maxWidth: 1008,
-        margin: "0 auto",
-        padding: "0 24px",
+        padding: "0 96px",
         boxSizing: "border-box",
+        maxWidth: 1200,
+        margin: "0 auto",
       }}
     >
-      {/* ─── DESKTOP layout (> 1024px) ─── */}
+      {/* ─── DESKTOP layout ─── */}
       <div
         className="mv-desktop"
-        style={{ position: "relative", display: "flex", alignItems: "flex-start" }}
+        style={{
+          position: "relative",
+          display: "flex",
+          alignItems: "flex-start",
+          justifyContent: "flex-end",
+        }}
       >
-        {/* Mission card — absolutely positioned (out of flow), slides from LEFT */}
+        {/* ── Mission card — absolute, top+60 offset, slides from LEFT ── */}
         <motion.div
-          style={{
-            position: "absolute",
-            left: 0,
-            top: 60,
-            width: 578,
-          }}
+          style={{ position: "absolute", left: 0, top: 60, width: 578 }}
           initial={{ opacity: 0, x: -80 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={VP}
           transition={{ duration: 0.85, ease: EASE }}
         >
-          <GlassCard
-            style={{
-              width: 578,
-              height: 296,
-              padding: "44px 132px 44px 48px",
-            }}
-          >
-            <CardGlow width={578} height={296} />
+          <GlassCard style={{ width: 578, height: 296, padding: "44px 132px 44px 48px" }}>
+            <CardGlow cardW={578} cardH={296} />
             <CardContent title="Mission" body={CARD_BODY} />
           </GlassCard>
         </motion.div>
 
-        {/* Tag row — flex-1, fills space between left edge and right column */}
-        {/* Tag pill on LEFT, line extends to RIGHT (matches Figma node 11456:5370) */}
+        {/* ── Tag + line row — flex:1 fills gap between left and right column ── */}
         <motion.div
           style={{
             flex: 1,
@@ -275,6 +268,7 @@ export function AboutMissionVisionSection() {
             display: "flex",
             alignItems: "center",
             gap: 12,
+            paddingRight: 12,
           }}
           initial={{ opacity: 0, y: -16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -282,16 +276,10 @@ export function AboutMissionVisionSection() {
           transition={{ duration: 0.65, ease: EASE, delay: 0.15 }}
         >
           <AmberTag label="Category Defination" />
-          <div
-            style={{
-              flex: 1,
-              height: 1,
-              background: "rgba(255,255,255,0.15)",
-            }}
-          />
+          <div style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.15)" }} />
         </motion.div>
 
-        {/* Right column — heading + Vision card only */}
+        {/* ── Right column: heading (w=381) + Vision card (w=512) ── */}
         <div
           style={{
             width: 512,
@@ -300,19 +288,17 @@ export function AboutMissionVisionSection() {
             flexDirection: "column",
             alignItems: "flex-end",
             gap: 28,
-            position: "relative",
-            zIndex: 1,
           }}
         >
-          {/* Heading — text reveal on scroll */}
+          {/* Heading — 381px, right-aligned in the 512px column */}
           <motion.div
+            style={{ width: 381 }}
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={VP}
             transition={{ duration: 0.5, ease: EASE, delay: 0.1 }}
-            style={{ width: "100%" }}
           >
-            <HeadingReveal />
+            <HeadingReveal containerRef={sectionRef} />
           </motion.div>
 
           {/* Vision card — slides from RIGHT */}
@@ -322,13 +308,8 @@ export function AboutMissionVisionSection() {
             viewport={VP}
             transition={{ duration: 0.85, ease: EASE, delay: 0.12 }}
           >
-            <GlassCard
-              style={{
-                width: 512,
-                padding: "44px 48px",
-              }}
-            >
-              <CardGlow width={512} height={242} />
+            <GlassCard style={{ width: 512, padding: "44px 48px" }}>
+              <CardGlow cardW={512} cardH={242} />
               <CardContent title="Vision" body={CARD_BODY} />
             </GlassCard>
           </motion.div>
@@ -345,8 +326,8 @@ export function AboutMissionVisionSection() {
           viewport={VP}
           transition={{ duration: 0.65, ease: EASE }}
         >
-          <div style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.15)" }} />
           <AmberTag label="Category Defination" />
+          <div style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.15)" }} />
         </motion.div>
 
         {/* Heading */}
@@ -375,7 +356,7 @@ export function AboutMissionVisionSection() {
           transition={{ duration: 0.8, ease: EASE }}
         >
           <GlassCard style={{ padding: "36px 32px" }}>
-            <CardGlow width={400} height={220} />
+            <CardGlow cardW={340} cardH={220} />
             <CardContent title="Mission" body={CARD_BODY} />
           </GlassCard>
         </motion.div>
@@ -388,13 +369,12 @@ export function AboutMissionVisionSection() {
           transition={{ duration: 0.8, ease: EASE, delay: 0.1 }}
         >
           <GlassCard style={{ padding: "36px 32px" }}>
-            <CardGlow width={400} height={220} />
+            <CardGlow cardW={340} cardH={220} />
             <CardContent title="Vision" body={CARD_BODY} />
           </GlassCard>
         </motion.div>
       </div>
 
-      {/* Responsive toggle */}
       <style>{`
         .mv-desktop { display: flex; }
         .mv-mobile  { display: none; }

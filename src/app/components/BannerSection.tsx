@@ -145,8 +145,8 @@ const NAV_DROPDOWNS: Record<string, { label: string; sub?: string; href?: string
     { label: "native.academy", sub: "Education Growth Solutions" },
   ],
   Company: [
-    { label: "About Hexanovate", sub: "Our story & mission", anchor: "what-defines-us" },
-    { label: "Our Team", sub: "The people behind the work", anchor: "team-culture" },
+    { label: "About Hexanovate", sub: "Our story & mission", href: "/about-us" },
+    { label: "Our Team", sub: "Leadership & team", href: "/leadership-and-team" },
   ],
 };
 
@@ -276,7 +276,9 @@ function NavItem({ label, hasDropdown = false, isActive = false }: NavItemProps)
 
 function DropdownItem({ label, sub, href, anchor }: { label: string; sub?: string; href?: string; anchor?: string }) {
   const [hov, setHov] = useState(false);
+  const navigate = useNavigate();
   const handleClick = () => {
+    if (href?.startsWith("/")) { navigate(href); return; }
     if (href) window.open(href, "_blank", "noopener,noreferrer");
     else if (anchor) scrollToSection(anchor);
   };
@@ -792,7 +794,8 @@ function MobileNav() {
                           <div
                             key={i}
                             onClick={() => {
-                              if (sub.href) window.open(sub.href, "_blank", "noopener,noreferrer");
+                              if (sub.href?.startsWith("/")) { navigate(sub.href); closeAll(); }
+                              else if (sub.href) window.open(sub.href, "_blank", "noopener,noreferrer");
                               else if (sub.anchor) { scrollToSection(sub.anchor); closeAll(); }
                             }}
                             style={{ padding: "10px 20px 10px 32px", borderBottom: "1px solid rgba(255,255,255,0.03)", cursor: "pointer", display: "flex", flexDirection: "column", gap: 2 }}

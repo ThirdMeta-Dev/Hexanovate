@@ -1,33 +1,28 @@
 /* ─────────────────────────────────────────────────────────────────────────────
    AboutIntroSection — Section 2 of About Us page
-   Figma: node 11387-1037 (Frame 1618876095, 1008×756)
+   Figma: node 11387-1037
 
    Layout (desktop):
-   ┌─────────────────────────────────────────────────────────────────┐
-   │  TOP ROW (1008×398)                                              │
-   │  ┌──────────────┐   ┌─────────────────────────────────────────┐ │
-   │  │ "About us"   │   │ Paragraph 1 — Manrope 24px w400 #fff    │ │
-   │  │ amber tag    │   │ Paragraph 2 — Manrope 24px w300 #8e8e8e │ │
-   │  │ + h-rule     │   │ Paragraph 3 — Manrope 24px w300 #8e8e8e │ │
-   │  └──────────────┘   └─────────────────────────────────────────┘ │
-   ├─────────────────────────────────────────────────────────────────┤
-   │  BOTTOM ROW (1008×418)                                           │
-   │  ┌──────────────────────┐  ┌──────────────────────────────────┐ │
-   │  │ Stat: 98% + label    │  │ Blue accent block (#1b61db)      │ │
-   │  │ Stat: 123+ + label   │  │ 712×300                          │ │
-   │  │ Stat: 123+ + label   │  │                                  │ │
-   │  └──────────────────────┘  └──────────────────────────────────┘ │
-   └─────────────────────────────────────────────────────────────────┘
+   ┌──────────────────────────────────────────────────────────────────┐
+   │  TOP ROW                                                          │
+   │  ┌──────────────┐   ┌──────────────────────────────────────────┐ │
+   │  │ "About us"   │   │ Paragraphs — Manrope, all white          │ │
+   │  │ amber tag    │   │ scroll-driven word reveal                 │ │
+   │  │ + h-rule     │   └──────────────────────────────────────────┘ │
+   ├──────────────────────────────────────────────────────────────────┤
+   │  BOTTOM ROW                                                       │
+   │  ┌──────────────────────┐  ┌──────────────────────────────────┐  │
+   │  │ 98%  / 123+ / 123+   │  │ Accent block (blur glass)        │  │
+   │  │ counter animation    │  │ 712×300                          │  │
+   │  └──────────────────────┘  └──────────────────────────────────┘  │
+   └──────────────────────────────────────────────────────────────────┘
 
-   Fonts:
-   - "About us" tag  → Poppins Regular 13px amber #FFA600
-   - Para 1          → Manrope Regular 24px white, text-align: RIGHT
-   - Para 2/3        → Manrope Light 24px #8e8e8e, text-align: RIGHT
-   - Stat numbers    → Bricolage Grotesque SemiBold 60px #b5b5b5
-   - Stat labels     → Poppins Light 15px #747474
+   Fonts (Figma-exact):
+   - Stat numbers  → Manrope Regular 52px #b5b5b5, suffix % = 32px, + = 48px extralight
+   - Stat labels   → Poppins Light 15px #747474
    ───────────────────────────────────────────────────────────────────────────── */
 import { motion, useInView, useScroll, useTransform, MotionValue } from "motion/react";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 
 /* ── entrance animation config ──────────────────────────────────────────── */
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -35,17 +30,15 @@ const VP = { once: true, margin: "-80px" } as const;
 
 /* ── Stats data ──────────────────────────────────────────────────────────── */
 const STATS = [
-  { value: "98%",  label: "We power discovery, lorem engagement" },
-  { value: "123+", label: "We power discover lorem engagement" },
-  { value: "123+", label: "We power discover engagement" },
+  { value: 98,  suffix: "%", suffixSize: 32, suffixWeight: 400, label: "We power discovery, lorem engagement" },
+  { value: 123, suffix: "+", suffixSize: 48, suffixWeight: 200, label: "We power discover lorem engagement" },
+  { value: 123, suffix: "+", suffixSize: 48, suffixWeight: 200, label: "We power discover engagement" },
 ];
 
 /* ── Amber Tag + horizontal rule ─────────────────────────────────────────── */
 function AboutTag() {
   return (
-    /* Figma: Frame 1618876105 [236×32] = tag chip + Vector line */
     <div style={{ display: "flex", alignItems: "center", gap: 16, flexShrink: 0 }}>
-      {/* chip: Frame 1618876110 [98×32], border #FFA600, rounded */}
       <div
         style={{
           display: "inline-flex",
@@ -70,7 +63,6 @@ function AboutTag() {
           About us
         </span>
       </div>
-      {/* horizontal rule — Vector 235, width ~126px */}
       <div
         style={{
           width: 126,
@@ -94,24 +86,21 @@ function RevealWord({
   range: [number, number];
 }) {
   const opacity = useTransform(progress, range, [0.15, 1]);
-  return <motion.span style={{ opacity }}>{children}{" "}</motion.span>;
+  return <motion.span style={{ opacity, color: "#ffffff" }}>{children}{" "}</motion.span>;
 }
 
-/* Paragraph data — para 1 is white/400, paras 2–3 are gray/300 */
+/* Paragraph data — all white, weight varies per Figma */
 const PARA_SEGMENTS = [
   {
     text: "We unlock scale by fixing lorem ipsum what's leaking conversion, retention, repeation growth lorem compounds. We unlock scale by fixing lorem We unlock scale by fixing lorem ipsum what's leaking conversion, retention, repeation growth lorem compounds.",
-    color: "#ffffff" as const,
-    weight: 400,
+    weight: 600,
   },
   {
     text: "We unlock scale by fixing lorem We unlock scale by fixing lorem ipsum what's leaking conversion, retention, repeation growth lorem compounds. Lorem ipsum is simply dummy",
-    color: "#8e8e8e" as const,
     weight: 300,
   },
   {
     text: "Repeation growth lorem compounds. Lorem ipsum is simply dummy text if the typesetting.",
-    color: "#8e8e8e" as const,
     weight: 300,
   },
 ];
@@ -123,7 +112,6 @@ function ParagraphReveal() {
     offset: ["start 0.82", "start 0.08"],
   });
 
-  // Build flat word count so we can assign per-word scroll ranges
   const segWordCounts = PARA_SEGMENTS.map((s) => s.text.split(" ").length);
   const total = segWordCounts.reduce((a, b) => a + b, 0);
   const segOffsets = segWordCounts.reduce<number[]>((acc, _count, i) => {
@@ -144,7 +132,7 @@ function ParagraphReveal() {
               fontWeight: seg.weight,
               fontSize: 24,
               lineHeight: 1.58,
-              color: seg.color,
+              color: "#ffffff",
               margin: si === 0 ? 0 : "24px 0 0",
             }}
           >
@@ -169,10 +157,36 @@ function ParagraphReveal() {
   );
 }
 
+/* ── Counter hook ────────────────────────────────────────────────────────── */
+function useCounter(target: number, active: boolean, duration = 1800) {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    if (!active) return;
+    let start: number | null = null;
+    let raf: number;
+    const step = (ts: number) => {
+      if (!start) start = ts;
+      const progress = Math.min((ts - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+      setCount(Math.round(eased * target));
+      if (progress < 1) raf = requestAnimationFrame(step);
+    };
+    raf = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(raf);
+  }, [active, target, duration]);
+  return count;
+}
+
 /* ── Single stat block ───────────────────────────────────────────────────── */
-function StatBlock({ value, label, delay }: { value: string; label: string; delay: number }) {
+function StatBlock({
+  value, suffix, suffixSize, suffixWeight, label, delay,
+}: {
+  value: number; suffix: string; suffixSize: number; suffixWeight: number; label: string; delay: number;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
+  const count = useCounter(value, inView);
+
   return (
     <motion.div
       ref={ref}
@@ -181,24 +195,37 @@ function StatBlock({ value, label, delay }: { value: string; label: string; dela
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.7, delay, ease: EASE }}
     >
-      <span
-        style={{
-          fontFamily: "'Bricolage Grotesque', Manrope, sans-serif",
-          fontWeight: 600,
-          fontSize: 60,
-          lineHeight: 1,
-          color: "#b5b5b5",
-          letterSpacing: "-1px",
-        }}
-      >
-        {value}
-      </span>
+      {/* Number + suffix — Figma: Manrope Regular 52px + suffix */}
+      <div style={{ display: "flex", alignItems: "baseline" }}>
+        <span
+          style={{
+            fontFamily: "Manrope, sans-serif",
+            fontWeight: 400,
+            fontSize: 52,
+            lineHeight: "60px",
+            color: "#b5b5b5",
+          }}
+        >
+          {count}
+        </span>
+        <span
+          style={{
+            fontFamily: "Manrope, sans-serif",
+            fontWeight: suffixWeight,
+            fontSize: suffixSize,
+            lineHeight: "60px",
+            color: "#b5b5b5",
+          }}
+        >
+          {suffix}
+        </span>
+      </div>
       <span
         style={{
           fontFamily: "Poppins, sans-serif",
           fontWeight: 300,
           fontSize: 15,
-          lineHeight: "1.5",
+          lineHeight: "22px",
           color: "#747474",
           maxWidth: 200,
         }}
@@ -211,11 +238,8 @@ function StatBlock({ value, label, delay }: { value: string; label: string; dela
 
 /* ── Main export ─────────────────────────────────────────────────────────── */
 export function AboutIntroSection() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-
   return (
     <section
-      ref={sectionRef}
       style={{
         width: "100%",
         maxWidth: 1008,
@@ -233,7 +257,7 @@ export function AboutIntroSection() {
           gap: 60,
         }}
       >
-        {/* LEFT: "About us" tag (236px) */}
+        {/* LEFT: "About us" tag */}
         <motion.div
           style={{ flexShrink: 0, paddingTop: 6 }}
           initial={{ opacity: 0, x: -24 }}
@@ -244,7 +268,7 @@ export function AboutIntroSection() {
           <AboutTag />
         </motion.div>
 
-        {/* RIGHT: 3 paragraphs — scroll-driven word reveal */}
+        {/* RIGHT: paragraphs — scroll-driven word reveal, all white */}
         <motion.div
           style={{ flex: 1 }}
           initial={{ opacity: 0, y: 30 }}
@@ -256,7 +280,7 @@ export function AboutIntroSection() {
         </motion.div>
       </div>
 
-      {/* ── BOTTOM ROW: stats (left) + blue accent block (right) ── */}
+      {/* ── BOTTOM ROW: stats (left) + accent block (right) ── */}
       <div
         style={{
           display: "flex",
@@ -266,74 +290,45 @@ export function AboutIntroSection() {
           marginTop: 60,
         }}
       >
-        {/* LEFT: 3 stacked stats — width ~200px */}
+        {/* LEFT: 3 stacked stats */}
         <div
           style={{
             display: "flex",
             flexDirection: "column",
-            gap: 28,
+            gap: 44,
             flexShrink: 0,
             width: 200,
           }}
         >
           {STATS.map((s, i) => (
-            <StatBlock key={i} value={s.value} label={s.label} delay={0.1 + i * 0.12} />
+            <StatBlock
+              key={i}
+              value={s.value}
+              suffix={s.suffix}
+              suffixSize={s.suffixSize}
+              suffixWeight={s.suffixWeight}
+              label={s.label}
+              delay={0.1 + i * 0.12}
+            />
           ))}
         </div>
 
-        {/* RIGHT: blue accent rectangle — Figma: 712×300 fill #1b61db */}
+        {/* RIGHT: glass accent block — Figma: 712×300, backdrop blur */}
         <motion.div
           style={{
             flex: 1,
             height: 300,
             borderRadius: 20,
-            background: "linear-gradient(135deg, #1b61db 0%, #0e3fa8 100%)",
-            overflow: "hidden",
-            position: "relative",
+            background: "rgba(210,210,210,0.20)",
+            backdropFilter: "blur(40px)",
+            WebkitBackdropFilter: "blur(40px)",
           }}
           initial={{ opacity: 0, scale: 0.96 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={VP}
           transition={{ duration: 0.8, delay: 0.2, ease: EASE }}
-        >
-          {/* Inner glow */}
-          <div
-            style={{
-              position: "absolute",
-              top: -60,
-              right: -60,
-              width: 240,
-              height: 240,
-              borderRadius: "50%",
-              background: "rgba(255,255,255,0.06)",
-              pointerEvents: "none",
-            }}
-          />
-          <div
-            style={{
-              position: "absolute",
-              bottom: -40,
-              left: -40,
-              width: 180,
-              height: 180,
-              borderRadius: "50%",
-              background: "rgba(255,255,255,0.04)",
-              pointerEvents: "none",
-            }}
-          />
-        </motion.div>
+        />
       </div>
-
-      {/* Mobile responsive adjustments */}
-      <style>{`
-        @media (max-width: 1024px) {
-          .about-intro-top { flex-direction: column !important; gap: 32px !important; }
-          .about-intro-bottom { flex-direction: column !important; }
-          .about-intro-text { text-align: left !important; font-size: 18px !important; }
-          .about-intro-stats { width: 100% !important; flex-direction: row !important; flex-wrap: wrap !important; gap: 24px !important; }
-          .about-intro-blue { height: 200px !important; }
-        }
-      `}</style>
     </section>
   );
 }
