@@ -1,4 +1,4 @@
-import imgFrame1618876106 from "@/assets/cd0d3c71464504d6e4fd1662e5128b67cbe4dfdc.png";
+import imgFrame1618876106 from "@/assets/cd0d3c71464504d6e4fd1662e5128b67cbe4dfdc.jpg";
 
 export default function Frame() {
   return (

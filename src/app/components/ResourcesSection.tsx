@@ -1,9 +1,9 @@
 import { useState, useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 import svgPaths from "../../imports/svg-ovg5m3az7t";
-import imgShape from "@/assets/b89318efbab82d469b49381f4cc6c0514cdbdf45.png";
-import imgImage271 from "@/assets/18b0d12fe3d53b9b2e05886f4cb0e938bd6b31f6.png";
-import imgImage272 from "@/assets/780ac0b6ef7927d9d4ac36f35f8dd4632ae487a6.png";
+import imgShape from "@/assets/b89318efbab82d469b49381f4cc6c0514cdbdf45.jpg";
+import imgImage271 from "@/assets/18b0d12fe3d53b9b2e05886f4cb0e938bd6b31f6.jpg";
+import imgImage272 from "@/assets/780ac0b6ef7927d9d4ac36f35f8dd4632ae487a6.jpg";
 
 /* ─── DIAGONAL ARROW ICON (amber badge) ─────────────────────────────────── */
 function ArrowIcon() {

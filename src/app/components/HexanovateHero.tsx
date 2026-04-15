@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, useInView } from "motion/react";
-import imgUnion from "@/assets/42b45ba16e2708dd4fd8e9709aa3f776578cfdf4.png";
+import imgUnion from "@/assets/42b45ba16e2708dd4fd8e9709aa3f776578cfdf4.jpg";
 import svgPaths from "../../imports/svg-3w13tdh6kp";
 
 /* ─────────────────────────────────────────────

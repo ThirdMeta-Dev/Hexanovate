@@ -1,4 +1,4 @@
-import imgImage25 from "@/assets/2d3adea92049711e2578c76b97b58d05fe350d0d.png";
+import imgImage25 from "@/assets/2d3adea92049711e2578c76b97b58d05fe350d0d.jpg";
 
 function Group2() {
   return (

@@ -1,15 +1,15 @@
 import svgPaths from "./svg-vriljludlt";
-import imgUnion from "@/assets/42b45ba16e2708dd4fd8e9709aa3f776578cfdf4.png";
-import imgSubtract from "@/assets/cd0090f4b0e9f407395ffead182a114269dccc7c.png";
-import imgFrame1618876107 from "@/assets/1903f89402e0b8de1d3b63e023aaf980bf6a6c2c.png";
-import imgFrame1618876111 from "@/assets/56a662767e739328bbee19bb7b7fe1aedfb68184.png";
-import imgFrame1618876109 from "@/assets/589b1906e6dab31ca4818e2f23ccf3748b5ff8eb.png";
-import imgFrame1618876110 from "@/assets/80d30f8c6a9c9e552699907089b0bc55647ebda7.png";
-import imgImage from "@/assets/afff7ef028d184ff017e3aeb8b7773dc4f4ffaef.png";
-import imgFrame1618876106 from "@/assets/2785e501805dc82943e9d86c95587beba68df79b.png";
-import imgSubtract1 from "@/assets/74ad0c3dc7d44a9bb664c2d2e6418b43a40a5310.png";
-import imgEllipse285 from "@/assets/888794a8a38cb265c4cec55883c54f36a6123b33.png";
-import imgBusinesswomanPosing2 from "@/assets/5955531c53177e3a04cf25ac4fc085711129a5f5.png";
+import imgUnion from "@/assets/42b45ba16e2708dd4fd8e9709aa3f776578cfdf4.jpg";
+import imgSubtract from "@/assets/cd0090f4b0e9f407395ffead182a114269dccc7c.jpg";
+import imgFrame1618876107 from "@/assets/1903f89402e0b8de1d3b63e023aaf980bf6a6c2c.jpg";
+import imgFrame1618876111 from "@/assets/56a662767e739328bbee19bb7b7fe1aedfb68184.jpg";
+import imgFrame1618876109 from "@/assets/589b1906e6dab31ca4818e2f23ccf3748b5ff8eb.jpg";
+import imgFrame1618876110 from "@/assets/80d30f8c6a9c9e552699907089b0bc55647ebda7.jpg";
+import imgImage from "@/assets/afff7ef028d184ff017e3aeb8b7773dc4f4ffaef.jpg";
+import imgFrame1618876106 from "@/assets/2785e501805dc82943e9d86c95587beba68df79b.jpg";
+import imgSubtract1 from "@/assets/74ad0c3dc7d44a9bb664c2d2e6418b43a40a5310.jpg";
+import imgEllipse285 from "@/assets/888794a8a38cb265c4cec55883c54f36a6123b33.jpg";
+import imgBusinesswomanPosing2 from "@/assets/5955531c53177e3a04cf25ac4fc085711129a5f5.jpg";
 import { imgBusinesswomanPosing, imgBusinesswomanPosing1 } from "./svg-cp4sj";
 
 function Group25() {

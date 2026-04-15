@@ -1,4 +1,4 @@
-import imgWhatDefineUs1 from "@/assets/7cecfc3224e8f1e550f6f6cc0a77d5bf834b1495.png";
+import imgWhatDefineUs1 from "@/assets/7cecfc3224e8f1e550f6f6cc0a77d5bf834b1495.jpg";
 
 function Frame() {
   return (

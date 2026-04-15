@@ -1,6 +1,6 @@
 import svgPaths from "./svg-a5c1bm04yb";
-import imgEllipse285 from "@/assets/888794a8a38cb265c4cec55883c54f36a6123b33.png";
-import imgBusinesswomanPosing2 from "@/assets/5955531c53177e3a04cf25ac4fc085711129a5f5.png";
+import imgEllipse285 from "@/assets/888794a8a38cb265c4cec55883c54f36a6123b33.jpg";
+import imgBusinesswomanPosing2 from "@/assets/5955531c53177e3a04cf25ac4fc085711129a5f5.jpg";
 import { imgBusinesswomanPosing, imgBusinesswomanPosing1 } from "./svg-nntlb";
 
 function Group3() {

@@ -1,5 +1,5 @@
 import svgPaths from "./svg-acv45xgh00";
-import imgImage from "@/assets/afff7ef028d184ff017e3aeb8b7773dc4f4ffaef.png";
+import imgImage from "@/assets/afff7ef028d184ff017e3aeb8b7773dc4f4ffaef.jpg";
 
 function Frame1() {
   return (

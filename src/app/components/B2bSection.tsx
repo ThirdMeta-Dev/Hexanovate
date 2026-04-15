@@ -10,10 +10,10 @@ import {
 import { useRef, useId, useState, useCallback, useEffect } from "react";
 import { X, ZoomIn, ZoomOut } from "lucide-react";
 
-import klearStackImg from "@/assets/17570441db00c0be198ad56f30ef77fc9de689a2.png";
-import eFaxImg       from "@/assets/49cdf6d45c8d08683c9745eac1631fd5935906e1.png";
-import sensesImg     from "@/assets/84cadb9eba77f747c6bf62976d9e966fe6856c90.png";
-import trueinImg     from "@/assets/78f367c8a6929e371020c903ab0f7d6155adb476.png";
+import klearStackImg from "@/assets/17570441db00c0be198ad56f30ef77fc9de689a2.jpg";
+import eFaxImg       from "@/assets/49cdf6d45c8d08683c9745eac1631fd5935906e1.jpg";
+import sensesImg     from "@/assets/84cadb9eba77f747c6bf62976d9e966fe6856c90.jpg";
+import trueinImg     from "@/assets/78f367c8a6929e371020c903ab0f7d6155adb476.jpg";
 
 /* ─── REAL PORTFOLIO DATA ────────────────────────────────────────────────── */
 const PORTFOLIO = [

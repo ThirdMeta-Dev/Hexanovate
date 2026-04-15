@@ -1,5 +1,5 @@
 import svgPaths from "./svg-icprnzbobl";
-import imgUnion from "@/assets/88b0d743cac6ef12bd1b29de0f676b9c85fe06b2.png";
+import imgUnion from "@/assets/88b0d743cac6ef12bd1b29de0f676b9c85fe06b2.jpg";
 
 function Group() {
   return (

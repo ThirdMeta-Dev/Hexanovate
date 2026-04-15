@@ -1,6 +1,6 @@
 import { useState } from "react";
 import svgPaths from "../../imports/svg-6g0d8ismyr";
-import imgPersonImage from "@/assets/c15031ee42dd1bdb3c3d26aeeb1dbbc638ec0812.png";
+import imgPersonImage from "@/assets/c15031ee42dd1bdb3c3d26aeeb1dbbc638ec0812.jpg";
 
 /* ─────────────────────────────────────────────────────────────────────────────
  * HEXANOVATE ICON

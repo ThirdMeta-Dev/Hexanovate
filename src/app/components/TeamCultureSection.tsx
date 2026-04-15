@@ -1,16 +1,16 @@
 import { motion, AnimatePresence, useScroll, useTransform, useMotionValueEvent, type MotionValue } from "motion/react";
 import { useState, useEffect, useRef, useCallback } from "react";
 import svgPaths from "../../imports/svg-9mxiszov0f";
-import img1  from "@/assets/393466a8f00e06a6dea5f6fbcd4d2c2de7939ace.png";
-import img2  from "@/assets/ea697fd1c8734ef50383a75ad5b573e938d827a7.png";
-import img3  from "@/assets/069f59e29dcfa5fdf46d9b87bab576654e88b958.png";
-import img4  from "@/assets/eec164b068f12d93431a8bacd150bf580ca70702.png";
-import img5  from "@/assets/efd98944bc6f56588be3895179bc887a6f605839.png";
-import img6  from "@/assets/3ef0c2306bfbc4191425edd723ba9de0447ca13b.png";
-import img7  from "@/assets/41c0422ed85993e6c6e32ab7f0dbec890b778a42.png";
-import img8  from "@/assets/848a8f3f3ccf5c02594ef185d8f3c463e8934575.png";
-import img9  from "@/assets/7b03408bcffa240a069a479d7048ae964cb0e0cc.png";
-import img10 from "@/assets/08ad4b6dca12bdd8a662a5973390d31479223094.png";
+import img1  from "@/assets/393466a8f00e06a6dea5f6fbcd4d2c2de7939ace.jpg";
+import img2  from "@/assets/ea697fd1c8734ef50383a75ad5b573e938d827a7.jpg";
+import img3  from "@/assets/069f59e29dcfa5fdf46d9b87bab576654e88b958.jpg";
+import img4  from "@/assets/eec164b068f12d93431a8bacd150bf580ca70702.jpg";
+import img5  from "@/assets/efd98944bc6f56588be3895179bc887a6f605839.jpg";
+import img6  from "@/assets/3ef0c2306bfbc4191425edd723ba9de0447ca13b.jpg";
+import img7  from "@/assets/41c0422ed85993e6c6e32ab7f0dbec890b778a42.jpg";
+import img8  from "@/assets/848a8f3f3ccf5c02594ef185d8f3c463e8934575.jpg";
+import img9  from "@/assets/7b03408bcffa240a069a479d7048ae964cb0e0cc.jpg";
+import img10 from "@/assets/08ad4b6dca12bdd8a662a5973390d31479223094.jpg";
 
 /* ─── CONSTANTS ────────────────────────────────────────────────────────── */
 const SLIDE_DURATION = 5000;

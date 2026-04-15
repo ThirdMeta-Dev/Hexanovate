@@ -1,10 +1,10 @@
-import imgOnMondaysAlwaysHaveASpoonOfMangoliciousShrikhandWaranaWaranadairyFypExploreS3 from "@/assets/0689329b6a406383b42f36cc7b10f6cd406be03a.png";
-import img6033 from "@/assets/992616aa3d1169004f509036de7973baac842487.png";
-import imgFoodrite63 from "@/assets/4f069c8843666a15fcb4413192db994cb8b747c0.png";
-import imgFoodriteSeriesPostRedChilly from "@/assets/62101aad23ca30f4d7b0f2d1557823af3e2ed284.png";
-import img11 from "@/assets/d11b72bafb73375ebedb3c8ed6fe8452fb412a33.png";
-import imgFoodriteRowNo221NCopy2 from "@/assets/3e7e50869b3f586ec239e79e0714db484b037067.png";
-import img122 from "@/assets/b0015ce0a5a601ba8e77012c9ad259ee7e4cbd0f.png";
+import imgOnMondaysAlwaysHaveASpoonOfMangoliciousShrikhandWaranaWaranadairyFypExploreS3 from "@/assets/0689329b6a406383b42f36cc7b10f6cd406be03a.jpg";
+import img6033 from "@/assets/992616aa3d1169004f509036de7973baac842487.jpg";
+import imgFoodrite63 from "@/assets/4f069c8843666a15fcb4413192db994cb8b747c0.jpg";
+import imgFoodriteSeriesPostRedChilly from "@/assets/62101aad23ca30f4d7b0f2d1557823af3e2ed284.jpg";
+import img11 from "@/assets/d11b72bafb73375ebedb3c8ed6fe8452fb412a33.jpg";
+import imgFoodriteRowNo221NCopy2 from "@/assets/3e7e50869b3f586ec239e79e0714db484b037067.jpg";
+import img122 from "@/assets/b0015ce0a5a601ba8e77012c9ad259ee7e4cbd0f.jpg";
 
 function Frame1() {
   return (

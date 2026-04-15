@@ -1,9 +1,9 @@
 import { motion, AnimatePresence, useInView, useScroll, useTransform } from "motion/react";
 import { useRef, useId, useState, useEffect, useCallback } from "react";
 
-import elmoImg       from "@/assets/d6712a28c4427451654076b57057128fe4979cf4.png";
-import cybernetyxImg from "@/assets/2bde221ff9288c4d81474060fcb820a6a1113526.png";
-import eyrisImg      from "@/assets/131456e21cf49af42a068b828a52cbe44337bec0.png";
+import elmoImg       from "@/assets/d6712a28c4427451654076b57057128fe4979cf4.jpg";
+import cybernetyxImg from "@/assets/2bde221ff9288c4d81474060fcb820a6a1113526.jpg";
+import eyrisImg      from "@/assets/131456e21cf49af42a068b828a52cbe44337bec0.jpg";
 
 /* ─── SLIDE DATA (5 real education portfolio items) ──────────────────────── */
 const SLIDE_CARDS = [

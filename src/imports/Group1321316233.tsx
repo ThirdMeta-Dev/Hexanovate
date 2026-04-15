@@ -1,4 +1,4 @@
-import imgChatGptImageMar92026020606Pm2PicsartAiImageEnhancer1 from "@/assets/b0dfb4ee4b8e53afd123360bd846b99e3a25ee9f.png";
+import imgChatGptImageMar92026020606Pm2PicsartAiImageEnhancer1 from "@/assets/b0dfb4ee4b8e53afd123360bd846b99e3a25ee9f.jpg";
 
 export default function Group() {
   return (

@@ -10,7 +10,7 @@
    ───────────────────────────────────────────────────────────────────────────── */
 import { useState, useEffect } from "react";
 import { motion } from "motion/react";
-import imgElephant from "@/assets/leadership-elephant.png";
+import imgElephant from "@/assets/leadership-elephant.jpg";
 import imgIcon     from "@/assets/leadership-icon-arrow.svg";
 
 const EASE = [0.22, 1, 0.36, 1] as const;

@@ -1,4 +1,4 @@
-import imgGeminiGeneratedImageReig8Dreig8Dreig1 from "@/assets/3ef0c2306bfbc4191425edd723ba9de0447ca13b.png";
+import imgGeminiGeneratedImageReig8Dreig8Dreig1 from "@/assets/3ef0c2306bfbc4191425edd723ba9de0447ca13b.jpg";
 
 function Frame() {
   return (

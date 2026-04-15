@@ -1,7 +1,7 @@
 import { motion, MotionValue, useScroll, useTransform } from "motion/react";
 import { useId, useRef } from "react";
 import svgPaths from "../../imports/svg-w6xbq20mqf";
-import imgWhyChooseUs1 from "@/assets/087ffb858e8be63789e9a7cde72a9eeee8a5fe6e.png";
+import imgWhyChooseUs1 from "@/assets/087ffb858e8be63789e9a7cde72a9eeee8a5fe6e.jpg";
 
 /* ─── FEATURE ICON (blue circle, 30×30, with SVG inside) ──────────────── */
 function FeatureIcon({ clipId }: { clipId: string }) {

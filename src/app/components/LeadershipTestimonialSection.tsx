@@ -10,7 +10,7 @@
    ───────────────────────────────────────────────────────────────────────────── */
 import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
-import imgAvatarSrc from "@/assets/testimonial-avatar.png";
+import imgAvatarSrc from "@/assets/testimonial-avatar.jpg";
 import imgQuoteSrc  from "@/assets/testimonial-quote.svg";
 
 const EASE = [0.22, 1, 0.36, 1] as const;

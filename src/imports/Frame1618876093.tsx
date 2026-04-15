@@ -1,8 +1,8 @@
 import svgPaths from "./svg-avdq8h8yq2";
-import imgFrame1618876107 from "@/assets/1903f89402e0b8de1d3b63e023aaf980bf6a6c2c.png";
-import imgFrame1618876111 from "@/assets/56a662767e739328bbee19bb7b7fe1aedfb68184.png";
-import imgFrame1618876109 from "@/assets/589b1906e6dab31ca4818e2f23ccf3748b5ff8eb.png";
-import imgFrame1618876110 from "@/assets/80d30f8c6a9c9e552699907089b0bc55647ebda7.png";
+import imgFrame1618876107 from "@/assets/1903f89402e0b8de1d3b63e023aaf980bf6a6c2c.jpg";
+import imgFrame1618876111 from "@/assets/56a662767e739328bbee19bb7b7fe1aedfb68184.jpg";
+import imgFrame1618876109 from "@/assets/589b1906e6dab31ca4818e2f23ccf3748b5ff8eb.jpg";
+import imgFrame1618876110 from "@/assets/80d30f8c6a9c9e552699907089b0bc55647ebda7.jpg";
 
 function Frame11() {
   return <div className="h-[60px] shrink-0 w-[92px]" />;

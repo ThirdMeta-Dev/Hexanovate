@@ -1,5 +1,5 @@
 import React from "react";
-import imgBg from "@/assets/734bb0434a91dc4c997f6ae2036ae4185f349f92.png";
+import imgBg from "@/assets/734bb0434a91dc4c997f6ae2036ae4185f349f92.jpg";
 
 /**
  * Background wrapper for Values & Approach, Awards Logo Wall, Resources.

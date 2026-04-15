@@ -1,4 +1,4 @@
-import imgGeminiGeneratedImage1Scy581Scy581Scy1 from "@/assets/069f59e29dcfa5fdf46d9b87bab576654e88b958.png";
+import imgGeminiGeneratedImage1Scy581Scy581Scy1 from "@/assets/069f59e29dcfa5fdf46d9b87bab576654e88b958.jpg";
 
 function Frame() {
   return (

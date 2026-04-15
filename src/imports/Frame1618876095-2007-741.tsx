@@ -1,5 +1,5 @@
 import svgPaths from "./svg-r3afxnv8iq";
-import imgWhyChooseUs1 from "@/assets/087ffb858e8be63789e9a7cde72a9eeee8a5fe6e.png";
+import imgWhyChooseUs1 from "@/assets/087ffb858e8be63789e9a7cde72a9eeee8a5fe6e.jpg";
 
 function Frame20() {
   return (

@@ -1,9 +1,9 @@
 import { useState, useCallback, useRef } from "react";
 import { motion, AnimatePresence, MotionValue, useScroll, useTransform } from "motion/react";
 import svgPaths from "../../imports/svg-z7psrjnrcc";
-import imgSlide0 from "@/assets/cd0d3c71464504d6e4fd1662e5128b67cbe4dfdc.png";
-import imgSlide1 from "@/assets/455b6c3830e6c866d6b397b00c2dcdf87ae3df2d.png";
-import imgSlide2 from "@/assets/a9faff04fbb40b4297efb717f05795a3e749ebf7.png";
+import imgSlide0 from "@/assets/cd0d3c71464504d6e4fd1662e5128b67cbe4dfdc.jpg";
+import imgSlide1 from "@/assets/455b6c3830e6c866d6b397b00c2dcdf87ae3df2d.jpg";
+import imgSlide2 from "@/assets/a9faff04fbb40b4297efb717f05795a3e749ebf7.jpg";
 
 /* ─── SLIDES DATA ────────────────────────────────────────────────────────── */
 const SLIDES = [

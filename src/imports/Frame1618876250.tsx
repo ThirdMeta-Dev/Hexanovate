@@ -1,5 +1,5 @@
 import svgPaths from "./svg-86oyu8njm4";
-import imgChatGptImageMar92026073229Pm1 from "@/assets/c15031ee42dd1bdb3c3d26aeeb1dbbc638ec0812.png";
+import imgChatGptImageMar92026073229Pm1 from "@/assets/c15031ee42dd1bdb3c3d26aeeb1dbbc638ec0812.jpg";
 
 function HexanovateIconSvg() {
   return (

@@ -1,4 +1,4 @@
-import imgFrame1618876110 from "@/assets/b2c2a05ac379979ca68fe1d5fde4df76497203c5.png";
+import imgFrame1618876110 from "@/assets/b2c2a05ac379979ca68fe1d5fde4df76497203c5.jpg";
 
 function Frame1() {
   return <div className="h-[48px] shrink-0 w-full" />;

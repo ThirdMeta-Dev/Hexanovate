@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect, useLayoutEffect, useCallback } from "react";
 import { motion, MotionValue, useScroll, useTransform } from "motion/react";
 import svgPaths from "../../imports/svg-rg8pb9vz1u";
-import imgSubtract from "@/assets/cd0090f4b0e9f407395ffead182a114269dccc7c.png";
+import imgSubtract from "@/assets/cd0090f4b0e9f407395ffead182a114269dccc7c.jpg";
 
 /* ─── HEXAGON CLUSTER (bottom-left of column 1) ───────────────────────────── */
 function HexCluster() {

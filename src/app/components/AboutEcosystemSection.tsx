@@ -20,7 +20,7 @@
    ───────────────────────────────────────────────────────────────────────────── */
 import { useState, useEffect } from "react";
 import { motion } from "motion/react";
-import imgCenterSrc from "@/assets/ecosystem-center.png";
+import imgCenterSrc from "@/assets/ecosystem-center.jpg";
 
 const IMG_CENTER = imgCenterSrc;
 

@@ -1,12 +1,12 @@
 import svgPaths from "./svg-jl4fqzv8ja";
-import imgImage212 from "@/assets/bda2b46a7404e07003bc523edf67001cfd71ce4d.png";
-import imgImage25 from "@/assets/2d3adea92049711e2578c76b97b58d05fe350d0d.png";
-import imgImage216 from "@/assets/b5a6ae84ac81f90355801c07a654b4ddeff7a307.png";
-import imgImage211 from "@/assets/ec9f3ce9d899bf70e2291d8bb5a2449cfbea0db2.png";
-import imgImage213 from "@/assets/521400233e6074875648780027ba03a58633b4d6.png";
-import imgPaybooksLogoHorizontalLight1 from "@/assets/a131b6de857eb2c01c3d2bc1476e7f8e39ad15ff.png";
-import imgElmoNega from "@/assets/9f84aaabf73edf8837949843d52521852059611f.png";
-import imgImage215 from "@/assets/e770b8f7f0a4c6307225a1f4016b97084db4444e.png";
+import imgImage212 from "@/assets/bda2b46a7404e07003bc523edf67001cfd71ce4d.jpg";
+import imgImage25 from "@/assets/2d3adea92049711e2578c76b97b58d05fe350d0d.jpg";
+import imgImage216 from "@/assets/b5a6ae84ac81f90355801c07a654b4ddeff7a307.jpg";
+import imgImage211 from "@/assets/ec9f3ce9d899bf70e2291d8bb5a2449cfbea0db2.jpg";
+import imgImage213 from "@/assets/521400233e6074875648780027ba03a58633b4d6.jpg";
+import imgPaybooksLogoHorizontalLight1 from "@/assets/a131b6de857eb2c01c3d2bc1476e7f8e39ad15ff.jpg";
+import imgElmoNega from "@/assets/9f84aaabf73edf8837949843d52521852059611f.jpg";
+import imgImage215 from "@/assets/e770b8f7f0a4c6307225a1f4016b97084db4444e.jpg";
 import { imgVector, imgGroup, imgGroup1 } from "./svg-tf7hb";
 
 function Group13() {

@@ -1,7 +1,7 @@
 import svgPaths from "./svg-vvetcstlh1";
-import imgUnion from "@/assets/88b0d743cac6ef12bd1b29de0f676b9c85fe06b2.png";
-import imgDsg1 from "@/assets/51518d3801bf38be1d9703d14f72e39a818a29cc.png";
-import imgImage from "@/assets/afff7ef028d184ff017e3aeb8b7773dc4f4ffaef.png";
+import imgUnion from "@/assets/88b0d743cac6ef12bd1b29de0f676b9c85fe06b2.jpg";
+import imgDsg1 from "@/assets/51518d3801bf38be1d9703d14f72e39a818a29cc.jpg";
+import imgImage from "@/assets/afff7ef028d184ff017e3aeb8b7773dc4f4ffaef.jpg";
 
 function Group() {
   return (

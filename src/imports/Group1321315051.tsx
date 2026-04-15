@@ -1,4 +1,4 @@
-import imgImage213 from "@/assets/521400233e6074875648780027ba03a58633b4d6.png";
+import imgImage213 from "@/assets/521400233e6074875648780027ba03a58633b4d6.jpg";
 
 export default function Group() {
   return (

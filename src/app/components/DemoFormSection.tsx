@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { motion, AnimatePresence } from "motion/react";
 import { useNavigate } from "react-router";
 import svgPaths from "../../imports/svg-76w8se6282";
-import imgEllipse285 from "@/assets/888794a8a38cb265c4cec55883c54f36a6123b33.png";
+import imgEllipse285 from "@/assets/888794a8a38cb265c4cec55883c54f36a6123b33.jpg";
 import { projectId, publicAnonKey } from "../../../utils/supabase/info";
 import { BRAND_LOGOS } from "./BrandLogos";
 

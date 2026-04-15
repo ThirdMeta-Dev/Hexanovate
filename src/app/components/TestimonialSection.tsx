@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence, useScroll, useTransform, useMotionValueEvent, MotionValue } from "motion/react";
 import svgPaths from "../../imports/svg-acv45xgh00";
-import imgAvatar from "@/assets/afff7ef028d184ff017e3aeb8b7773dc4f4ffaef.png";
+import imgAvatar from "@/assets/afff7ef028d184ff017e3aeb8b7773dc4f4ffaef.jpg";
 
 /* ─── DATA ───────────────────────────────────────────────────────────────── */
 const TESTIMONIALS = [

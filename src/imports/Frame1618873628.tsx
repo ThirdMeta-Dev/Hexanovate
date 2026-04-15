@@ -1,5 +1,5 @@
 import svgPaths from "./svg-cy6d1ssxbk";
-import imgPaybooksLogoHorizontalLight1 from "@/assets/a131b6de857eb2c01c3d2bc1476e7f8e39ad15ff.png";
+import imgPaybooksLogoHorizontalLight1 from "@/assets/a131b6de857eb2c01c3d2bc1476e7f8e39ad15ff.jpg";
 import { imgVector, imgGroup, imgGroup1 } from "./svg-ysekj";
 
 function Group3() {

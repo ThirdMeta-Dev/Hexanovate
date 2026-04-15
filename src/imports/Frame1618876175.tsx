@@ -1,5 +1,5 @@
 import svgPaths from "./svg-1wmb8yydkm";
-import imgSubtract from "@/assets/74ad0c3dc7d44a9bb664c2d2e6418b43a40a5310.png";
+import imgSubtract from "@/assets/74ad0c3dc7d44a9bb664c2d2e6418b43a40a5310.jpg";
 
 function Frame4() {
   return (
