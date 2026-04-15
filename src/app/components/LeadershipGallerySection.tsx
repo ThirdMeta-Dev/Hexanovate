@@ -21,58 +21,41 @@ import { motion, useScroll, useTransform } from "motion/react";
 const EASE = [0.22, 1, 0.36, 1] as const;
 const VP   = { once: true, margin: "-80px" } as const;
 
-/* ── Figma CDN image assets (7-day URLs) ────────────────────────────────── */
+/* ── Local gallery assets (public/gallery/) ─────────────────────────────── */
 const IMGS = {
-  team1:    "https://www.figma.com/api/mcp/asset/6920fbd6-940c-4fe7-b148-e8fa9861d7bf",
-  team2:    "https://www.figma.com/api/mcp/asset/38631e33-0815-4ae3-8f82-8262ce233acd",
-  team3:    "https://www.figma.com/api/mcp/asset/370989c4-6288-45e1-8e53-ed18748def16",
-  team4:    "https://www.figma.com/api/mcp/asset/f8c31547-a4a5-4532-a879-c29b6b9226f0",
-  team5:    "https://www.figma.com/api/mcp/asset/103cc788-781d-43dd-91ca-1cf7527bfcc9",
-  team6:    "https://www.figma.com/api/mcp/asset/3ee60f2d-7390-4d56-85ea-b92a13aaad5f",
-  team7:    "https://www.figma.com/api/mcp/asset/909a96ee-9f9b-47ce-a70f-a8d35de88beb",
-  team8:    "https://www.figma.com/api/mcp/asset/ac51b777-8ed2-41b0-8273-d09286e5502c",
-  team9:    "https://www.figma.com/api/mcp/asset/0ca948b1-3c40-407b-a3dc-4e3e59f999bf",
-  team10:   "https://www.figma.com/api/mcp/asset/1d1d49b8-ed79-4321-bc9b-27e364b75e00",
-  team11:   "https://www.figma.com/api/mcp/asset/525a6ad8-3476-4463-9b27-db91649e5761",
-  team12:   "https://www.figma.com/api/mcp/asset/8a0e91dc-ff54-4980-93cd-046076153c02",
-  team13:   "https://www.figma.com/api/mcp/asset/71841bfd-7f24-48bd-95bf-7b9fee0fb72a",
-  team14:   "https://www.figma.com/api/mcp/asset/02dfa201-bfcf-4456-aa9b-c9c6c786baa1",
-  team15:   "https://www.figma.com/api/mcp/asset/dea2faea-242a-4e3f-bac0-3c1482bd6710",
-  team16:   "https://www.figma.com/api/mcp/asset/5f39ea0d-13d6-4118-a1b8-8a5387f4e964",
-  team17:   "https://www.figma.com/api/mcp/asset/6615f38d-d924-4878-9f6c-4445fbb26c08",
-  team18:   "https://www.figma.com/api/mcp/asset/59a54faf-0e1b-4d3e-9546-aff66cd9a521",
-  team19:   "https://www.figma.com/api/mcp/asset/7d92c827-b547-492b-bc9f-fed58fcf8485",
-  team20:   "https://www.figma.com/api/mcp/asset/b500b37b-a413-4898-975d-e1402dd9cac5",
-  team21:   "https://www.figma.com/api/mcp/asset/39526f4a-d1fe-468a-bac7-dce0ebb866e5",
-  team22:   "https://www.figma.com/api/mcp/asset/b8ccf26b-c4a0-42ba-82ae-ad6380a9e0ab",
-  team23:   "https://www.figma.com/api/mcp/asset/65f37f57-b8cd-4288-8714-7835d338140b",
-  team24:   "https://www.figma.com/api/mcp/asset/88ba0e9a-cc74-4335-820b-bd5eb56254ce",
-  team25:   "https://www.figma.com/api/mcp/asset/e0447243-c48d-4320-a458-e4c16b5d1fbd",
-  team26:   "https://www.figma.com/api/mcp/asset/80a111b1-2829-464d-a290-03f0a7013c57",
-  team27:   "https://www.figma.com/api/mcp/asset/681b2cfd-5acd-44de-8452-5ddd244fa034",
-  team28:   "https://www.figma.com/api/mcp/asset/4aabe6c6-79d6-4457-85b6-9187983582a5",
-  team29:   "https://www.figma.com/api/mcp/asset/89081898-ce3a-4a2b-a00f-ba56667159fb",
-  team30:   "https://www.figma.com/api/mcp/asset/796a3843-a589-4ff0-a227-1cd7055a93e5",
-  team31:   "https://www.figma.com/api/mcp/asset/ace5f731-4210-4642-b4a4-d6b1cfe063d4",
-  team32:   "https://www.figma.com/api/mcp/asset/c9c89503-2669-4ea2-8b3d-f0d475954b2d",
-  team33:   "https://www.figma.com/api/mcp/asset/fbc95bf6-514b-4ee7-b8b6-44c40ce9bd51",
-  team34:   "https://www.figma.com/api/mcp/asset/1da4a661-8b00-42ae-ae8e-a705cd0abbf5",
-  team35:   "https://www.figma.com/api/mcp/asset/6f89d2e1-23f5-4b45-9465-b491554cf00e",
-  team36:   "https://www.figma.com/api/mcp/asset/4d8eb8aa-0379-42db-97a8-6bc0f28bac4a",
-  team37:   "https://www.figma.com/api/mcp/asset/38610758-ce48-497e-9a05-db83c0eee4b9",
-  team38:   "https://www.figma.com/api/mcp/asset/ff235a03-89d5-4db5-9cd1-629ed713065d",
-  team39:   "https://www.figma.com/api/mcp/asset/8040488b-a3bf-45d1-b1ce-d666cd1d62f6",
-  team40:   "https://www.figma.com/api/mcp/asset/d43e3797-ee64-45b7-b60c-a42fbee62871",
-  team41:   "https://www.figma.com/api/mcp/asset/6899e4fb-f439-4620-b7ff-42992a5edeb5",
-  team42:   "https://www.figma.com/api/mcp/asset/c453504b-27fb-4217-af69-96f8b1fe1a6f",
-  team43:   "https://www.figma.com/api/mcp/asset/d0b2a790-4764-40ed-876a-786ac9f1160c",
-  team44:   "https://www.figma.com/api/mcp/asset/237eff02-8d16-45b0-a83c-42c6758a0520",
-  team45:   "https://www.figma.com/api/mcp/asset/9875a0c5-115c-42f6-a88a-3851f0c73038",
-  team46:   "https://www.figma.com/api/mcp/asset/72fc3fb2-4822-4582-9d54-37a542b1bbcf",
-  team47:   "https://www.figma.com/api/mcp/asset/61c86ac4-ac90-4af5-a03e-ec29808192a5",
-  team48:   "https://www.figma.com/api/mcp/asset/13b53e60-c185-4bc6-a7a4-12fcfd4ed2e3",
-  team49:   "https://www.figma.com/api/mcp/asset/0e97dd6f-2c4f-4ae7-9463-69b10bec2476",
-  team50:   "https://www.figma.com/api/mcp/asset/7a1c5346-92e6-4ffa-8149-b1c45e489bd3",
+  team1:  "/gallery/team-01.png",
+  team2:  "/gallery/team-02.png",
+  team3:  "/gallery/team-03.png",
+  team4:  "/gallery/team-04.png",
+  team5:  "/gallery/team-05.png",
+  team6:  "/gallery/team-06.png",
+  team7:  "/gallery/team-07.png",
+  team8:  "/gallery/team-08.png",
+  team9:  "/gallery/team-09.png",
+  team10: "/gallery/team-10.png",
+  team11: "/gallery/team-11.png",
+  team12: "/gallery/team-12.png",
+  team13: "/gallery/team-13.png",
+  team14: "/gallery/team-14.png",
+  team15: "/gallery/team-15.png",
+  team16: "/gallery/team-16.png",
+  team17: "/gallery/team-17.png",
+  team18: "/gallery/team-18.png",
+  team19: "/gallery/team-19.png",
+  team20: "/gallery/team-20.png",
+  team21: "/gallery/team-21.png",
+  team22: "/gallery/team-22.png",
+  team23: "/gallery/team-23.png",
+  team24: "/gallery/team-24.png",
+  team25: "/gallery/team-25.png",
+  team26: "/gallery/team-26.png",
+  team27: "/gallery/team-27.png",
+  team28: "/gallery/team-28.png",
+  team29: "/gallery/team-29.png",
+  team30: "/gallery/team-30.png",
+  team31: "/gallery/team-31.png",
+  team32: "/gallery/team-32.png",
+  team33: "/gallery/team-33.png",
 };
 
 /* ── Image tile helpers ─────────────────────────────────────────────────── */
@@ -222,6 +205,7 @@ export function LeadershipGallerySection() {
   const outerRef = useRef<HTMLDivElement>(null);
   const [vw, setVw]   = useState(() => typeof window !== "undefined" ? window.innerWidth : 1440);
   const [vh, setVh]   = useState(() => typeof window !== "undefined" ? window.innerHeight : 800);
+  const isMobile = vw <= 1024;
 
   useEffect(() => {
     const onResize = () => { setVw(window.innerWidth); setVh(window.innerHeight); };
@@ -245,8 +229,8 @@ export function LeadershipGallerySection() {
       {/* ── Header (always visible, not sticky) ── */}
       <motion.div
         style={{
-          maxWidth: 1008, margin: "0 auto 48px", padding: "0 96px",
-          display: "flex", gap: 60, alignItems: "flex-start",
+          maxWidth: 1008, margin: "0 auto 48px", padding: isMobile ? "0 24px" : "0 96px",
+          display: "flex", flexDirection: isMobile ? "column" : "row", gap: isMobile ? 20 : 60, alignItems: "flex-start",
         }}
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}

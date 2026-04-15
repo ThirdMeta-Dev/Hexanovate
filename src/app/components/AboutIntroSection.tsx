@@ -238,6 +238,13 @@ function StatBlock({
 
 /* ── Main export ─────────────────────────────────────────────────────────── */
 export function AboutIntroSection() {
+  const [isMobile, setIsMobile] = useState(() => typeof window !== "undefined" ? window.innerWidth <= 1024 : false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 1024);
+    window.addEventListener("resize", check, { passive: true });
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
   return (
     <section
       style={{
@@ -252,9 +259,9 @@ export function AboutIntroSection() {
       <div
         style={{
           display: "flex",
-          flexDirection: "row",
+          flexDirection: isMobile ? "column" : "row",
           alignItems: "flex-start",
-          gap: 60,
+          gap: isMobile ? 24 : 60,
         }}
       >
         {/* LEFT: "About us" tag */}
@@ -270,7 +277,7 @@ export function AboutIntroSection() {
 
         {/* RIGHT: paragraphs — scroll-driven word reveal, all white */}
         <motion.div
-          style={{ flex: 1 }}
+          style={{ flex: 1, width: "100%" }}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={VP}
@@ -284,9 +291,9 @@ export function AboutIntroSection() {
       <div
         style={{
           display: "flex",
-          flexDirection: "row",
-          alignItems: "flex-end",
-          gap: 60,
+          flexDirection: isMobile ? "column" : "row",
+          alignItems: isMobile ? "stretch" : "flex-end",
+          gap: isMobile ? 40 : 60,
           marginTop: 60,
         }}
       >
@@ -294,10 +301,11 @@ export function AboutIntroSection() {
         <div
           style={{
             display: "flex",
-            flexDirection: "column",
-            gap: 44,
+            flexDirection: isMobile ? "row" : "column",
+            flexWrap: isMobile ? "wrap" : "nowrap",
+            gap: isMobile ? 32 : 44,
             flexShrink: 0,
-            width: 200,
+            width: isMobile ? "100%" : 200,
           }}
         >
           {STATS.map((s, i) => (
@@ -317,7 +325,7 @@ export function AboutIntroSection() {
         <motion.div
           style={{
             flex: 1,
-            height: 300,
+            height: isMobile ? 200 : 300,
             borderRadius: 20,
             background: "rgba(210,210,210,0.20)",
             backdropFilter: "blur(40px)",

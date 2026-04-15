@@ -18,10 +18,11 @@
    Items cascade inward: top items are closest to center (large indent),
    bottom items are furthest (no indent) — creating a funnel shape.
    ───────────────────────────────────────────────────────────────────────────── */
+import { useState, useEffect } from "react";
 import { motion } from "motion/react";
+import imgCenterSrc from "@/assets/ecosystem-center.png";
 
-// Figma CDN URL (expires ~7 days) — replace with a local asset in /src/assets/
-const IMG_CENTER = "https://www.figma.com/api/mcp/asset/227f575a-a71b-4d87-b37b-30f0f3c4e91b";
+const IMG_CENTER = imgCenterSrc;
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 const VP = { once: true, margin: "-80px" } as const;
@@ -159,6 +160,14 @@ const INDENTS = [96, 32, 0];
 
 /* ── Main export ─────────────────────────────────────────────────────────── */
 export function AboutEcosystemSection() {
+  const [isMobile, setIsMobile] = useState(() => typeof window !== "undefined" ? window.innerWidth <= 1024 : false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 1024);
+    window.addEventListener("resize", check, { passive: true });
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
   return (
     <section
       style={{
@@ -219,94 +228,110 @@ export function AboutEcosystemSection() {
       </div>
 
       {/* ── Items + center image ── */}
-      <div
-        style={{
-          position: "relative",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "flex-start",
-        }}
-      >
-        {/* LEFT column */}
-        <div
-          style={{
-            width: 300,
-            flexShrink: 0,
-            display: "flex",
-            flexDirection: "column",
-            gap: 74,
-          }}
-        >
+      {isMobile ? (
+        /* Mobile: single column, no center image */
+        <div style={{ display: "flex", flexDirection: "column", gap: 40 }}>
           {ITEMS.map((item, i) => (
             <FeatureItem
-              key={`left-${i}`}
+              key={`mobile-${i}`}
               title={item.title}
               body={item.body}
               align="left"
-              indent={INDENTS[i]}
+              indent={0}
               delay={i * 0.1}
             />
           ))}
         </div>
-
-        {/* RIGHT column */}
+      ) : (
         <div
           style={{
-            width: 300,
-            flexShrink: 0,
+            position: "relative",
             display: "flex",
-            flexDirection: "column",
-            gap: 74,
-            alignItems: "flex-end",
+            justifyContent: "space-between",
+            alignItems: "flex-start",
           }}
         >
-          {ITEMS.map((item, i) => (
-            <FeatureItem
-              key={`right-${i}`}
-              title={item.title}
-              body={item.body}
-              align="right"
-              indent={INDENTS[i]}
-              delay={i * 0.1 + 0.05}
-            />
-          ))}
-        </div>
-
-        {/* Center image — absolutely positioned between the columns */}
-        <div
-          style={{
-            position: "absolute",
-            left: "50%",
-            top: 60,
-            transform: "translateX(-50%)",
-            width: 514,
-            pointerEvents: "none",
-          }}
-        >
-          <img
-            src={IMG_CENTER}
-            alt="Hexanovate Ecosystem"
+          {/* LEFT column */}
+          <div
             style={{
-              width: "100%",
-              height: "auto",
-              display: "block",
-              objectFit: "contain",
+              width: 300,
+              flexShrink: 0,
+              display: "flex",
+              flexDirection: "column",
+              gap: 74,
             }}
-          />
-          {/* Fade out bottom of image into bg */}
+          >
+            {ITEMS.map((item, i) => (
+              <FeatureItem
+                key={`left-${i}`}
+                title={item.title}
+                body={item.body}
+                align="left"
+                indent={INDENTS[i]}
+                delay={i * 0.1}
+              />
+            ))}
+          </div>
+
+          {/* RIGHT column */}
+          <div
+            style={{
+              width: 300,
+              flexShrink: 0,
+              display: "flex",
+              flexDirection: "column",
+              gap: 74,
+              alignItems: "flex-end",
+            }}
+          >
+            {ITEMS.map((item, i) => (
+              <FeatureItem
+                key={`right-${i}`}
+                title={item.title}
+                body={item.body}
+                align="right"
+                indent={INDENTS[i]}
+                delay={i * 0.1 + 0.05}
+              />
+            ))}
+          </div>
+
+          {/* Center image — absolutely positioned between the columns */}
           <div
             style={{
               position: "absolute",
-              bottom: 0,
-              left: 0,
-              right: 0,
-              height: 80,
-              background: "linear-gradient(to bottom, rgba(10,10,10,0), #0a0a0a)",
+              left: "50%",
+              top: 60,
+              transform: "translateX(-50%)",
+              width: 514,
               pointerEvents: "none",
             }}
-          />
+          >
+            <img
+              src={IMG_CENTER}
+              alt="Hexanovate Ecosystem"
+              style={{
+                width: "100%",
+                height: "auto",
+                display: "block",
+                objectFit: "contain",
+              }}
+            />
+            {/* Fade out bottom of image into bg */}
+            <div
+              style={{
+                position: "absolute",
+                bottom: 0,
+                left: 0,
+                right: 0,
+                height: 80,
+                background: "linear-gradient(to bottom, rgba(10,10,10,0), #0a0a0a)",
+                pointerEvents: "none",
+              }}
+            />
+          </div>
         </div>
-      </div>
+      )}
     </section>
   );
 }

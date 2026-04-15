@@ -8,14 +8,16 @@
    2. Photo placeholder (left) + quote block (right)
       Quote icon is INLINE with text (flex row), body text is full width (no cap)
    ───────────────────────────────────────────────────────────────────────────── */
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
+import imgAvatarSrc from "@/assets/testimonial-avatar.png";
+import imgQuoteSrc  from "@/assets/testimonial-quote.svg";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 const VP   = { once: true, margin: "-80px" } as const;
 
-const IMG_AVATAR = "https://www.figma.com/api/mcp/asset/273bca9a-7574-48f9-a941-69148543dfc8";
-const IMG_QUOTE  = "https://www.figma.com/api/mcp/asset/b3416753-52b7-4849-aa14-76a688801807";
+const IMG_AVATAR = imgAvatarSrc;
+const IMG_QUOTE  = imgQuoteSrc;
 
 /* ── Word-by-word scroll reveal ─────────────────────────────────────────── */
 function RevealWord({
@@ -49,6 +51,12 @@ const HEADING_WORDS: { text: string; weight: number; color: string }[] = [
 
 export function LeadershipTestimonialSection() {
   const sectionRef = useRef<HTMLElement>(null);
+  const [isMobile, setIsMobile] = useState(() => typeof window !== "undefined" ? window.innerWidth <= 1024 : false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 1024);
+    window.addEventListener("resize", check, { passive: true });
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -60,17 +68,17 @@ export function LeadershipTestimonialSection() {
   return (
     <motion.section
       ref={sectionRef}
-      style={{ width: "100%", padding: "0 96px", boxSizing: "border-box" }}
+      style={{ width: "100%", padding: isMobile ? "0 24px" : "0 96px", boxSizing: "border-box" }}
       initial={{ opacity: 0, y: 60, scale: 0.97 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={VP}
       transition={{ duration: 0.85, ease: EASE }}
     >
-      <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", flexDirection: "column", gap: 48 }}>
+      <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", flexDirection: "column", gap: isMobile ? 32 : 48 }}>
 
         {/* ── Row 1: Tag + Heading (original constrained style + scroll reveal) ── */}
-        <div style={{ display: "flex", alignItems: "flex-start", gap: 32 }}>
-          <div style={{ flexShrink: 0, paddingTop: 8 }}>
+        <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: "flex-start", gap: isMobile ? 16 : 32 }}>
+          <div style={{ flexShrink: 0, paddingTop: isMobile ? 0 : 8 }}>
             <div style={{
               background: "#111", border: "1px solid #414141", borderRadius: 40,
               padding: "6px 20px", display: "inline-flex", alignItems: "center",
@@ -84,7 +92,7 @@ export function LeadershipTestimonialSection() {
           {/* Heading — original font size, scroll-driven word reveal */}
           <div style={{
             fontFamily: "Manrope, sans-serif",
-            fontSize: "clamp(36px, 5vw, 60px)",
+            fontSize: isMobile ? "clamp(28px, 7vw, 44px)" : "clamp(36px, 5vw, 60px)",
             lineHeight: 1.36,
             flex: 1,
             textTransform: "capitalize",
@@ -103,23 +111,21 @@ export function LeadershipTestimonialSection() {
         </div>
 
         {/* ── Row 2: Photo + Quote block ── */}
-        <div style={{ display: "flex", alignItems: "center", gap: 44 }}>
+        <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: isMobile ? "flex-start" : "center", gap: isMobile ? 24 : 44 }}>
 
           {/* Gray photo placeholder */}
           <div style={{
-            width: 200, height: 260, borderRadius: 20,
+            width: isMobile ? "100%" : 200,
+            height: isMobile ? 220 : 260,
+            borderRadius: 20,
             background: "#d9d9d9", flexShrink: 0,
           }} />
 
           {/* Quote block */}
           <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 28 }}>
 
-            {/* Quote icon + text — Figma exact pattern:
-                Icon stacked above text with negative margin overlap.
-                Text uses textIndent to push line 1 past the icon.
-                Line 2+ wraps back to left edge (textIndent = first line only). */}
+            {/* Quote icon + text */}
             <div style={{ paddingBottom: 20, position: "relative" }}>
-              {/* Icon: 102×56px, sits at top-left, pulls text up via negative margin */}
               <img
                 src={IMG_QUOTE}
                 alt=""
@@ -132,15 +138,14 @@ export function LeadershipTestimonialSection() {
                   zIndex: 1,
                 }}
               />
-              {/* Text: textIndent pushes first line past icon width, wrap lines flush-left */}
               <p style={{
                 fontFamily: "Manrope, sans-serif",
                 fontWeight: 300,
-                fontSize: 18,
+                fontSize: isMobile ? 16 : 18,
                 lineHeight: "32px",
                 color: "#ffffff",
                 margin: 0,
-                textIndent: "110px",
+                textIndent: isMobile ? 0 : "110px",
               }}>
                 We unlock scale by fixing lorem ipsum what's leaking conversion,
                 retention, repeation growth lorem compounds. We unlock scale by fixing lorem
@@ -148,7 +153,7 @@ export function LeadershipTestimonialSection() {
             </div>
 
             {/* Person attribution */}
-            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
               <div style={{
                 width: 36, height: 36, borderRadius: "50%",
                 border: "1px solid #FFA600", overflow: "hidden", flexShrink: 0,

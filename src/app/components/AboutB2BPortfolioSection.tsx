@@ -10,7 +10,7 @@
    • 3-dot navigation below carousel
    • Logo strip: "We Feel In-House..." text + auto-scrolling brand logos
    ───────────────────────────────────────────────────────────────────────────── */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import imgAcumen    from "@/assets/bda2b46a7404e07003bc523edf67001cfd71ce4d.png";
 import imgAppGallop from "@/assets/2d3adea92049711e2578c76b97b58d05fe350d0d.png";
@@ -23,8 +23,8 @@ import imgWarehouse from "@/assets/e770b8f7f0a4c6307225a1f4016b97084db4444e.png"
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-/* ── Placeholder still on Figma CDN (avatar only) ────────────────────────── */
-const IMG_AVATAR = "https://www.figma.com/api/mcp/asset/e8bb65aa-feb8-48c9-9732-715df29a3368";
+import imgAvatarLocal from "@/assets/b2b-avatar.png";
+const IMG_AVATAR = imgAvatarLocal;
 
 /* ── Slide data (3 slides — same structure, ready for real content) ──────── */
 interface Slide {
@@ -333,6 +333,12 @@ function LogoStrip() {
 export function AboutB2BPortfolioSection() {
   const [activeSlide, setActiveSlide] = useState(0);
   const [direction, setDirection] = useState(1);
+  const [isMobile, setIsMobile] = useState(() => typeof window !== "undefined" ? window.innerWidth <= 1024 : false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 1024);
+    window.addEventListener("resize", check, { passive: true });
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   const goTo = (idx: number) => {
     setDirection(idx > activeSlide ? 1 : -1);
@@ -357,17 +363,17 @@ export function AboutB2BPortfolioSection() {
         style={{
           maxWidth: 1150,
           margin: "0 auto",
-          padding: "60px 96px",
+          padding: isMobile ? "40px 24px" : "60px 96px",
           boxSizing: "border-box",
           display: "flex",
           flexDirection: "column",
-          gap: 48,
+          gap: isMobile ? 32 : 48,
         }}
       >
         {/* ── Header ── */}
-        <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between" }}>
+        <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: "flex-start", justifyContent: "space-between", gap: isMobile ? 16 : 0 }}>
           {/* Tag + line */}
-          <div style={{ display: "flex", flexDirection: "column", gap: 0, paddingTop: 20 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 0, paddingTop: isMobile ? 0 : 20 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
               <div style={{
                 background: "#111", border: "1px solid #414141",
@@ -377,12 +383,12 @@ export function AboutB2BPortfolioSection() {
                   B2B Portfolio
                 </span>
               </div>
-              <div style={{ width: 215, height: 1, background: "rgba(255,255,255,0.2)" }} />
+              {!isMobile && <div style={{ width: 215, height: 1, background: "rgba(255,255,255,0.2)" }} />}
             </div>
           </div>
           {/* Heading */}
-          <div style={{ width: 632 }}>
-            <p style={{ fontFamily: "Manrope, sans-serif", fontSize: 44, lineHeight: 1.44, margin: 0 }}>
+          <div style={{ width: isMobile ? "100%" : 632 }}>
+            <p style={{ fontFamily: "Manrope, sans-serif", fontSize: isMobile ? "clamp(24px, 6vw, 36px)" : 44, lineHeight: 1.44, margin: 0 }}>
               <span style={{ fontWeight: 700, color: "#ffffff" }}>B2B Portfolio Is Sim </span>
               <span style={{ fontWeight: 300, color: "#8e8e8e" }}>dummy </span>
               <br />
@@ -401,10 +407,55 @@ export function AboutB2BPortfolioSection() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: direction * -40 }}
               transition={{ duration: 0.45, ease: EASE }}
-              style={{ display: "flex", gap: 16, alignItems: "stretch", width: "100%" }}
+              style={{ display: "flex", flexDirection: isMobile ? "column" : "row", gap: 16, alignItems: "stretch", width: "100%" }}
             >
               {/* Left card */}
-              <LeftCard slide={slide} />
+              <GlassCard
+                style={{
+                  width: isMobile ? "100%" : 480,
+                  flexShrink: 0,
+                  height: isMobile ? "auto" : 469,
+                  padding: isMobile ? "28px 24px" : "36px 48px 48px",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "flex-end",
+                  boxSizing: "border-box",
+                }}
+              >
+                <div style={{ display: "flex", flexDirection: "column", gap: 32 }}>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                      <span style={{ fontFamily: "Poppins, sans-serif", fontSize: 12, color: "#FFA600" }}>Problem</span>
+                      <p style={{ fontFamily: "Poppins, sans-serif", fontSize: 15, lineHeight: "26px", color: "#ffffff", margin: 0 }}>
+                        {slide.problem}
+                      </p>
+                    </div>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                      <span style={{ fontFamily: "Poppins, sans-serif", fontSize: 12, color: "#FFA600" }}>Solution/Impact</span>
+                      <p style={{ fontFamily: "Poppins, sans-serif", fontSize: 15, lineHeight: "26px", color: "#747474", margin: 0 }}>
+                        {slide.solution}
+                      </p>
+                    </div>
+                  </div>
+                  <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+                    <div style={{
+                      background: "#fff6e6", borderRadius: 6, width: 110, height: 44,
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      flexShrink: 0, overflow: "hidden", padding: 6,
+                    }}>
+                      <img src={slide.brandLogo} alt={slide.brandAlt} style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }} />
+                    </div>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                      <span style={{ fontFamily: "Poppins, sans-serif", fontSize: 14, color: "#ffffff", textTransform: "capitalize" }}>
+                        {slide.personName}
+                      </span>
+                      <span style={{ fontFamily: "Poppins, sans-serif", fontWeight: 300, fontSize: 13, color: "#3b3b3b" }}>
+                        {slide.personRole}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </GlassCard>
 
               {/* Right side: testimonial + stats */}
               <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", gap: 16 }}>

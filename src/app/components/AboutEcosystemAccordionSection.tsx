@@ -18,7 +18,7 @@
    Active: full-width, rgba(27,97,219,0.15) bg, description text visible on right
    Inactive: inset 28px each side, dark bg, border rgba(255,255,255,0.1)
    ───────────────────────────────────────────────────────────────────────────── */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -84,11 +84,13 @@ function AccordionRow({
   isActive,
   onHover,
   delay,
+  isMobile,
 }: {
   row: (typeof ROWS)[number];
   isActive: boolean;
   onHover: () => void;
   delay: number;
+  isMobile: boolean;
 }) {
   return (
     <motion.div
@@ -100,12 +102,12 @@ function AccordionRow({
       style={{
         position: "relative",
         borderRadius: 20,
-        padding: 28,
+        padding: isMobile ? 20 : 28,
         cursor: "default",
         overflow: "hidden",
         boxSizing: "border-box",
-        /* Active: full width. Inactive: inset 28px each side */
-        width: isActive ? "100%" : "calc(100% - 56px)",
+        /* Active: full width. Inactive: inset 28px each side (desktop only) */
+        width: isActive || isMobile ? "100%" : "calc(100% - 56px)",
         alignSelf: "center",
         /* Background */
         backdropFilter: "blur(40px)",
@@ -147,7 +149,8 @@ function AccordionRow({
           position: "relative",
           zIndex: 1,
           display: "flex",
-          alignItems: "center",
+          flexDirection: isMobile && isActive ? "column" : "row",
+          alignItems: isMobile && isActive ? "flex-start" : "center",
           justifyContent: "space-between",
         }}
       >
@@ -185,8 +188,8 @@ function AccordionRow({
                 lineHeight: "26px",
                 color: "#ffffff",
                 letterSpacing: "-0.3px",
-                margin: 0,
-                width: 466,
+                margin: isMobile ? "12px 0 0" : 0,
+                width: isMobile ? "100%" : 466,
                 flexShrink: 0,
               }}
             >
@@ -202,6 +205,12 @@ function AccordionRow({
 /* ── Main export ─────────────────────────────────────────────────────────── */
 export function AboutEcosystemAccordionSection() {
   const [activeIndex, setActiveIndex] = useState(1); // row 2 active by default (matches Figma)
+  const [isMobile, setIsMobile] = useState(() => typeof window !== "undefined" ? window.innerWidth <= 1024 : false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 1024);
+    window.addEventListener("resize", check, { passive: true });
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   return (
     <section
@@ -217,20 +226,22 @@ export function AboutEcosystemAccordionSection() {
       <div
         style={{
           display: "flex",
+          flexDirection: isMobile ? "column" : "row",
           alignItems: "flex-start",
           justifyContent: "space-between",
-          marginBottom: 60,
+          gap: isMobile ? 16 : 0,
+          marginBottom: isMobile ? 40 : 60,
         }}
       >
         {/* Heading */}
         <p
           style={{
             fontFamily: "Manrope, sans-serif",
-            fontSize: 48,
+            fontSize: isMobile ? "clamp(24px, 6vw, 36px)" : 48,
             lineHeight: 1.36,
             margin: 0,
             textTransform: "capitalize",
-            maxWidth: 698,
+            maxWidth: isMobile ? "100%" : 698,
           }}
         >
           <span style={{ fontWeight: 600, color: "#ffffff" }}>Lorem Ipsum Is </span>
@@ -244,12 +255,12 @@ export function AboutEcosystemAccordionSection() {
             display: "flex",
             alignItems: "center",
             gap: 12,
-            paddingTop: 16,
-            width: 245,
+            paddingTop: isMobile ? 0 : 16,
+            width: isMobile ? "auto" : 245,
             flexShrink: 0,
           }}
         >
-          <div style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.2)" }} />
+          {!isMobile && <div style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.2)" }} />}
           <div
             style={{
               background: "#111",
@@ -289,6 +300,7 @@ export function AboutEcosystemAccordionSection() {
             isActive={activeIndex === i}
             onHover={() => setActiveIndex(i)}
             delay={i * 0.08}
+            isMobile={isMobile}
           />
         ))}
       </div>
