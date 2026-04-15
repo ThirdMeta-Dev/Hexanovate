@@ -228,6 +228,7 @@ export function AboutMissionVisionSection() {
   return (
     <section
       ref={sectionRef}
+      className="mv-section"
       style={{
         width: "100%",
         padding: "0 96px",
@@ -379,8 +380,9 @@ export function AboutMissionVisionSection() {
         .mv-desktop { display: flex; }
         .mv-mobile  { display: none; }
         @media (max-width: 1024px) {
-          .mv-desktop { display: none !important; }
-          .mv-mobile  { display: flex !important; }
+          .mv-section  { padding: 0 24px !important; }
+          .mv-desktop  { display: none !important; }
+          .mv-mobile   { display: flex !important; }
         }
       `}</style>
     </section>

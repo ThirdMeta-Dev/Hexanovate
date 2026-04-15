@@ -149,10 +149,11 @@ function ContactForm() {
       />
       {errors.name && <span style={errText}>{errors.name.message}</span>}
 
-      {/* Phone + Email row — equal flex-1 each, matching Figma */}
-      <div style={{ display: "flex", gap: 12 }}>
+      {/* Phone + Email row — side by side on desktop, stacked on mobile */}
+      <div className="cf-phone-email-row" style={{ display: "flex", gap: 12 }}>
         <input
           placeholder="Number for a quick call"
+          className="cf-phone-input"
           style={{ ...glass, ...(errors.phone ? glassErr : {}), height: 48, padding: "0 16px", flex: 1, minWidth: 0 }}
           {...register("phone", {
             required: "Phone is required.",
@@ -161,6 +162,7 @@ function ContactForm() {
         />
         <input
           placeholder="Drop your email ID"
+          className="cf-email-input"
           style={{ ...glass, ...(errors.email ? glassErr : {}), height: 48, padding: "0 16px", flex: 1, minWidth: 0 }}
           {...register("email", {
             required: "Email is required.",
@@ -169,7 +171,7 @@ function ContactForm() {
         />
       </div>
       {(errors.phone || errors.email) && (
-        <div style={{ display: "flex", gap: 12, marginTop: -8 }}>
+        <div className="cf-phone-email-errors" style={{ display: "flex", gap: 12, marginTop: -8 }}>
           <span style={{ ...errText, flex: 1, marginTop: 0 }}>{errors.phone?.message ?? ""}</span>
           <span style={{ ...errText, flex: 1, marginTop: 0 }}>{errors.email?.message ?? ""}</span>
         </div>
@@ -372,7 +374,7 @@ export function AboutContactSection() {
           </div>
 
           {/* Heading */}
-          <p style={{ fontFamily: "Manrope, sans-serif", fontSize: 48, lineHeight: 1.32, margin: 0, textTransform: "capitalize" }}>
+          <p className="ac-heading" style={{ fontFamily: "Manrope, sans-serif", fontSize: 48, lineHeight: 1.32, margin: 0, textTransform: "capitalize" }}>
             <span style={{ fontWeight: 300, color: "#ffffff" }}>Lorem </span>
             <span style={{ fontWeight: 700, color: "#ffffff" }}>Ipsum Is Simply</span>
             <br />
@@ -406,11 +408,25 @@ export function AboutContactSection() {
         @media (max-width: 1024px) {
           .ac-inner {
             flex-direction: column !important;
-            padding: 40px 28px !important;
+            padding: 36px 20px !important;
             gap: 32px !important;
           }
           .ac-left {
             width: 100% !important;
+          }
+          .ac-heading {
+            font-size: clamp(24px, 7vw, 36px) !important;
+          }
+          .cf-phone-email-row {
+            flex-direction: column !important;
+          }
+          .cf-phone-input, .cf-email-input {
+            width: 100% !important;
+            flex: none !important;
+          }
+          .cf-phone-email-errors {
+            flex-direction: column !important;
+            gap: 4px !important;
           }
         }
       `}</style>

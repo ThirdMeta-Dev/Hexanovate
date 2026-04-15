@@ -20,7 +20,7 @@
    • Cards: layoutId per card — framer-motion transitions 624px ↔ flex-1
    • Entrance: y 60→0 applied by parent in AboutUsPage
    ───────────────────────────────────────────────────────────────────────────── */
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence, LayoutGroup } from "motion/react";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -179,6 +179,12 @@ function NavColumn({
 export function AboutJourneySection() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [direction, setDirection] = useState<"left" | "right">("right");
+  const [isMobile, setIsMobile] = useState(() => typeof window !== "undefined" ? window.innerWidth <= 1024 : false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 1024);
+    window.addEventListener("resize", check, { passive: true });
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   const go = (delta: 1 | -1) => {
     setDirection(delta === 1 ? "right" : "left");
@@ -212,19 +218,20 @@ export function AboutJourneySection() {
       <div
         style={{
           display: "flex",
-          alignItems: "center",
+          alignItems: isMobile ? "flex-start" : "center",
+          flexDirection: isMobile ? "column" : "row",
           justifyContent: "space-between",
-          marginBottom: 48,
+          gap: isMobile ? 12 : 0,
+          marginBottom: isMobile ? 32 : 48,
         }}
       >
         <p
           style={{
             fontFamily: "Manrope, sans-serif",
-            fontSize: 40,
+            fontSize: isMobile ? "clamp(24px, 6vw, 36px)" : 40,
             lineHeight: 1.44,
             margin: 0,
             textTransform: "capitalize",
-            whiteSpace: "nowrap",
           }}
         >
           <span style={{ fontWeight: 700, color: "#ffffff" }}>Get in Touch </span>
@@ -254,11 +261,11 @@ export function AboutJourneySection() {
       </div>
 
       {/* ── Nav area ── */}
-      <div style={{ display: "flex", flexDirection: "column", gap: 20, marginBottom: 36 }}>
-        {/* 3 nav columns with right fade */}
+      <div style={{ display: "flex", flexDirection: "column", gap: 20, marginBottom: isMobile ? 24 : 36 }}>
+        {/* Nav columns — 3 on desktop, 1 (active only) on mobile */}
         <div style={{ position: "relative" }}>
-          <div style={{ display: "flex", gap: 48, alignItems: "flex-start" }}>
-            {navWindow.map(({ item, isActive, animKey }, idx) => (
+          <div style={{ display: "flex", gap: isMobile ? 0 : 48, alignItems: "flex-start" }}>
+            {(isMobile ? navWindow.slice(0, 1) : navWindow).map(({ item, isActive, animKey }, idx) => (
               <NavColumn
                 key={`col-${idx}`}
                 item={item}
@@ -274,19 +281,21 @@ export function AboutJourneySection() {
               />
             ))}
           </div>
-          {/* Right fade gradient */}
-          <div
-            aria-hidden="true"
-            style={{
-              position: "absolute",
-              right: 0,
-              top: 0,
-              height: "100%",
-              width: 320,
-              background: "linear-gradient(to right, rgba(10,10,10,0), #0a0a0a)",
-              pointerEvents: "none",
-            }}
-          />
+          {/* Right fade gradient — desktop only */}
+          {!isMobile && (
+            <div
+              aria-hidden="true"
+              style={{
+                position: "absolute",
+                right: 0,
+                top: 0,
+                height: "100%",
+                width: 320,
+                background: "linear-gradient(to right, rgba(10,10,10,0), #0a0a0a)",
+                pointerEvents: "none",
+              }}
+            />
+          )}
         </div>
 
         {/* Divider + progress line + arrows */}
@@ -314,91 +323,97 @@ export function AboutJourneySection() {
 
       {/* ── Cards row ── */}
       <div style={{ overflow: "hidden" }}>
-        <LayoutGroup id="journey-cards">
-          <motion.div style={{ display: "flex", gap: 20, alignItems: "stretch" }}>
-            {orderedCards.map((item, idx) => {
-              const isActive = idx === 0;
-              return (
-                <motion.div
-                  key={item.id}
-                  layoutId={item.id}
-                  layout
-                  onClick={() => {
-                    if (!isActive) {
-                      setDirection("right");
-                      setActiveIndex(ITEMS.findIndex((it) => it.id === item.id));
-                    }
-                  }}
-                  style={{
-                    height: 340,
-                    borderRadius: 20,
-                    backdropFilter: "blur(40px)",
-                    WebkitBackdropFilter: "blur(40px)",
-                    background: "rgba(210, 210, 210, 0.2)",
-                    flexShrink: isActive ? 0 : 1,
-                    width: isActive ? 624 : undefined,
-                    flex: isActive ? undefined : "1 0 0",
-                    minWidth: isActive ? undefined : 0,
-                    cursor: isActive ? "default" : "pointer",
-                    overflow: "hidden",
-                    position: "relative",
-                  }}
-                  transition={{ duration: 0.55, ease: EASE }}
-                >
-                  {/* Active card label */}
-                  {isActive && (
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.2, duration: 0.3 }}
-                      style={{
-                        position: "absolute",
-                        bottom: 28,
-                        left: 28,
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: 4,
-                      }}
-                    >
-                      <p
-                        style={{
-                          fontFamily: "Manrope, sans-serif",
-                          fontWeight: 700,
-                          fontSize: 20,
-                          color: "#ffffff",
-                          margin: 0,
-                        }}
-                      >
-                        {item.title}
-                      </p>
-                      <p
-                        style={{
-                          fontFamily: "Poppins, sans-serif",
-                          fontWeight: 200,
-                          fontSize: 13,
-                          lineHeight: "20px",
-                          color: "rgba(255,255,255,0.7)",
-                          margin: 0,
-                          maxWidth: 280,
-                        }}
-                      >
-                        {item.body}
-                      </p>
-                    </motion.div>
-                  )}
-                </motion.div>
-              );
-            })}
+        {isMobile ? (
+          /* Mobile: only show active card, full width */
+          <motion.div
+            key={orderedCards[0].id}
+            initial={{ opacity: 0, x: direction === "right" ? 40 : -40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.45, ease: EASE }}
+            style={{
+              height: 260,
+              borderRadius: 20,
+              backdropFilter: "blur(40px)",
+              WebkitBackdropFilter: "blur(40px)",
+              background: "rgba(210, 210, 210, 0.2)",
+              overflow: "hidden",
+              position: "relative",
+              width: "100%",
+            }}
+          >
+            <div
+              style={{
+                position: "absolute",
+                bottom: 24,
+                left: 24,
+                right: 24,
+                display: "flex",
+                flexDirection: "column",
+                gap: 4,
+              }}
+            >
+              <p style={{ fontFamily: "Manrope, sans-serif", fontWeight: 700, fontSize: 18, color: "#ffffff", margin: 0 }}>
+                {orderedCards[0].title}
+              </p>
+              <p style={{ fontFamily: "Poppins, sans-serif", fontWeight: 200, fontSize: 13, lineHeight: "20px", color: "rgba(255,255,255,0.7)", margin: 0 }}>
+                {orderedCards[0].body}
+              </p>
+            </div>
           </motion.div>
-        </LayoutGroup>
+        ) : (
+          <LayoutGroup id="journey-cards">
+            <motion.div style={{ display: "flex", gap: 20, alignItems: "stretch" }}>
+              {orderedCards.map((item, idx) => {
+                const isActive = idx === 0;
+                return (
+                  <motion.div
+                    key={item.id}
+                    layoutId={item.id}
+                    layout
+                    onClick={() => {
+                      if (!isActive) {
+                        setDirection("right");
+                        setActiveIndex(ITEMS.findIndex((it) => it.id === item.id));
+                      }
+                    }}
+                    style={{
+                      height: 340,
+                      borderRadius: 20,
+                      backdropFilter: "blur(40px)",
+                      WebkitBackdropFilter: "blur(40px)",
+                      background: "rgba(210, 210, 210, 0.2)",
+                      flexShrink: isActive ? 0 : 1,
+                      width: isActive ? 624 : undefined,
+                      flex: isActive ? undefined : "1 0 0",
+                      minWidth: isActive ? undefined : 0,
+                      cursor: isActive ? "default" : "pointer",
+                      overflow: "hidden",
+                      position: "relative",
+                    }}
+                    transition={{ duration: 0.55, ease: EASE }}
+                  >
+                    {isActive && (
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.2, duration: 0.3 }}
+                        style={{ position: "absolute", bottom: 28, left: 28, display: "flex", flexDirection: "column", gap: 4 }}
+                      >
+                        <p style={{ fontFamily: "Manrope, sans-serif", fontWeight: 700, fontSize: 20, color: "#ffffff", margin: 0 }}>
+                          {item.title}
+                        </p>
+                        <p style={{ fontFamily: "Poppins, sans-serif", fontWeight: 200, fontSize: 13, lineHeight: "20px", color: "rgba(255,255,255,0.7)", margin: 0, maxWidth: 280 }}>
+                          {item.body}
+                        </p>
+                      </motion.div>
+                    )}
+                  </motion.div>
+                );
+              })}
+            </motion.div>
+          </LayoutGroup>
+        )}
       </div>
-
-      {/* Responsive toggle */}
-      <style>{`
-        @media (max-width: 1024px) {
-          .journey-cards-row { gap: 12px !important; }
-        }
-      `}</style>
     </section>
   );
 }
