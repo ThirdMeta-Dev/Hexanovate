@@ -29,8 +29,11 @@ import { motion, useScroll, useTransform, MotionValue } from "motion/react";
 const EASE = [0.22, 1, 0.36, 1] as const;
 const VP   = { once: true, margin: "-80px" } as const;
 
-const CARD_BODY =
-  "We unlock scale by fixing lorem ipsum what's leaking conversion, retention, repeation growth lorem compounds. We unlock scale by fixing lorem ipsum what's leaking conversion, retention, repeation growth";
+const MISSION_BODY =
+  "To build a complete growth ecosystem around every visionary and purpose driven business. By combining human intelligence, creativity, data and technology into one unified system we deliver growth that is predictable, scalable and permanent.";
+
+const VISION_BODY =
+  "To make this world the best and happiest place for businesses. Where every founder & team thrive, not just survive.";
 
 /* ── Card inner corner glow (Figma-exact) ────────────────────────────────── */
 function CardGlow({ cardW, cardH }: { cardW: number; cardH: number }) {
@@ -165,14 +168,11 @@ function AmberTag({ label }: { label: string }) {
 
 /* ── Scroll-driven word reveal for heading ───────────────────────────────── */
 const HEADING_WORDS = [
-  { text: "We",      color: "#ffffff", weight: 700 },
-  { text: "unlock",  color: "#ffffff", weight: 700 },
-  { text: "scale",   color: "#ffffff", weight: 700 },
-  { text: "by",      color: "#ffffff", weight: 700 },
-  { text: "fixing",  color: "#ffffff", weight: 700 },
-  { text: "what",    color: "#8e8e8e", weight: 300 },
-  { text: "leaking", color: "#8e8e8e", weight: 300 },
-  { text: "conver",  color: "#8e8e8e", weight: 300 },
+  { text: "Big?",          color: "#ffffff", weight: 700 },
+  { text: "Yes.",          color: "#ffffff", weight: 700 },
+  { text: "Unachievable?", color: "#8e8e8e", weight: 300 },
+  { text: "Absolutely",    color: "#ffffff", weight: 700 },
+  { text: "NOT!",          color: "#ffffff", weight: 700 },
 ];
 
 function RevealWord({
@@ -257,7 +257,7 @@ export function AboutMissionVisionSection() {
         >
           <GlassCard style={{ width: 578, height: 296, padding: "44px 132px 44px 48px" }}>
             <CardGlow cardW={578} cardH={296} />
-            <CardContent title="Mission" body={CARD_BODY} />
+            <CardContent title="Mission" body={MISSION_BODY} />
           </GlassCard>
         </motion.div>
 
@@ -311,7 +311,7 @@ export function AboutMissionVisionSection() {
           >
             <GlassCard style={{ width: 512, padding: "44px 48px" }}>
               <CardGlow cardW={512} cardH={242} />
-              <CardContent title="Vision" body={CARD_BODY} />
+              <CardContent title="Vision" body={VISION_BODY} />
             </GlassCard>
           </motion.div>
         </div>
@@ -345,8 +345,9 @@ export function AboutMissionVisionSection() {
           viewport={VP}
           transition={{ duration: 0.75, ease: EASE }}
         >
-          <span style={{ fontWeight: 700, color: "#ffffff" }}>We unlock scale by fixing </span>
-          <span style={{ fontWeight: 300, color: "#8e8e8e" }}>what leaking conver</span>
+          <span style={{ fontWeight: 700, color: "#ffffff" }}>Big? Yes. </span>
+          <span style={{ fontWeight: 300, color: "#8e8e8e" }}>Unachievable? </span>
+          <span style={{ fontWeight: 700, color: "#ffffff" }}>Absolutely NOT!</span>
         </motion.p>
 
         {/* Mission card */}
@@ -358,7 +359,7 @@ export function AboutMissionVisionSection() {
         >
           <GlassCard style={{ padding: "36px 32px" }}>
             <CardGlow cardW={340} cardH={220} />
-            <CardContent title="Mission" body={CARD_BODY} />
+            <CardContent title="Mission" body={MISSION_BODY} />
           </GlassCard>
         </motion.div>
 
@@ -371,7 +372,7 @@ export function AboutMissionVisionSection() {
         >
           <GlassCard style={{ padding: "36px 32px" }}>
             <CardGlow cardW={340} cardH={220} />
-            <CardContent title="Vision" body={CARD_BODY} />
+            <CardContent title="Vision" body={VISION_BODY} />
           </GlassCard>
         </motion.div>
       </div>

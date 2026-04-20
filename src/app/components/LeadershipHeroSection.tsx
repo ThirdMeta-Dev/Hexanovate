@@ -35,7 +35,7 @@ function CtaBtn({ label, variant, delay = 0, href }: {
   const isPrimary = variant === "primary";
   return (
     <motion.div
-      onClick={() => href && window.open(href, "_blank", "noopener,noreferrer")}
+      onClick={() => { if (!href) return; if (href.startsWith("/")) window.location.href = href; else window.open(href, "_blank", "noopener,noreferrer"); }}
       style={{
         display: "flex", alignItems: "center", cursor: "pointer", flexShrink: 0,
         borderRadius: 30,
@@ -243,7 +243,7 @@ export function LeadershipHeroSection() {
           >
             <div aria-hidden="true" style={{ position: "absolute", inset: 0, border: "1px solid #414141", borderRadius: 40, pointerEvents: "none" }} />
             <span style={{ fontFamily: "Poppins, sans-serif", fontWeight: 400, fontSize: 12, color: "#FFA600", lineHeight: "normal", whiteSpace: "nowrap", position: "relative" }}>
-              Leadership &amp; Team
+              Built With Purpose
             </span>
           </motion.div>
 
@@ -252,32 +252,31 @@ export function LeadershipHeroSection() {
             style={{
               fontFamily: "Manrope, sans-serif", fontWeight: 700,
               fontSize: isMobile ? "clamp(30px, 7vw, 48px)" : 52,
-              lineHeight: 1.22, color: "white", textTransform: "capitalize",
-              maxWidth: 628,
+              lineHeight: 1.22, color: "white",
+              maxWidth: 780,
             }}
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.32, ease: EASE }}
           >
-            <div>We unlock scale</div>
-            <div>fixing what's leaking</div>
+            We Enter Your Universe and Just Care About Whether Your Business Makes It.
           </motion.div>
 
           {/* Subtitle */}
           <motion.p
-            style={{ fontFamily: "Poppins, sans-serif", fontWeight: 400, fontSize: isMobile ? 14 : 16, lineHeight: "25px", color: "#727272", margin: 0, maxWidth: 600 }}
+            style={{ fontFamily: "Poppins, sans-serif", fontWeight: 400, fontSize: isMobile ? 14 : 16, lineHeight: "25px", color: "#727272", margin: 0, maxWidth: 580 }}
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.5, ease: EASE }}
           >
-            short We unlock scale fixing what's leaking explanation that Hexanovate powers two specialized domains.
+            One company, three focused verticals, a passionate team and a single operating principle. Your growth is the only outcome that counts.
           </motion.p>
         </motion.div>
 
         {/* CTA buttons */}
         <div style={{ display: "flex", alignItems: "center", gap: 16, flexWrap: isMobile ? "wrap" : "nowrap", justifyContent: "flex-start" }}>
-          <CtaBtn label="B2B ThirdMeta" variant="primary"  delay={0.65} href="https://thirdmeta.in/" />
-          <CtaBtn label="FMCG/D2C"      variant="outlined" delay={0.75} href="https://thenativeunit.com/" />
+          <CtaBtn label="Meet the team" variant="primary"  delay={0.65} href="/leadership-and-team" />
+          <CtaBtn label="See our work"  variant="outlined" delay={0.75} />
         </div>
       </div>
 

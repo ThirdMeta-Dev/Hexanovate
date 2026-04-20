@@ -28,23 +28,52 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 const ITEMS = [
   {
     id: "journey-1",
-    title: "The Founding Vision",
-    body: "We unlock scale by fixing what's leaking conversion, retention, and repeation growth lorem compounds.",
+    date: "Sept 2020",
+    label: "The Beginning",
+    title: "Two Products. One Big Dream.",
+    detail: "Built Vegigo, a hyperlocal ecommerce platform. Built an all-in-one restaurant management solution. Building was our profession. Zero marketing knowledge. Maximum optimism.",
   },
   {
     id: "journey-2",
-    title: "First 100 Clients",
-    body: "We unlock scale by fixing what's leaking conversion, retention, and repeation growth lorem compounds.",
+    date: "Dec 2021",
+    label: "The Hard Truth",
+    title: "Great Product. Terrible Growth. Classic Failure.",
+    detail: "Went to market with 2 products. Got ignored. Hired agencies. Got reports, decks, and invoices. Numbers never moved. Finance shook. Started learning marketing from scratch, out of necessity.",
   },
   {
     id: "journey-3",
-    title: "Product Expansion",
-    body: "We unlock scale by fixing what's leaking conversion, retention, and repeation growth lorem compounds.",
+    date: "June 2022",
+    label: "The Gap Found",
+    title: "Effort vs Outcome. Nobody Was Talking About This.",
+    detail: "Tasks were completed. Budgets were spent. Results did not show up. Named the real problem: nobody owned the outcome. That one insight became the founding principle of Hexanovate.",
   },
   {
     id: "journey-4",
-    title: "Global Footprint",
-    body: "We unlock scale by fixing what's leaking conversion, retention, and repeation growth lorem compounds.",
+    date: "Dec 2022 – Dec 2023",
+    label: "Proof Found",
+    title: "What Worked For Us, Worked For Them Too.",
+    detail: "Onboarded clients. Applied everything learned the hard way. Worked with 40+ businesses across 12 domains. Became the primary growth driver for several of them. Combined revenue influenced: INR 12Cr+ across active partnerships.",
+  },
+  {
+    id: "journey-5",
+    date: "May – Nov 2024",
+    label: "Going Deep",
+    title: "Twelve Domains Was Ambition. Three Is Mastery.",
+    detail: "Niched down to 3 domains with proven, significant impact. Sept 2024: ThirdMeta launched for B2B businesses. Nov 2024: NativeUnit launched for D2C and FMCG brands. Client retention after niching down: 91%",
+  },
+  {
+    id: "journey-6",
+    date: "April 2025",
+    label: "New Category",
+    title: "Ed-Tech Needed This. We Built It.",
+    detail: "EduHexa launched as India's first independent AI Smart Classroom consultancy. Not a reseller. Not an agency. A neutral expert. 35+ institutions audited within the first 6 months of launch.",
+  },
+  {
+    id: "journey-7",
+    date: "Oct 2025 – April 2026",
+    label: "Full Ownership",
+    title: "Marketing And Sales. Owned End To End.",
+    detail: "Expanded into complete sales ownership for select partner businesses. 30+ active partnerships across all 3 verticals right now. 140+ businesses impacted since day one. INR 50Cr+ in revenue influenced across all client businesses.",
   },
 ];
 
@@ -135,30 +164,29 @@ function NavColumn({
             style={{
               fontFamily: "Poppins, sans-serif",
               fontWeight: 200,
-              fontSize: 15,
-              lineHeight: "25px",
-              color: isActive ? "#ffffff" : "#363636",
+              fontSize: 13,
+              lineHeight: "20px",
+              color: isActive ? "#FFA600" : "#363636",
               margin: 0,
               transition: "color 0.3s",
+              whiteSpace: "nowrap",
             }}
           >
-            {item.body}
+            {item.date} · {item.label}
           </p>
           <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
             <p
               style={{
                 fontFamily: "Manrope, sans-serif",
                 fontWeight: 600,
-                fontSize: 18,
-                lineHeight: "24px",
-                color: "#ffffff",
+                fontSize: 16,
+                lineHeight: "22px",
+                color: isActive ? "#ffffff" : "#555555",
                 margin: 0,
-                whiteSpace: "nowrap",
               }}
             >
               {item.title}
             </p>
-            {/* Underline: blue on active, dark on inactive */}
             <div
               style={{
                 width: 24,
@@ -234,8 +262,8 @@ export function AboutJourneySection() {
             textTransform: "capitalize",
           }}
         >
-          <span style={{ fontWeight: 700, color: "#ffffff" }}>Get in Touch </span>
-          <span style={{ fontWeight: 300, color: "#8e8e8e" }}>dummy text is</span>
+          <span style={{ fontWeight: 700, color: "#ffffff" }}>Honestly, </span>
+          <span style={{ fontWeight: 300, color: "#8e8e8e" }}>It Was Not A Straight Line.</span>
         </p>
         {/* Journey tag */}
         <div
@@ -255,7 +283,7 @@ export function AboutJourneySection() {
               whiteSpace: "nowrap",
             }}
           >
-            Journey
+            Built From The Trenches
           </span>
         </div>
       </div>
@@ -352,11 +380,14 @@ export function AboutJourneySection() {
                 gap: 4,
               }}
             >
+              <p style={{ fontFamily: "Poppins, sans-serif", fontWeight: 200, fontSize: 12, color: "#FFA600", margin: 0 }}>
+                {orderedCards[0].date} · {orderedCards[0].label}
+              </p>
               <p style={{ fontFamily: "Manrope, sans-serif", fontWeight: 700, fontSize: 18, color: "#ffffff", margin: 0 }}>
                 {orderedCards[0].title}
               </p>
               <p style={{ fontFamily: "Poppins, sans-serif", fontWeight: 200, fontSize: 13, lineHeight: "20px", color: "rgba(255,255,255,0.7)", margin: 0 }}>
-                {orderedCards[0].body}
+                {orderedCards[0].detail}
               </p>
             </div>
           </motion.div>
@@ -399,11 +430,14 @@ export function AboutJourneySection() {
                         transition={{ delay: 0.2, duration: 0.3 }}
                         style={{ position: "absolute", bottom: 28, left: 28, display: "flex", flexDirection: "column", gap: 4 }}
                       >
+                        <p style={{ fontFamily: "Poppins, sans-serif", fontWeight: 200, fontSize: 12, color: "#FFA600", margin: 0 }}>
+                          {item.date} · {item.label}
+                        </p>
                         <p style={{ fontFamily: "Manrope, sans-serif", fontWeight: 700, fontSize: 20, color: "#ffffff", margin: 0 }}>
                           {item.title}
                         </p>
                         <p style={{ fontFamily: "Poppins, sans-serif", fontWeight: 200, fontSize: 13, lineHeight: "20px", color: "rgba(255,255,255,0.7)", margin: 0, maxWidth: 280 }}>
-                          {item.body}
+                          {item.detail}
                         </p>
                       </motion.div>
                     )}

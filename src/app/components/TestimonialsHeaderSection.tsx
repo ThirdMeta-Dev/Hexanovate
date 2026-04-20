@@ -266,14 +266,10 @@ export function TestimonialsHeaderSection() {
     offset: ["start 0.9", "start 0.2"],
   });
 
-  // 7 words total; stagger ranges compressed so all reveal within the first 70%
-  // of progress (words finish illuminating before user is halfway through the section).
-  const N = 7;
-  // Each word's range spans 0.12 of progress, staggered by 0.09 so they overlap
-  // slightly for a smooth cascade rather than one-at-a-time flicker.
+  const N = 11;
   const range = (i: number): [number, number] => [
-    Math.min(i * 0.09, 0.88),
-    Math.min(i * 0.09 + 0.12, 1),
+    Math.min(i * 0.08, 0.88),
+    Math.min(i * 0.08 + 0.12, 1),
   ];
 
   return (
@@ -317,392 +313,70 @@ export function TestimonialsHeaderSection() {
         }}
       />
 
-      {/* ── All original content — sits above video + tint ── */}
+      {/* ── Content — centered title + CTA ── */}
       <div style={{ position: "relative", zIndex: 2, width: "100%" }}>
-
-      {/* ── Desktop container — max 1148px, centered, no horizontal padding ── */}
-      <div
-        className="ths-container"
-        style={{
-          maxWidth: 1148,
-          margin: "0 auto",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "flex-end",
-          justifyContent: "center",
-          width: "100%",
-          boxSizing: "border-box",
-        }}
-      >
-        {/* Frame14: gap-52 */}
         <div
+          className="ths-container"
           style={{
+            maxWidth: 1148,
+            margin: "0 auto",
+            padding: "0 24px",
             display: "flex",
             flexDirection: "column",
-            gap: 52,
-            alignItems: "flex-start",
+            alignItems: "center",
+            gap: 48,
             width: "100%",
+            boxSizing: "border-box",
           }}
         >
-          {/* ── Frame2 → Frame4: badge + title ── */}
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: 16,
-              width: "100%",
-            }}
-          >
-            {/*
-             * Frame13: pl-264 (badge indented 264px from left)
-             * Frame11: w-298, items-center (centers badge within 298px box)
-             */}
-            <div
-              className="ths-badge-row"
-              style={{ paddingLeft: 264 }}
-            >
-              <div
-                style={{
-                  width: 298,
-                  display: "flex",
-                  alignItems: "center",
-                }}
-              >
-                <TestimonialsBadge />
-              </div>
-            </div>
-
-            {/*
-             * Frame3: Title layout
-             *   position: relative for the two absolutely placed words
-             *   flex-col, gap-8, items-center, text-center
-             *   capitalize, leading-1.12
-             *
-             * Frame12 (centered, flex-col):
-             *   "Growth Systems"     80px SemiBold white,  w-647
-             *   "Predictable Outcomes"  80px SemiBold blue, w-851
-             *
-             * Absolute overlays (sit on top of line 1 at top: 35px):
-             *   "We Build"  center-x = 84.47px   40px Regular white
-             *   "for"       center-x = 872.47px  40px Regular white
-             */}
-            <div
-              className="ths-title-desktop"
+          {/* Title */}
+          <div ref={titleRef}>
+            <p
               style={{
-                position: "relative",
-                display: "flex",
-                flexDirection: "column",
-                gap: 8,
-                alignItems: "center",
+                fontFamily: "Manrope, sans-serif",
+                fontSize: "clamp(28px, 4vw, 56px)",
+                lineHeight: 1.28,
                 textAlign: "center",
-                width: "100%",
-                textTransform: "capitalize",
-                lineHeight: 1.12,
-              }}
-            >
-              {/*
-               * Frame12 — "We Build" + "Growth Systems" + "for" on one inline row,
-               * then "Predictable Outcomes" on the second row.
-               * Font weights / sizes / colors preserved exactly.
-               */}
-              <div
-                ref={titleRef}
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  alignContent: "stretch",
-                  width: "100%",
-                  position: "relative",
-                  fontFamily: "Manrope, sans-serif",
-                  fontWeight: 600,
-                  fontSize: 80,
-                  lineHeight: 1.12,
-                  textAlign: "center",
-                  textTransform: "capitalize",
-                }}
-              >
-                {/* Row 1: "We Build" (40px regular) + "Growth Systems" (80px semibold) + "for" (40px regular) */}
-                <div
-                  className="ths-row1"
-                  style={{
-                    display: "flex",
-                    alignItems: "baseline",
-                    justifyContent: "center",
-                    gap: 24,
-                    width: "100%",
-                  }}
-                >
-                  {/* "We Build" — 40px regular white */}
-                  <p
-                    style={{
-                      fontFamily: "Manrope, sans-serif",
-                      fontWeight: 400,
-                      fontSize: 40,
-                      color: "white",
-                      whiteSpace: "nowrap",
-                      lineHeight: 1.12,
-                      marginTop: 0,
-                      marginBottom: 0,
-                      textTransform: "capitalize",
-                    }}
-                  >
-                    <RevealWord progress={scrollYProgress} range={range(0)}>We</RevealWord>
-                    {" "}
-                    <RevealWord progress={scrollYProgress} range={range(1)}>Build</RevealWord>
-                  </p>
-
-                  {/* "Growth Systems" — 80px semibold white */}
-                  <p
-                    style={{
-                      fontFamily: "Manrope, sans-serif",
-                      fontWeight: 600,
-                      fontSize: 80,
-                      color: "white",
-                      whiteSpace: "nowrap",
-                      lineHeight: 1.12,
-                      marginTop: 0,
-                      marginBottom: 0,
-                    }}
-                  >
-                    <RevealWord progress={scrollYProgress} range={range(2)}>Growth</RevealWord>
-                    {" "}
-                    <RevealWord progress={scrollYProgress} range={range(3)}>Systems</RevealWord>
-                  </p>
-
-                  {/* "for" — 40px regular white */}
-                  <p
-                    style={{
-                      fontFamily: "Manrope, sans-serif",
-                      fontWeight: 400,
-                      fontSize: 40,
-                      color: "white",
-                      whiteSpace: "nowrap",
-                      lineHeight: 1.12,
-                      marginTop: 0,
-                      marginBottom: 0,
-                      textTransform: "capitalize",
-                    }}
-                  >
-                    <RevealWord progress={scrollYProgress} range={range(4)}>for</RevealWord>
-                  </p>
-                </div>
-
-                {/* Row 2: "Predictable Outcomes" — #1b61db, 80px SemiBold, w-851 */}
-                <p
-                  className="ths-predictable"
-                  style={{
-                    color: "#1b61db",
-                    width: 851,
-                    flexShrink: 0,
-                    position: "relative",
-                    marginTop: 0,
-                    marginBottom: 0,
-                  }}
-                >
-                  <RevealWord progress={scrollYProgress} range={range(5)}>Predictable</RevealWord>
-                  {" "}
-                  <RevealWord progress={scrollYProgress} range={range(6)}>Outcomes</RevealWord>
-                </p>
-              </div>
-            </div>
-
-            {/* Mobile title fallback — shown only on small screens */}
-            <div
-              className="ths-title-mobile"
-              style={{
-                display: "none",
-                flexDirection: "column",
-                gap: 4,
-                textAlign: "center",
-                width: "100%",
+                margin: 0,
+                maxWidth: 780,
                 textTransform: "capitalize",
               }}
             >
-              <p
-                style={{
-                  fontFamily: "Manrope, sans-serif",
-                  fontWeight: 400,
-                  fontSize: 32,
-                  color: "white",
-                  lineHeight: 1.12,
-                  marginTop: 0,
-                  marginBottom: 0,
-                }}
-              >
-                We Build
-              </p>
-              <p
-                style={{
-                  fontFamily: "Manrope, sans-serif",
-                  fontWeight: 600,
-                  fontSize: 44,
-                  color: "white",
-                  lineHeight: 1.12,
-                  marginTop: 0,
-                  marginBottom: 0,
-                }}
-              >
-                Growth Systems
-              </p>
-              <p
-                style={{
-                  fontFamily: "Manrope, sans-serif",
-                  fontWeight: 400,
-                  fontSize: 32,
-                  color: "white",
-                  lineHeight: 1.12,
-                  marginTop: 0,
-                  marginBottom: 0,
-                }}
-              >
-                for
-              </p>
-              <p
-                style={{
-                  fontFamily: "Manrope, sans-serif",
-                  fontWeight: 600,
-                  fontSize: 44,
-                  color: "#1b61db",
-                  lineHeight: 1.12,
-                  marginTop: 0,
-                  marginBottom: 0,
-                }}
-              >
-                Predictable Outcomes
-              </p>
-            </div>
+              <RevealWord progress={scrollYProgress} range={range(0)}><span style={{ fontWeight: 700, color: "white" }}>Thirty</span></RevealWord>
+              {" "}
+              <RevealWord progress={scrollYProgress} range={range(1)}><span style={{ fontWeight: 700, color: "white" }}>Minutes.</span></RevealWord>
+              {" "}
+              <RevealWord progress={scrollYProgress} range={range(2)}><span style={{ fontWeight: 300, color: "#8e8e8e" }}>No</span></RevealWord>
+              {" "}
+              <RevealWord progress={scrollYProgress} range={range(3)}><span style={{ fontWeight: 300, color: "#8e8e8e" }}>Pitch.</span></RevealWord>
+              {" "}
+              <RevealWord progress={scrollYProgress} range={range(4)}><span style={{ fontWeight: 300, color: "#8e8e8e" }}>Just</span></RevealWord>
+              {" "}
+              <RevealWord progress={scrollYProgress} range={range(5)}><span style={{ fontWeight: 700, color: "white" }}>An</span></RevealWord>
+              {" "}
+              <RevealWord progress={scrollYProgress} range={range(6)}><span style={{ fontWeight: 700, color: "white" }}>Honest</span></RevealWord>
+              {" "}
+              <RevealWord progress={scrollYProgress} range={range(7)}><span style={{ fontWeight: 700, color: "white" }}>Conversation</span></RevealWord>
+              {" "}
+              <RevealWord progress={scrollYProgress} range={range(8)}><span style={{ fontWeight: 300, color: "#8e8e8e" }}>About</span></RevealWord>
+              {" "}
+              <RevealWord progress={scrollYProgress} range={range(9)}><span style={{ fontWeight: 300, color: "#8e8e8e" }}>Your</span></RevealWord>
+              {" "}
+              <RevealWord progress={scrollYProgress} range={range(10)}><span style={{ fontWeight: 700, color: "white" }}>Growth.</span></RevealWord>
+            </p>
           </div>
 
-          {/*
-           * ── Frame15: CTA buttons + horizontal divider ──
-           * Left-aligned under the "Predictable" word (starts at ~148px from
-           * container left, matching the left edge of the 851px centered line).
-           */}
-          <div
-            className="ths-bottom-row"
-            style={{
-              display: "flex",
-              gap: 24,
-              alignItems: "center",
-              marginLeft: 148,
-              width: "calc(100% - 148px)",
-              flexShrink: 0,
-            }}
-          >
-            {/* Frame1: CTA pair, gap-16, items-start */}
-            <div
-              className="ths-cta-group"
-              style={{
-                display: "flex",
-                gap: 16,
-                alignItems: "flex-start",
-                flexShrink: 0,
-              }}
-            >
-              {/* B2B ThirdMeta — blue */}
-              <CtaBtn
-                label="B2B ThirdMeta"
-                color="#1b61db"
-                hoverColor="#2470f0"
-              />
-              {/* FMCG/D2C — amber */}
-              <CtaBtn
-                label="FMCG/D2C"
-                color="#ffa600"
-                hoverColor="#ffb833"
-              />
-            </div>
-
-            {/* Divider — grows to fill remaining space */}
-            <HorizontalDivider />
-          </div>
+          {/* CTA */}
+          <CtaBtn label="Book A Call" color="#1b61db" hoverColor="#2470f0" />
         </div>
       </div>
 
-      </div>{/* end content wrapper */}
-
       {/* ── Responsive overrides ── */}
       <style>{`
-        /* Reset height / radius on tablet + mobile — desktop-only effect */
         @media (max-width: 1024px) {
           .ths-section {
             min-height: unset !important;
             border-radius: 0 !important;
-          }
-        }
-        /* Tablet: 768–1147px — add horizontal padding, scale positions */
-        @media (max-width: 1147px) {
-          .ths-container {
-            padding: 0 24px !important;
-          }
-          .ths-badge-row {
-            padding-left: 200px !important;
-          }
-          .ths-row1 p:nth-child(2) {
-            font-size: 64px !important;
-          }
-          .ths-row1 p:first-child,
-          .ths-row1 p:last-child {
-            font-size: 32px !important;
-          }
-          .ths-predictable {
-            font-size: 64px !important;
-            width: 100% !important;
-            max-width: 680px !important;
-          }
-          .ths-bottom-row {
-            margin-left: 60px !important;
-            width: calc(100% - 60px) !important;
-          }
-        }
-        /* Small tablet: 768–900px */
-        @media (max-width: 900px) {
-          .ths-badge-row {
-            padding-left: 140px !important;
-          }
-          .ths-row1 p:nth-child(2) {
-            font-size: 52px !important;
-          }
-          .ths-row1 p:first-child,
-          .ths-row1 p:last-child {
-            font-size: 26px !important;
-          }
-          .ths-predictable {
-            font-size: 52px !important;
-            max-width: 560px !important;
-          }
-          .ths-bottom-row {
-            margin-left: 0 !important;
-            width: 100% !important;
-          }
-        }
-        /* Mobile: <768px — switch to stacked layout */
-        @media (max-width: 767px) {
-          .ths-container {
-            padding: 0 20px !important;
-          }
-          .ths-badge-row {
-            padding-left: 0 !important;
-          }
-          .ths-badge-row > div {
-            width: auto !important;
-          }
-          .ths-title-desktop {
-            display: none !important;
-          }
-          .ths-title-mobile {
-            display: flex !important;
-          }
-          .ths-bottom-row {
-            width: 100% !important;
-            margin-left: 0 !important;
-            flex-wrap: wrap !important;
-            gap: 16px !important;
-          }
-          .ths-cta-group {
-            flex-direction: column !important;
-            gap: 12px !important;
           }
         }
       `}</style>

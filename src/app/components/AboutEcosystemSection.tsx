@@ -140,18 +140,33 @@ function FeatureItem({
 }
 
 /* ── Data ────────────────────────────────────────────────────────────────── */
-const ITEMS = [
+const LEFT_ITEMS = [
   {
-    title: "Cracked Market Fit, But",
-    body: "what's leaking conversion, retention, lorem repeation growth",
+    title: "Everything Talks To Everything",
+    body: "No siloed strategies. Every function, signal and system connects so nothing compounds in isolation.",
   },
   {
-    title: "Cracked Market Fit, But",
-    body: "what's leaking conversion, retention, lorem repeation growth",
+    title: "Human Wit. Machine Scale.",
+    body: "Human intelligence sets the direction. AI and automation handle the volume. Neither works without the other.",
   },
   {
-    title: "Cracked Market Fit, But",
-    body: "what's leaking conversion, retention, lorem repeation growth",
+    title: "Strategy That Actually Executes",
+    body: "A plan without ownership is just a document. We stay until the strategy shows up in the number.",
+  },
+];
+
+const RIGHT_ITEMS = [
+  {
+    title: "We Own The Outcome",
+    body: "Not the tasks. Not the deliverables. The actual result. That shift changes every decision we make.",
+  },
+  {
+    title: "Agility Is Non-Negotiable",
+    body: "Markets move fast. We move faster. Experiments, pivots and decisions happen at the speed of opportunity.",
+  },
+  {
+    title: "Your World. Our Blueprint.",
+    body: "We do not fit you into a template. We build the entire system around how your business actually works.",
   },
 ];
 
@@ -205,7 +220,7 @@ export function AboutEcosystemSection() {
               whiteSpace: "nowrap",
             }}
           >
-            Ecosystem
+            The Ecosystem Model
           </span>
         </div>
 
@@ -221,9 +236,9 @@ export function AboutEcosystemSection() {
             maxWidth: 698,
           }}
         >
-          <span style={{ fontWeight: 600, color: "#ffffff" }}>Lorem Ipsum Is </span>
-          <span style={{ fontWeight: 600, color: "#8e8e8e" }}>Simply Dummy Is </span>
-          <span style={{ fontWeight: 300, color: "#8e8e8e" }}>Text Lorem Typesetting</span>
+          <span style={{ fontWeight: 600, color: "#ffffff" }}>Fair Warning. </span>
+          <span style={{ fontWeight: 300, color: "#8e8e8e" }}>Once You See How This Works, </span>
+          <span style={{ fontWeight: 600, color: "#ffffff" }}>You Will Wonder Why You Did Not Do This Sooner.</span>
         </p>
       </div>
 
@@ -231,7 +246,7 @@ export function AboutEcosystemSection() {
       {isMobile ? (
         /* Mobile: single column, no center image */
         <div style={{ display: "flex", flexDirection: "column", gap: 40 }}>
-          {ITEMS.map((item, i) => (
+          {[...LEFT_ITEMS, ...RIGHT_ITEMS].map((item, i) => (
             <FeatureItem
               key={`mobile-${i}`}
               title={item.title}
@@ -261,7 +276,7 @@ export function AboutEcosystemSection() {
               gap: 74,
             }}
           >
-            {ITEMS.map((item, i) => (
+            {LEFT_ITEMS.map((item, i) => (
               <FeatureItem
                 key={`left-${i}`}
                 title={item.title}
@@ -284,7 +299,7 @@ export function AboutEcosystemSection() {
               alignItems: "flex-end",
             }}
           >
-            {ITEMS.map((item, i) => (
+            {RIGHT_ITEMS.map((item, i) => (
               <FeatureItem
                 key={`right-${i}`}
                 title={item.title}
@@ -296,7 +311,7 @@ export function AboutEcosystemSection() {
             ))}
           </div>
 
-          {/* Center image — absolutely positioned between the columns */}
+          {/* Center video — absolutely positioned between the columns */}
           <div
             style={{
               position: "absolute",
@@ -307,28 +322,22 @@ export function AboutEcosystemSection() {
               pointerEvents: "none",
             }}
           >
-            <img
-              src={IMG_CENTER}
-              alt="Hexanovate Ecosystem"
+            <video
+              src="https://sienna-pelican-786032.hostingersite.com/wp-content/uploads/2026/03/grok-video-a978f241-92f5-4740-bf2c-d5003cd71847.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
               style={{
                 width: "100%",
                 height: "auto",
                 display: "block",
-                objectFit: "contain",
+                objectFit: "cover",
               }}
             />
-            {/* Fade out bottom of image into bg */}
-            <div
-              style={{
-                position: "absolute",
-                bottom: 0,
-                left: 0,
-                right: 0,
-                height: 80,
-                background: "linear-gradient(to bottom, rgba(10,10,10,0), #0a0a0a)",
-                pointerEvents: "none",
-              }}
-            />
+            {/* Fade all edges into bg */}
+            <div style={{ position: "absolute", inset: 0, pointerEvents: "none", background: "linear-gradient(to bottom, #0a0a0a 0%, transparent 30%, transparent 70%, #0a0a0a 100%)" }} />
+            <div style={{ position: "absolute", inset: 0, pointerEvents: "none", background: "linear-gradient(to right, #0a0a0a 0%, transparent 30%, transparent 70%, #0a0a0a 100%)" }} />
           </div>
         </div>
       )}

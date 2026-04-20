@@ -16,10 +16,10 @@ import imgAcumen    from "@/assets/bda2b46a7404e07003bc523edf67001cfd71ce4d.jpg"
 import imgAppGallop from "@/assets/2d3adea92049711e2578c76b97b58d05fe350d0d.jpg";
 import imgEfax      from "@/assets/b5a6ae84ac81f90355801c07a654b4ddeff7a307.jpg";
 import imgSplashtop from "@/assets/ec9f3ce9d899bf70e2291d8bb5a2449cfbea0db2.jpg";
-import imgColdman   from "@/assets/521400233e6074875648780027ba03a58633b4d6.jpg";
-import imgPaybooks  from "@/assets/a131b6de857eb2c01c3d2bc1476e7f8e39ad15ff.jpg";
+import imgSenses    from "@/assets/521400233e6074875648780027ba03a58633b4d6.jpg";
 import imgElmo      from "@/assets/9f84aaabf73edf8837949843d52521852059611f.jpg";
-import imgWarehouse from "@/assets/e770b8f7f0a4c6307225a1f4016b97084db4444e.jpg";
+import imgGoldman   from "@/assets/e770b8f7f0a4c6307225a1f4016b97084db4444e.jpg";
+import { LogoBrandTruin, LogoBrandKlearStack, LogoBrandPaybooks } from "./BrandLogos";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -92,15 +92,21 @@ const SLIDES: Slide[] = [
 ];
 
 /* ── Brand logos for the scroll strip ───────────────────────────────────── */
-const LOGOS = [
-  { src: imgAcumen,    alt: "Acumen CMS",  bg: "#fff6e6",    h: 22 },
-  { src: imgAppGallop, alt: "App Gallop",  bg: "transparent", h: 36 },
-  { src: imgEfax,      alt: "eFax",        bg: "transparent", h: 36 },
-  { src: imgElmo,      alt: "Elmo",        bg: "transparent", h: 32 },
-  { src: imgColdman,   alt: "Coldman",     bg: "transparent", h: 36 },
-  { src: imgPaybooks,  alt: "Paybooks",    bg: "transparent", h: 38 },
-  { src: imgSplashtop, alt: "Splashtop",   bg: "transparent", h: 36 },
-  { src: imgWarehouse, alt: "Warehouse",   bg: "transparent", h: 36 },
+type LogoEntry =
+  | { kind: "img"; src: string; alt: string; h: number }
+  | { kind: "cmp"; alt: string; Component: React.ComponentType };
+
+const LOGOS: LogoEntry[] = [
+  { kind: "img", src: imgAcumen,    alt: "Acumen CMS",  h: 22 },
+  { kind: "img", src: imgAppGallop, alt: "App Gallop",  h: 24 },
+  { kind: "img", src: imgEfax,      alt: "eFax",        h: 24 },
+  { kind: "img", src: imgSplashtop, alt: "Splashtop",   h: 22 },
+  { kind: "img", src: imgSenses,    alt: "Senses",      h: 20 },
+  { kind: "cmp", alt: "Truein",     Component: LogoBrandTruin },
+  { kind: "cmp", alt: "KlearStack", Component: LogoBrandKlearStack },
+  { kind: "cmp", alt: "Paybooks",   Component: LogoBrandPaybooks },
+  { kind: "img", src: imgElmo,      alt: "ELMO",        h: 32 },
+  { kind: "img", src: imgGoldman,   alt: "Goldman",     h: 34 },
 ];
 
 /* ── Glass card shell ────────────────────────────────────────────────────── */
@@ -300,7 +306,7 @@ function LogoStrip() {
         <motion.div
           style={{ display: "flex", gap: 0, alignItems: "center" }}
           animate={{ x: [0, -(LOGOS.length * 216)] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear", repeatType: "loop" }}
+          transition={{ duration: 24, repeat: Infinity, ease: "linear", repeatType: "loop" }}
         >
           {doubled.map((logo, i) => (
             <div
@@ -312,15 +318,19 @@ function LogoStrip() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                padding: "22px 42px",
+                padding: logo.kind === "img" ? "22px 42px" : 0,
                 boxSizing: "border-box",
               }}
             >
-              <img
-                src={logo.src}
-                alt={logo.alt}
-                style={{ maxHeight: logo.h, maxWidth: "100%", objectFit: "contain", display: "block" }}
-              />
+              {logo.kind === "img" ? (
+                <img
+                  src={logo.src}
+                  alt={logo.alt}
+                  style={{ maxHeight: logo.h, maxWidth: "100%", objectFit: "contain", display: "block" }}
+                />
+              ) : (
+                <logo.Component />
+              )}
             </div>
           ))}
         </motion.div>
@@ -380,7 +390,7 @@ export function AboutB2BPortfolioSection() {
                 borderRadius: 40, padding: "6px 20px", flexShrink: 0,
               }}>
                 <span style={{ fontFamily: "Poppins, sans-serif", fontSize: 13, color: "#FFA600", whiteSpace: "nowrap" }}>
-                  B2B Portfolio
+                  They Said It. Not Us.
                 </span>
               </div>
               {!isMobile && <div style={{ width: 215, height: 1, background: "rgba(255,255,255,0.2)" }} />}
@@ -389,10 +399,13 @@ export function AboutB2BPortfolioSection() {
           {/* Heading */}
           <div style={{ width: isMobile ? "100%" : 632 }}>
             <p style={{ fontFamily: "Manrope, sans-serif", fontSize: isMobile ? "clamp(24px, 6vw, 36px)" : 44, lineHeight: 1.44, margin: 0 }}>
-              <span style={{ fontWeight: 700, color: "#ffffff" }}>B2B Portfolio Is Sim </span>
-              <span style={{ fontWeight: 300, color: "#8e8e8e" }}>dummy </span>
+              <span style={{ fontWeight: 700, color: "#ffffff" }}>Okay Fine. We Will Let </span>
+              <span style={{ fontWeight: 300, color: "#8e8e8e" }}>The Work </span>
               <br />
-              <span style={{ fontWeight: 300, color: "#8e8e8e" }}>text of the lorem type</span>
+              <span style={{ fontWeight: 700, color: "#ffffff" }}>Do The Talking For Once.</span>
+            </p>
+            <p style={{ fontFamily: "Poppins, sans-serif", fontWeight: 300, fontSize: 15, lineHeight: "24px", color: "#727272", margin: "12px 0 0" }}>
+              Real clients, real problems, occasionally uncomfortable truths, and numbers that actually showed up.
             </p>
           </div>
         </div>

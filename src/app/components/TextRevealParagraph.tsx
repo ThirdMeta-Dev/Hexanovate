@@ -27,14 +27,14 @@ export function TextRevealParagraph() {
     offset: ["start 0.85", "start 0.15"],
   });
 
-  // Segment 1 — bold white: "We unlock scale by fixing what's"
-  const boldWords = "We unlock scale by fixing what's".split(" ");
+  // Segment 1 — bold white: "Big Vision, Focused Execution."
+  const boldWords = "Big Vision, Focused Execution.".split(" ");
 
-  // Segment 2 — light white: ":"
-  // Segment 3 — light gray: "lorem conversion, retention, repeat; so growth We lorem is"
-  const grayWords = "lorem conversion, retention, repeat; so growth We lorem is".split(" ");
+  // Segment 2 — light white: (no colon separator here)
+  // Segment 3 — light gray: "Three Markets. Three Specialists. Each One Built to Dominate Its Market."
+  const grayWords = "Three Markets. Three Specialists. Each One Built to Dominate Its Market.".split(" ");
 
-  const totalWords = boldWords.length + 1 + grayWords.length; // +1 for ":"
+  const totalWords = boldWords.length + grayWords.length;
 
   const getRange = (index: number): [number, number] => {
     const start = index / totalWords;
@@ -72,15 +72,6 @@ export function TextRevealParagraph() {
             </Word>
           );
         })}
-
-        {/* Colon — light weight */}
-        <Word
-          progress={scrollYProgress}
-          range={getRange(wordIndex++)}
-          style={{ fontWeight: 300, color: "white" }}
-        >
-          {":"}
-        </Word>
 
         {/* Gray light words */}
         {grayWords.map((word) => {

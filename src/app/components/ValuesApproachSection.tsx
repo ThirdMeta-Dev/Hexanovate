@@ -8,24 +8,39 @@ import imgSlide2 from "@/assets/a9faff04fbb40b4297efb717f05795a3e749ebf7.jpg";
 /* ─── SLIDES DATA ────────────────────────────────────────────────────────── */
 const SLIDES = [
   {
-    title: "Empathy First, Always",
-    description:
-      "We understand businesses because we listen before we prescribe. Every strategy begins with genuine curiosity about where you are, what you need, and what you are truly trying to become.",
-    cardTitle: "Empathy First",
+    title: "Accountability Without Excuses",
+    description: "When something does not work, we say so first. No blame, no deflection, just the honest next step.",
+    cardTitle: "Accountability First",
     image: imgSlide0,
   },
   {
-    title: "Obsessed With Outcomes",
-    description:
-      "Deliverables are the minimum. What we actually care about is the number that moves, the market that shifts, and the business that looks completely different six months from now.",
-    cardTitle: "Outcome Obsessed",
+    title: "Enablement Not Dependency",
+    description: "We build businesses that are stronger because of us, not ones that cannot function without us.",
+    cardTitle: "Enablement First",
     image: imgSlide1,
   },
   {
-    title: "Always Start With Why",
-    description:
-      "Before a single strategy is written, we ask the question underneath the question. What is this business truly trying to achieve? That answer changes everything that follows.",
-    cardTitle: "Start With Why",
+    title: "Honesty Is Non-Negotiable",
+    description: "We will tell you what your business needs to hear, not what feels comfortable in the moment.",
+    cardTitle: "Honest Always",
+    image: imgSlide2,
+  },
+  {
+    title: "Excellence Has No Shortcuts",
+    description: "Every output is held to one question: is this genuinely the best version of what this could be?",
+    cardTitle: "Excellence Always",
+    image: imgSlide0,
+  },
+  {
+    title: "Curiosity Never Stops",
+    description: "The market changes. Buyer behaviour shifts. We stay curious because complacency is how good teams become average ones.",
+    cardTitle: "Always Curious",
+    image: imgSlide1,
+  },
+  {
+    title: "Empathy Is A Strategy",
+    description: "Understanding a business deeply before prescribing anything is not soft. It is the most effective thing we do.",
+    cardTitle: "Empathy First",
     image: imgSlide2,
   },
 ];
@@ -229,30 +244,30 @@ function TitleReveal() {
       style={{ fontWeight: 700, lineHeight: 1.48, marginTop: 0, marginBottom: 0 }}
     >
       {/* Line 1 */}
-      <RevealWord weight={700} color="white"   progress={scrollYProgress} range={r(0)}>Built</RevealWord>
+      <RevealWord weight={700} color="white"   progress={scrollYProgress} range={r(0)}>We</RevealWord>
       {" "}
-      <RevealWord weight={700} color="white"   progress={scrollYProgress} range={r(1)}>On</RevealWord>
+      <RevealWord weight={700} color="white"   progress={scrollYProgress} range={r(1)}>Have</RevealWord>
       {" "}
-      <RevealWord weight={700} color="white"   progress={scrollYProgress} range={r(2)}>Belief.</RevealWord>
+      <RevealWord weight={700} color="white"   progress={scrollYProgress} range={r(2)}>Values.</RevealWord>
       {" "}
-      <RevealWord weight={700} color="white"   progress={scrollYProgress} range={r(3)}>Powered</RevealWord>
+      <RevealWord weight={300} color="#8e8e8e" progress={scrollYProgress} range={r(3)}>And</RevealWord>
       {" "}
-      <RevealWord weight={700} color="white"   progress={scrollYProgress} range={r(4)}>By</RevealWord>
+      <RevealWord weight={300} color="#8e8e8e" progress={scrollYProgress} range={r(4)}>No,</RevealWord>
       <br />
       {/* Line 2 */}
-      <RevealWord weight={300} color="#8e8e8e" progress={scrollYProgress} range={r(5)}>a</RevealWord>
+      <RevealWord weight={300} color="#8e8e8e" progress={scrollYProgress} range={r(5)}>They</RevealWord>
       {" "}
-      <RevealWord weight={300} color="#8e8e8e" progress={scrollYProgress} range={r(6)}>Philosophy</RevealWord>
+      <RevealWord weight={300} color="#8e8e8e" progress={scrollYProgress} range={r(6)}>Are</RevealWord>
       {" "}
-      <RevealWord weight={300} color="#8e8e8e" progress={scrollYProgress} range={r(7)}>Nobody</RevealWord>
+      <RevealWord weight={300} color="#8e8e8e" progress={scrollYProgress} range={r(7)}>Not</RevealWord>
       {" "}
-      <RevealWord weight={300} color="#8e8e8e" progress={scrollYProgress} range={r(8)}>Talked</RevealWord>
+      <RevealWord weight={700} color="white"   progress={scrollYProgress} range={r(8)}>Just</RevealWord>
       {" "}
-      <RevealWord weight={300} color="#8e8e8e" progress={scrollYProgress} range={r(9)}>Us</RevealWord>
+      <RevealWord weight={700} color="white"   progress={scrollYProgress} range={r(9)}>On</RevealWord>
       {" "}
-      <RevealWord weight={300} color="#8e8e8e" progress={scrollYProgress} range={r(10)}>Out</RevealWord>
+      <RevealWord weight={700} color="white"   progress={scrollYProgress} range={r(10)}>A</RevealWord>
       {" "}
-      <RevealWord weight={300} color="#8e8e8e" progress={scrollYProgress} range={r(11)}>Of.</RevealWord>
+      <RevealWord weight={700} color="white"   progress={scrollYProgress} range={r(11)}>Poster.</RevealWord>
     </p>
   );
 }
@@ -367,7 +382,7 @@ export function ValuesApproachSection() {
               <TitleReveal />
             </div>
             <p style={{ fontFamily: "Poppins, sans-serif", fontWeight: 400, fontSize: 16, lineHeight: "29px", color: "#727272", marginTop: 0, marginBottom: 0 }}>
-              Not a slide deck. Not a poster on the wall. This is genuinely how we operate.
+              The principles that shape every decision, every hire, and every number we put our name on.
             </p>
           </div>
         </div>

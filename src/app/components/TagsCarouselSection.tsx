@@ -8,18 +8,29 @@ import svgPaths from "../../imports/svg-4dyynmyd9a";
  * Each set is duplicated (×2) so translateX(-50%) gives a seamless infinite loop.
  * ──────────────────────────────────────────────────────────────────────────── */
 const ROW1_TAGS = [
-  "How do I scale my FMCG brand digitally?",
-  "What is TheNativeUnit?",
-  "Can Hexanovate help B2B companies grow faster?",
-  "How does EduHexa improve student outcomes?",
-  "What makes ThirdMeta different from traditional marketing?",
+  "B2B Pipeline That Converts",
+  "Consumer Brands That Scale",
+  "Smart Classroom Consulting",
+  "Inbound Lead Generation",
+  "Revenue Growth Systems",
+  "Not an Agency. A System.",
+  "The Planetary Growth Ecosystem",
+  "Outcome Obsessed. Always.",
+  "One Partner. Every Function.",
+  "Built Around You. Not For You.",
 ];
 
 const ROW2_TAGS = [
-  "How quickly can I see results?",
-  "Is Hexanovate right for my industry?",
-  "Can we integrate with our existing tech stack?",
-  "What ROI can I expect from Hexanovate's solutions?",
+  "Effort vs Outcome. We Pick Outcome.",
+  "Data Over Instincts. Every Time.",
+  "Humans Behind Every System",
+  "Long Game Thinkers",
+  "Creativity Meets Technology",
+  "Zero Gaps. Zero Guesswork.",
+  "Growth That Compounds",
+  "We Own The Number",
+  "Your Vision. Our Obsession.",
+  "Predictable. Measurable. Permanent.",
 ];
 
 /* ─── SINGLE TAG ──────────────────────────────────────────────────────────────
@@ -214,17 +225,24 @@ export function TagsCarouselSection({ transparent = false }: { transparent?: boo
 
   /* Word list — order matches reading order; breakAfter inserts a <br/> */
   const titleWords: { text: string; color: string; weight: number; breakAfter?: boolean }[] = [
-    { text: "Ready",        color: "#8e8e8e", weight: 400 },
-    { text: "to",           color: "#8e8e8e", weight: 400 },
-    { text: "scale?",       color: "#8e8e8e", weight: 400, breakAfter: true },
-    { text: "Partner",      color: "white",   weight: 700 },
-    { text: "with",         color: "white",   weight: 700 },
-    { text: "Hexanovate",   color: "white",   weight: 700, breakAfter: true },
-    { text: "and",          color: "#8e8e8e", weight: 400 },
-    { text: "transform",    color: "white",   weight: 700 },
-    { text: "your",         color: "white",   weight: 700 },
-    { text: "brand",        color: "white",   weight: 700 },
-    { text: "today.",       color: "#8e8e8e", weight: 400 },
+    { text: "Does",         color: "#8e8e8e", weight: 400 },
+    { text: "your",         color: "#8e8e8e", weight: 400 },
+    { text: "revenue",      color: "#8e8e8e", weight: 400 },
+    { text: "align",        color: "#8e8e8e", weight: 400 },
+    { text: "with",         color: "#8e8e8e", weight: 400 },
+    { text: "the",          color: "#8e8e8e", weight: 400 },
+    { text: "vision?",      color: "#8e8e8e", weight: 400, breakAfter: true },
+    { text: "Your",         color: "white",   weight: 700 },
+    { text: "Numbers",      color: "white",   weight: 700 },
+    { text: "Could",        color: "white",   weight: 700 },
+    { text: "Look",         color: "white",   weight: 700 },
+    { text: "Very",         color: "white",   weight: 700 },
+    { text: "Different",    color: "white",   weight: 700 },
+    { text: "Six",          color: "white",   weight: 700 },
+    { text: "Months",       color: "white",   weight: 700 },
+    { text: "From",         color: "white",   weight: 700 },
+    { text: "Now.",         color: "white",   weight: 700, breakAfter: true },
+    { text: "Seriously.",   color: "#8e8e8e", weight: 400 },
   ];
   const n = titleWords.length;
 
@@ -417,7 +435,7 @@ export function TagsCarouselSection({ transparent = false }: { transparent?: boo
                     whiteSpace: "nowrap",
                   }}
                 >
-                  B2B ThirdMeta
+                  Show Me How
                 </p>
               </motion.div>
 

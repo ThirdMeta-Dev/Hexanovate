@@ -255,7 +255,7 @@ function TeamCultureBadge() {
       <div style={{ background: "#111", borderRadius: 40, padding: "6px 20px", display: "inline-flex", alignItems: "center", justifyContent: "center", position: "relative", flexShrink: 0 }}>
         <div aria-hidden="true" style={{ position: "absolute", inset: 0, border: "1px solid #414141", borderRadius: 40, pointerEvents: "none" }} />
         <span style={{ fontFamily: "Poppins, sans-serif", fontWeight: 400, fontSize: 13, color: "#ffa600", lineHeight: "normal", whiteSpace: "nowrap", position: "relative" }}>
-          Team &amp; Culture
+          People First. Always.
         </span>
       </div>
     </div>
@@ -277,19 +277,16 @@ function SectionTitle() {
         className="wcu-section-title"
         style={{ fontFamily: "Manrope, sans-serif", fontSize: "clamp(24px, 3.2vw, 38px)", lineHeight: 1.3, color: "white", width: 670, maxWidth: "90vw", margin: 0, textTransform: "capitalize" }}
       >
-        <RevealWord text="Brilliant"  weight={700} color="white"   progress={scrollYProgress} range={[0, 0.12]} />{" "}
-        <RevealWord text="People"  weight={700} color="white"   progress={scrollYProgress} range={[0.08, 0.2]} />{" "}
-        <RevealWord text="Do"     weight={300} color="#8e8e8e"   progress={scrollYProgress} range={[0.16, 0.28]} />{" "}
-        <RevealWord text="Brilliant" weight={700} color="white" progress={scrollYProgress} range={[0.24, 0.36]} />{" "}
-        <RevealWord text="Things." weight={700} color="white" progress={scrollYProgress} range={[0.32, 0.44]} />{" "}
-        <RevealWord text="We" weight={300} color="#8e8e8e" progress={scrollYProgress} range={[0.40, 0.52]} />{" "}
-        <RevealWord text="Just" weight={300} color="#8e8e8e" progress={scrollYProgress} range={[0.48, 0.60]} />{" "}
-        <RevealWord text="Made" weight={300} color="#8e8e8e" progress={scrollYProgress} range={[0.56, 0.68]} />{" "}
-        <RevealWord text="Sure" weight={300} color="#8e8e8e" progress={scrollYProgress} range={[0.64, 0.76]} />{" "}
-        <RevealWord text="to" weight={300} color="#8e8e8e" progress={scrollYProgress} range={[0.72, 0.84]} />{" "}
-        <RevealWord text="Hire" weight={700} color="white" progress={scrollYProgress} range={[0.80, 0.92]} />{" "}
-        <RevealWord text="Them" weight={700} color="white" progress={scrollYProgress} range={[0.84, 0.96]} />{" "}
-        <RevealWord text="First." weight={700} color="white" progress={scrollYProgress} range={[0.88, 1]} />
+        <RevealWord text="Behind"  weight={700} color="white"   progress={scrollYProgress} range={[0, 0.12]} />{" "}
+        <RevealWord text="Every"   weight={700} color="white"   progress={scrollYProgress} range={[0.08, 0.2]} />{" "}
+        <RevealWord text="Number"  weight={700} color="white"   progress={scrollYProgress} range={[0.16, 0.28]} />{" "}
+        <RevealWord text="Is"      weight={300} color="#8e8e8e" progress={scrollYProgress} range={[0.24, 0.36]} />{" "}
+        <RevealWord text="A"       weight={300} color="#8e8e8e" progress={scrollYProgress} range={[0.32, 0.44]} />{" "}
+        <RevealWord text="Person"  weight={700} color="white"   progress={scrollYProgress} range={[0.40, 0.52]} />{" "}
+        <RevealWord text="Who"     weight={300} color="#8e8e8e" progress={scrollYProgress} range={[0.48, 0.60]} />{" "}
+        <RevealWord text="Took"    weight={700} color="white"   progress={scrollYProgress} range={[0.56, 0.68]} />{" "}
+        <RevealWord text="It"      weight={300} color="#8e8e8e" progress={scrollYProgress} range={[0.64, 0.76]} />{" "}
+        <RevealWord text="Personally." weight={700} color="white" progress={scrollYProgress} range={[0.72, 1]} />
       </p>
     </div>
   );
@@ -632,6 +629,9 @@ export function TeamCultureSection() {
             <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
               <TeamCultureBadge />
               <SectionTitle />
+              <p style={{ fontFamily: "Poppins, sans-serif", fontWeight: 300, fontSize: 15, lineHeight: "24px", color: "#727272", margin: 0 }}>
+                Passion over tasks, data over assumptions, growth over comfort and outcomes over efforts, that's the team behind the systems.
+              </p>
             </div>
             <MobileCarousel
               active={active}

@@ -18,19 +18,18 @@ import { motion } from "motion/react";
 import { projectId, publicAnonKey } from "../../../utils/supabase/info";
 
 const SERVICE_OPTIONS = [
-  "FMCG Brand Marketing",
-  "B2B Lead Generation",
-  "Digital Strategy & Consulting",
-  "Social Media Marketing",
-  "Content Marketing",
-  "SEO & Performance Marketing",
-  "Other / Not Sure",
+  "Growth partnership enquiry",
+  "Media or press",
+  "Strategic partnership",
+  "Careers or collaboration",
+  "General query",
 ];
 
 interface FormValues {
   name: string;
-  phone: string;
   email: string;
+  phone: string;
+  company: string;
   service: string;
   notes: string;
 }
@@ -140,7 +139,7 @@ function ContactForm() {
     >
       {/* Name — full width */}
       <input
-        placeholder="Tell us your name"
+        placeholder="Your name"
         style={{ ...glass, ...(errors.name ? glassErr : {}), height: 48, padding: "0 16px", width: "100%" }}
         {...register("name", {
           required: "Name is required.",
@@ -149,19 +148,10 @@ function ContactForm() {
       />
       {errors.name && <span style={errText}>{errors.name.message}</span>}
 
-      {/* Phone + Email row — side by side on desktop, stacked on mobile */}
+      {/* Email + Phone row — side by side on desktop, stacked on mobile */}
       <div className="cf-phone-email-row" style={{ display: "flex", gap: 12 }}>
         <input
-          placeholder="Number for a quick call"
-          className="cf-phone-input"
-          style={{ ...glass, ...(errors.phone ? glassErr : {}), height: 48, padding: "0 16px", flex: 1, minWidth: 0 }}
-          {...register("phone", {
-            required: "Phone is required.",
-            pattern: { value: /^[0-9+\s\-()]{7,15}$/, message: "Enter a valid phone number." },
-          })}
-        />
-        <input
-          placeholder="Drop your email ID"
+          placeholder="Where should we write back?"
           className="cf-email-input"
           style={{ ...glass, ...(errors.email ? glassErr : {}), height: 48, padding: "0 16px", flex: 1, minWidth: 0 }}
           {...register("email", {
@@ -169,13 +159,30 @@ function ContactForm() {
             pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: "Enter a valid email." },
           })}
         />
+        <input
+          placeholder="A number for a quick call if needed"
+          className="cf-phone-input"
+          style={{ ...glass, ...(errors.phone ? glassErr : {}), height: 48, padding: "0 16px", flex: 1, minWidth: 0 }}
+          {...register("phone", {
+            required: "Phone is required.",
+            pattern: { value: /^[0-9+\s\-()]{7,15}$/, message: "Enter a valid phone number." },
+          })}
+        />
       </div>
-      {(errors.phone || errors.email) && (
+      {(errors.email || errors.phone) && (
         <div className="cf-phone-email-errors" style={{ display: "flex", gap: 12, marginTop: -8 }}>
-          <span style={{ ...errText, flex: 1, marginTop: 0 }}>{errors.phone?.message ?? ""}</span>
           <span style={{ ...errText, flex: 1, marginTop: 0 }}>{errors.email?.message ?? ""}</span>
+          <span style={{ ...errText, flex: 1, marginTop: 0 }}>{errors.phone?.message ?? ""}</span>
         </div>
       )}
+
+      {/* Company + Designation — single field */}
+      <input
+        placeholder="Your company and what you do there"
+        style={{ ...glass, ...(errors.company ? glassErr : {}), height: 48, padding: "0 16px", width: "100%" }}
+        {...register("company", { required: "Company is required." })}
+      />
+      {errors.company && <span style={errText}>{errors.company.message}</span>}
 
       {/* Service dropdown */}
       <div style={{ position: "relative" }}>
@@ -195,7 +202,7 @@ function ContactForm() {
           {...register("service", { required: "Please select a service." })}
         >
           <option value="" disabled style={{ background: "#1a1a1a" }}>
-            Joining for Lorem ipsum is simply?
+            What brings you here today?
           </option>
           {SERVICE_OPTIONS.map((opt) => (
             <option key={opt} value={opt} style={{ background: "#1a1a1a", color: "#fff" }}>
@@ -213,7 +220,7 @@ function ContactForm() {
 
       {/* Notes textarea */}
       <textarea
-        placeholder="What are you looking for?"
+        placeholder="The more context you give, the better we can help"
         style={{
           ...glass,
           ...(errors.notes ? glassErr : {}),
@@ -267,7 +274,7 @@ function ContactForm() {
               boxShadow: "0 4px 4px rgba(0,0,0,0.3)",
             }}
           >
-            {isSubmitting ? "Sending…" : "Get in Touch"}
+            {isSubmitting ? "Sending…" : "Start The Conversation"}
           </div>
           {/* Arrow circle — fully rounded */}
           <div
@@ -367,7 +374,7 @@ export function AboutContactSection() {
               }}
             >
               <span style={{ fontFamily: "Poppins, sans-serif", fontSize: 13, color: "#FFA600", whiteSpace: "nowrap" }}>
-                Lorem Ipsum
+                Open A Conversation
               </span>
             </div>
             <div style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.15)" }} />
@@ -375,17 +382,17 @@ export function AboutContactSection() {
 
           {/* Heading */}
           <p className="ac-heading" style={{ fontFamily: "Manrope, sans-serif", fontSize: 48, lineHeight: 1.32, margin: 0, textTransform: "capitalize" }}>
-            <span style={{ fontWeight: 300, color: "#ffffff" }}>Lorem </span>
-            <span style={{ fontWeight: 700, color: "#ffffff" }}>Ipsum Is Simply</span>
+            <span style={{ fontWeight: 300, color: "#ffffff" }}>Something Brought </span>
+            <span style={{ fontWeight: 700, color: "#ffffff" }}>You Here.</span>
             <br />
-            <span style={{ fontWeight: 300, color: "#ffffff" }}>Dummy Text Of The</span>
+            <span style={{ fontWeight: 700, color: "#ffffff" }}>Let Us Find Out What.</span>
           </p>
 
           {/* Bullet points */}
           <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-            <Bullet bold="123 Accuracy" muted="learning lorem simply" />
-            <Bullet bold="99%+ Self-learning" muted="learning lorem simply" />
-            <Bullet bold="3,999 Accuracy" muted="lorem simply" />
+            <Bullet bold="No commitment —" muted="A conversation costs nothing and might change everything" />
+            <Bullet bold="Right person —" muted="Your message goes directly to someone who can actually help" />
+            <Bullet bold="Any reason —" muted="Leads, partnerships, press, questions, or just curiosity. All welcome." />
           </div>
         </div>
 

@@ -30,9 +30,9 @@ const VP = { once: true, margin: "-80px" } as const;
 
 /* ── Stats data ──────────────────────────────────────────────────────────── */
 const STATS = [
-  { value: 98,  suffix: "%", suffixSize: 32, suffixWeight: 400, label: "We power discovery, lorem engagement" },
-  { value: 123, suffix: "+", suffixSize: 48, suffixWeight: 200, label: "We power discover lorem engagement" },
-  { value: 123, suffix: "+", suffixSize: 48, suffixWeight: 200, label: "We power discover engagement" },
+  { value: 94,  suffix: "%",   suffixSize: 32, suffixWeight: 400, label: "Clients stayed beyond two years." },
+  { value: 120, suffix: "+",   suffixSize: 48, suffixWeight: 200, label: "Businesses grew inside the ecosystem." },
+  { value: 200, suffix: "Cr+", suffixSize: 24, suffixWeight: 400, label: "Revenue influenced across clients." },
 ];
 
 /* ── Amber Tag + horizontal rule ─────────────────────────────────────────── */
@@ -60,7 +60,7 @@ function AboutTag() {
             whiteSpace: "nowrap",
           }}
         >
-          About us
+          The Planetary System
         </span>
       </div>
       <div
@@ -92,15 +92,15 @@ function RevealWord({
 /* Paragraph data — all white, weight varies per Figma */
 const PARA_SEGMENTS = [
   {
-    text: "We unlock scale by fixing lorem ipsum what's leaking conversion, retention, repeation growth lorem compounds. We unlock scale by fixing lorem We unlock scale by fixing lorem ipsum what's leaking conversion, retention, repeation growth lorem compounds.",
+    text: "Cheers! You built it. You believed in it. You gave it everything.",
     weight: 600,
   },
   {
-    text: "We unlock scale by fixing lorem We unlock scale by fixing lorem ipsum what's leaking conversion, retention, repeation growth lorem compounds. Lorem ipsum is simply dummy",
+    text: "So why do the numbers still feel like they are holding your vision hostage? Hexanovate is the Planetary System around YOU, the Sun. Human intelligence, AI systems, automation frameworks, pipelines, marketing and revenue engines. All of it designed and engineered toward a single goal. No tasks. No deliverables. No activities. Just predictable, measurable, consistent and scalable growth of your business.",
     weight: 300,
   },
   {
-    text: "Repeation growth lorem compounds. Lorem ipsum is simply dummy text if the typesetting.",
+    text: "Today, marketing and sales. Tomorrow, the full picture. Finance, operations, talent, and every function that makes a business truly unstoppable.",
     weight: 300,
   },
 ];

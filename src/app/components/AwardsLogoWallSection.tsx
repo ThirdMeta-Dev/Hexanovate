@@ -4,10 +4,10 @@ import svgPaths from "../../imports/svg-d60poec32a";
 
 /* ─── DATA ───────────────────────────────────────────────────────────────── */
 const CARDS = [
-  { title: "Recognized for B2B Innovation Excellence" },
-  { title: "Top FMCG Growth Partner of the Year" },
-  { title: "Best EdTech Marketing Solution" },
-  { title: "Digital Marketing Agency of the Year" },
+  { title: "One system instead of ten confused vendors and employees." },
+  { title: "Mental bandwidth back to the product and vision." },
+  { title: "Zero gaps between strategy, execution and outcome." },
+  { title: "Predictable revenue. The kind you can actually plan around." },
 ];
 
 /* ─── NETWORK ICON ───────────────────────────────────────────────────────── */
@@ -269,7 +269,7 @@ function SectionBadge() {
           position: "relative",
         }}
       >
-        Awards Logo Wall
+        The Hexanovate Effect
       </span>
     </div>
   );
@@ -287,20 +287,18 @@ export function AwardsLogoWallSection() {
     target: titleRef,
     offset: ["start 0.85", "end 0.35"],
   });
-  // 13 words total — each illuminates across its 1/13 slice of the scroll range
-  const tw0  = useTransform(titleP, [0 / 13, 1 / 13],   [0.2, 1]);
-  const tw1  = useTransform(titleP, [1 / 13, 2 / 13],   [0.2, 1]);
-  const tw2  = useTransform(titleP, [2 / 13, 3 / 13],   [0.2, 1]);
-  const tw3  = useTransform(titleP, [3 / 13, 4 / 13],   [0.2, 1]);
-  const tw4  = useTransform(titleP, [4 / 13, 5 / 13],   [0.2, 1]);
-  const tw5  = useTransform(titleP, [5 / 13, 6 / 13],   [0.2, 1]);
-  const tw6  = useTransform(titleP, [6 / 13, 7 / 13],   [0.2, 1]);
-  const tw7  = useTransform(titleP, [7 / 13, 8 / 13],   [0.2, 1]);
-  const tw8  = useTransform(titleP, [8 / 13, 9 / 13],   [0.2, 1]);
-  const tw9  = useTransform(titleP, [9 / 13, 10 / 13],  [0.2, 1]);
-  const tw10 = useTransform(titleP, [10 / 13, 11 / 13], [0.2, 1]);
-  const tw11 = useTransform(titleP, [11 / 13, 12 / 13], [0.2, 1]);
-  const tw12 = useTransform(titleP, [12 / 13, 1],       [0.2, 1]);
+  // 11 words total — each illuminates across its 1/11 slice of the scroll range
+  const tw0  = useTransform(titleP, [0 / 11, 1 / 11],   [0.2, 1]);
+  const tw1  = useTransform(titleP, [1 / 11, 2 / 11],   [0.2, 1]);
+  const tw2  = useTransform(titleP, [2 / 11, 3 / 11],   [0.2, 1]);
+  const tw3  = useTransform(titleP, [3 / 11, 4 / 11],   [0.2, 1]);
+  const tw4  = useTransform(titleP, [4 / 11, 5 / 11],   [0.2, 1]);
+  const tw5  = useTransform(titleP, [5 / 11, 6 / 11],   [0.2, 1]);
+  const tw6  = useTransform(titleP, [6 / 11, 7 / 11],   [0.2, 1]);
+  const tw7  = useTransform(titleP, [7 / 11, 8 / 11],   [0.2, 1]);
+  const tw8  = useTransform(titleP, [8 / 11, 9 / 11],   [0.2, 1]);
+  const tw9  = useTransform(titleP, [9 / 11, 10 / 11],  [0.2, 1]);
+  const tw10 = useTransform(titleP, [10 / 11, 1],       [0.2, 1]);
 
   return (
     <section
@@ -369,31 +367,34 @@ export function AwardsLogoWallSection() {
               marginBottom: 0,
             }}
           >
-            <motion.span style={{ fontWeight: 700, opacity: tw0 }}>Turns</motion.span>
+            <motion.span style={{ fontWeight: 700, opacity: tw0 }}>Four</motion.span>
             {" "}
-            <motion.span style={{ fontWeight: 700, opacity: tw1 }}>Out</motion.span>
+            <motion.span style={{ fontWeight: 700, opacity: tw1 }}>Things.</motion.span>
             {" "}
-            <motion.span style={{ fontWeight: 700, opacity: tw2 }}>Doing</motion.span>
+            <motion.span style={{ color: "#8e8e8e", fontWeight: 400, opacity: tw2 }}>Here</motion.span>
             {" "}
-            <motion.span style={{ fontWeight: 700, opacity: tw3 }}>Great</motion.span>
+            <motion.span style={{ color: "#8e8e8e", fontWeight: 400, opacity: tw3 }}>Is</motion.span>
             {" "}
-            <motion.span style={{ fontWeight: 700, opacity: tw4 }}>Work</motion.span>
+            <motion.span style={{ color: "#8e8e8e", fontWeight: 400, opacity: tw4 }}>What</motion.span>
             {" "}
-            <motion.span style={{ color: "#8e8e8e", fontWeight: 400, opacity: tw5 }}>Eventually</motion.span>
+            <motion.span style={{ fontWeight: 700, opacity: tw5 }}>Changes</motion.span>
             {" "}
-            <motion.span style={{ color: "#8e8e8e", fontWeight: 400, opacity: tw6 }}>Gets</motion.span>
+            <motion.span style={{ color: "#8e8e8e", fontWeight: 400, opacity: tw6 }}>When</motion.span>
             {" "}
-            <motion.span style={{ color: "#8e8e8e", fontWeight: 400, opacity: tw7 }}>You</motion.span>
+            <motion.span style={{ fontWeight: 700, opacity: tw7 }}>Hexanovate</motion.span>
             {" "}
-            <motion.span style={{ color: "#8e8e8e", fontWeight: 400, opacity: tw8 }}>A</motion.span>
+            <motion.span style={{ fontWeight: 700, opacity: tw8 }}>Enters</motion.span>
             {" "}
-            <motion.span style={{ color: "#8e8e8e", fontWeight: 400, opacity: tw9 }}>Trophy</motion.span>
+            <motion.span style={{ color: "#8e8e8e", fontWeight: 400, opacity: tw9 }}>The</motion.span>
             {" "}
-            <motion.span style={{ color: "#8e8e8e", fontWeight: 400, opacity: tw10 }}>Or</motion.span>
-            {" "}
-            <motion.span style={{ color: "#8e8e8e", fontWeight: 400, opacity: tw11 }}>Several.</motion.span>
+            <motion.span style={{ fontWeight: 700, opacity: tw10 }}>Picture.</motion.span>
           </p>
         </div>
+
+        {/* Subtitle */}
+          <p style={{ fontFamily: "Poppins, sans-serif", fontWeight: 300, fontSize: 15, lineHeight: "24px", color: "#727272", textAlign: "center", margin: "0 auto", maxWidth: 600 }}>
+            Every strategy, every vertical, every decision. All pointed at making these four things happen for your business.
+          </p>
 
         {/* ── CARDS ROW ── */}
         {/*

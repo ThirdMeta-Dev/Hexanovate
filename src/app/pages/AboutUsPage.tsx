@@ -180,16 +180,7 @@ export default function AboutUsPage() {
         <TestimonialsHeaderSection />
       </motion.div>
 
-      {/* ── Section 12: Ecosystem Accordion ── */}
-      <motion.div
-        style={{ marginTop: isMobile ? 60 : 140 }}
-        initial={{ y: 60, opacity: 0, scale: 0.97 }}
-        whileInView={{ y: 0, opacity: 1, scale: 1 }}
-        viewport={VP}
-        transition={{ duration: 0.85, ease: EASE }}
-      >
-        <AboutEcosystemAccordionSection />
-      </motion.div>
+      {/* Section 12: Ecosystem Accordion — hidden */}
 
       {/* ── Section 12: Awards & Logo Wall ── */}
       <motion.div

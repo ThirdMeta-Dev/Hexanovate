@@ -205,7 +205,7 @@ function TitleRow() {
         transition={{ duration: 0.55, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
       >
         <p className="capitalize" style={{ fontFamily: "Manrope, sans-serif", fontSize: "40px", fontWeight: 700, lineHeight: "1.25", margin: 0, width: "100%", color: "white" }}>
-          We'd Say We're Different, But That Would Be an Insult to How Different We Actually Are.
+          You Have Seen Agencies. You Have Not Seen Anything Quite Like This Yet.
         </p>
       </motion.div>
     </div>
@@ -215,16 +215,16 @@ function TitleRow() {
 /* ─── DATA ───────────────────────────────────────────────────────────────── */
 const WDU_ITEMS = [
   {
-    title: "A Vision Worth Building For",
-    desc: "To become the most complete growth ecosystem ever built, where every business finds exactly what it needs to become unstoppable.",
+    title: "Systems Run It. Humans Own It.",
+    desc: "Behind every framework is a person who treats your outcome as their own problem.",
   },
   {
-    title: "What Hexanovate Actually Is",
-    desc: "A parent ecosystem housing three specialized growth brands, each built to dominate a distinct market with depth, precision, and purpose.",
+    title: "The Rules Are Yours.",
+    desc: "We do not fit you into a model. We build the model entirely around you.",
   },
   {
-    title: "Built Different. Stays Different",
-    desc: "Trends come and go. The ecosystem was built on timeless principles of depth, connection, and relentless value creation.",
+    title: "The Long Game Is The Only Game.",
+    desc: "We measure success in years, not campaigns. That changes every decision we make.",
   },
 ];
 
@@ -466,7 +466,7 @@ function WhatDefinesUsMobileLayout() {
             color: "white",
           }}
         >
-          We'd Say We're Different, But That Would Be an Insult to How Different We Actually Are.
+          You Have Seen Agencies. You Have Not Seen Anything Quite Like This Yet.
         </p>
       </motion.div>
 

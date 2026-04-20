@@ -39,7 +39,6 @@ function WhyBadge() {
         justifyContent: "center",
         position: "relative",
         flexShrink: 0,
-        width: "169px",
       }}
     >
       <div
@@ -63,7 +62,7 @@ function WhyBadge() {
           position: "relative",
         }}
       >
-        Why We Started
+        The founder's truth
       </span>
     </div>
   );
@@ -218,7 +217,7 @@ function VideoCard({
   const dashOffset = CIRCUMFERENCE * (1 - progress);
 
   return (
-    <div style={{ position: "relative", width: w, height: h, flexShrink: 0 }}>
+    <div style={{ position: "relative", width: w, height: h, flexShrink: 0, borderRadius: 20, overflow: "hidden" }}>
       {/* ── Video clipped into the Subtract shape ── */}
       <div
         style={{
@@ -233,6 +232,7 @@ function VideoCard({
           WebkitMaskRepeat: "no-repeat",
           WebkitMaskPosition: "0px 0px",
           overflow: "hidden",
+          borderRadius: 20,
         }}
       >
         <video
@@ -619,7 +619,7 @@ function LeftColumn({ transparent = false }: { transparent?: boolean }) {
             position: "relative",
           }}
         >
-          In a World of Quick Fixes, We Chose to Build Something That Lasts.
+          Building a growth ecosystem was never the plan, we earned it from failures.
         </p>
       </div>
     </div>
@@ -938,7 +938,7 @@ function TabletLayout({ transparent = false }: { transparent?: boolean }) {
             }}
           >
             <p style={{ margin: 0 }}>
-              {["We", "didn’t", "start", "Hexanovate", "to", "just", "build", "another", "agency.", "We", "started", "it", "to", "build", "the", "infrastructure", "of", "growth."].flatMap((word, wi) => [
+              {["A", "great", "product,", "a", "team", "or", "agency", "full", "of", "tasks", "&", "reports,", "with", "minimal", "outcomes,", "that’s", "a", "very", "expensive", "hobby"].flatMap((word, wi) => [
                 wi > 0 ? " " : null,
                 <RevealWord
                   key={wi}
@@ -950,7 +950,7 @@ function TabletLayout({ transparent = false }: { transparent?: boolean }) {
               ])}
             </p>
             <p style={{ margin: 0 }}>
-              {["The", "business", "world", "is", "fragmented.", "Founders", "are", "forced", "to", "stitch", "together", "disconnected", "tools,", "teams,", "and", "strategies.", "We", "saw", "the", "gap", "and", "decided", "to", "fill", "it", "with", "a", "connected", "ecosystem", "where", "every", "part", "works", "in", "harmony", "to", "drive", "one", "thing:", "Unstoppable", "Growth."].flatMap((word, wi) => [
+              {["We", "were", "engineers.", "Building", "came", "naturally.", "Marketing", "and", "Sales", "didn't.", "We", "hired", "people", "to", "fix", "that.", "Got", "tasks,", "got", "reports,", "got", "invoices.", "Got", "nothing", "that", "moved", "the", "needle.", "So", "we", "stepped", "in", "and", "fixed", "it", "ourselves.", "With", "time,", "we", "found", "the", "real", "gap:", "EFFORT", "and", "OUTCOME", "gap.", "Outcomes", "only", "move", "when", "someone", "sees", "your", "vision", "through", "your", "eyes,", "with", "the", "same", "conviction", "you", "started", "with.", "That", "principle", "is", "the", "only", "reason", "Hexanovate", "exists."].flatMap((word, wi) => [
                 wi > 0 ? " " : null,
                 <RevealWord
                   key={wi}

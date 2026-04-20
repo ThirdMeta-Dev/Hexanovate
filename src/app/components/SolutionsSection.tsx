@@ -69,21 +69,21 @@ function SolutionsBadge() {
 function FmcgBadge() {
   return (
     <div style={{ background: "#111", border: "1px solid #414141", borderRadius: 40, padding: "6px 20px", display: "inline-flex", alignItems: "center", flexShrink: 0 }}>
-      <span style={{ fontFamily: "Poppins, sans-serif", fontWeight: 400, fontSize: 13, color: "#FFA600", whiteSpace: "pre" }}>{`TheNative Unit`}</span>
+      <span style={{ fontFamily: "Poppins, sans-serif", fontWeight: 400, fontSize: 13, color: "#FFA600", whiteSpace: "nowrap" }}>B2B · ThirdMeta</span>
     </div>
   );
 }
 function B2bBadge() {
   return (
-    <div style={{ background: "#0b295c", border: "1px solid #13459b", borderRadius: 40, padding: "6px 20px", display: "inline-flex", alignItems: "center", flexShrink: 0 }}>
-      <span style={{ fontFamily: "Poppins, sans-serif", fontWeight: 400, fontSize: 13, color: "white", whiteSpace: "pre" }}>{`ThirdMeta`}</span>
+    <div style={{ background: "#111", border: "1px solid #414141", borderRadius: 40, padding: "6px 20px", display: "inline-flex", alignItems: "center", flexShrink: 0 }}>
+      <span style={{ fontFamily: "Poppins, sans-serif", fontWeight: 400, fontSize: 13, color: "#FFA600", whiteSpace: "nowrap" }}>FMCG/D2C/Consumer · NativeUnit</span>
     </div>
   );
 }
 function EduHexaBadge() {
   return (
     <div style={{ background: "#111", border: "1px solid #414141", borderRadius: 40, padding: "6px 20px", display: "inline-flex", alignItems: "center", flexShrink: 0 }}>
-      <span style={{ fontFamily: "Poppins, sans-serif", fontWeight: 400, fontSize: 13, color: "#FFA600", whiteSpace: "nowrap" }}>native.academy</span>
+      <span style={{ fontFamily: "Poppins, sans-serif", fontWeight: 400, fontSize: 13, color: "#FFA600", whiteSpace: "nowrap" }}>EdTech · EduHexa</span>
     </div>
   );
 }
@@ -129,11 +129,11 @@ function FmcgLeftCard({ isMobile }: { isMobile: boolean }) {
       >
         <div style={{ padding: "24px 20px 20px", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 12, position: "relative", zIndex: 1 }}>
           <FmcgBadge />
-          <p style={{ fontFamily: "Manrope, sans-serif", fontWeight: 600, fontSize: 18, lineHeight: "1.4", color: "white", margin: 0, width: "100%" }}>TheNative Unit</p>
+          <p style={{ fontFamily: "Manrope, sans-serif", fontWeight: 600, fontSize: 18, lineHeight: "1.4", color: "white", margin: 0, width: "100%" }}>The B2B Growth Engine</p>
           <p style={{ fontFamily: "Poppins, sans-serif", fontWeight: 300, fontSize: 13, lineHeight: "1.7", color: "#888", margin: 0, width: "100%" }}>
-            Scale That Converts. From Shelf to Cart.
+            B2B SaaS and tech companies come here to build real, compounding pipeline. Intent turned into revenue. No noise.
           </p>
-          <div style={{ marginTop: 4 }}><CtaGroup label="Get Scaled" compact href="https://thenativeunit.com/" /></div>
+          <div style={{ marginTop: 4 }}><CtaGroup label="Explore ThirdMeta ↗" compact href="https://thirdmeta.in/" /></div>
         </div>
       </GradientBorderCard>
     );
@@ -213,15 +213,15 @@ function FmcgLeftCard({ isMobile }: { isMobile: boolean }) {
           display: "flex", flexDirection: "column", gap: 8,
           opacity: hovered ? 0 : 1, transition: "opacity 0.3s ease", zIndex: 3,
         }}>
-          <p style={{ fontFamily: "Manrope, sans-serif", fontWeight: 600, fontSize: 24, lineHeight: "34px", color: "white", margin: 0 }}>TheNative Unit</p>
+          <p style={{ fontFamily: "Manrope, sans-serif", fontWeight: 600, fontSize: 24, lineHeight: "34px", color: "white", margin: 0 }}>The B2B Growth Engine</p>
           <p style={{ fontFamily: "Poppins, sans-serif", fontWeight: 300, fontSize: 15, lineHeight: "26px", color: "#727272", margin: 0, marginBottom: 28 }}>
-            Scale That Converts. From Shelf to Cart.
+            B2B SaaS and tech companies come here to build real, compounding pipeline. Intent turned into revenue. No noise.
           </p>
         </div>
 
         {/* CTA — always visible */}
         <div style={{ position: "absolute", left: 0, bottom: 0, paddingTop: 8, paddingRight: 8, zIndex: 4 }}>
-          <CtaGroup label="Get Scaled" href="https://thenativeunit.com/" />
+          <CtaGroup label="Explore ThirdMeta ↗" href="https://thirdmeta.in/" />
         </div>
 
       </div>
@@ -259,11 +259,11 @@ function B2bRightCard({ isMobile }: { isMobile: boolean }) {
       >
         <div style={{ padding: "24px 20px 20px", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 12, position: "relative", zIndex: 1 }}>
           <B2bBadge />
-          <p style={{ fontFamily: "Manrope, sans-serif", fontWeight: 600, fontSize: 18, lineHeight: "1.4", color: "white", margin: 0, width: "100%" }}>ThirdMeta</p>
+          <p style={{ fontFamily: "Manrope, sans-serif", fontWeight: 600, fontSize: 18, lineHeight: "1.4", color: "white", margin: 0, width: "100%" }}>Consumer Growth, Engineered</p>
           <p style={{ fontFamily: "Poppins, sans-serif", fontWeight: 300, fontSize: 13, lineHeight: "1.7", color: "#888", margin: 0, width: "100%" }}>
-            Cracked Market Fit, But Stuck in the Valley of Death? We Help B2B Founders Break Through.
+            Built for consumer brands ready to grow beyond word of mouth. Discovery, trust, purchase, repeat. All of it.
           </p>
-          <div style={{ marginTop: 4 }}><CtaGroup label="Explore High Growth" semibold compact href="https://thirdmeta.in/" /></div>
+          <div style={{ marginTop: 4 }}><CtaGroup label="Explore NativeUnit ↗" semibold compact href="https://thenativeunit.com/" /></div>
         </div>
       </GradientBorderCard>
     );
@@ -342,15 +342,15 @@ function B2bRightCard({ isMobile }: { isMobile: boolean }) {
           display: "flex", flexDirection: "column", gap: 8,
           opacity: hovered ? 0 : 1, transition: "opacity 0.3s ease", zIndex: 3,
         }}>
-          <p style={{ fontFamily: "Manrope, sans-serif", fontWeight: 600, fontSize: 24, lineHeight: "34px", color: "white", margin: 0 }}>ThirdMeta</p>
+          <p style={{ fontFamily: "Manrope, sans-serif", fontWeight: 600, fontSize: 24, lineHeight: "34px", color: "white", margin: 0 }}>Consumer Growth, Engineered</p>
           <p style={{ fontFamily: "Poppins, sans-serif", fontWeight: 300, fontSize: 15, lineHeight: "25px", color: "white", margin: 0, marginBottom: 28 }}>
-            Cracked Market Fit, But Stuck in the Valley of Death? We Help B2B Founders Break Through.
+            Built for consumer brands ready to grow beyond word of mouth. Discovery, trust, purchase, repeat. All of it.
           </p>
         </div>
 
         {/* CTA — always visible */}
         <div style={{ position: "absolute", left: 0, bottom: 0, paddingTop: 8, paddingRight: 8, zIndex: 4 }}>
-          <CtaGroup label="Explore High Growth" semibold href="https://thirdmeta.in/" />
+          <CtaGroup label="Explore NativeUnit ↗" semibold href="https://thenativeunit.com/" />
         </div>
 
       </div>
@@ -387,11 +387,11 @@ function FmcgBottomCard({ isMobile }: { isMobile: boolean }) {
       >
         <div style={{ padding: "24px 20px 20px", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 12, position: "relative", zIndex: 1 }}>
           <EduHexaBadge />
-          <p style={{ fontFamily: "Manrope, sans-serif", fontWeight: 600, fontSize: 18, lineHeight: "1.4", color: "white", margin: 0, width: "100%" }}>native.academy</p>
+          <p style={{ fontFamily: "Manrope, sans-serif", fontWeight: 600, fontSize: 18, lineHeight: "1.4", color: "white", margin: 0, width: "100%" }}>The Unbiased Classroom Expert</p>
           <p style={{ fontFamily: "Poppins, sans-serif", fontWeight: 300, fontSize: 13, lineHeight: "1.7", color: "#888", margin: 0, width: "100%" }}>
-            Learning That Actually Builds Careers. Master The Skills of the Future.
+            Schools get one consultant, five brands compared, zero bias. The right technology matched to the right institution.
           </p>
-          <div style={{ marginTop: 4 }}><CtaGroup label="Start Learning" compact href="https://eduhexa.in/" /></div>
+          <div style={{ marginTop: 4 }}><CtaGroup label="Explore EduHexa ↗" compact href="https://eduhexa.in/" /></div>
         </div>
       </GradientBorderCard>
     );
@@ -464,15 +464,15 @@ function FmcgBottomCard({ isMobile }: { isMobile: boolean }) {
           display: "flex", flexDirection: "column", justifyContent: "flex-end", height: "60%", gap: 8,
           opacity: hovered ? 0 : 1, transition: "opacity 0.3s ease", zIndex: 3,
         }}>
-          <p style={{ fontFamily: "Manrope, sans-serif", fontWeight: 600, fontSize: 24, lineHeight: "34px", color: "white", margin: 0 }}>native.academy</p>
+          <p style={{ fontFamily: "Manrope, sans-serif", fontWeight: 600, fontSize: 24, lineHeight: "34px", color: "white", margin: 0 }}>The Unbiased Classroom Expert</p>
           <p style={{ fontFamily: "Poppins, sans-serif", fontWeight: 300, fontSize: 15, lineHeight: "26px", color: "#727272", margin: 0, marginBottom: 28 }}>
-            Learning That Actually Builds Careers. Master The Skills of the Future.
+            Schools get one consultant, five brands compared, zero bias. The right technology matched to the right institution.
           </p>
         </div>
 
         {/* CTA — always visible */}
         <div style={{ position: "absolute", left: "80.2%", bottom: 0, paddingTop: 8, paddingRight: 8, zIndex: 4 }}>
-          <CtaGroup label="Start Learning" href="https://eduhexa.in/" />
+          <CtaGroup label="Explore EduHexa ↗" href="https://eduhexa.in/" />
         </div>
 
       </div>
@@ -505,6 +505,9 @@ export function SolutionsSection() {
         >
           <SolutionsBadge />
           <TextRevealParagraph />
+          <p style={{ fontFamily: "Poppins, sans-serif", fontWeight: 300, fontSize: isMobile ? 14 : 16, lineHeight: "26px", color: "#727272", margin: 0, textAlign: "center", maxWidth: 600 }}>
+            Big vision means knowing exactly where to focus. Here is where Hexanovate actually lives right now.
+          </p>
         </motion.div>
 
         {/* ── Cards ── */}
