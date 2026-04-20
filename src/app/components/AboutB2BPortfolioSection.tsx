@@ -118,7 +118,7 @@ function ImgPiece({ h, w, ml = 0, mt = 0, src, l, t, iw, ih }: { h: number; w: n
   return (
     <div style={{ gridColumn: 1, gridRow: 1, height: h, width: w, marginLeft: ml, marginTop: mt, position: "relative" }}>
       <div style={{ position: "absolute", inset: 0, overflow: "hidden", pointerEvents: "none" }}>
-        <img alt="" src={src} style={{ position: "absolute", height: ih, left: l, top: t, width: iw, maxWidth: "none", filter: "brightness(0) invert(1)" }} />
+        <img alt="" src={src} style={{ position: "absolute", height: ih, left: l, top: t, width: iw, maxWidth: "none" }} />
       </div>
     </div>
   );
@@ -158,7 +158,7 @@ function LogoCellEfax() {
   return (
     <CellWrap>
       <div style={{ height: 49, width: 108, position: "relative", flexShrink: 0, overflow: "hidden" }}>
-        <img alt="eFax" src={imgEfax} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", pointerEvents: "none", filter: "brightness(0) invert(1)" }} />
+        <img alt="eFax" src={imgEfax} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", pointerEvents: "none" }} />
       </div>
     </CellWrap>
   );
@@ -200,17 +200,17 @@ function LogoCellTruein() {
             <path d={svgPaths.p3812f00}  fill="white" />
             <path d={svgPaths.p1b36aec0} fill="white" />
             <path d={svgPaths.p3c59b580} fill="white" />
-            <path d={svgPaths.p219f2ca0} fill="white" />
-            <path d={svgPaths.p27d06700} fill="white" />
+            <path d={svgPaths.p219f2ca0} fill="#0086D3" />
+            <path d={svgPaths.p27d06700} fill="#0086D3" />
           </svg>
         </div>
         {/* icon — left 21.28×21.09 */}
         <div style={{ position: "absolute", top: "4.13%", right: "79.54%", bottom: 0, left: 0 }}>
           <svg width="100%" height="100%" fill="none" viewBox="0 0 21.28 21.09" preserveAspectRatio="none" style={{ display: "block" }}>
-            <path d={svgPaths.p17a13700} fill="white" />
+            <path d={svgPaths.p17a13700} fill="#1531A9" />
             <path d={svgPaths.p3fa5de00} fill="white" />
             <path d={svgPaths.p3d9ce300} fill="white" />
-            <path d={svgPaths.p1cc6be00} fill="white" />
+            <path d={svgPaths.p1cc6be00} fill="#0086D3" />
           </svg>
         </div>
       </div>
@@ -225,8 +225,8 @@ function LogoCellKlearStack() {
       <div style={{ display: "flex", gap: 10, alignItems: "center", flexShrink: 0 }}>
         <div style={{ position: "relative", flexShrink: 0, width: 26, height: 26 }}>
           <svg style={{ display: "block", width: "100%", height: "100%" }} fill="none" viewBox="0 0 26 26">
-            <path clipRule="evenodd" d={svgPaths.p33a7a328} fill="white" fillRule="evenodd" />
-            <path clipRule="evenodd" d={svgPaths.p3440b700} fill="white" fillRule="evenodd" />
+            <path clipRule="evenodd" d={svgPaths.p33a7a328} fill="#FABF5A" fillRule="evenodd" />
+            <path clipRule="evenodd" d={svgPaths.p3440b700} fill="#1873DE" fillRule="evenodd" />
           </svg>
         </div>
         <p style={{ fontFamily: "'Inter', sans-serif", fontWeight: 700, fontSize: 21, lineHeight: "28px", color: "white", whiteSpace: "nowrap", margin: 0 }}>
@@ -249,18 +249,24 @@ function LogoCellPaybooks() {
           </svg>
           <div style={{ position: "absolute", top: "35%", left: "37%", width: "38%", height: "54%", maskImage: `url('${pbvMask}')`, WebkitMaskImage: `url('${pbvMask}')`, maskSize: "contain", maskRepeat: "no-repeat" }}>
             <svg style={{ width: "100%", height: "100%" }} fill="none" viewBox="0 0 20.54 29.54">
-              <path d={svgPaths.p37e87180} fill="white" />
+              <path d={svgPaths.p37e87180} fill="#9ABD3B" />
             </svg>
           </div>
           <div style={{ position: "absolute", top: "30%", left: "31%", width: "33%", height: "53%", maskImage: `url('${pbvMask}'), url('${pbgMask}'), url('${pbg1Mask}')`, WebkitMaskImage: `url('${pbvMask}'), url('${pbgMask}'), url('${pbg1Mask}')`, maskSize: "contain", maskRepeat: "no-repeat" }}>
             <svg style={{ width: "100%", height: "100%" }} fill="none" viewBox="0 0 20.54 29.54">
-              <path d={svgPaths.pc661a00} fill="white" />
+              <defs>
+                <linearGradient id="pb_grad_strip" x1="15.27" x2="-3.84" y1="15.43" y2="15.43" gradientUnits="userSpaceOnUse">
+                  <stop stopColor="white" />
+                  <stop offset="1" stopColor="#89C341" />
+                </linearGradient>
+              </defs>
+              <path d={svgPaths.pc661a00} fill="url(#pb_grad_strip)" />
             </svg>
           </div>
         </div>
         {/* Text image — crop matches Figma: left=-67.66%, w=167.06% of 105px */}
         <div style={{ height: 60, width: 105, position: "relative", flexShrink: 0, overflow: "hidden", pointerEvents: "none" }}>
-          <img alt="Paybooks" src={imgPaybooks} style={{ position: "absolute", height: "100%", left: "-67.66%", maxWidth: "none", top: 0, width: "167.06%", filter: "brightness(0) invert(1)" }} />
+          <img alt="Paybooks" src={imgPaybooks} style={{ position: "absolute", height: "100%", left: "-67.66%", maxWidth: "none", top: 0, width: "167.06%" }} />
         </div>
       </div>
     </CellWrap>
@@ -272,7 +278,7 @@ function LogoCellElmo() {
   return (
     <CellWrap px={31}>
       <div style={{ height: 42, width: 110, position: "relative", flexShrink: 0, overflow: "hidden" }}>
-        <img alt="ELMO" src={imgElmo} style={{ position: "absolute", height: "100.27%", left: "-9.04%", maxWidth: "none", top: "-0.13%", width: "117.91%", pointerEvents: "none", filter: "brightness(0) invert(1)" }} />
+        <img alt="ELMO" src={imgElmo} style={{ position: "absolute", height: "100.27%", left: "-9.04%", maxWidth: "none", top: "-0.13%", width: "117.91%", pointerEvents: "none" }} />
       </div>
     </CellWrap>
   );
@@ -283,7 +289,7 @@ function LogoCellGoldman() {
   return (
     <CellWrap>
       <div style={{ height: 58, width: 138, position: "relative", flexShrink: 0, overflow: "hidden" }}>
-        <img alt="Coldman" src={imgGoldman} style={{ position: "absolute", height: "195.65%", left: "2.26%", maxWidth: "none", top: "-49.57%", width: "95.65%", pointerEvents: "none", filter: "brightness(0) invert(1)" }} />
+        <img alt="Coldman" src={imgGoldman} style={{ position: "absolute", height: "195.65%", left: "2.26%", maxWidth: "none", top: "-49.57%", width: "95.65%", pointerEvents: "none" }} />
       </div>
     </CellWrap>
   );
