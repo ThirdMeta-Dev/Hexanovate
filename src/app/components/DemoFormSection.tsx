@@ -35,14 +35,12 @@ const TESTIMONIALS = [
   },
 ];
 
-const SERVICE_OPTIONS = [
-  "FMCG Brand Marketing",
-  "B2B Lead Generation",
-  "Digital Strategy & Consulting",
-  "Social Media Marketing",
-  "Content Marketing",
-  "SEO & Performance Marketing",
-  "Other / Not Sure",
+const REASON_OPTIONS = [
+  "Growth partnership enquiry",
+  "Media or press",
+  "Strategic partnership",
+  "Careers or collaboration",
+  "General query",
 ];
 
 /* ─── FORM VALUES ─────────────────────────────────────────────────────────── */
@@ -50,8 +48,9 @@ interface FormValues {
   name: string;
   email: string;
   phone: string;
-  service: string;
-  notes: string;
+  company: string;
+  reason: string;
+  message: string;
 }
 
 /* ─── BLUE BADGE ARROW ────────────────────────────────────────────────────── */
@@ -134,7 +133,7 @@ function FeatureBullet({ bold, light }: { bold: string; light: string }) {
         className="demo-bullet-text"
         style={{
           fontFamily: "Poppins, sans-serif",
-          fontSize: 16,
+          fontSize: 14,
           lineHeight: 0,
           margin: 0,
         }}
@@ -273,7 +272,14 @@ function ContactForm({ onSuccess }: { onSuccess: () => void }) {
             "Content-Type": "application/json",
             Authorization: `Bearer ${publicAnonKey}`,
           },
-          body: JSON.stringify(data),
+          body: JSON.stringify({
+            name: data.name,
+            email: data.email,
+            phone: data.phone,
+            company: data.company,
+            reason: data.reason,
+            message: data.message,
+          }),
         }
       );
       const json = await res.json();
@@ -295,12 +301,12 @@ function ContactForm({ onSuccess }: { onSuccess: () => void }) {
     >
       {/* Name */}
       <div className="demo-field">
-        <label className="demo-label">Full Name <span style={{ color: "#ef4444" }}>*</span></label>
+        <label className="demo-label">Name <span style={{ color: "#ef4444" }}>*</span></label>
         <input
           className={`demo-input${errors.name ? " demo-input-error" : ""}`}
-          placeholder="e.g. Rahul Sharma"
+          placeholder="Your name"
           {...register("name", {
-            required: "Full name is required.",
+            required: "Name is required.",
             minLength: { value: 2, message: "Name must be at least 2 characters." },
           })}
         />
@@ -309,11 +315,11 @@ function ContactForm({ onSuccess }: { onSuccess: () => void }) {
 
       {/* Email */}
       <div className="demo-field">
-        <label className="demo-label">Email Address <span style={{ color: "#ef4444" }}>*</span></label>
+        <label className="demo-label">Email <span style={{ color: "#ef4444" }}>*</span></label>
         <input
           className={`demo-input${errors.email ? " demo-input-error" : ""}`}
           type="email"
-          placeholder="e.g. rahul@company.com"
+          placeholder="Where should we write back?"
           {...register("email", {
             required: "Email address is required.",
             pattern: {
@@ -327,11 +333,11 @@ function ContactForm({ onSuccess }: { onSuccess: () => void }) {
 
       {/* Phone */}
       <div className="demo-field">
-        <label className="demo-label">Phone Number <span style={{ color: "#ef4444" }}>*</span></label>
+        <label className="demo-label">Phone <span style={{ color: "#ef4444" }}>*</span></label>
         <input
           className={`demo-input${errors.phone ? " demo-input-error" : ""}`}
           type="tel"
-          placeholder="e.g. +91 98765 43210"
+          placeholder="A number for a quick call if needed"
           {...register("phone", {
             required: "Phone number is required.",
             pattern: {
@@ -343,38 +349,50 @@ function ContactForm({ onSuccess }: { onSuccess: () => void }) {
         {errors.phone && <span className="demo-error">{errors.phone.message}</span>}
       </div>
 
-      {/* Service */}
+      {/* Company + Designation */}
       <div className="demo-field">
-        <label className="demo-label">What Service Are You Looking For? <span style={{ color: "#ef4444" }}>*</span></label>
+        <label className="demo-label">Company + Designation <span style={{ color: "#ef4444" }}>*</span></label>
+        <input
+          className={`demo-input${errors.company ? " demo-input-error" : ""}`}
+          placeholder="Your company and what you do there"
+          {...register("company", { required: "Company and designation is required." })}
+        />
+        {errors.company && <span className="demo-error">{errors.company.message}</span>}
+      </div>
+
+      {/* Reason for reaching out */}
+      <div className="demo-field">
+        <label className="demo-label">Reason for reaching out <span style={{ color: "#ef4444" }}>*</span></label>
         <select
-          className={`demo-input demo-select${errors.service ? " demo-input-error" : ""}`}
-          {...register("service", { required: "Please select a service." })}
+          className={`demo-input demo-select${errors.reason ? " demo-input-error" : ""}`}
+          {...register("reason", { required: "Please select a reason." })}
           defaultValue=""
         >
           <option value="" disabled style={{ color: "#505050", background: "#1a1a1a" }}>
-            Select a service…
+            What brings you here today?
           </option>
-          {SERVICE_OPTIONS.map((s) => (
+          {REASON_OPTIONS.map((s) => (
             <option key={s} value={s} style={{ background: "#1a1a1a", color: "white" }}>
               {s}
             </option>
           ))}
         </select>
-        {errors.service && <span className="demo-error">{errors.service.message}</span>}
+        {errors.reason && <span className="demo-error">{errors.reason.message}</span>}
       </div>
 
-      {/* Notes */}
+      {/* Message */}
       <div className="demo-field">
-        <label className="demo-label">Additional Notes <span style={{ color: "#555" }}>(optional)</span></label>
+        <label className="demo-label">Message <span style={{ color: "#ef4444" }}>*</span></label>
         <textarea
           className="demo-input demo-textarea"
-          placeholder="Tell us more about your goals or requirements…"
+          placeholder="The more context you give, the better we can help"
           rows={3}
-          {...register("notes", {
-            maxLength: { value: 500, message: "Notes cannot exceed 500 characters." },
+          {...register("message", {
+            required: "Message is required.",
+            maxLength: { value: 1000, message: "Message cannot exceed 1000 characters." },
           })}
         />
-        {errors.notes && <span className="demo-error">{errors.notes.message}</span>}
+        {errors.message && <span className="demo-error">{errors.message.message}</span>}
       </div>
 
       {/* Server error */}
@@ -429,7 +447,7 @@ function ContactForm({ onSuccess }: { onSuccess: () => void }) {
             Submitting…
           </>
         ) : (
-          "Send Message"
+          "Start The Conversation ↗"
         )}
       </motion.button>
 
@@ -522,7 +540,7 @@ function ThankYouScreen({ onReset }: { onReset: () => void }) {
           }}
         >
           Your message has been received. Our team will get back to you within{" "}
-          <span style={{ color: "#ffa600", fontWeight: 500 }}>24 hours</span>.
+          <span style={{ color: "#ffa600", fontWeight: 500 }}>48 hours</span>.
         </motion.p>
       </div>
 
@@ -781,7 +799,7 @@ export function DemoFormSection({ transparent = false }: { transparent?: boolean
                       style={{ position: "absolute", inset: 0, border: "1px solid #414141", borderRadius: 40, pointerEvents: "none" }}
                     />
                     <p style={{ fontFamily: "Poppins, sans-serif", fontWeight: 400, fontSize: 13, color: "#ffa600", lineHeight: "normal", margin: 0, whiteSpace: "nowrap", position: "relative" }}>
-                      Get in Touch
+                      Let's Talk
                     </p>
                   </div>
                   {/* Divider */}
@@ -793,7 +811,7 @@ export function DemoFormSection({ transparent = false }: { transparent?: boolean
                   className="demo-title"
                   style={{
                     fontFamily: "Manrope, sans-serif",
-                    fontSize: 48,
+                    fontSize: 42,
                     lineHeight: 0,
                     textTransform: "capitalize",
                     margin: 0,
@@ -802,31 +820,13 @@ export function DemoFormSection({ transparent = false }: { transparent?: boolean
                     flexShrink: 0,
                   }}
                 >
-                  <span style={{ fontWeight: 300, lineHeight: 1.32, color: "white" }}>Unlock</span>
+                  <span style={{ fontWeight: 300, lineHeight: 1.32, color: "white" }}>The Best Decisions</span>
                   <span style={{ fontWeight: 200, lineHeight: 1.32, color: "white" }}>{" "}</span>
-                  <span style={{ fontWeight: 700, lineHeight: 1.32, color: "white" }}>your brand's</span>
+                  <span style={{ fontWeight: 300, lineHeight: 1.32, color: "white" }}>Started With Someone</span>
                   <span style={{ fontWeight: 200, lineHeight: 1.32, color: "white" }}>{" "}</span>
-                  <span style={{ fontWeight: 300, lineHeight: 1.32, color: "white" }}>true growth</span>
+                  <span style={{ fontWeight: 700, lineHeight: 1.32, color: "white" }}>dropping a HELLO!</span>
                 </p>
 
-                {/* Subtitle */}
-                <div style={{ display: "flex", alignItems: "flex-start", width: "100%" }}>
-                  <p
-                    className="demo-subtitle"
-                    style={{
-                      flex: "1 0 0",
-                      fontFamily: "Poppins, sans-serif",
-                      fontSize: 18,
-                      lineHeight: 0,
-                      color: "#7b7b7b",
-                      margin: 0,
-                    }}
-                  >
-                    <span style={{ fontWeight: 400, lineHeight: "1.608" }}>Let's discuss — only{" "}</span>
-                    <span style={{ fontWeight: 600, lineHeight: "1.608", color: "#7b7b7b" }}>30 Seconds</span>
-                    <span style={{ fontWeight: 400, lineHeight: "1.608" }}>{" "}to fill this form</span>
-                  </p>
-                </div>
               </div>
 
               {/* ── Bullets + Testimonial ── */}
@@ -835,9 +835,9 @@ export function DemoFormSection({ transparent = false }: { transparent?: boolean
                 style={{ display: "flex", flexDirection: "column", gap: 28, width: 408, flexShrink: 0 }}
               >
                 <div style={{ display: "flex", flexDirection: "column", gap: 10, flexShrink: 0 }}>
-                  <FeatureBullet bold="Expert Strategy" light="tailored to your market" />
-                  <FeatureBullet bold="Proven Results" light="across 100+ brand campaigns" />
-                  <FeatureBullet bold="Fast Onboarding" light="get started in days, not weeks" />
+                  <FeatureBullet bold="No pitch, no pressure —" light="Just an honest conversation about what you need and whether we are the right fit." />
+                  <FeatureBullet bold="Every query is welcome —" light="Growth, partnerships, press, careers, or just a question. One form handles all of it." />
+                  <FeatureBullet bold="You will hear back fast —" light="48 hours maximum. Usually much sooner than that." />
                 </div>
                 <TestimonialCarousel
                   active={activeTestimonial}
@@ -920,7 +920,7 @@ export function DemoFormSection({ transparent = false }: { transparent?: boolean
                     lineHeight: 1.3,
                   }}
                 >
-                  Let's Start a Conversation
+                  Start The Conversation
                 </h2>
                 <p
                   style={{
@@ -932,7 +932,7 @@ export function DemoFormSection({ transparent = false }: { transparent?: boolean
                     lineHeight: "20px",
                   }}
                 >
-                  Fill in your details and we'll reach out within 24 hours.
+                  No pitch. No pressure. Just drop us a hello and we'll take it from there.
                 </p>
               </div>
 
@@ -952,52 +952,6 @@ export function DemoFormSection({ transparent = false }: { transparent?: boolean
                 )}
               </AnimatePresence>
 
-              {/* Book now notice */}
-              {!isSuccess && (
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: 10,
-                    padding: "10px 16px",
-                    background: "rgba(255,166,0,0.07)",
-                    borderRadius: 8,
-                    border: "1px solid rgba(255,166,0,0.2)",
-                  }}
-                >
-                  <div
-                    style={{
-                      background: "white",
-                      width: 22,
-                      height: 22,
-                      borderRadius: "50%",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      flexShrink: 0,
-                    }}
-                  >
-                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                      <path d="M1 9L9 1" stroke="#FFA600" strokeWidth="1.8" strokeLinecap="round" />
-                      <path d="M9 1H3M9 1V7" stroke="#FFA600" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </div>
-                  <p
-                    style={{
-                      fontFamily: "Poppins, sans-serif",
-                      fontSize: 12,
-                      color: "#c9c9c9",
-                      margin: 0,
-                      lineHeight: "1.5",
-                    }}
-                  >
-                    <span style={{ fontWeight: 300 }}>Only{" "}</span>
-                    <span style={{ fontWeight: 600, color: "#ffa600" }}>8 Demo Slots</span>
-                    <span style={{ fontWeight: 300 }}>{" "}left this week!</span>
-                  </p>
-                </div>
-              )}
             </div>
           </div>
         </motion.div>
