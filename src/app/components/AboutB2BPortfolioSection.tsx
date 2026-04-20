@@ -19,7 +19,9 @@ import imgSplashtop from "@/assets/ec9f3ce9d899bf70e2291d8bb5a2449cfbea0db2.jpg"
 import imgSenses    from "@/assets/521400233e6074875648780027ba03a58633b4d6.jpg";
 import imgElmo      from "@/assets/9f84aaabf73edf8837949843d52521852059611f.jpg";
 import imgGoldman   from "@/assets/e770b8f7f0a4c6307225a1f4016b97084db4444e.jpg";
-import { LogoBrandTruin, LogoBrandKlearStack, LogoBrandPaybooks } from "./BrandLogos";
+import imgPaybooks from "@/assets/a131b6de857eb2c01c3d2bc1476e7f8e39ad15ff.jpg";
+import svgPaths from "../../imports/svg-jl4fqzv8ja";
+import { imgVector as pbvMask, imgGroup as pbgMask, imgGroup1 as pbg1Mask } from "../../imports/svg-tf7hb";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -91,22 +93,213 @@ const SLIDES: Slide[] = [
   },
 ];
 
-/* ── Brand logos for the scroll strip ───────────────────────────────────── */
-type LogoEntry =
-  | { kind: "img"; src: string; alt: string; h: number }
-  | { kind: "cmp"; alt: string; Component: React.ComponentType };
+/* ── Logo strip — pixel-perfect cells from Figma node 11712-25 ───────────── */
 
-const LOGOS: LogoEntry[] = [
-  { kind: "img", src: imgAcumen,    alt: "Acumen CMS",  h: 22 },
-  { kind: "img", src: imgAppGallop, alt: "App Gallop",  h: 24 },
-  { kind: "img", src: imgEfax,      alt: "eFax",        h: 24 },
-  { kind: "img", src: imgSplashtop, alt: "Splashtop",   h: 22 },
-  { kind: "img", src: imgSenses,    alt: "Senses",      h: 20 },
-  { kind: "cmp", alt: "Truein",     Component: LogoBrandTruin },
-  { kind: "cmp", alt: "KlearStack", Component: LogoBrandKlearStack },
-  { kind: "cmp", alt: "Paybooks",   Component: LogoBrandPaybooks },
-  { kind: "img", src: imgElmo,      alt: "ELMO",        h: 32 },
-  { kind: "img", src: imgGoldman,   alt: "Goldman",     h: 34 },
+/* Shared cell wrapper: 216×80, flex-col center, matches Figma slot */
+function CellWrap({ px = 42, py = 22, children }: { px?: number; py?: number; children: React.ReactNode }) {
+  return (
+    <div style={{ width: 216, height: 80, flexShrink: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: `${py}px ${px}px`, boxSizing: "border-box", borderRadius: 16 }}>
+      {children}
+    </div>
+  );
+}
+
+/* CSS-grid stacking container — children at col-1/row-1 sit side-by-side via margin */
+function ImgGrid({ children }: { children: React.ReactNode }) {
+  return (
+    <div style={{ display: "inline-grid", gridTemplateColumns: "max-content", gridTemplateRows: "max-content", placeItems: "start", position: "relative", flexShrink: 0, lineHeight: 0 }}>
+      {children}
+    </div>
+  );
+}
+
+/* One clipped image piece inside the grid */
+function ImgPiece({ h, w, ml = 0, mt = 0, src, l, t, iw, ih }: { h: number; w: number; ml?: number; mt?: number; src: string; l: string; t: string; iw: string; ih: string }) {
+  return (
+    <div style={{ gridColumn: 1, gridRow: 1, height: h, width: w, marginLeft: ml, marginTop: mt, position: "relative" }}>
+      <div style={{ position: "absolute", inset: 0, overflow: "hidden", pointerEvents: "none" }}>
+        <img alt="" src={src} style={{ position: "absolute", height: ih, left: l, top: t, width: iw, maxWidth: "none" }} />
+      </div>
+    </div>
+  );
+}
+
+/* 1. Acumen CMS */
+function LogoCellAcumen() {
+  return (
+    <CellWrap>
+      <ImgGrid>
+        <ImgPiece h={49} w={122} ml={56} src={imgAcumen} l="-45.9%"  t="-0.2%"  iw="145.9%"  ih="100.39%" />
+        <ImgPiece h={49} w={56}         src={imgAcumen} l="0%"      t="-0.2%"  iw="317.86%" ih="100.39%" />
+      </ImgGrid>
+    </CellWrap>
+  );
+}
+
+/* 2. AppGallop */
+function LogoCellAppGallop() {
+  return (
+    <CellWrap>
+      <ImgGrid>
+        {/* right portion */}
+        <ImgPiece h={30.557} w={74.5} ml={81.5} src={imgAppGallop} l="-109.4%" t="-1.05%" iw="209.4%"  ih="102.11%" />
+        {/* left + tiny bottom-left piece — nested grid at same col/row */}
+        <div style={{ gridColumn: 1, gridRow: 1, display: "inline-grid", gridTemplateColumns: "max-content", gridTemplateRows: "max-content", placeItems: "start", lineHeight: 0 }}>
+          <ImgPiece h={30.557} w={81.5}        src={imgAppGallop} l="0%"    t="-1.05%"  iw="191.41%" ih="102.11%" />
+          <ImgPiece h={17}     w={15.5}  mt={8} src={imgAppGallop} l="0%"   t="-48.95%" iw="1006.45%" ih="183.53%" />
+        </div>
+      </ImgGrid>
+    </CellWrap>
+  );
+}
+
+/* 3. eFax */
+function LogoCellEfax() {
+  return (
+    <CellWrap>
+      <div style={{ height: 49, width: 108, position: "relative", flexShrink: 0, overflow: "hidden" }}>
+        <img alt="eFax" src={imgEfax} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", pointerEvents: "none" }} />
+      </div>
+    </CellWrap>
+  );
+}
+
+/* 4. Splashtop */
+function LogoCellSplashtop() {
+  return (
+    <CellWrap>
+      <ImgGrid>
+        <ImgPiece h={30} w={118} ml={35} src={imgSplashtop} l="-29.66%" t="-0.73%" iw="129.66%" ih="101.47%" />
+        <ImgPiece h={30} w={35}          src={imgSplashtop} l="0%"      t="-0.73%" iw="437.14%" ih="101.47%" />
+      </ImgGrid>
+    </CellWrap>
+  );
+}
+
+/* 5. ••senses */
+function LogoCellSenses() {
+  return (
+    <CellWrap>
+      <ImgGrid>
+        <ImgPiece h={13.212} w={42.887}        src={imgSenses} l="0%"      t="0%" iw="340.43%" ih="100%" />
+        <ImgPiece h={13.212} w={104}    ml={41.89} src={imgSenses} l="-40.38%" t="0%" iw="140.38%" ih="100%" />
+      </ImgGrid>
+    </CellWrap>
+  );
+}
+
+/* 6. truein — SVG paths match Figma viewBoxes exactly */
+function LogoCellTruein() {
+  return (
+    <CellWrap px={34} py={21}>
+      <div style={{ height: 22, width: 104, position: "relative", flexShrink: 0, overflow: "hidden" }}>
+        {/* text "truein" — right 77.75×21.43 of the 104×22 box */}
+        <div style={{ position: "absolute", top: 0, right: 0, bottom: "2.57%", left: "25.24%" }}>
+          <svg width="100%" height="100%" fill="none" viewBox="0 0 77.75 21.43" preserveAspectRatio="none" style={{ display: "block" }}>
+            <path d={svgPaths.p8fce100}  fill="white" />
+            <path d={svgPaths.p3812f00}  fill="white" />
+            <path d={svgPaths.p1b36aec0} fill="white" />
+            <path d={svgPaths.p3c59b580} fill="white" />
+            <path d={svgPaths.p219f2ca0} fill="#0086D3" />
+            <path d={svgPaths.p27d06700} fill="#0086D3" />
+          </svg>
+        </div>
+        {/* icon — left 21.28×21.09 */}
+        <div style={{ position: "absolute", top: "4.13%", right: "79.54%", bottom: 0, left: 0 }}>
+          <svg width="100%" height="100%" fill="none" viewBox="0 0 21.28 21.09" preserveAspectRatio="none" style={{ display: "block" }}>
+            <path d={svgPaths.p17a13700} fill="#1531A9" />
+            <path d={svgPaths.p3fa5de00} fill="white" />
+            <path d={svgPaths.p3d9ce300} fill="white" />
+            <path d={svgPaths.p1cc6be00} fill="#0086D3" />
+          </svg>
+        </div>
+      </div>
+    </CellWrap>
+  );
+}
+
+/* 7. KlearStack — white rounded box + SVG monogram + Inter text */
+function LogoCellKlearStack() {
+  return (
+    <CellWrap px={30}>
+      <div style={{ display: "flex", gap: 10, alignItems: "center", flexShrink: 0 }}>
+        <div style={{ background: "white", display: "flex", height: 40, width: 39, alignItems: "center", justifyContent: "center", paddingTop: 7, paddingBottom: 9, paddingLeft: 8, paddingRight: 8, borderRadius: 8, flexShrink: 0, boxSizing: "border-box" }}>
+          <div style={{ position: "relative", flexShrink: 0, width: 26, height: 26 }}>
+            <svg style={{ display: "block", width: "100%", height: "100%" }} fill="none" viewBox="0 0 26 26">
+              <path clipRule="evenodd" d={svgPaths.p33a7a328} fill="#FABF5A" fillRule="evenodd" />
+              <path clipRule="evenodd" d={svgPaths.p3440b700} fill="#1873DE" fillRule="evenodd" />
+            </svg>
+          </div>
+        </div>
+        <p style={{ fontFamily: "'Inter', sans-serif", fontWeight: 700, fontSize: 21, lineHeight: "28px", color: "white", whiteSpace: "nowrap", margin: 0 }}>
+          Klear<span style={{ fontWeight: 400 }}>Stack</span>
+        </p>
+      </div>
+    </CellWrap>
+  );
+}
+
+/* 8. Paybooks — leaf icon (55px) + cropped text image */
+function LogoCellPaybooks() {
+  return (
+    <CellWrap>
+      <div style={{ display: "flex", gap: 10, height: 70, alignItems: "center", flexShrink: 0 }}>
+        {/* Leaf icon */}
+        <div style={{ position: "relative", width: 55, height: 55, flexShrink: 0 }}>
+          <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }} fill="none" viewBox="0 0 54.77 54.77">
+            <path d={svgPaths.p31be54f0} fill="white" />
+          </svg>
+          <div style={{ position: "absolute", top: "35%", left: "37%", width: "38%", height: "54%", maskImage: `url('${pbvMask}')`, WebkitMaskImage: `url('${pbvMask}')`, maskSize: "contain", maskRepeat: "no-repeat" }}>
+            <svg style={{ width: "100%", height: "100%" }} fill="none" viewBox="0 0 20.54 29.54">
+              <path d={svgPaths.p37e87180} fill="#9ABD3B" />
+            </svg>
+          </div>
+          <div style={{ position: "absolute", top: "30%", left: "31%", width: "33%", height: "53%", maskImage: `url('${pbvMask}'), url('${pbgMask}'), url('${pbg1Mask}')`, WebkitMaskImage: `url('${pbvMask}'), url('${pbgMask}'), url('${pbg1Mask}')`, maskSize: "contain", maskRepeat: "no-repeat" }}>
+            <svg style={{ width: "100%", height: "100%" }} fill="none" viewBox="0 0 20.54 29.54">
+              <defs>
+                <linearGradient id="pb_grad_strip" x1="15.27" x2="-3.84" y1="15.43" y2="15.43" gradientUnits="userSpaceOnUse">
+                  <stop stopColor="white" />
+                  <stop offset="1" stopColor="#89C341" />
+                </linearGradient>
+              </defs>
+              <path d={svgPaths.pc661a00} fill="url(#pb_grad_strip)" />
+            </svg>
+          </div>
+        </div>
+        {/* Text image — crop matches Figma: left=-67.66%, w=167.06% of 105px */}
+        <div style={{ height: 60, width: 105, position: "relative", flexShrink: 0, overflow: "hidden", pointerEvents: "none" }}>
+          <img alt="Paybooks" src={imgPaybooks} style={{ position: "absolute", height: "100%", left: "-67.66%", maxWidth: "none", top: 0, width: "167.06%" }} />
+        </div>
+      </div>
+    </CellWrap>
+  );
+}
+
+/* 9. ELMO */
+function LogoCellElmo() {
+  return (
+    <CellWrap px={31}>
+      <div style={{ height: 42, width: 110, position: "relative", flexShrink: 0, overflow: "hidden" }}>
+        <img alt="ELMO" src={imgElmo} style={{ position: "absolute", height: "100.27%", left: "-9.04%", maxWidth: "none", top: "-0.13%", width: "117.91%", pointerEvents: "none" }} />
+      </div>
+    </CellWrap>
+  );
+}
+
+/* 10. Coldman Warehousing */
+function LogoCellGoldman() {
+  return (
+    <CellWrap>
+      <div style={{ height: 58, width: 138, position: "relative", borderRadius: 8, flexShrink: 0, overflow: "hidden" }}>
+        <img alt="Coldman" src={imgGoldman} style={{ position: "absolute", height: "195.65%", left: "2.26%", maxWidth: "none", top: "-49.57%", width: "95.65%", pointerEvents: "none" }} />
+      </div>
+    </CellWrap>
+  );
+}
+
+const LOGO_CELLS: ReadonlyArray<() => JSX.Element> = [
+  LogoCellAcumen, LogoCellAppGallop, LogoCellEfax, LogoCellSplashtop, LogoCellSenses,
+  LogoCellTruein, LogoCellKlearStack, LogoCellPaybooks, LogoCellElmo, LogoCellGoldman,
 ];
 
 /* ── Glass card shell ────────────────────────────────────────────────────── */
@@ -270,69 +463,21 @@ function Dots({ total, active, onSelect }: { total: number; active: number; onSe
 
 /* ── Logo scroll strip ───────────────────────────────────────────────────── */
 function LogoStrip() {
-  const doubled = [...LOGOS, ...LOGOS]; // duplicate for seamless loop
+  const doubled = [...LOGO_CELLS, ...LOGO_CELLS];
   return (
     <div style={{ display: "flex", alignItems: "center", gap: 32 }}>
-      {/* Label */}
-      <p style={{
-        fontFamily: "Poppins, sans-serif",
-        fontSize: 16,
-        lineHeight: "24px",
-        color: "#ffffff",
-        margin: 0,
-        flexShrink: 0,
-        width: 201,
-      }}>
-        We Feel In-House,{" "}
-        <br />
-        Deliver Like Owners
+      <p style={{ fontFamily: "Poppins, sans-serif", fontSize: 16, lineHeight: "24px", color: "#ffffff", margin: 0, flexShrink: 0, width: 201, textTransform: "capitalize" }}>
+        We Feel In-House,{" "}<br />Deliver Like Owners
       </p>
-
-      {/* Scrolling logos */}
       <div style={{ flex: 1, overflow: "hidden", position: "relative" }}>
-        {/* Left fade */}
-        <div style={{
-          position: "absolute", left: 0, top: 0, bottom: 0, width: 60,
-          background: "linear-gradient(to right, #171717, transparent)",
-          zIndex: 1, pointerEvents: "none",
-        }} />
-        {/* Right fade */}
-        <div style={{
-          position: "absolute", right: 0, top: 0, bottom: 0, width: 60,
-          background: "linear-gradient(to left, #171717, transparent)",
-          zIndex: 1, pointerEvents: "none",
-        }} />
-
+        <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: 60, background: "linear-gradient(to right, #171717, transparent)", zIndex: 1, pointerEvents: "none" }} />
+        <div style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: 60, background: "linear-gradient(to left, #171717, transparent)", zIndex: 1, pointerEvents: "none" }} />
         <motion.div
-          style={{ display: "flex", gap: 0, alignItems: "center" }}
-          animate={{ x: [0, -(LOGOS.length * 216)] }}
+          style={{ display: "flex", alignItems: "center" }}
+          animate={{ x: [0, -(LOGO_CELLS.length * 216)] }}
           transition={{ duration: 24, repeat: Infinity, ease: "linear", repeatType: "loop" }}
         >
-          {doubled.map((logo, i) => (
-            <div
-              key={i}
-              style={{
-                width: 216,
-                height: 80,
-                flexShrink: 0,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                padding: logo.kind === "img" ? "22px 42px" : 0,
-                boxSizing: "border-box",
-              }}
-            >
-              {logo.kind === "img" ? (
-                <img
-                  src={logo.src}
-                  alt={logo.alt}
-                  style={{ maxHeight: logo.h, maxWidth: "100%", objectFit: "contain", display: "block" }}
-                />
-              ) : (
-                <logo.Component />
-              )}
-            </div>
-          ))}
+          {doubled.map((Cell, i) => <Cell key={i} />)}
         </motion.div>
       </div>
     </div>
