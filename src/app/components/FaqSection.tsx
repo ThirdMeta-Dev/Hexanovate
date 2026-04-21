@@ -519,7 +519,7 @@ const FAQS_BY_TAB: Record<number, typeof FAQS> = {
  *   Tablet (≤1023px): narrower left col, smaller gap
  *   Mobile (≤767px): stack left col above right col, tabs wrap
  */
-export function FaqSection() {
+export function FaqSection({ transparent = false }: { transparent?: boolean }) {
   const [activeTab, setActiveTab] = useState(1); // index 1 = "Team & culture" active
   const [openIndex, setOpenIndex] = useState(0); // index 0 = first FAQ open by default
 
@@ -541,7 +541,7 @@ export function FaqSection() {
 
   return (
     <section
-      style={{ width: "100%", background: "#0a0a0a", padding: 0, overflow: "hidden" }}
+      style={{ width: "100%", background: transparent ? "transparent" : "#0a0a0a", padding: 0, overflow: "hidden" }}
     >
       {/* ── Container: max 1148px centered ── */}
       <div

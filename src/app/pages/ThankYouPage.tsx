@@ -10,8 +10,13 @@ import { TestimonialsHeaderSection } from "../components/TestimonialsHeaderSecti
 import { TagsCarouselSection } from "../components/TagsCarouselSection";
 import { FaqSection } from "../components/FaqSection";
 import { ThankYouBanner } from "../components/ThankYouBanner";
+import { useMeta } from "../hooks/useMeta";
 
 export default function ThankYouPage() {
+  useMeta(
+    "Thank You — Hexanovate",
+    "Your submission has been received. We will confirm your strategy call slot within 24 hours."
+  );
   return (
     <PageLayout showTagsCarousel={false}>
       {/* ── Thank You Banner (Figma frame) ── */}

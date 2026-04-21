@@ -218,7 +218,7 @@ function WhyChooseUsBadge() {
 }
 
 /* ─── WHY CHOOSE US SECTION ─────────────────────────────────────────────── */
-export function WhyChooseUsSection() {
+export function WhyChooseUsSection({ transparent = false }: { transparent?: boolean }) {
   const featureData = [
     { title: "Strategy That Actually Executes.", description: `Vision without execution is just a slide deck. Everything inside Hexanovate is built to move from thinking to doing without losing momentum.` },
     { title: "Empathy Built Into Everything.", description: `We understand businesses because we spent years watching brilliant ones struggle needlessly.` },
@@ -227,7 +227,7 @@ export function WhyChooseUsSection() {
   ];
 
   return (
-    <section style={{ width: "100%", background: "#0a0a0a", padding: 0, overflow: "clip" }}>
+    <section style={{ width: "100%", background: transparent ? "transparent" : "#0a0a0a", padding: 0, overflow: "clip" }}>
       <div style={{ width: "100%", maxWidth: 1200, margin: "0 auto", padding: "0 24px", boxSizing: "border-box", position: "relative" }}>
         <div style={{ width: "100%", paddingTop: 40, paddingBottom: 40 }}>
           {/* Header row */}
@@ -283,6 +283,7 @@ export function WhyChooseUsSection() {
                 playsInline
                 style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
               />
+              {!transparent && <>
               {/* Top fade */}
               <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 90, background: "linear-gradient(to bottom, #0a0a0a, rgba(10,10,10,0))", pointerEvents: "none", zIndex: 2 }} />
               {/* Bottom fade */}
@@ -291,6 +292,7 @@ export function WhyChooseUsSection() {
               <div style={{ position: "absolute", top: 0, bottom: 0, left: 0, width: 90, background: "linear-gradient(to right, #0a0a0a, rgba(10,10,10,0))", pointerEvents: "none", zIndex: 2 }} />
               {/* Right fade */}
               <div style={{ position: "absolute", top: 0, bottom: 0, right: 0, width: 90, background: "linear-gradient(to left, #0a0a0a, rgba(10,10,10,0))", pointerEvents: "none", zIndex: 2 }} />
+              </>}
             </div>
 
             {/* Right column */}

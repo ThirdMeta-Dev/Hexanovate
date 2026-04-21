@@ -67,7 +67,8 @@ function Rule() {
 }
 
 /* Single info card */
-function InfoCard({ title, value }: { title: string; value: string }) {
+function InfoCard({ title, value, href }: { title: string; value: string; href: string }) {
+  const [hov, setHov] = useState(false);
   return (
     <div style={{ display: "flex", gap: 16, alignItems: "flex-start", width: "100%" }}>
       <IconPill />
@@ -82,12 +83,23 @@ function InfoCard({ title, value }: { title: string; value: string }) {
           </span>
           <Rule />
         </div>
-        <p style={{
-          fontFamily: "Poppins, sans-serif", fontWeight: 300, fontStyle: "normal",
-          fontSize: 15, color: "white", lineHeight: "22px", margin: 0,
-        }}>
+        <a
+          href={href}
+          target={href.startsWith("http") ? "_blank" : undefined}
+          rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+          onMouseEnter={() => setHov(true)}
+          onMouseLeave={() => setHov(false)}
+          style={{
+            fontFamily: "Poppins, sans-serif", fontWeight: 300,
+            fontSize: 15, lineHeight: "22px", margin: 0,
+            whiteSpace: "pre-line", textDecoration: "none",
+            color: hov ? "#ffa600" : "white",
+            transition: "color 0.2s ease",
+            cursor: "pointer",
+          }}
+        >
           {value}
-        </p>
+        </a>
       </div>
     </div>
   );
@@ -147,9 +159,9 @@ export function ContactInfoSection() {
             fontSize: "clamp(26px, 4vw, 40px)", lineHeight: 1.44,
             color: "white", margin: 0,
           }}>
-            Get in Touch{" "}
+            Find Us.{" "}
             <span style={{ fontWeight: 300, color: "#8e8e8e" }}>
-              dummy text is
+              We Are Not Hard To Reach.
             </span>
           </h2>
 
@@ -202,16 +214,19 @@ export function ContactInfoSection() {
             minWidth: isMobile ? "unset" : 260,
           }}>
             <InfoCard
-              title="Location"
-              value="Surat, Gujarat, India — Hexanovate HQ"
+              title="Find Us Here"
+              value="Maithili F6, Orion Complex, Near Amar Heights, Aundh Road, Bopodi, Pune 411020."
+              href="https://maps.google.com/maps?q=Orion+Complex+Bopodi+Aundh+Road+Pune+411020"
             />
             <InfoCard
-              title="Email us"
-              value="seo@hexanovate.com"
+              title="Write To Us"
+              value="team@hexanovate.com"
+              href="mailto:team@hexanovate.com"
             />
             <InfoCard
-              title="Call Us"
-              value="+91 98989 89898"
+              title="Call Us Directly"
+              value="+91 7820932512"
+              href="tel:+917820932512"
             />
           </div>
 
@@ -228,7 +243,7 @@ export function ContactInfoSection() {
           }}>
             <iframe
               title="Hexanovate Location"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3719.7855!2d72.8311!3d21.1702!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be04d5b39e01ab1%3A0x4b5f9c7d2e7e7e01!2sHexanovate!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin"
+              src="https://maps.google.com/maps?q=Orion+Complex+Bopodi+Aundh+Road+Pune+411020&t=&z=15&ie=UTF8&iwloc=&output=embed"
               width="100%"
               height="100%"
               style={{ border: 0, display: "block", filter: "invert(90%) hue-rotate(180deg) brightness(0.85) contrast(1.1)" }}

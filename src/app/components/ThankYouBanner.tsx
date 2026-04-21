@@ -5,9 +5,15 @@
    • Buttons: identical to HexanovateHero CTAButton (label pill + arrow circle)
    • Responsive: stacks to column on ≤1024px
    ───────────────────────────────────────────────────────────────────────────── */
-import { useState } from "react";
-import { motion } from "motion/react";
+import { useState, useRef } from "react";
+import { motion, useScroll, useTransform, MotionValue } from "motion/react";
 import svgPaths from "../../imports/svg-xvssryphbj";
+
+/* ── Scroll-linked word reveal ──────────────────────────────────────────────── */
+function RevealWord({ children, progress, range }: { children: React.ReactNode; progress: MotionValue<number>; range: [number, number] }) {
+  const opacity = useTransform(progress, range, [0.08, 1]);
+  return <motion.span style={{ opacity }}>{children}</motion.span>;
+}
 
 /* ── Arrow diagonal SVG ─────────────────────────────────────────────────────── */
 function ArrowDiagonal({ size = 16 }: { size?: number }) {
@@ -226,25 +232,25 @@ function NextStepsCard() {
           whiteSpace: "nowrap",
         }}
       >
-        What are the next steps?
+        What Are The Next Steps?
       </p>
 
       {/* Steps */}
       <div style={{ display: "flex", flexDirection: "column", gap: 32, width: "100%" }}>
         <Step
           num="1"
-          title="Review & Strategy Call"
-          desc="Our team reviews your submission and prepares a tailored strategy brief before we connect."
+          title="Bring The Problem"
+          desc="Walk us through what is not working and why. The more honest you are, the more useful this call becomes."
         />
         <Step
           num="2"
-          title="Personalised Growth Audit"
-          desc="We'll map what's leaking — conversion, retention, and growth blockers specific to your brand."
+          title="We Solve It Live"
+          desc="No follow-up deck required. We think through a solution on the call and share it with you then and there."
         />
         <Step
           num="3"
-          title="Your Roadmap, Delivered"
-          desc="You receive a clear, actionable roadmap for scaling — no fluff, just priorities that move revenue."
+          title="Your Call. Literally."
+          desc="If it feels right, we start. If it does not, you leave with a free growth roadmap. Either way you win."
         />
       </div>
     </div>
@@ -253,6 +259,11 @@ function NextStepsCard() {
 
 /* ── Main export ────────────────────────────────────────────────────────────── */
 export function ThankYouBanner() {
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const { scrollYProgress } = useScroll({ target: titleRef, offset: ["start 0.9", "start 0.2"] });
+  const words = ["We", "Have", "Got", "Your", "Ambition.", "Now", "It", "Is", "Officially", "Ours", "Too."];
+  const range = (i: number): [number, number] => [Math.min(i * 0.08, 0.88), Math.min(i * 0.08 + 0.12, 1)];
+
   return (
     <>
       <style>{`
@@ -342,40 +353,35 @@ export function ThankYouBanner() {
               {/* Headline */}
               <div>
                 <h1
+                  ref={titleRef}
                   className="ty-headline"
                   style={{
                     fontFamily: "Manrope, sans-serif",
                     fontWeight: 700,
-                    fontSize: 48,
+                    fontSize: 44,
                     lineHeight: 1.22,
                     color: "white",
                     margin: 0,
                     textTransform: "capitalize",
-                    whiteSpace: "pre-wrap",
                   }}
                 >
-                  <span style={{ display: "block" }}>We Unlock Scale</span>
-                  <span style={{ display: "block" }}>
-                    We've Got Your Ambition.{" "}
-                    <span
-                      style={{
-                        fontWeight: 400,
-                        color: "#8e8e8e",
-                        fontFamily: "Manrope, sans-serif",
-                      }}
-                    >
-                      Now It's Ours
-                    </span>
-                  </span>
+                  {words.map((word, i) => (
+                    <RevealWord key={i} progress={scrollYProgress} range={range(i)}>
+                      <span style={{ fontWeight: i < 5 ? 700 : 400, color: i < 5 ? "white" : "#8e8e8e" }}>
+                        {word}
+                      </span>
+                      {i < words.length - 1 ? " " : ""}
+                    </RevealWord>
+                  ))}
                 </h1>
               </div>
 
               {/* Buttons + tagline */}
               <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
                 {/* CTA buttons — same style as home page */}
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 16, alignItems: "center" }}>
-                  <CTAButton label="B2B ThirdMeta" variant="primary" />
-                  <CTAButton label="FMCG/D2C" variant="secondary" />
+                <div style={{ display: "flex", flexWrap: "nowrap", gap: 16, alignItems: "center" }}>
+                  <CTAButton label="Let's Talk. Book A Call" variant="primary" />
+                  <CTAButton label="Explore Our Solutions" variant="secondary" />
                 </div>
 
                 {/* Italic tagline */}

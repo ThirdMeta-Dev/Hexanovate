@@ -43,6 +43,13 @@ const REASON_OPTIONS = [
   "General query",
 ];
 
+const DOMAIN_OPTIONS = [
+  { label: "ThirdMeta B2B",      value: "thirdinmeta_b2b" },
+  { label: "NativeUnit FMCG",    value: "nativeunit_fmcg" },
+  { label: "EduHexa Education",  value: "eduhexa_education" },
+  { label: "Other",              value: "other" },
+];
+
 /* ─── FORM VALUES ─────────────────────────────────────────────────────────── */
 interface FormValues {
   name: string;
@@ -50,6 +57,16 @@ interface FormValues {
   phone: string;
   company: string;
   reason: string;
+  message: string;
+}
+
+interface CtaFormValues {
+  name: string;
+  email: string;
+  phone: string;
+  company: string;
+  designation: string;
+  domain: string[];
   message: string;
 }
 

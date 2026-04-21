@@ -5,6 +5,7 @@
    ───────────────────────────────────────────────────────────────────────────── */
 import { useState, useEffect } from "react";
 import { motion } from "motion/react";
+import { useMeta } from "../hooks/useMeta";
 import { GlobalHeader } from "../components/GlobalHeader";
 import { LeadershipHeroSection } from "../components/LeadershipHeroSection";
 import { AboutIntroSection } from "../components/AboutIntroSection";
@@ -28,6 +29,10 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 const VP = { once: true, margin: "-80px" } as const;
 
 export default function AboutUsPage() {
+  useMeta(
+    "About Us — Hexanovate",
+    "Learn how Hexanovate was built to close the gap between ambition and outcome for B2B, FMCG, and education businesses."
+  );
   const [vw, setVw] = useState(typeof window !== "undefined" ? window.innerWidth : 1440);
   useEffect(() => {
     window.scrollTo(0, 0);

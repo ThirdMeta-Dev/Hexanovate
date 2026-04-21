@@ -256,7 +256,7 @@ function RevealWord({ children, progress, range }: RevealWordProps) {
  *   Tablet (≤1024px): scale absolute positions proportionally
  *   Mobile (≤767px):  switch to flowing single-column text layout
  */
-export function TestimonialsHeaderSection() {
+export function TestimonialsHeaderSection({ variant }: { variant?: "contact" }) {
   const titleRef = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress } = useScroll({
     target: titleRef,
@@ -329,45 +329,75 @@ export function TestimonialsHeaderSection() {
             boxSizing: "border-box",
           }}
         >
-          {/* Title */}
-          <div ref={titleRef}>
-            <p
-              style={{
-                fontFamily: "Manrope, sans-serif",
-                fontSize: "clamp(28px, 4vw, 56px)",
-                lineHeight: 1.28,
-                textAlign: "center",
-                margin: 0,
-                maxWidth: 780,
-                textTransform: "capitalize",
-              }}
-            >
-              <RevealWord progress={scrollYProgress} range={range(0)}><span style={{ fontWeight: 700, color: "white" }}>Thirty</span></RevealWord>
-              {" "}
-              <RevealWord progress={scrollYProgress} range={range(1)}><span style={{ fontWeight: 700, color: "white" }}>Minutes.</span></RevealWord>
-              {" "}
-              <RevealWord progress={scrollYProgress} range={range(2)}><span style={{ fontWeight: 300, color: "#8e8e8e" }}>No</span></RevealWord>
-              {" "}
-              <RevealWord progress={scrollYProgress} range={range(3)}><span style={{ fontWeight: 300, color: "#8e8e8e" }}>Pitch.</span></RevealWord>
-              {" "}
-              <RevealWord progress={scrollYProgress} range={range(4)}><span style={{ fontWeight: 300, color: "#8e8e8e" }}>Just</span></RevealWord>
-              {" "}
-              <RevealWord progress={scrollYProgress} range={range(5)}><span style={{ fontWeight: 700, color: "white" }}>An</span></RevealWord>
-              {" "}
-              <RevealWord progress={scrollYProgress} range={range(6)}><span style={{ fontWeight: 700, color: "white" }}>Honest</span></RevealWord>
-              {" "}
-              <RevealWord progress={scrollYProgress} range={range(7)}><span style={{ fontWeight: 700, color: "white" }}>Conversation</span></RevealWord>
-              {" "}
-              <RevealWord progress={scrollYProgress} range={range(8)}><span style={{ fontWeight: 300, color: "#8e8e8e" }}>About</span></RevealWord>
-              {" "}
-              <RevealWord progress={scrollYProgress} range={range(9)}><span style={{ fontWeight: 300, color: "#8e8e8e" }}>Your</span></RevealWord>
-              {" "}
-              <RevealWord progress={scrollYProgress} range={range(10)}><span style={{ fontWeight: 700, color: "white" }}>Growth.</span></RevealWord>
-            </p>
-          </div>
+          {variant === "contact" ? (
+            /* ── Contact page variant ── */
+            <>
+              {/* Tag */}
+              <div style={{ background: "rgba(255,255,255,0.08)", border: "1px solid #414141", borderRadius: 40, padding: "6px 20px" }}>
+                <span style={{ fontFamily: "Poppins, sans-serif", fontSize: 13, color: "#ffa600" }}>Let's Go</span>
+              </div>
 
-          {/* CTA */}
-          <CtaBtn label="Book A Call" color="#1b61db" hoverColor="#2470f0" />
+              {/* Title */}
+              <div ref={titleRef}>
+                <p style={{ fontFamily: "Manrope, sans-serif", fontSize: "clamp(26px, 4vw, 50px)", lineHeight: 1.28, textAlign: "center", margin: 0, maxWidth: 820, textTransform: "capitalize" }}>
+                  <RevealWord progress={scrollYProgress} range={range(0)}><span style={{ fontWeight: 700, color: "white" }}>You Have Our Number.</span></RevealWord>
+                  {" "}
+                  <RevealWord progress={scrollYProgress} range={range(1)}><span style={{ fontWeight: 700, color: "white" }}>You Have Our Email.</span></RevealWord>
+                  {" "}
+                  <RevealWord progress={scrollYProgress} range={range(2)}><span style={{ fontWeight: 300, color: "#8e8e8e" }}>Now You Have No Excuse.</span></RevealWord>
+                </p>
+              </div>
+
+              {/* Two buttons */}
+              <div style={{ display: "flex", gap: 16, flexWrap: "wrap", justifyContent: "center" }}>
+                <CtaBtn label="B2B ThirdMeta" color="#1b61db" hoverColor="#2470f0" />
+                <CtaBtn label="FMCG NativeUnit" color="#ffa600" hoverColor="#e69400" />
+              </div>
+            </>
+          ) : (
+            /* ── Default variant (About Us etc.) ── */
+            <>
+              {/* Title */}
+              <div ref={titleRef}>
+                <p
+                  style={{
+                    fontFamily: "Manrope, sans-serif",
+                    fontSize: "clamp(28px, 4vw, 56px)",
+                    lineHeight: 1.28,
+                    textAlign: "center",
+                    margin: 0,
+                    maxWidth: 780,
+                    textTransform: "capitalize",
+                  }}
+                >
+                  <RevealWord progress={scrollYProgress} range={range(0)}><span style={{ fontWeight: 700, color: "white" }}>Thirty</span></RevealWord>
+                  {" "}
+                  <RevealWord progress={scrollYProgress} range={range(1)}><span style={{ fontWeight: 700, color: "white" }}>Minutes.</span></RevealWord>
+                  {" "}
+                  <RevealWord progress={scrollYProgress} range={range(2)}><span style={{ fontWeight: 300, color: "#8e8e8e" }}>No</span></RevealWord>
+                  {" "}
+                  <RevealWord progress={scrollYProgress} range={range(3)}><span style={{ fontWeight: 300, color: "#8e8e8e" }}>Pitch.</span></RevealWord>
+                  {" "}
+                  <RevealWord progress={scrollYProgress} range={range(4)}><span style={{ fontWeight: 300, color: "#8e8e8e" }}>Just</span></RevealWord>
+                  {" "}
+                  <RevealWord progress={scrollYProgress} range={range(5)}><span style={{ fontWeight: 700, color: "white" }}>An</span></RevealWord>
+                  {" "}
+                  <RevealWord progress={scrollYProgress} range={range(6)}><span style={{ fontWeight: 700, color: "white" }}>Honest</span></RevealWord>
+                  {" "}
+                  <RevealWord progress={scrollYProgress} range={range(7)}><span style={{ fontWeight: 700, color: "white" }}>Conversation</span></RevealWord>
+                  {" "}
+                  <RevealWord progress={scrollYProgress} range={range(8)}><span style={{ fontWeight: 300, color: "#8e8e8e" }}>About</span></RevealWord>
+                  {" "}
+                  <RevealWord progress={scrollYProgress} range={range(9)}><span style={{ fontWeight: 300, color: "#8e8e8e" }}>Your</span></RevealWord>
+                  {" "}
+                  <RevealWord progress={scrollYProgress} range={range(10)}><span style={{ fontWeight: 700, color: "white" }}>Growth.</span></RevealWord>
+                </p>
+              </div>
+
+              {/* CTA */}
+              <CtaBtn label="Book A Call" color="#1b61db" hoverColor="#2470f0" />
+            </>
+          )}
         </div>
       </div>
 

@@ -33,11 +33,16 @@ import { LeadershipGallerySection }       from "../components/LeadershipGalleryS
 import { AboutContactSection }            from "../components/AboutContactSection";
 import { LeadershipGrowthSystemsSection } from "../components/LeadershipGrowthSystemsSection";
 import { FooterSection }                  from "../components/FooterSection";
+import { useMeta } from "../hooks/useMeta";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 const VP   = { once: true, margin: "-80px" } as const;
 
 export default function LeadershipTeamPage() {
+  useMeta(
+    "Leadership & Team — Hexanovate",
+    "Meet the strategists and builders behind Hexanovate's growth ecosystem — outcome-obsessed thinkers driving real results."
+  );
   const [vw, setVw] = useState(typeof window !== "undefined" ? window.innerWidth : 1440);
 
   useEffect(() => {

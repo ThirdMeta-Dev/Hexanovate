@@ -5,6 +5,7 @@
              Logo Marquee → Testimonials → We Build Growth Systems → Footer
    ───────────────────────────────────────────────────────────────────────────── */
 import { PageLayout } from "../components/PageLayout";
+import { useMeta } from "../hooks/useMeta";
 import { DemoFormSection } from "../components/DemoFormSection";
 import { ContactInfoSection } from "../components/ContactInfoSection";
 import { LogoMarqueeSection } from "../components/LogoMarqueeSection";
@@ -13,6 +14,10 @@ import { TestimonialsHeaderSection } from "../components/TestimonialsHeaderSecti
 import { TagsCarouselSection } from "../components/TagsCarouselSection";
 
 export default function ContactUsPage() {
+  useMeta(
+    "Contact Us — Hexanovate",
+    "Reach out to Hexanovate for growth partnerships, press, careers, or any general enquiries. We respond within 48 hours."
+  );
   return (
     <PageLayout showTagsCarousel={false}>
       {/* ── Get in Touch ── */}
@@ -32,7 +37,7 @@ export default function ContactUsPage() {
 
       {/* ── Testimonials ── */}
       <div style={{ marginTop: "140px" }}>
-        <TestimonialsHeaderSection />
+        <TestimonialsHeaderSection variant="contact" />
       </div>
       <div style={{ marginTop: "140px" }}>
         <TestimonialSection />
