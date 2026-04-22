@@ -9,6 +9,7 @@ import { motion, AnimatePresence, useScroll, useTransform } from "motion/react";
 import { Menu, X } from "lucide-react";
 import { useNavigate } from "react-router";
 import svgPaths from "../../imports/svg-icprnzbobl";
+import { useCmsSectionContent } from "../context/CmsSectionContext";
 
 const VIDEO_SRC =
   "https://sienna-pelican-786032.hostingersite.com/wp-content/uploads/2026/03/social_SEO_Continuation_from_previous_scene._On_the_RIGHT_side_of_th_275c5974-1f7e-49bb-9f8a-647eb3ffd219_0.mp4";
@@ -849,6 +850,13 @@ function MobileNav() {
 
 /* ── Mobile Hero Content ──────────────────────────────────────────────────── */
 function MobileHeroContent() {
+  const { content } = useCmsSectionContent();
+  const headline = String(content.headline ?? "The Future of Business Deserves a Better World. We're Building It.");
+  const subtext = String(content.subtext ?? "A connected business ecosystem built around your vision. Bringing together systems, growth engines, teams, and capabilities so you can focus on what you do best.");
+  const ctaPrimaryText = String(content.ctaPrimaryText ?? "B2B ThirdMeta");
+  const ctaPrimaryLink = String(content.ctaPrimaryLink ?? "https://thirdmeta.in/");
+  const ctaSecondaryText = String(content.ctaSecondaryText ?? "FMCG/D2C");
+  const ctaSecondaryLink = String(content.ctaSecondaryLink ?? "https://thenativeunit.com/");
   return (
     /* Outer shell: centers the inner content block horizontally */
     <div
@@ -892,7 +900,7 @@ function MobileHeroContent() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
           >
-            The Future of Business Deserves a Better World. We're Building It.
+            {headline}
           </motion.div>
         </div>
 
@@ -910,7 +918,7 @@ function MobileHeroContent() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.78, ease: [0.22, 1, 0.36, 1] }}
         >
-          A connected business ecosystem built around your vision. Bringing together systems, growth engines,<br /> teams, and capabilities so you can focus on what you do best.
+          {subtext}
         </motion.p>
 
         {/* CTAs — left-aligned row */}
@@ -925,8 +933,8 @@ function MobileHeroContent() {
             paddingBottom: 40,
           }}
         >
-          <CtaBtn label="B2B ThirdMeta" variant="primary" delay={0.9} small href="https://thirdmeta.in/" />
-          <CtaBtn label="FMCG/D2C" variant="outlined" delay={1.0} small href="https://thenativeunit.com/" />
+          <CtaBtn label={ctaPrimaryText} variant="primary" delay={0.9} small href={ctaPrimaryLink} />
+          <CtaBtn label={ctaSecondaryText} variant="outlined" delay={1.0} small href={ctaSecondaryLink} />
         </div>
       </div>
     </div>
@@ -941,6 +949,15 @@ function MobileHeroContent() {
    - Scroll-driven opacity fade as section exits viewport
    ─────────────────────────────────────────────────────────────────────────── */
 export function BannerSection() {
+  const { content } = useCmsSectionContent();
+  const headline = String(content.headline ?? "The Future of Business Deserves a Better World. We're Building It.");
+  const subtext = String(content.subtext ?? "A connected business ecosystem built around your vision. Bringing together systems, growth engines, teams, and capabilities so you can focus on what you do best.");
+  const ctaPrimaryText = String(content.ctaPrimaryText ?? "B2B ThirdMeta");
+  const ctaPrimaryLink = String(content.ctaPrimaryLink ?? "https://thirdmeta.in/");
+  const ctaSecondaryText = String(content.ctaSecondaryText ?? "FMCG/D2C");
+  const ctaSecondaryLink = String(content.ctaSecondaryLink ?? "https://thenativeunit.com/");
+  const videoUrl = String(content.videoUrl ?? VIDEO_SRC);
+
   const heroRef = useRef<HTMLDivElement>(null);
 
   /* Only need vw for isMobile detection — no more scale calc */
@@ -980,7 +997,7 @@ export function BannerSection() {
         {/* Background video layer */}
         <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
           <video
-            src={VIDEO_SRC}
+            src={videoUrl}
             autoPlay
             loop
             muted
@@ -1277,7 +1294,7 @@ export function BannerSection() {
                           ease: [0.22, 1, 0.36, 1],
                         }}
                       >
-                        The Future of Business Deserves a Better World. We're Building It.
+                        {headline}
                       </motion.div>
                     </div>
 
@@ -1296,15 +1313,15 @@ export function BannerSection() {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.55, delay: 1.0, ease: [0.22, 1, 0.36, 1] }}
                     >
-                      A connected business ecosystem built around your vision. Bringing together systems, growth engines,<br /> teams, and capabilities so you can focus on what you do best.
+                      {subtext}
                     </motion.p>
                   </div>
                 </div>
 
                 {/* CTA buttons */}
                 <div style={{ display: "flex", alignItems: "flex-start", gap: 16 }}>
-                  <CtaBtn label="B2B ThirdMeta" variant="primary" delay={1.1} href="https://thirdmeta.in/" />
-                  <CtaBtn label="FMCG/D2C" variant="outlined" delay={1.22} href="https://thenativeunit.com/" />
+                  <CtaBtn label={ctaPrimaryText} variant="primary" delay={1.1} href={ctaPrimaryLink} />
+                  <CtaBtn label={ctaSecondaryText} variant="outlined" delay={1.22} href={ctaSecondaryLink} />
                 </div>
               </motion.div>
             </div>

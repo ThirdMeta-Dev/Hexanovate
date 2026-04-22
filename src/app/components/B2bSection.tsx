@@ -7,8 +7,9 @@ import {
   AnimatePresence,
   type MotionValue,
 } from "motion/react";
-import { useRef, useId, useState, useCallback, useEffect } from "react";
+import { useRef, useId, useState, useCallback, useEffect, createContext, useContext } from "react";
 import { X, ZoomIn, ZoomOut } from "lucide-react";
+import { useCmsSectionContent } from "../context/CmsSectionContext";
 
 import klearStackImg from "@/assets/17570441db00c0be198ad56f30ef77fc9de689a2.jpg";
 import eFaxImg       from "@/assets/49cdf6d45c8d08683c9745eac1631fd5935906e1.jpg";
@@ -46,6 +47,9 @@ const PORTFOLIO = [
     image: trueinImg,
   },
 ];
+
+type PortfolioItem = typeof PORTFOLIO[0];
+const PortfolioCtx = createContext<PortfolioItem[]>(PORTFOLIO);
 
 /* ─── SCROLL REVEAL UTILITY ──────────────────────────────────────────────── */
 function computeReveal(
@@ -589,7 +593,7 @@ function CardsSection() {
     setLightboxItem(item);
   }, []);
 
-  const p = PORTFOLIO;
+  const p = useContext(PortfolioCtx);
 
   return (
     <>
@@ -693,6 +697,7 @@ function TitleRow() {
 
 /* ─── MOBILE LAYOUT ──────────────────────────────────────────────────────── */
 function B2bMobileLayout() {
+  const PORTFOLIO = useContext(PortfolioCtx);
   const [activeTab, setActiveTab] = useState(0);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
   const tabsRef = useRef<HTMLDivElement>(null);
@@ -1010,7 +1015,18 @@ function B2bDesktopLayout() {
 }
 
 export function B2bSection() {
+  const { items } = useCmsSectionContent();
   const [isMobileTablet, setIsMobileTablet] = useState(() => window.innerWidth <= 1024);
+
+  const portfolio: PortfolioItem[] = items.length > 0
+    ? items.map((item, i) => ({
+        id: String(item.number ?? String(i + 1).padStart(2, "0")),
+        number: String(item.number ?? String(i + 1).padStart(2, "0")),
+        title: String(item.title ?? ""),
+        description: String(item.description ?? ""),
+        image: String(item.imageUrl || PORTFOLIO[i]?.image || ""),
+      }))
+    : PORTFOLIO;
 
   useEffect(() => {
     const check = () => setIsMobileTablet(window.innerWidth <= 1024);
@@ -1019,5 +1035,9 @@ export function B2bSection() {
     return () => window.removeEventListener("resize", check);
   }, []);
 
-  return isMobileTablet ? <B2bMobileLayout /> : <B2bDesktopLayout />;
+  return (
+    <PortfolioCtx.Provider value={portfolio}>
+      {isMobileTablet ? <B2bMobileLayout /> : <B2bDesktopLayout />}
+    </PortfolioCtx.Provider>
+  );
 }

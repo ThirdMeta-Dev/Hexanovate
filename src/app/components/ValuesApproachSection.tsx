@@ -4,9 +4,10 @@ import svgPaths from "../../imports/svg-z7psrjnrcc";
 import imgSlide0 from "@/assets/cd0d3c71464504d6e4fd1662e5128b67cbe4dfdc.jpg";
 import imgSlide1 from "@/assets/455b6c3830e6c866d6b397b00c2dcdf87ae3df2d.jpg";
 import imgSlide2 from "@/assets/a9faff04fbb40b4297efb717f05795a3e749ebf7.jpg";
+import { useCmsSectionContent } from "../context/CmsSectionContext";
 
 /* ─── SLIDES DATA ────────────────────────────────────────────────────────── */
-const SLIDES = [
+const DEFAULT_SLIDES = [
   {
     title: "Accountability Without Excuses",
     description: "When something does not work, we say so first. No blame, no deflection, just the honest next step.",
@@ -45,7 +46,7 @@ const SLIDES = [
   },
 ];
 
-const N = SLIDES.length;
+const SLIDE_IMAGES = [imgSlide0, imgSlide1, imgSlide2];
 function mod(n: number, m: number) { return ((n % m) + m) % m; }
 
 /* ─── NETWORK ICON SVG ───────────────────────────────────────────────────── */
@@ -176,8 +177,8 @@ function NextBtn({ onClick }: { onClick: () => void }) {
 }
 
 /* ─── PROGRESS BAR ───────────────────────────────────────────────────────── */
-function ProgressBar({ active }: { active: number }) {
-  const fillPct = ((active + 1) / N) * 100;
+function ProgressBar({ active, n }: { active: number; n: number }) {
+  const fillPct = ((active + 1) / n) * 100;
   return (
     <div style={{ flex: "1 0 0", position: "relative", height: 3, minWidth: 0 }}>
       <div style={{ position: "absolute", left: 0, right: 0, top: "50%", transform: "translateY(-50%)", height: 2, background: "#111", borderRadius: 99 }} />
@@ -349,10 +350,21 @@ function ThumbCard({ slide, onClick }: { slide: (typeof SLIDES)[0]; onClick: () 
 
 /* ─── MAIN SECTION ───────────────────────────────────────────────────────── */
 export function ValuesApproachSection() {
+  const { items: cmsItems } = useCmsSectionContent();
+  const slides = cmsItems.length > 0
+    ? cmsItems.map((item, i) => ({
+        title:       String(item.title       ?? ""),
+        description: String(item.description ?? ""),
+        cardTitle:   String(item.cardTitle   ?? item.title ?? "").split(" ").slice(0, 2).join(" "),
+        image:       SLIDE_IMAGES[i % 3],
+      }))
+    : DEFAULT_SLIDES;
+  const N = slides.length;
+
   const [active, setActive] = useState(0);
 
-  const goNext = useCallback(() => setActive((i) => mod(i + 1, N)), []);
-  const goPrev = useCallback(() => setActive((i) => mod(i - 1, N)), []);
+  const goNext = useCallback(() => setActive((i) => mod(i + 1, N)), [N]);
+  const goPrev = useCallback(() => setActive((i) => mod(i - 1, N)), [N]);
   const goTo   = useCallback((i: number) => setActive(i), []);
 
   const thumb0 = mod(active + 1, N);
@@ -404,7 +416,7 @@ export function ValuesApproachSection() {
                 transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
                 style={{ flex: "1 0 0", minWidth: 0, display: "flex", transformOrigin: "bottom center" }}
               >
-                <ActiveCard slide={SLIDES[active]} />
+                <ActiveCard slide={slides[active]} />
               </motion.div>
             </AnimatePresence>
           </div>
@@ -414,14 +426,14 @@ export function ValuesApproachSection() {
             <div className="va-thumbs" style={{ display: "flex", gap: 16, alignItems: "center", width: "100%" }}>
               {([thumb0, thumb1, thumb2] as const).map((thumbIdx) => (
                 <div key={thumbIdx} style={{ flex: "1 0 0", minWidth: 0, display: "flex" }}>
-                  <ThumbCard slide={SLIDES[thumbIdx]} onClick={() => goTo(thumbIdx)} />
+                  <ThumbCard slide={slides[thumbIdx]} onClick={() => goTo(thumbIdx)} />
                 </div>
               ))}
             </div>
 
             {/* Progress bar + nav arrows */}
             <div style={{ display: "flex", gap: 20, alignItems: "center", width: "100%" }}>
-              <ProgressBar active={active} />
+              <ProgressBar active={active} n={N} />
               <div style={{ display: "flex", gap: 10, alignItems: "center", flexShrink: 0 }}>
                 <PrevBtn onClick={goPrev} />
                 <NextBtn onClick={goNext} />

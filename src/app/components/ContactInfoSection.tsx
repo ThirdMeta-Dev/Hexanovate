@@ -6,6 +6,7 @@
    ───────────────────────────────────────────────────────────────────────────── */
 import { useState, useEffect } from "react";
 import svgPaths from "../../imports/svg-6g0d8ismyr";   // same file as FooterSection
+import { useCmsSectionContent } from "../context/CmsSectionContext";
 
 /* ── helpers ─────────────────────────────────────────────────────────────── */
 
@@ -130,6 +131,12 @@ function SocialBtn({
 
 /* ── Main Section ─────────────────────────────────────────────────────────── */
 export function ContactInfoSection() {
+  const { content } = useCmsSectionContent();
+  const address    = String(content.address    ?? "Maithili F6, Orion Complex, Near Amar Heights, Aundh Road, Bopodi, Pune 411020.");
+  const email      = String(content.email      ?? "team@hexanovate.com");
+  const phone      = String(content.phone      ?? "+91 7820932512");
+  const mapEmbedUrl = String(content.mapEmbedUrl ?? "https://maps.google.com/maps?q=Orion+Complex+Bopodi+Aundh+Road+Pune+411020&t=&z=15&ie=UTF8&iwloc=&output=embed");
+
   const [vw, setVw] = useState(() => typeof window !== "undefined" ? window.innerWidth : 1440);
   useEffect(() => {
     const onResize = () => setVw(window.innerWidth);
@@ -215,18 +222,18 @@ export function ContactInfoSection() {
           }}>
             <InfoCard
               title="Find Us Here"
-              value="Maithili F6, Orion Complex, Near Amar Heights, Aundh Road, Bopodi, Pune 411020."
-              href="https://maps.google.com/maps?q=Orion+Complex+Bopodi+Aundh+Road+Pune+411020"
+              value={address}
+              href={`https://maps.google.com/maps?q=${encodeURIComponent(address)}`}
             />
             <InfoCard
               title="Write To Us"
-              value="team@hexanovate.com"
-              href="mailto:team@hexanovate.com"
+              value={email}
+              href={`mailto:${email}`}
             />
             <InfoCard
               title="Call Us Directly"
-              value="+91 7820932512"
-              href="tel:+917820932512"
+              value={phone}
+              href={`tel:${phone.replace(/\s+/g, "")}`}
             />
           </div>
 
@@ -243,7 +250,7 @@ export function ContactInfoSection() {
           }}>
             <iframe
               title="Hexanovate Location"
-              src="https://maps.google.com/maps?q=Orion+Complex+Bopodi+Aundh+Road+Pune+411020&t=&z=15&ie=UTF8&iwloc=&output=embed"
+              src={mapEmbedUrl}
               width="100%"
               height="100%"
               style={{ border: 0, display: "block", filter: "invert(90%) hue-rotate(180deg) brightness(0.85) contrast(1.1)" }}

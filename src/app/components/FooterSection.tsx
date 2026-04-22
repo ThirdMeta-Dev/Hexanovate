@@ -1,6 +1,7 @@
 import { useState } from "react";
 import svgPaths from "../../imports/svg-6g0d8ismyr";
 import imgPersonImage from "@/assets/footer-person.png";
+import { useCmsSectionContent } from "../context/CmsSectionContext";
 
 /* ─────────────────────────────────────────────────────────────────────────────
  * HEXANOVATE ICON
@@ -150,6 +151,10 @@ function NavColumn({ title, items }: { title: string; items: { label: string; hr
  * BLUE PANEL  — 68% width (blue column gets more room for 4-col layout)
  * ───────────────────────────────────────────────────────────────────────────── */
 function BluePanel() {
+  const { content } = useCmsSectionContent();
+  const linkedinUrl = String(content.linkedinUrl ?? "https://www.linkedin.com/company/hexanovate/");
+  const twitterUrl = String(content.twitterUrl ?? "https://x.com/hexanovate");
+  const instagramUrl = String(content.instagramUrl ?? "https://www.instagram.com/hexanovate/");
   return (
     <div
       className="footer-blue-panel"
@@ -201,14 +206,14 @@ function BluePanel() {
               {/* Social icons */}
               <div style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
                 {/* LinkedIn */}
-                <SocialIcon href="https://www.linkedin.com/company/hexanovate/" label="LinkedIn">
+                <SocialIcon href={linkedinUrl} label="LinkedIn">
                   <svg style={{ display: "block", width: 24, height: 24 }} fill="none" viewBox="0 0 24 24">
                     <path d={svgPaths.p2cb34000} fill="white" />
                   </svg>
                 </SocialIcon>
 
                 {/* Twitter / X */}
-                <SocialIcon href="https://x.com/hexanovate" label="Twitter/X">
+                <SocialIcon href={twitterUrl} label="Twitter/X">
                   <svg style={{ display: "block", width: 24, height: 24 }} fill="none" viewBox="0 0 24 24">
                     <path d={svgPaths.p1e3f70f1} fill="white" />
                   </svg>
@@ -223,7 +228,7 @@ function BluePanel() {
                 </SocialIcon>
 
                 {/* Instagram */}
-                <SocialIcon href="https://www.instagram.com/hexanovate/" label="Instagram">
+                <SocialIcon href={instagramUrl} label="Instagram">
                   <svg style={{ display: "block", width: 24, height: 24 }} fill="none" viewBox="0 0 24 24">
                     <path d={svgPaths.p2f8cbe00} fill="white" />
                   </svg>

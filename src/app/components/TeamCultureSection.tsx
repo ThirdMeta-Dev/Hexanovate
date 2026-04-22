@@ -1,6 +1,7 @@
 import { motion, AnimatePresence, useScroll, useTransform, useMotionValueEvent, type MotionValue } from "motion/react";
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, createContext, useContext } from "react";
 import svgPaths from "../../imports/svg-9mxiszov0f";
+import { useCmsSectionContent } from "../context/CmsSectionContext";
 import img1  from "@/assets/393466a8f00e06a6dea5f6fbcd4d2c2de7939ace.jpg";
 import img2  from "@/assets/ea697fd1c8734ef50383a75ad5b573e938d827a7.jpg";
 import img3  from "@/assets/069f59e29dcfa5fdf46d9b87bab576654e88b958.jpg";
@@ -14,7 +15,6 @@ import img10 from "@/assets/08ad4b6dca12bdd8a662a5973390d31479223094.jpg";
 
 /* ─── CONSTANTS ────────────────────────────────────────────────────────── */
 const SLIDE_DURATION = 5000;
-const NUM_SLIDES = 10;
 const CARD_W = 259;
 const CARD_H = 300;
 const MOBILE_CARD_W = 220;
@@ -53,8 +53,10 @@ function mod(n: number, m: number) {
   return ((n % m) + m) % m;
 }
 
-/* ─── SLIDE DATA ─────────────────────────────────���──────────────────────── */
-const slides = [
+/* ─── SLIDE DATA ─────────────────────────────────────────────────────────── */
+type Slide = { img: string; label: string; desc: [string, string] };
+
+const DEFAULT_SLIDES: Slide[] = [
   { img: img1,  label: "Arjun Mehta",       desc: ["Co-Founder & CEO",           "Visionary growth strategist"] },
   { img: img2,  label: "Rohan Sharma",       desc: ["Head of Performance",        "Paid media & funnel expert"] },
   { img: img3,  label: "Priya Nair",         desc: ["Creative Director",          "Brand identity & storytelling"] },
@@ -66,6 +68,8 @@ const slides = [
   { img: img9,  label: "Aditya Kapoor",      desc: ["Client Success Manager",     "Long-term retention specialist"] },
   { img: img10, label: "Sneha Rajput",       desc: ["Brand & PR Strategist",      "Media relations & reputation"] },
 ];
+
+const SlidesCtx = createContext<Slide[]>(DEFAULT_SLIDES);
 
 /* ─── DIAGONAL ARROW SVG ─────────────────────────────────────────────────── */
 function DiagonalArrowSvg({ color }: { color: string }) {
@@ -315,6 +319,8 @@ function MobileCarousel({
   goNext: () => void;
   goPrev: () => void;
 }) {
+  const slides = useContext(SlidesCtx);
+  const NUM_SLIDES = slides.length;
   const containerRef = useRef<HTMLDivElement>(null);
   const [cw, setCw] = useState(360);
 
@@ -463,6 +469,8 @@ function DesktopTeamCulture({
   goTo: (idx: number, dir: "next" | "prev") => void;
   setCarouselReady: (v: boolean) => void;
 }) {
+  const slides = useContext(SlidesCtx);
+  const NUM_SLIDES = slides.length;
   const prevIdx  = mod(active - 1, NUM_SLIDES);
   const next1Idx = mod(active + 1, NUM_SLIDES);
   const next2Idx = mod(active + 2, NUM_SLIDES);
@@ -592,6 +600,16 @@ function DesktopTeamCulture({
 
 /* ─── MAIN SECTION ───────────────────────────────────────────────────────── */
 export function TeamCultureSection() {
+  const { items: cmsItems } = useCmsSectionContent();
+  const slides: Slide[] = cmsItems.length > 0
+    ? cmsItems.map((item, i) => ({
+        img:   String(item.imageUrl || DEFAULT_SLIDES[i % DEFAULT_SLIDES.length]?.img || ""),
+        label: String(item.label ?? item.name ?? ""),
+        desc:  [String(item.desc1 ?? item.role ?? ""), String(item.desc2 ?? "")] as [string, string],
+      }))
+    : DEFAULT_SLIDES;
+
+  const numSlides = slides.length;
   const [active, setActive]       = useState(0);
   const [slideKey, setSlideKey]   = useState(0);
   const [direction, setDirection] = useState<"next" | "prev">("next");
@@ -608,9 +626,9 @@ export function TeamCultureSection() {
 
   const goTo = useCallback((idx: number, dir: "next" | "prev" = "next") => {
     setDirection(dir);
-    setActive(mod(idx, NUM_SLIDES));
+    setActive(mod(idx, numSlides));
     setSlideKey((k) => k + 1);
-  }, []);
+  }, [numSlides]);
 
   const goNext = useCallback(() => goTo(active + 1, "next"), [active, goTo]);
   const goPrev = useCallback(() => goTo(active - 1, "prev"), [active, goTo]);
@@ -622,6 +640,7 @@ export function TeamCultureSection() {
   }, [active, goNext, carouselReady, isMobile]);
 
   return (
+    <SlidesCtx.Provider value={slides}>
     <section style={{ width: "100%", background: "#0a0a0a", padding: 0, overflowX: "hidden", overflowY: "hidden" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px", boxSizing: "border-box" }}>
         {isMobile ? (
@@ -654,5 +673,6 @@ export function TeamCultureSection() {
         )}
       </div>
     </section>
+    </SlidesCtx.Provider>
   );
 }

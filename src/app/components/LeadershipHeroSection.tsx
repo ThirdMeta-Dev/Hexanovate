@@ -11,6 +11,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import svgPaths from "../../imports/svg-icprnzbobl";
+import { useCmsSectionContent } from "../context/CmsSectionContext";
 
 const EASE     = [0.22, 1, 0.36, 1] as const;
 const HEADER_H = 81;
@@ -165,6 +166,14 @@ function ScrollIndicator({ heroHeight }: { heroHeight: number }) {
 
 /* ── Main export ─────────────────────────────────────────────────────────── */
 export function LeadershipHeroSection() {
+  const { content } = useCmsSectionContent();
+  const tag      = String(content.tag      ?? "Built With Purpose");
+  const heading  = String(content.heading  ?? "We Enter Your Universe and Just Care About Whether Your Business Makes It.");
+  const subtext  = String(content.subtext  ?? "One company, three focused verticals, a passionate team and a single operating principle. Your growth is the only outcome that counts.");
+  const cta1Text = String(content.cta1Text ?? "Meet the team");
+  const cta1Link = String(content.cta1Link ?? "/leadership-and-team");
+  const cta2Text = String(content.cta2Text ?? "See our work");
+  const cta2Link = String(content.cta2Link ?? "");
   const heroRef = useRef<HTMLDivElement>(null);
   const [vw, setVw] = useState(() => typeof window !== "undefined" ? window.innerWidth : 1440);
   const [heroH, setHeroH] = useState(() =>
@@ -243,7 +252,7 @@ export function LeadershipHeroSection() {
           >
             <div aria-hidden="true" style={{ position: "absolute", inset: 0, border: "1px solid #414141", borderRadius: 40, pointerEvents: "none" }} />
             <span style={{ fontFamily: "Poppins, sans-serif", fontWeight: 400, fontSize: 12, color: "#FFA600", lineHeight: "normal", whiteSpace: "nowrap", position: "relative" }}>
-              Built With Purpose
+              {tag}
             </span>
           </motion.div>
 
@@ -259,7 +268,7 @@ export function LeadershipHeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.32, ease: EASE }}
           >
-            We Enter Your Universe and Just Care About Whether Your Business Makes It.
+            {heading}
           </motion.div>
 
           {/* Subtitle */}
@@ -269,14 +278,14 @@ export function LeadershipHeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.5, ease: EASE }}
           >
-            One company, three focused verticals, a passionate team and a single operating principle. Your growth is the only outcome that counts.
+            {subtext}
           </motion.p>
         </motion.div>
 
         {/* CTA buttons */}
         <div style={{ display: "flex", alignItems: "center", gap: 16, flexWrap: isMobile ? "wrap" : "nowrap", justifyContent: "flex-start" }}>
-          <CtaBtn label="Meet the team" variant="primary"  delay={0.65} href="/leadership-and-team" />
-          <CtaBtn label="See our work"  variant="outlined" delay={0.75} />
+          <CtaBtn label={cta1Text} variant="primary"  delay={0.65} href={cta1Link || "/leadership-and-team"} />
+          <CtaBtn label={cta2Text} variant="outlined" delay={0.75} href={cta2Link || undefined} />
         </div>
       </div>
 

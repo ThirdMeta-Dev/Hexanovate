@@ -2,6 +2,7 @@ import { useRef, useState, useEffect, useLayoutEffect, useCallback } from "react
 import { motion, MotionValue, useScroll, useTransform } from "motion/react";
 import svgPaths from "../../imports/svg-rg8pb9vz1u";
 import imgSubtract from "@/assets/cd0090f4b0e9f407395ffead182a114269dccc7c.jpg";
+import { useCmsSectionContent } from "../context/CmsSectionContext";
 
 /* ─── HEXAGON CLUSTER (bottom-left of column 1) ───────────────────────────── */
 function HexCluster() {
@@ -102,7 +103,7 @@ function PlayButton() {
  *   • circular progress ring around the play/pause button (top-right)
  *   • mute/unmute toggle (bottom-left, outside the mask so it's always visible)
  */
-const VIDEO_URL =
+const DEFAULT_VIDEO_URL =
   "https://sienna-pelican-786032.hostingersite.com/wp-content/uploads/2026/03/I-DID-NOT-LISTEN-founder-founderlife-agencyowner-personalbrand-femalefounders.mp4";
 
 const RING = 52;          // outer progress-ring container px
@@ -113,9 +114,11 @@ const CIRCUMFERENCE = 2 * Math.PI * RING_R;
 function VideoCard({
   w,
   h,
+  src,
 }: {
   w: number;
   h: number;
+  src: string;
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -237,7 +240,7 @@ function VideoCard({
       >
         <video
           ref={videoRef}
-          src={VIDEO_URL}
+          src={src}
           muted
           loop
           playsInline
@@ -627,7 +630,7 @@ function LeftColumn({ transparent = false }: { transparent?: boolean }) {
 }
 
 /* ─── MIDDLE + RIGHT COLUMNS (Frame6) ───────────────────────────────────── */
-function ContentColumns({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) {
+function ContentColumns({ scrollYProgress, videoSrc }: { scrollYProgress: MotionValue<number>; videoSrc: string }) {
   return (
     <div
       style={{
@@ -653,14 +656,14 @@ function ContentColumns({ scrollYProgress }: { scrollYProgress: MotionValue<numb
         }}
       />
 
-      <VideoCard w={259} h={418} />
+      <VideoCard w={259} h={418} src={videoSrc} />
       <QuoteText scrollYProgress={scrollYProgress} />
     </div>
   );
 }
 
 /* ─── MAIN CARD (Frame3) ─────────────────────────────────────────────────── */
-function MainCard({ transparent = false }: { transparent?: boolean }) {
+function MainCard({ transparent = false, videoSrc }: { transparent?: boolean; videoSrc: string }) {
   const ref = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
@@ -777,7 +780,7 @@ function MainCard({ transparent = false }: { transparent?: boolean }) {
         </div>
 
         {/* Columns 2+3: photo + quote */}
-        <ContentColumns scrollYProgress={scrollYProgress} />
+        <ContentColumns scrollYProgress={scrollYProgress} videoSrc={videoSrc} />
       </div>
 
       {/* Card border overlay — hidden when transparent */}
@@ -817,7 +820,7 @@ function RevealWord({
 }
 
 /* ─── TABLET LAYOUT ───────────────────────────────────────────────────────── */
-function TabletLayout({ transparent = false }: { transparent?: boolean }) {
+function TabletLayout({ transparent = false, videoSrc }: { transparent?: boolean; videoSrc: string }) {
   const ref = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
@@ -919,7 +922,7 @@ function TabletLayout({ transparent = false }: { transparent?: boolean }) {
             }}
           />
           {/* Video + progress ring + mute */}
-          <VideoCard w={190} h={305} />
+          <VideoCard w={190} h={305} src={videoSrc} />
         </div>
 
         {/* Quote text column */}
@@ -984,7 +987,7 @@ function TabletLayout({ transparent = false }: { transparent?: boolean }) {
 }
 
 /* ─── MOBILE LAYOUT ──────────────────────────────────────────────────────── */
-function MobileLayout({ transparent = false }: { transparent?: boolean }) {
+function MobileLayout({ transparent = false, videoSrc }: { transparent?: boolean; videoSrc: string }) {
   const ref = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
@@ -1068,7 +1071,7 @@ function MobileLayout({ transparent = false }: { transparent?: boolean }) {
             }}
           />
           {/* Video + progress ring + mute */}
-          <VideoCard w={172} h={277} />
+          <VideoCard w={172} h={277} src={videoSrc} />
         </div>
       </div>
 
@@ -1135,6 +1138,9 @@ function MobileLayout({ transparent = false }: { transparent?: boolean }) {
 
 /* ─── WHY WE STARTED SECTION — exported ─────────────────────────────────── */
 export function WhyWeStartedSection({ transparent = false }: { transparent?: boolean } = {}) {
+  const { content } = useCmsSectionContent();
+  const videoSrc = String(content.videoUrl ?? DEFAULT_VIDEO_URL);
+
   return (
     <section
       style={{
@@ -1151,17 +1157,17 @@ export function WhyWeStartedSection({ transparent = false }: { transparent?: boo
     >
       {/* ── Desktop card (≥1104px): full Figma spec ── */}
       <div className="w-full hidden xl:flex justify-center">
-        <MainCard transparent={transparent} />
+        <MainCard transparent={transparent} videoSrc={videoSrc} />
       </div>
 
       {/* ── Tablet / small desktop (640px–1279px): scaled-down card ── */}
       <div className="w-full hidden sm:flex xl:hidden justify-center">
-        <TabletLayout transparent={transparent} />
+        <TabletLayout transparent={transparent} videoSrc={videoSrc} />
       </div>
 
       {/* ── Mobile (<640px): stacked layout ── */}
       <div className="w-full flex sm:hidden flex-col">
-        <MobileLayout transparent={transparent} />
+        <MobileLayout transparent={transparent} videoSrc={videoSrc} />
       </div>
     </section>
   );

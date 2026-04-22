@@ -13,8 +13,11 @@ import {
   useCallback,
   useId,
   useEffect,
+  createContext,
+  useContext,
   type RefObject,
 } from "react";
+import { useCmsSectionContent } from "../context/CmsSectionContext";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 
 /* ─── FIGMA ASSET IMAGES ─────────────────────────────────────────────────── */
@@ -35,6 +38,10 @@ const IMG_C2_HERO = imgFoodriteRedChilly;
 const IMG_C2_BTM  = imgCreditCard;
 const IMG_C3_TOP  = imgFoodriteKetchup;
 const IMG_C3_MID  = imgEyeRis;
+
+interface FmcgImages { hero: string; c1top: string; c1btm: string; c2top: string; c2hero: string; c2btm: string; c3top: string; c3mid: string; }
+const DEFAULT_FMCG_IMAGES: FmcgImages = { hero: IMG_HERO, c1top: IMG_C1_TOP, c1btm: IMG_C1_BTM, c2top: IMG_C2_TOP, c2hero: IMG_C2_HERO, c2btm: IMG_C2_BTM, c3top: IMG_C3_TOP, c3mid: IMG_C3_MID };
+const FmcgImagesCtx = createContext<FmcgImages>(DEFAULT_FMCG_IMAGES);
 
 /* ─── UTILITIES ──────────────────────────────────────────────────────────── */
 function lerp(a: number, b: number, t: number) {
@@ -983,6 +990,7 @@ function ContentRow({
 // Sections stacked vertically. Sticky tab bar auto-activates + auto-scrolls
 // as the user scrolls through each content block. Clicking a tab jumps there.
 function FmcgMobileLayout() {
+  const imgs = useContext(FmcgImagesCtx);
   const [activeTab, setActiveTab] = useState(0);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
   const tabsRef    = useRef<HTMLDivElement>(null);
@@ -991,11 +999,11 @@ function FmcgMobileLayout() {
 
   // 2 images per tab — hero (tall) + secondary (shorter)
   const TAB_IMAGES: [string, string][] = [
-    [IMG_C2_TOP,  IMG_C1_TOP ],
-    [IMG_C1_TOP,  IMG_C3_TOP ],
-    [IMG_C3_TOP,  IMG_C3_MID ],
-    [IMG_C2_BTM,  IMG_C1_BTM ],
-    [IMG_C3_MID,  IMG_C2_TOP ],
+    [imgs.c2top, imgs.c1top],
+    [imgs.c1top, imgs.c3top],
+    [imgs.c3top, imgs.c3mid],
+    [imgs.c2btm, imgs.c1btm],
+    [imgs.c3mid, imgs.c2top],
   ];
 
   // Centre the active tab pill in the scrollable bar
@@ -1181,6 +1189,7 @@ function FmcgMobileLayout() {
 // Desktop logic lives in FmcgDesktopLayout so that FmcgSection can
 // conditionally render mobile/desktop without violating the Rules of Hooks.
 function FmcgDesktopLayout() {
+  const imgs = useContext(FmcgImagesCtx);
   const sectionRef = useRef<HTMLDivElement>(null);
   const heroCardRef = useRef<HTMLDivElement>(null);
   const cardBoundsRef = useRef({ top: 520, left: 788, width: 222, height: 301 });
@@ -1297,7 +1306,7 @@ function FmcgDesktopLayout() {
           }}
         >
           <ImageWithFallback
-            src={IMG_HERO}
+            src={imgs.hero}
             alt="FMCG Portfolio"
             style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
           />
@@ -1405,7 +1414,19 @@ function FmcgDesktopLayout() {
 }
 
 export function FmcgSection() {
+  const { content } = useCmsSectionContent();
   const [isMobileTablet, setIsMobileTablet] = useState(() => window.innerWidth <= 1024);
+
+  const images: FmcgImages = {
+    hero:  String(content.heroImageUrl  || "") || IMG_HERO,
+    c1top: String(content.galleryImg1   || "") || IMG_C1_TOP,
+    c1btm: String(content.galleryImg2   || "") || IMG_C1_BTM,
+    c2top: String(content.galleryImg3   || "") || IMG_C2_TOP,
+    c2hero:String(content.heroImageUrl  || "") || IMG_C2_HERO,
+    c2btm: String(content.galleryImg4   || "") || IMG_C2_BTM,
+    c3top: String(content.galleryImg5   || "") || IMG_C3_TOP,
+    c3mid: String(content.galleryImg6   || "") || IMG_C3_MID,
+  };
 
   useEffect(() => {
     const check = () => setIsMobileTablet(window.innerWidth <= 1024);
@@ -1413,5 +1434,9 @@ export function FmcgSection() {
     return () => window.removeEventListener("resize", check);
   }, []);
 
-  return isMobileTablet ? <FmcgMobileLayout /> : <FmcgDesktopLayout />;
+  return (
+    <FmcgImagesCtx.Provider value={images}>
+      {isMobileTablet ? <FmcgMobileLayout /> : <FmcgDesktopLayout />}
+    </FmcgImagesCtx.Provider>
+  );
 }

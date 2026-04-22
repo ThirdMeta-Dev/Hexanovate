@@ -8,6 +8,7 @@
 import { useState, useRef } from "react";
 import { motion, useScroll, useTransform, MotionValue } from "motion/react";
 import svgPaths from "../../imports/svg-xvssryphbj";
+import { useCmsSectionContent } from "../context/CmsSectionContext";
 
 /* ── Scroll-linked word reveal ──────────────────────────────────────────────── */
 function RevealWord({ children, progress, range }: { children: React.ReactNode; progress: MotionValue<number>; range: [number, number] }) {
@@ -154,8 +155,16 @@ function Step({ num, title, desc }: { num: string; title: string; desc: string }
   );
 }
 
+type TyStep = { num: string; title: string; desc: string };
+
+const DEFAULT_STEPS: TyStep[] = [
+  { num: "1", title: "Bring The Problem", desc: "Walk us through what is not working and why. The more honest you are, the more useful this call becomes." },
+  { num: "2", title: "We Solve It Live", desc: "No follow-up deck required. We think through a solution on the call and share it with you then and there." },
+  { num: "3", title: "Your Call. Literally.", desc: "If it feels right, we start. If it does not, you leave with a free growth roadmap. Either way you win." },
+];
+
 /* ── Right card: "What are the next steps?" ────────────────────────────────── */
-function NextStepsCard() {
+function NextStepsCard({ steps }: { steps: TyStep[] }) {
   return (
     <div
       style={{
@@ -237,21 +246,9 @@ function NextStepsCard() {
 
       {/* Steps */}
       <div style={{ display: "flex", flexDirection: "column", gap: 32, width: "100%" }}>
-        <Step
-          num="1"
-          title="Bring The Problem"
-          desc="Walk us through what is not working and why. The more honest you are, the more useful this call becomes."
-        />
-        <Step
-          num="2"
-          title="We Solve It Live"
-          desc="No follow-up deck required. We think through a solution on the call and share it with you then and there."
-        />
-        <Step
-          num="3"
-          title="Your Call. Literally."
-          desc="If it feels right, we start. If it does not, you leave with a free growth roadmap. Either way you win."
-        />
+        {steps.map((s) => (
+          <Step key={s.num} num={s.num} title={s.title} desc={s.desc} />
+        ))}
       </div>
     </div>
   );
@@ -259,9 +256,19 @@ function NextStepsCard() {
 
 /* ── Main export ────────────────────────────────────────────────────────────── */
 export function ThankYouBanner() {
+  const { content, items: cmsItems } = useCmsSectionContent();
+  const headingText = String(content.heading ?? "We Have Got Your Ambition. Now It Is Officially Ours Too.");
+  const steps: TyStep[] = cmsItems.length > 0
+    ? cmsItems.map((item, i) => ({
+        num:   String(item.num   ?? String(i + 1)),
+        title: String(item.title ?? ""),
+        desc:  String(item.desc  ?? ""),
+      }))
+    : DEFAULT_STEPS;
+
   const titleRef = useRef<HTMLHeadingElement>(null);
   const { scrollYProgress } = useScroll({ target: titleRef, offset: ["start 0.9", "start 0.2"] });
-  const words = ["We", "Have", "Got", "Your", "Ambition.", "Now", "It", "Is", "Officially", "Ours", "Too."];
+  const words = headingText.split(" ");
   const range = (i: number): [number, number] => [Math.min(i * 0.08, 0.88), Math.min(i * 0.08 + 0.12, 1)];
 
   return (
@@ -402,7 +409,7 @@ export function ThankYouBanner() {
 
             {/* ── RIGHT CARD — overflows outer card intentionally ── */}
             <div className="ty-right-card">
-              <NextStepsCard />
+              <NextStepsCard steps={steps} />
             </div>
           </div>
         </div>

@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { motion, useScroll, useTransform, MotionValue } from "motion/react";
 import svgPaths from "../../imports/svg-arxttmd309";
+import { useCmsSectionContent } from "../context/CmsSectionContext";
 
 /* ─── ARROW ICON (↗) ─────────────────────────────────────────────────────── */
 /*
@@ -257,6 +258,14 @@ function RevealWord({ children, progress, range }: RevealWordProps) {
  *   Mobile (≤767px):  switch to flowing single-column text layout
  */
 export function TestimonialsHeaderSection({ variant }: { variant?: "contact" }) {
+  const { content } = useCmsSectionContent();
+  const videoUrl = String(content.videoUrl ?? "https://sienna-pelican-786032.hostingersite.com/wp-content/uploads/2026/03/CTA-Background-video.mp4");
+  const ctaText  = String(content.ctaText  ?? "Book A Call");
+  const cta1Text = String(content.cta1Text ?? "B2B ThirdMeta");
+  const cta1Link = String(content.cta1Link ?? "https://thirdmeta.in/");
+  const cta2Text = String(content.cta2Text ?? "FMCG NativeUnit");
+  const cta2Link = String(content.cta2Link ?? "https://thenativeunit.com/");
+
   const titleRef = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress } = useScroll({
     target: titleRef,
@@ -288,7 +297,7 @@ export function TestimonialsHeaderSection({ variant }: { variant?: "contact" }) 
     >
       {/* ── Video background ── */}
       <video
-        src="https://sienna-pelican-786032.hostingersite.com/wp-content/uploads/2026/03/CTA-Background-video.mp4"
+        src={videoUrl}
         autoPlay
         loop
         muted
@@ -350,8 +359,12 @@ export function TestimonialsHeaderSection({ variant }: { variant?: "contact" }) 
 
               {/* Two buttons */}
               <div style={{ display: "flex", gap: 16, flexWrap: "wrap", justifyContent: "center" }}>
-                <CtaBtn label="B2B ThirdMeta" color="#1b61db" hoverColor="#2470f0" />
-                <CtaBtn label="FMCG NativeUnit" color="#ffa600" hoverColor="#e69400" />
+                <a href={cta1Link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
+                  <CtaBtn label={cta1Text} color="#1b61db" hoverColor="#2470f0" />
+                </a>
+                <a href={cta2Link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
+                  <CtaBtn label={cta2Text} color="#ffa600" hoverColor="#e69400" />
+                </a>
               </div>
             </>
           ) : (
@@ -395,7 +408,7 @@ export function TestimonialsHeaderSection({ variant }: { variant?: "contact" }) 
               </div>
 
               {/* CTA */}
-              <CtaBtn label="Book A Call" color="#1b61db" hoverColor="#2470f0" />
+              <CtaBtn label={ctaText} color="#1b61db" hoverColor="#2470f0" />
             </>
           )}
         </div>

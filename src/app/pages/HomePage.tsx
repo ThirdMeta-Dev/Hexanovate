@@ -20,6 +20,7 @@ import { EducationSection } from "../components/EducationSection";
 import { LogoMarqueeSection } from "../components/LogoMarqueeSection";
 import { BannerSection } from "../components/BannerSection";
 import { SectionsBgWrapper } from "../components/SectionsBgWrapper";
+import { CmsSection } from "../components/CmsSection";
 import { useState, useEffect } from "react";
 import { useMeta } from "../hooks/useMeta";
 
@@ -37,42 +38,45 @@ export default function HomePage() {
 
   const isMobile = vw <= 1024;
 
+  const P = "home";
   return (
     <div className="min-h-screen w-full" style={{ background: "#0a0a0a", position: "relative" }}>
-      <BannerSection />
+      <CmsSection component="BannerSection" page={P}><BannerSection /></CmsSection>
 
-      <motion.div
-        id="fmcg-portfolio"
-        style={{ marginTop: isMobile ? "0px" : "0px", position: "relative", zIndex: 1 }}
-        initial={{ y: 60, opacity: 0 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-      >
-        <FmcgSection />
-      </motion.div>
+      <CmsSection component="FmcgSection" page={P}>
+        <motion.div
+          id="fmcg-portfolio"
+          style={{ marginTop: isMobile ? "0px" : "0px", position: "relative", zIndex: 1 }}
+          initial={{ y: 60, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <FmcgSection />
+        </motion.div>
+      </CmsSection>
 
-      <div style={{ marginTop: "80px" }}><B2bSection /></div>
-      <div style={{ marginTop: "80px" }}><EducationSection /></div>
-      <div id="what-defines-us" style={{ marginTop: "80px", marginBottom: isMobile ? "0px" : "120px" }}><WhatDefinesUsSection /></div>
-      <div style={{ marginTop: isMobile ? "40px" : "240px" }}><LogoMarqueeSection /></div>
-      <div style={{ marginTop: isMobile ? "48px" : "140px" }}><WhyWeStartedSection /></div>
-      <div style={{ marginTop: "140px" }}><SolutionsSection /></div>
-      <div style={{ marginTop: "140px" }}><WhyChooseUsSection /></div>
-      <div id="team-culture" style={{ marginTop: "140px" }}><TeamCultureSection /></div>
-      <div style={{ marginTop: "140px" }}><TestimonialSection /></div>
+      <CmsSection component="B2bSection" page={P}><div style={{ marginTop: "80px" }}><B2bSection /></div></CmsSection>
+      <CmsSection component="EducationSection" page={P}><div style={{ marginTop: "80px" }}><EducationSection /></div></CmsSection>
+      <CmsSection component="WhatDefinesUsSection" page={P}><div id="what-defines-us" style={{ marginTop: "80px", marginBottom: isMobile ? "0px" : "120px" }}><WhatDefinesUsSection /></div></CmsSection>
+      <CmsSection component="LogoMarqueeSection" page={P}><div style={{ marginTop: isMobile ? "40px" : "240px" }}><LogoMarqueeSection /></div></CmsSection>
+      <CmsSection component="WhyWeStartedSection" page={P}><div style={{ marginTop: isMobile ? "48px" : "140px" }}><WhyWeStartedSection /></div></CmsSection>
+      <CmsSection component="SolutionsSection" page={P}><div style={{ marginTop: "140px" }}><SolutionsSection /></div></CmsSection>
+      <CmsSection component="WhyChooseUsSection" page={P}><div style={{ marginTop: "140px" }}><WhyChooseUsSection /></div></CmsSection>
+      <CmsSection component="TeamCultureSection" page={P}><div id="team-culture" style={{ marginTop: "140px" }}><TeamCultureSection /></div></CmsSection>
+      <CmsSection component="TestimonialSection" page={P}><div style={{ marginTop: "140px" }}><TestimonialSection /></div></CmsSection>
 
       <SectionsBgWrapper>
-        <div style={{ marginTop: "140px" }}><ValuesApproachSection /></div>
-        <div style={{ marginTop: "140px" }}><AwardsLogoWallSection /></div>
-        <div style={{ marginTop: "140px" }}><ResourcesSection /></div>
+        <CmsSection component="ValuesApproachSection" page={P}><div style={{ marginTop: "140px" }}><ValuesApproachSection /></div></CmsSection>
+        <CmsSection component="AwardsLogoWallSection" page={P}><div style={{ marginTop: "140px" }}><AwardsLogoWallSection /></div></CmsSection>
+        <CmsSection component="ResourcesSection" page={P}><div style={{ marginTop: "140px" }}><ResourcesSection /></div></CmsSection>
       </SectionsBgWrapper>
 
-      <div style={{ marginTop: "140px" }}><TestimonialsHeaderSection /></div>
-      <div style={{ marginTop: "140px" }}><FaqSection /></div>
-      <div id="get-in-touch" style={{ marginTop: "140px" }}><DemoFormSection /></div>
-      <div style={{ marginTop: "140px" }}><TagsCarouselSection /></div>
-      <div style={{ marginTop: "140px" }}><FooterSection /></div>
+      <CmsSection component="TestimonialsHeaderSection" page={P}><div style={{ marginTop: "140px" }}><TestimonialsHeaderSection /></div></CmsSection>
+      <CmsSection component="FaqSection" page={P}><div style={{ marginTop: "140px" }}><FaqSection /></div></CmsSection>
+      <CmsSection component="DemoFormSection" page={P}><div id="get-in-touch" style={{ marginTop: "140px" }}><DemoFormSection /></div></CmsSection>
+      <CmsSection component="TagsCarouselSection" page={P}><div style={{ marginTop: "140px" }}><TagsCarouselSection /></div></CmsSection>
+      <CmsSection component="FooterSection" page={P}><div style={{ marginTop: "140px" }}><FooterSection /></div></CmsSection>
     </div>
   );
 }

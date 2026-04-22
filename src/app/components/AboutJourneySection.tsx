@@ -22,10 +22,11 @@
    ───────────────────────────────────────────────────────────────────────────── */
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence, LayoutGroup } from "motion/react";
+import { useCmsSectionContent } from "../context/CmsSectionContext";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-const ITEMS = [
+const DEFAULT_ITEMS = [
   {
     id: "journey-1",
     date: "Sept 2020",
@@ -76,8 +77,6 @@ const ITEMS = [
     detail: "Expanded into complete sales ownership for select partner businesses. 30+ active partnerships across all 3 verticals right now. 140+ businesses impacted since day one. INR 50Cr+ in revenue influenced across all client businesses.",
   },
 ];
-
-const TOTAL = ITEMS.length;
 
 /* ── Arrow button — muted default, blue on hover ─────────────────────────── */
 function ArrowBtn({
@@ -205,6 +204,18 @@ function NavColumn({
 
 /* ── Main export ─────────────────────────────────────────────────────────── */
 export function AboutJourneySection() {
+  const { items: cmsItems } = useCmsSectionContent();
+  const ITEMS = cmsItems.length > 0
+    ? cmsItems.map((item, i) => ({
+        id:     `journey-${i + 1}`,
+        date:   String(item.date   ?? ""),
+        label:  String(item.label  ?? ""),
+        title:  String(item.title  ?? ""),
+        detail: String(item.detail ?? ""),
+      }))
+    : DEFAULT_ITEMS;
+  const TOTAL = ITEMS.length;
+
   const [activeIndex, setActiveIndex] = useState(0);
   const [direction, setDirection] = useState<"left" | "right">("right");
   const [isMobile, setIsMobile] = useState(() => typeof window !== "undefined" ? window.innerWidth <= 1024 : false);

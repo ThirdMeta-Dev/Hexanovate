@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { motion, AnimatePresence, useScroll, useTransform, MotionValue } from "motion/react";
 import svgPaths from "../../imports/svg-fbumpdre7a";
+import { useCmsSectionContent } from "../context/CmsSectionContext";
 
 /* ─── REVEAL-WORD (scroll-linked opacity illumination) ───────────────────── */
 interface RevealWordProps {
@@ -523,6 +524,12 @@ export function FaqSection({ transparent = false }: { transparent?: boolean }) {
   const [activeTab, setActiveTab] = useState(1); // index 1 = "Team & culture" active
   const [openIndex, setOpenIndex] = useState(0); // index 0 = first FAQ open by default
 
+  const { items } = useCmsSectionContent();
+  const cmsFaqs = items.length
+    ? items.map(i => ({ question: String(i.question ?? ""), answer: String(i.answer ?? "") }))
+    : null;
+  const activeFaqs = cmsFaqs ?? FAQS_BY_TAB[activeTab] ?? [];
+
   const titleRef = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress } = useScroll({
     target: titleRef,
@@ -752,7 +759,7 @@ export function FaqSection({ transparent = false }: { transparent?: boolean }) {
                   width: "100%",
                 }}
               >
-                {(FAQS_BY_TAB[activeTab] ?? FAQS).map((faq, idx) => (
+                {activeFaqs.map((faq, idx) => (
                   <motion.div
                     key={`faq-${activeTab}-${idx}`}
                     initial={{ opacity: 0, y: 28 }}

@@ -12,6 +12,7 @@
    ───────────────────────────────────────────────────────────────────────────── */
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { useCmsSectionContent } from "../context/CmsSectionContext";
 import imgAcumen    from "@/assets/logo-acumen.png";
 import imgAppGallop from "@/assets/logo-appgallop.png";
 import imgEfax      from "@/assets/logo-efax.png";
@@ -48,7 +49,7 @@ interface Slide {
   stat2Desc: string;
 }
 
-const SLIDES: Slide[] = [
+const DEFAULT_SLIDES: Slide[] = [
   {
     problem:         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard.",
     solution:        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsu has been the industry's standard Lorem Ipsum is simply dummy text of the printing.",
@@ -484,6 +485,28 @@ function LogoStrip() {
 
 /* ── Main export ─────────────────────────────────────────────────────────── */
 export function AboutB2BPortfolioSection() {
+  const { items: cmsItems } = useCmsSectionContent();
+  const SLIDES: Slide[] = cmsItems.length > 0
+    ? cmsItems.map((item, i) => ({
+        problem:         String(item.problem         ?? ""),
+        solution:        String(item.solution        ?? ""),
+        brandLogo:       String(item.brandLogoUrl    ?? "") || DEFAULT_SLIDES[i % DEFAULT_SLIDES.length]?.brandLogo || imgAcumen,
+        brandAlt:        String(item.brandAlt        ?? ""),
+        personName:      String(item.personName      ?? ""),
+        personRole:      String(item.personRole      ?? ""),
+        quote:           String(item.quote           ?? ""),
+        avatarSrc:       String(item.avatarUrl       ?? "") || IMG_AVATAR,
+        testimonialName: String(item.testimonialName ?? ""),
+        testimonialRole: String(item.testimonialRole ?? ""),
+        stat1Value:      String(item.stat1Value      ?? ""),
+        stat1Suffix:     String(item.stat1Suffix     ?? ""),
+        stat1Desc:       String(item.stat1Desc       ?? ""),
+        stat2Value:      String(item.stat2Value      ?? ""),
+        stat2Suffix:     String(item.stat2Suffix     ?? ""),
+        stat2Desc:       String(item.stat2Desc       ?? ""),
+      }))
+    : DEFAULT_SLIDES;
+
   const [activeSlide, setActiveSlide] = useState(0);
   const [direction, setDirection] = useState(1);
   const [isMobile, setIsMobile] = useState(() => typeof window !== "undefined" ? window.innerWidth <= 1024 : false);
@@ -625,7 +648,7 @@ export function AboutB2BPortfolioSection() {
           </AnimatePresence>
 
           {/* Dot navigation */}
-          <Dots total={SLIDES.length} active={activeSlide} onSelect={goTo} />
+          <Dots total={SLIDES.length} active={Math.min(activeSlide, SLIDES.length - 1)} onSelect={goTo} />
         </div>
 
         {/* ── Logo strip ── */}

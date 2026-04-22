@@ -25,14 +25,15 @@
    ───────────────────────────────────────────────────────────────────────────── */
 import { useRef } from "react";
 import { motion, useScroll, useTransform, MotionValue } from "motion/react";
+import { useCmsSectionContent } from "../context/CmsSectionContext";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 const VP   = { once: true, margin: "-80px" } as const;
 
-const MISSION_BODY =
+const DEFAULT_MISSION_BODY =
   "To build a complete growth ecosystem around every visionary and purpose driven business. By combining human intelligence, creativity, data and technology into one unified system we deliver growth that is predictable, scalable and permanent.";
 
-const VISION_BODY =
+const DEFAULT_VISION_BODY =
   "To make this world the best and happiest place for businesses. Where every founder & team thrive, not just survive.";
 
 /* ── Card inner corner glow (Figma-exact) ────────────────────────────────── */
@@ -223,6 +224,9 @@ function HeadingReveal({ containerRef }: { containerRef: React.RefObject<HTMLDiv
 
 /* ── Main export ─────────────────────────────────────────────────────────── */
 export function AboutMissionVisionSection() {
+  const { content } = useCmsSectionContent();
+  const MISSION_BODY = String(content.missionText ?? DEFAULT_MISSION_BODY);
+  const VISION_BODY  = String(content.visionText  ?? DEFAULT_VISION_BODY);
   const sectionRef = useRef<HTMLDivElement>(null);
 
   return (

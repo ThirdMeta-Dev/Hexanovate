@@ -2,9 +2,10 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence, useScroll, useTransform, useMotionValueEvent, MotionValue } from "motion/react";
 import svgPaths from "../../imports/svg-acv45xgh00";
 import imgAvatar from "@/assets/afff7ef028d184ff017e3aeb8b7773dc4f4ffaef.jpg";
+import { useCmsSectionContent } from "../context/CmsSectionContext";
 
 /* ─── DATA ───────────────────────────────────────────────────────────────── */
-const TESTIMONIALS = [
+const DEFAULT_TESTIMONIALS = [
   {
     quote:
       "Hexanovate redefined how we approach revenue growth. The Native Unit’s data-driven FMCG strategy fixed our funnel leaks and compounded results month over month without extra spend.",
@@ -78,6 +79,21 @@ const TESTIMONIALS = [
     ],
   },
 ];
+
+/* ─── CMS METRIC PARSER ─────────────────────────────────────────────────── */
+function parseMetric(str: string, index: number) {
+  const num = parseInt(str.replace(/[^0-9]/g, ""), 10) || 0;
+  const suffix = str.replace(/[0-9]/g, "").trim() || (index === 0 ? "%" : "+");
+  const isPercent = suffix === "%";
+  return {
+    value: num,
+    suffix,
+    suffixSize: isPercent ? 32 : 48,
+    suffixWeight: isPercent ? 400 : 200,
+    label: "",
+    labelWidth: isPercent ? ("auto" as const) : 156,
+  };
+}
 
 /* ─── COUNTER HOOK ──────────────────────────────────────────────────────── */
 function useAnimatedCounter(target: number, animKey: number, ready: boolean) {
@@ -345,6 +361,19 @@ export function TestimonialSection() {
   const [contentReady, setContentReady] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
+  const { items } = useCmsSectionContent();
+  const TESTIMONIALS = items.length
+    ? items.map(i => ({
+        quote: String(i.quote ?? ""),
+        name: String(i.name ?? ""),
+        role: String(i.role ?? ""),
+        metrics: [
+          { ...parseMetric(String(i.metric1Value ?? "0%"), 0), label: String(i.metric1Label ?? ""), labelWidth: "auto" as const },
+          { ...parseMetric(String(i.metric2Value ?? "0+"), 1), label: String(i.metric2Label ?? ""), labelWidth: 156 },
+        ],
+      }))
+    : DEFAULT_TESTIMONIALS;
+
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth <= 1024);
     check();
@@ -355,7 +384,7 @@ export function TestimonialSection() {
   const navigate = useCallback((dir: 1 | -1) => {
     setActive((prev) => (prev + dir + TESTIMONIALS.length) % TESTIMONIALS.length);
     setAnimKey((k) => k + 1);
-  }, []);
+  }, [TESTIMONIALS.length]);
 
   const testimonial = TESTIMONIALS[active];
 

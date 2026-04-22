@@ -4,6 +4,7 @@ import svgPaths from "../../imports/svg-ovg5m3az7t";
 import imgShape from "@/assets/b89318efbab82d469b49381f4cc6c0514cdbdf45.jpg";
 import imgImage271 from "@/assets/18b0d12fe3d53b9b2e05886f4cb0e938bd6b31f6.jpg";
 import imgImage272 from "@/assets/780ac0b6ef7927d9d4ac36f35f8dd4632ae487a6.jpg";
+import { useCmsSectionContent } from "../context/CmsSectionContext";
 
 /* ─── DIAGONAL ARROW ICON (amber badge) ─────────────────────────────────── */
 function ArrowIcon() {
@@ -73,7 +74,7 @@ interface ResourceCardData {
   link: string;
 }
 
-const CARDS: ResourceCardData[] = [
+const DEFAULT_CARDS: ResourceCardData[] = [
   {
     image: imgImage271,
     date: "February 23, 2026",
@@ -89,6 +90,7 @@ const CARDS: ResourceCardData[] = [
     link: "https://thirdmeta.in/blog/saas-seo-strategy-qualified-demos-revenue-growth",
   },
 ];
+const FALLBACK_IMAGES = [imgImage271, imgImage272];
 
 function ResourceCard({ data }: { data: ResourceCardData }) {
   const [hovered, setHovered] = useState(false);
@@ -248,6 +250,16 @@ function ResourceCard({ data }: { data: ResourceCardData }) {
  * Mobile:  single-column cards, full width
  */
 export function ResourcesSection() {
+  const { items: cmsItems } = useCmsSectionContent();
+  const cards: ResourceCardData[] = cmsItems.length > 0
+    ? cmsItems.map((item, i) => ({
+        image:    String(item.imageUrl ?? "") || FALLBACK_IMAGES[i % 2],
+        date:     String(item.date     ?? ""),
+        readTime: String(item.readTime ?? ""),
+        title:    String(item.title    ?? ""),
+        link:     String(item.ctaLink  ?? item.link ?? "#"),
+      }))
+    : DEFAULT_CARDS;
   /* ── title word-by-word scroll reveal ── */
   const titleRef = useRef<HTMLParagraphElement>(null);
   const { scrollYProgress: titleP } = useScroll({
@@ -397,8 +409,7 @@ export function ResourcesSection() {
             width: "100%",
           }}
         >
-          <ResourceCard data={CARDS[0]} />
-          <ResourceCard data={CARDS[1]} />
+          {cards.map((card, i) => <ResourceCard key={i} data={card} />)}
         </div>
       </div>
 

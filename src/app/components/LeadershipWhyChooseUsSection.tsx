@@ -12,6 +12,7 @@ import { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import imgElephant from "@/assets/leadership-elephant.jpg";
 import imgIcon     from "@/assets/leadership-icon-arrow.svg";
+import { useCmsSectionContent } from "../context/CmsSectionContext";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 const VP   = { once: true, margin: "-80px" } as const;
@@ -19,11 +20,12 @@ const VP   = { once: true, margin: "-80px" } as const;
 const IMG_ELEPHANT = imgElephant;
 const IMG_ICON     = imgIcon;
 
-const FEATURES = [
+const DEFAULT_FEATURES = [
   { title: "Cracked Market Fit, But", desc: "what's leaking conversion, retention,  lorem repeation growth", indent: 30 },
   { title: "Cracked Market Fit, But", desc: "what's leaking conversion, retention,  lorem repeation growth", indent: 80 },
   { title: "Cracked Market Fit, But", desc: "what's leaking conversion, retention,  lorem repeation growth", indent: 130 },
 ];
+const INDENTS = [30, 80, 130];
 
 function FeatureItem({ title, desc, indent, isMobile }: { title: string; desc: string; indent: number; isMobile: boolean }) {
   return (
@@ -58,6 +60,15 @@ function FeatureItem({ title, desc, indent, isMobile }: { title: string; desc: s
 }
 
 export function LeadershipWhyChooseUsSection() {
+  const { items: cmsItems } = useCmsSectionContent();
+  const features = cmsItems.length > 0
+    ? cmsItems.map((item, i) => ({
+        title:  String(item.title       ?? ""),
+        desc:   String(item.description ?? item.desc ?? ""),
+        indent: INDENTS[i] ?? 30 + i * 50,
+      }))
+    : DEFAULT_FEATURES;
+
   const [isMobile, setIsMobile] = useState(() => typeof window !== "undefined" ? window.innerWidth <= 1024 : false);
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth <= 1024);
@@ -138,7 +149,7 @@ export function LeadershipWhyChooseUsSection() {
             flexDirection: "column",
             gap: isMobile ? 32 : 44,
           }}>
-            {FEATURES.map((f, i) => (
+            {features.map((f, i) => (
               <FeatureItem key={i} title={f.title} desc={f.desc} indent={f.indent} isMobile={isMobile} />
             ))}
           </div>

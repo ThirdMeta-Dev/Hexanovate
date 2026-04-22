@@ -1,13 +1,14 @@
 import { useState, useRef } from "react";
 import { motion, useScroll, useTransform, MotionValue } from "motion/react";
 import svgPaths from "../../imports/svg-4dyynmyd9a";
+import { useCmsSectionContent } from "../context/CmsSectionContext";
 
 /* ─── TAG DATA ────────────────────────────────────────────────────────────────
  * Figma Frame15 (row 1) — 5 tags, scrolls LEFT
  * Figma Frame16 (row 2) — 4 tags, scrolls RIGHT (reverse)
  * Each set is duplicated (×2) so translateX(-50%) gives a seamless infinite loop.
  * ──────────────────────────────────────────────────────────────────────────── */
-const ROW1_TAGS = [
+const DEFAULT_ROW1_TAGS = [
   "B2B Pipeline That Converts",
   "Consumer Brands That Scale",
   "Smart Classroom Consulting",
@@ -20,7 +21,7 @@ const ROW1_TAGS = [
   "Built Around You. Not For You.",
 ];
 
-const ROW2_TAGS = [
+const DEFAULT_ROW2_TAGS = [
   "Effort vs Outcome. We Pick Outcome.",
   "Data Over Instincts. Every Time.",
   "Humans Behind Every System",
@@ -216,6 +217,16 @@ export function TagsCarouselSection({ transparent = false }: { transparent?: boo
   const [btnHovered, setBtnHovered] = useState(false);
   const [arrowHovered, setArrowHovered] = useState(false);
 
+  const { items } = useCmsSectionContent();
+  const ROW1_TAGS = items.length
+    ? items.filter(i => String(i.row ?? "1") === "1").map(i => String(i.label ?? "")).filter(Boolean)
+    : DEFAULT_ROW1_TAGS;
+  const ROW2_TAGS = items.length
+    ? items.filter(i => String(i.row ?? "") === "2").map(i => String(i.label ?? "")).filter(Boolean)
+    : DEFAULT_ROW2_TAGS;
+  const row1 = ROW1_TAGS.length ? ROW1_TAGS : DEFAULT_ROW1_TAGS;
+  const row2 = ROW2_TAGS.length ? ROW2_TAGS : DEFAULT_ROW2_TAGS;
+
   /* ── Title scroll-reveal ── */
   const titleRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress: titleProgress } = useScroll({
@@ -364,7 +375,7 @@ export function TagsCarouselSection({ transparent = false }: { transparent?: boo
               >
                 {/* Frame15: Row 1 — scrolls LEFT */}
                 <TagRowCarousel
-                  tags={ROW1_TAGS}
+                  tags={row1}
                   direction="left"
                   duration={22}
                   className="tag-row-1-track"
@@ -372,7 +383,7 @@ export function TagsCarouselSection({ transparent = false }: { transparent?: boo
 
                 {/* Frame16: Row 2 — scrolls RIGHT (opposite direction) */}
                 <TagRowCarousel
-                  tags={ROW2_TAGS}
+                  tags={row2}
                   direction="right"
                   duration={18}
                   className="tag-row-2-track"

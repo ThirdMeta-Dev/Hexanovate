@@ -21,6 +21,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import imgCenterSrc from "@/assets/ecosystem-center.jpg";
+import { useCmsSectionContent } from "../context/CmsSectionContext";
 
 const IMG_CENTER = imgCenterSrc;
 
@@ -140,34 +141,16 @@ function FeatureItem({
 }
 
 /* ── Data ────────────────────────────────────────────────────────────────── */
-const LEFT_ITEMS = [
-  {
-    title: "Everything Talks To Everything",
-    body: "No siloed strategies. Every function, signal and system connects so nothing compounds in isolation.",
-  },
-  {
-    title: "Human Wit. Machine Scale.",
-    body: "Human intelligence sets the direction. AI and automation handle the volume. Neither works without the other.",
-  },
-  {
-    title: "Strategy That Actually Executes",
-    body: "A plan without ownership is just a document. We stay until the strategy shows up in the number.",
-  },
+const DEFAULT_LEFT_ITEMS = [
+  { title: "Everything Talks To Everything", body: "No siloed strategies. Every function, signal and system connects so nothing compounds in isolation." },
+  { title: "Human Wit. Machine Scale.", body: "Human intelligence sets the direction. AI and automation handle the volume. Neither works without the other." },
+  { title: "Strategy That Actually Executes", body: "A plan without ownership is just a document. We stay until the strategy shows up in the number." },
 ];
 
-const RIGHT_ITEMS = [
-  {
-    title: "We Own The Outcome",
-    body: "Not the tasks. Not the deliverables. The actual result. That shift changes every decision we make.",
-  },
-  {
-    title: "Agility Is Non-Negotiable",
-    body: "Markets move fast. We move faster. Experiments, pivots and decisions happen at the speed of opportunity.",
-  },
-  {
-    title: "Your World. Our Blueprint.",
-    body: "We do not fit you into a template. We build the entire system around how your business actually works.",
-  },
+const DEFAULT_RIGHT_ITEMS = [
+  { title: "We Own The Outcome", body: "Not the tasks. Not the deliverables. The actual result. That shift changes every decision we make." },
+  { title: "Agility Is Non-Negotiable", body: "Markets move fast. We move faster. Experiments, pivots and decisions happen at the speed of opportunity." },
+  { title: "Your World. Our Blueprint.", body: "We do not fit you into a template. We build the entire system around how your business actually works." },
 ];
 
 // Indent levels per row: top = most indented (closest to center), bottom = flush
@@ -175,6 +158,14 @@ const INDENTS = [96, 32, 0];
 
 /* ── Main export ─────────────────────────────────────────────────────────── */
 export function AboutEcosystemSection() {
+  const { items: cmsItems } = useCmsSectionContent();
+  const leftItems = cmsItems.length >= 6
+    ? cmsItems.slice(0, 3).map(item => ({ title: String(item.title ?? ""), body: String(item.body ?? item.description ?? "") }))
+    : DEFAULT_LEFT_ITEMS;
+  const rightItems = cmsItems.length >= 6
+    ? cmsItems.slice(3, 6).map(item => ({ title: String(item.title ?? ""), body: String(item.body ?? item.description ?? "") }))
+    : DEFAULT_RIGHT_ITEMS;
+
   const [isMobile, setIsMobile] = useState(() => typeof window !== "undefined" ? window.innerWidth <= 1024 : false);
 
   useEffect(() => {
@@ -246,7 +237,7 @@ export function AboutEcosystemSection() {
       {isMobile ? (
         /* Mobile: single column, no center image */
         <div style={{ display: "flex", flexDirection: "column", gap: 40 }}>
-          {[...LEFT_ITEMS, ...RIGHT_ITEMS].map((item, i) => (
+          {[...leftItems, ...rightItems].map((item, i) => (
             <FeatureItem
               key={`mobile-${i}`}
               title={item.title}
@@ -276,7 +267,7 @@ export function AboutEcosystemSection() {
               gap: 74,
             }}
           >
-            {LEFT_ITEMS.map((item, i) => (
+            {leftItems.map((item, i) => (
               <FeatureItem
                 key={`left-${i}`}
                 title={item.title}
@@ -299,7 +290,7 @@ export function AboutEcosystemSection() {
               alignItems: "flex-end",
             }}
           >
-            {RIGHT_ITEMS.map((item, i) => (
+            {rightItems.map((item, i) => (
               <FeatureItem
                 key={`right-${i}`}
                 title={item.title}

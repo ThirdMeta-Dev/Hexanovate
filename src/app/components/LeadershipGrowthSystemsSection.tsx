@@ -7,6 +7,7 @@
 import { useRef, useState } from "react";
 import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
 import svgPaths from "../../imports/svg-icprnzbobl";
+import { useCmsSectionContent } from "../context/CmsSectionContext";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 const VP   = { once: true, margin: "-80px" } as const;
@@ -90,6 +91,11 @@ function CtaBtn({ label, bg, href }: { label: string; bg: string; href?: string 
 
 /* ── Main export ─────────────────────────────────────────────────────────── */
 export function LeadershipGrowthSystemsSection() {
+  const { content } = useCmsSectionContent();
+  const cta1Text = String(content.cta1Text ?? "B2B ThirdMeta");
+  const cta1Link = String(content.cta1Link ?? "https://thirdmeta.in/");
+  const cta2Text = String(content.cta2Text ?? "FMCG/D2C");
+  const cta2Link = String(content.cta2Link ?? "https://thenativeunit.com/");
   const containerRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
@@ -182,8 +188,8 @@ export function LeadershipGrowthSystemsSection() {
         viewport={VP}
         transition={{ duration: 0.55, delay: 0.3, ease: EASE }}
       >
-        <CtaBtn label="B2B ThirdMeta" bg="#1b61db" href="https://thirdmeta.in/" />
-        <CtaBtn label="FMCG/D2C"      bg="#FFA600" href="https://thenativeunit.com/" />
+        <CtaBtn label={cta1Text} bg="#1b61db" href={cta1Link} />
+        <CtaBtn label={cta2Text} bg="#FFA600" href={cta2Link} />
       </motion.div>
 
     </section>

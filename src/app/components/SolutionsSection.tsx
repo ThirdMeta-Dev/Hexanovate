@@ -2,14 +2,12 @@ import { motion } from "motion/react";
 import { useId, useState, useEffect, useRef } from "react";
 import svgPaths from "../../imports/svg-29dk7258jb";
 import { TextRevealParagraph } from "./TextRevealParagraph";
+import { useCmsSectionContent } from "../context/CmsSectionContext";
 
 /* ─── VIDEO URLS ─────────────────────────────────────────────────────────── */
-const VIDEO_FMCG =
-  "https://sienna-pelican-786032.hostingersite.com/wp-content/uploads/2026/03/FMCG.mp4";
-const VIDEO_NATIVE =
-  "https://sienna-pelican-786032.hostingersite.com/wp-content/uploads/2026/03/B2B.mp4";
-const VIDEO_CONSUMER =
-  "https://sienna-pelican-786032.hostingersite.com/wp-content/uploads/2026/03/Education.mp4";
+const DEFAULT_VIDEO_FMCG     = "https://sienna-pelican-786032.hostingersite.com/wp-content/uploads/2026/03/FMCG.mp4";
+const DEFAULT_VIDEO_NATIVE   = "https://sienna-pelican-786032.hostingersite.com/wp-content/uploads/2026/03/B2B.mp4";
+const DEFAULT_VIDEO_CONSUMER = "https://sienna-pelican-786032.hostingersite.com/wp-content/uploads/2026/03/Education.mp4";
 
 /* ─── DIAGONAL ARROW ICON ─────────────────────────────────────────────────── */
 function DiagonalArrow() {
@@ -103,7 +101,7 @@ function GradientBorderCard({ borderGradient, glowStyle, children }: { borderGra
 /* ────────────────────────────────────────────────────────────────────────────
    FMCG LEFT CARD  (520 × 442)
    ─────────────────────────────────────────────────────────────────────────── */
-function FmcgLeftCard({ isMobile }: { isMobile: boolean }) {
+function FmcgLeftCard({ isMobile, videoSrc }: { isMobile: boolean; videoSrc: string }) {
   const uid    = useId().replace(/:/g, "");
   const g0     = `fl-g0-${uid}`;
   const g1     = `fl-g1-${uid}`;
@@ -175,7 +173,7 @@ function FmcgLeftCard({ isMobile }: { isMobile: boolean }) {
           >
             <video
               ref={videoRef}
-              src={VIDEO_FMCG}
+              src={videoSrc}
               muted loop playsInline preload="metadata"
               style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
             />
@@ -233,7 +231,7 @@ function FmcgLeftCard({ isMobile }: { isMobile: boolean }) {
    B2B / NATIVE UNIT RIGHT CARD  (520 × 500)
    Style: FMCG golden tint + top-right vector (same as FmcgLeftCard)
    ─────────────────────────────────────────────────────────────────────────── */
-function B2bRightCard({ isMobile }: { isMobile: boolean }) {
+function B2bRightCard({ isMobile, videoSrc }: { isMobile: boolean; videoSrc: string }) {
   const uid    = useId().replace(/:/g, "");
   const g0     = `br-g0-${uid}`;
   const g1     = `br-g1-${uid}`;
@@ -304,7 +302,7 @@ function B2bRightCard({ isMobile }: { isMobile: boolean }) {
           >
             <video
               ref={videoRef}
-              src={VIDEO_NATIVE}
+              src={videoSrc}
               muted loop playsInline preload="metadata"
               style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
             />
@@ -361,7 +359,7 @@ function B2bRightCard({ isMobile }: { isMobile: boolean }) {
 /* ─────────────────────────────────────────────────────────────────────────────
    BOTTOM WIDE CARD  — Scale Your Consumer Brand  (1064 × 274)
    ─────────────────────────────────────────────────────────────────────────── */
-function FmcgBottomCard({ isMobile }: { isMobile: boolean }) {
+function FmcgBottomCard({ isMobile, videoSrc }: { isMobile: boolean; videoSrc: string }) {
   const uid    = useId().replace(/:/g, "");
   const g0     = `fb-g0-${uid}`;
   const g1     = `fb-g1-${uid}`;
@@ -432,7 +430,7 @@ function FmcgBottomCard({ isMobile }: { isMobile: boolean }) {
           >
             <video
               ref={videoRef}
-              src={VIDEO_CONSUMER}
+              src={videoSrc}
               muted loop playsInline preload="metadata"
               style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
             />
@@ -482,6 +480,11 @@ function FmcgBottomCard({ isMobile }: { isMobile: boolean }) {
 
 /* ─── SOLUTIONS SECTION ──────────────────────────────────────────────────── */
 export function SolutionsSection() {
+  const { content } = useCmsSectionContent();
+  const videoFmcg   = String(content.videoFmcg   ?? DEFAULT_VIDEO_FMCG);
+  const videoNative = String(content.videoNative ?? DEFAULT_VIDEO_NATIVE);
+  const videoEdu    = String(content.videoEdu    ?? DEFAULT_VIDEO_CONSUMER);
+
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -515,16 +518,16 @@ export function SolutionsSection() {
           {/* Top row */}
           <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", gap: isMobile ? 16 : 24, alignItems: isMobile ? "stretch" : "flex-end", width: "100%" }}>
             <motion.div style={{ flex: "1 0 0", minWidth: 0 }} initial={{ opacity: 0, y: 60 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.15 }} transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: 0 }}>
-              <FmcgLeftCard isMobile={isMobile} />
+              <FmcgLeftCard isMobile={isMobile} videoSrc={videoFmcg} />
             </motion.div>
             <motion.div style={{ flex: "1 0 0", minWidth: 0 }} initial={{ opacity: 0, y: 60 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.15 }} transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: isMobile ? 0 : 0.15 }}>
-              <B2bRightCard isMobile={isMobile} />
+              <B2bRightCard isMobile={isMobile} videoSrc={videoNative} />
             </motion.div>
           </div>
 
           {/* Bottom wide */}
           <motion.div style={{ width: "100%" }} initial={{ opacity: 0, y: 60 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.15 }} transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: isMobile ? 0 : 0.3 }}>
-            <FmcgBottomCard isMobile={isMobile} />
+            <FmcgBottomCard isMobile={isMobile} videoSrc={videoEdu} />
           </motion.div>
         </div>
 

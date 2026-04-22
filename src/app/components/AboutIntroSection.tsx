@@ -23,17 +23,24 @@
    ───────────────────────────────────────────────────────────────────────────── */
 import { motion, useInView, useScroll, useTransform, MotionValue } from "motion/react";
 import { useRef, useState, useEffect } from "react";
+import { useCmsSectionContent } from "../context/CmsSectionContext";
 
 /* ── entrance animation config ──────────────────────────────────────────── */
 const EASE = [0.22, 1, 0.36, 1] as const;
 const VP = { once: true, margin: "-80px" } as const;
 
 /* ── Stats data ──────────────────────────────────────────────────────────── */
-const STATS = [
+const DEFAULT_STATS = [
   { value: 94,  suffix: "%",   suffixSize: 32, suffixWeight: 400, label: "Clients stayed beyond two years." },
   { value: 120, suffix: "+",   suffixSize: 48, suffixWeight: 200, label: "Businesses grew inside the ecosystem." },
   { value: 200, suffix: "Cr+", suffixSize: 24, suffixWeight: 400, label: "Revenue influenced across clients." },
 ];
+
+function getSuffixDisplay(suffix: string): { suffixSize: number; suffixWeight: number } {
+  if (suffix === "%")  return { suffixSize: 32, suffixWeight: 400 };
+  if (suffix === "+")  return { suffixSize: 48, suffixWeight: 200 };
+  return { suffixSize: 24, suffixWeight: 400 };
+}
 
 /* ── Amber Tag + horizontal rule ─────────────────────────────────────────── */
 function AboutTag() {
@@ -238,6 +245,21 @@ function StatBlock({
 
 /* ── Main export ─────────────────────────────────────────────────────────── */
 export function AboutIntroSection() {
+  const { items: cmsItems } = useCmsSectionContent();
+  const STATS = cmsItems.length > 0
+    ? cmsItems.map(item => {
+        const suffix = String(item.suffix ?? "");
+        const { suffixSize, suffixWeight } = getSuffixDisplay(suffix);
+        return {
+          value:        Number(item.value ?? 0),
+          suffix,
+          suffixSize,
+          suffixWeight,
+          label:        String(item.label ?? ""),
+        };
+      })
+    : DEFAULT_STATS;
+
   const [isMobile, setIsMobile] = useState(() => typeof window !== "undefined" ? window.innerWidth <= 1024 : false);
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth <= 1024);

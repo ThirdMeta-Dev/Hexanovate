@@ -33,6 +33,7 @@ import { LeadershipGallerySection }       from "../components/LeadershipGalleryS
 import { AboutContactSection }            from "../components/AboutContactSection";
 import { LeadershipGrowthSystemsSection } from "../components/LeadershipGrowthSystemsSection";
 import { FooterSection }                  from "../components/FooterSection";
+import { CmsSection }                     from "../components/CmsSection";
 import { useMeta } from "../hooks/useMeta";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -55,70 +56,49 @@ export default function LeadershipTeamPage() {
   const isMobile = vw <= 1024;
   const mt = isMobile ? 60 : 140;
 
-  const wrap = (children: React.ReactNode, extraStyle?: React.CSSProperties) => (
-    <motion.div
-      style={{ marginTop: mt, ...extraStyle }}
-      initial={{ y: 60, opacity: 0, scale: 0.97 }}
-      whileInView={{ y: 0, opacity: 1, scale: 1 }}
-      viewport={VP}
-      transition={{ duration: 0.85, ease: EASE }}
-    >
-      {children}
-    </motion.div>
+  const P = "leadership-and-team";
+  const wrap = (component: string, children: React.ReactNode, extraStyle?: React.CSSProperties) => (
+    <CmsSection component={component} page={P}>
+      <motion.div style={{ marginTop: mt, ...extraStyle }} initial={{ y: 60, opacity: 0, scale: 0.97 }} whileInView={{ y: 0, opacity: 1, scale: 1 }} viewport={VP} transition={{ duration: 0.85, ease: EASE }}>
+        {children}
+      </motion.div>
+    </CmsSection>
   );
 
   return (
     <div className="min-h-screen w-full" style={{ background: "#0a0a0a", position: "relative" }}>
 
-      {/* ── Global sticky nav ── */}
-      <GlobalHeader />
+      <CmsSection component="GlobalHeader" page={P}><GlobalHeader /></CmsSection>
+      <CmsSection component="LeadershipHeroSection" page={P}><LeadershipHeroSection /></CmsSection>
 
-      {/* ── 1: Hero Banner ── */}
-      <LeadershipHeroSection />
+      <CmsSection component="WhatDefinesUsSection" page={P}>
+        <div style={{ marginTop: mt, marginBottom: isMobile ? 0 : 120, position: "relative", zIndex: 1 }}>
+          <WhatDefinesUsSection />
+        </div>
+      </CmsSection>
 
-      {/* ── 2: What Defines Us — rendered directly so it's visible immediately on scroll ── */}
-      <div style={{ marginTop: mt, marginBottom: isMobile ? 0 : 120, position: "relative", zIndex: 1 }}>
-        <WhatDefinesUsSection />
-      </div>
+      {wrap("LogoMarqueeSection", <LogoMarqueeSection />)}
+      {wrap("WhyWeStartedSection", <WhyWeStartedSection transparent />)}
+      {wrap("TeamCultureSection", <TeamCultureSection />)}
+      {wrap("LeadershipWhyChooseUsSection", <LeadershipWhyChooseUsSection />)}
+      {wrap("LeadershipTestimonialSection", <LeadershipTestimonialSection />)}
 
-      {/* ── 3: Logo Marquee ── */}
-      {wrap(<LogoMarqueeSection />)}
+      <CmsSection component="B2bSection" page={P}>
+        <div style={{ marginTop: mt }}><B2bSection /></div>
+      </CmsSection>
 
-      {/* ── 4: Why We Started — no background box ── */}
-      {wrap(<WhyWeStartedSection transparent />)}
+      {wrap("ValuesApproachSection", <ValuesApproachSection />)}
 
-      {/* ── 5: Team & Culture ── */}
-      {wrap(<TeamCultureSection />)}
+      <CmsSection component="LeadershipGallerySection" page={P}>
+        <div style={{ marginTop: mt }}><LeadershipGallerySection /></div>
+      </CmsSection>
 
-      {/* ── 6: Why Choose Us (leadership-specific layout) ── */}
-      {wrap(<LeadershipWhyChooseUsSection />)}
+      {wrap("AboutContactSection", <AboutContactSection />, { paddingLeft: 0, paddingRight: 0 })}
+      {wrap("LeadershipGrowthSystemsSection", <LeadershipGrowthSystemsSection />)}
 
-      {/* ── 7: Why Trust (testimonial) ── */}
-      {wrap(<LeadershipTestimonialSection />)}
-
-      {/* ── 8: B2B Portfolio (ThirdMeta from home) ── */}
-      <div style={{ marginTop: mt }}>
-        <B2bSection />
-      </div>
-
-      {/* ── 9: Values & Approach ── */}
-      {wrap(<ValuesApproachSection />)}
-
-      {/* ── 10: Image Gallery (sticky horizontal scroll) ── */}
-      <div style={{ marginTop: mt }}>
-        <LeadershipGallerySection />
-      </div>
-
-      {/* ── 11: Contact Form ── */}
-      {wrap(<AboutContactSection />, { paddingLeft: 0, paddingRight: 0 })}
-
-      {/* ── 12: Growth Systems CTA ── */}
-      {wrap(<LeadershipGrowthSystemsSection />)}
-
-      {/* ── Footer ── */}
-      <div style={{ marginTop: mt }}>
-        <FooterSection />
-      </div>
+      <CmsSection component="FooterSection" page={P}>
+        <div style={{ marginTop: mt }}><FooterSection /></div>
+      </CmsSection>
 
     </div>
   );

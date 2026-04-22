@@ -1,9 +1,10 @@
 import { useState, useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 import svgPaths from "../../imports/svg-d60poec32a";
+import { useCmsSectionContent } from "../context/CmsSectionContext";
 
 /* ─── DATA ───────────────────────────────────────────────────────────────── */
-const CARDS = [
+const DEFAULT_CARDS = [
   { title: "One system instead of ten confused vendors and employees." },
   { title: "Mental bandwidth back to the product and vision." },
   { title: "Zero gaps between strategy, execution and outcome." },
@@ -277,7 +278,11 @@ function SectionBadge() {
 
 /* ─── MAIN SECTION ───────────────────────────────────────────────────────── */
 export function AwardsLogoWallSection() {
-  // Default active card = index 1 (second card), matching Figma screenshot
+  const { items: cmsItems } = useCmsSectionContent();
+  const cards = cmsItems.length > 0
+    ? cmsItems.map(item => ({ title: String(item.title ?? "") }))
+    : DEFAULT_CARDS;
+
   const [activeIdx, setActiveIdx] = useState(1);
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
 
@@ -411,7 +416,7 @@ export function AwardsLogoWallSection() {
             width: "100%",
           }}
         >
-          {CARDS.map((card, i) => (
+          {cards.map((card, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 70 }}

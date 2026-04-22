@@ -1,16 +1,17 @@
 import { motion, useInView } from "motion/react";
 import { useRef, useId, useState, useEffect } from "react";
+import { useCmsSectionContent } from "../context/CmsSectionContext";
 
 /* ─── VIDEO — cosmos / meditating figure ─────────────────────────────────── */
-const VIDEO_URL =
+const DEFAULT_VIDEO_URL =
   "https://sienna-pelican-786032.hostingersite.com/wp-content/uploads/2026/03/social_SEO_cinematic_inspirational_mountain_scene_during_sunrise_the_3b26e672-23ad-48f4-91df-447957cfc7bd_0.mp4";
 
-function WduVideo({ style }: { style?: React.CSSProperties }) {
+function WduVideo({ src, style }: { src: string; style?: React.CSSProperties }) {
   return (
     <div style={{ position: "relative", overflow: "hidden", borderRadius: "16px", ...style }}>
       {/* Video */}
       <video
-        src={VIDEO_URL}
+        src={src}
         autoPlay
         loop
         muted
@@ -213,7 +214,7 @@ function TitleRow() {
 }
 
 /* ─── DATA ───────────────────────────────────────────────────────────────── */
-const WDU_ITEMS = [
+const DEFAULT_WDU_ITEMS = [
   {
     title: "Systems Run It. Humans Own It.",
     desc: "Behind every framework is a person who treats your outcome as their own problem.",
@@ -227,6 +228,8 @@ const WDU_ITEMS = [
     desc: "We measure success in years, not campaigns. That changes every decision we make.",
   },
 ];
+
+type WduItem = { title: string; desc: string };
 
 /* ─── LIST ROW — desktop ─────────────────────────────────────────────────── */
 function ListRow({ title, desc }: { title: string; desc: string }) {
@@ -314,7 +317,7 @@ function ArrowBtn({ left, delay = 0 }: ArrowBtnProps) {
 }
 
 /* ─── CONTENT ROW — desktop ──────────────────────────────────────────────── */
-function ContentRow() {
+function ContentRow({ items }: { items: WduItem[] }) {
   return (
     <div
       style={{
@@ -346,7 +349,7 @@ function ContentRow() {
           visible: { transition: { staggerChildren: 0.1, staggerDirection: 1 } },
         }}
       >
-        {WDU_ITEMS.map((item, i) => (
+        {items.map((item, i) => (
           <motion.div
             key={`row-${i}`}
             style={{ width: "100%" }}
@@ -371,7 +374,7 @@ function ContentRow() {
                   <GradientDivider />
                 </motion.div>
               )]
-            : [el]
+            : [el] as React.ReactNode[]
         )}
       </motion.div>
     </div>
@@ -424,7 +427,7 @@ function MobileListItem({ index, title, desc }: { index: number; title: string; 
 }
 
 /* ─── MOBILE / TABLET LAYOUT ─────────────────────────────────────────────── */
-function WhatDefinesUsMobileLayout() {
+function WhatDefinesUsMobileLayout({ items }: { items: WduItem[] }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-40px" });
 
@@ -512,10 +515,10 @@ function WhatDefinesUsMobileLayout() {
 
       {/* ── List items with dividers ── */}
       <div style={{ display: "flex", flexDirection: "column", gap: "0" }}>
-        {WDU_ITEMS.map((item, i) => (
+        {items.map((item, i) => (
           <div key={i}>
             <MobileListItem index={i} title={item.title} desc={item.desc} />
-            {i < 2 && (
+            {i < items.length - 1 && (
               <div style={{ margin: "20px 0" }}>
                 <GradientDividerFluid />
               </div>
@@ -528,7 +531,7 @@ function WhatDefinesUsMobileLayout() {
 }
 
 /* ─── "WHAT DEFINES US" SECTION ──────────────────────────────────────────── */
-function WhatDefinesUsDesktopLayout() {
+function WhatDefinesUsDesktopLayout({ items, videoSrc }: { items: WduItem[]; videoSrc: string }) {
   const sectionRef = useRef<HTMLElement>(null);
   const inView = useInView(sectionRef as React.RefObject<HTMLElement>, { once: true, margin: "-80px" });
 
@@ -558,7 +561,7 @@ function WhatDefinesUsDesktopLayout() {
         transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
       >
         <TitleRow />
-        <ContentRow />
+        <ContentRow items={items} />
 
         {/* ── Cosmos / meditating-figure image — absolutely positioned left side ── */}
         <motion.div
@@ -575,7 +578,7 @@ function WhatDefinesUsDesktopLayout() {
           animate={inView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
         >
-          <WduVideo style={{ width: "488px", height: "397px" }} />
+          <WduVideo src={videoSrc} style={{ width: "488px", height: "397px" }} />
         </motion.div>
       </motion.div>
     </section>
@@ -583,6 +586,15 @@ function WhatDefinesUsDesktopLayout() {
 }
 
 export function WhatDefinesUsSection() {
+  const { content, items: cmsItems } = useCmsSectionContent();
+  const videoSrc = String(content.videoUrl ?? DEFAULT_VIDEO_URL);
+  const wduItems: WduItem[] = cmsItems.length > 0
+    ? cmsItems.map(item => ({
+        title: String(item.title ?? ""),
+        desc:  String(item.desc  ?? ""),
+      }))
+    : DEFAULT_WDU_ITEMS;
+
   const [isMobileTablet, setIsMobileTablet] = useState(() => window.innerWidth <= 1024);
 
   useEffect(() => {
@@ -591,5 +603,7 @@ export function WhatDefinesUsSection() {
     return () => window.removeEventListener("resize", check);
   }, []);
 
-  return isMobileTablet ? <WhatDefinesUsMobileLayout /> : <WhatDefinesUsDesktopLayout />;
+  return isMobileTablet
+    ? <WhatDefinesUsMobileLayout items={wduItems} />
+    : <WhatDefinesUsDesktopLayout items={wduItems} videoSrc={videoSrc} />;
 }

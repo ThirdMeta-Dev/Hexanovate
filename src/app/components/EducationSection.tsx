@@ -1,5 +1,6 @@
 import { motion, AnimatePresence, useInView, useScroll, useTransform } from "motion/react";
-import { useRef, useId, useState, useEffect, useCallback } from "react";
+import { useRef, useId, useState, useEffect, useCallback, createContext, useContext } from "react";
+import { useCmsSectionContent } from "../context/CmsSectionContext";
 
 import elmoImg       from "@/assets/d6712a28c4427451654076b57057128fe4979cf4.jpg";
 import cybernetyxImg from "@/assets/2bde221ff9288c4d81474060fcb820a6a1113526.jpg";
@@ -39,6 +40,9 @@ const SLIDE_CARDS = [
   },
 ];
 const NUM_CARDS = SLIDE_CARDS.length; // 5
+
+type SlideCard = typeof SLIDE_CARDS[0];
+const SlideCtx = createContext<SlideCard[]>(SLIDE_CARDS);
 
 /* ─── LAYOUT CONSTANTS (middle column geometry) ─────────────────────────── */
 const CARD_W = 530;
@@ -498,6 +502,7 @@ function ListPanel({ step, onStepChange }: { step: number; onStepChange: (target
 
 /* ─── DESKTOP LAYOUT ─────────────────────────────────────────────────────── */
 function EducationDesktopLayout() {
+  const SLIDE_CARDS = useContext(SlideCtx);
   const sectionRef = useRef<HTMLElement>(null);
   const stepRef    = useRef(0);
   const [step,     setStep]     = useState(0);
@@ -598,6 +603,7 @@ function EducationDesktopLayout() {
 // sections. Scroll listener activates the matching tab as each section enters
 // the viewport. Clicking a tab jumps to that section.
 function EducationMobileLayout() {
+  const SLIDE_CARDS = useContext(SlideCtx);
   const [activeTab, setActiveTab] = useState(0);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
   const tabsRef     = useRef<HTMLDivElement>(null);
@@ -834,7 +840,17 @@ function EducationMobileLayout() {
 
 /* ─── EDUCATION DOMAIN PORTFOLIO SECTION ────────────────────────────────── */
 export function EducationSection() {
+  const { items } = useCmsSectionContent();
   const [isMobileTablet, setIsMobileTablet] = useState(() => window.innerWidth <= 1024);
+
+  const slides: SlideCard[] = items.length > 0
+    ? items.map((item, i) => ({
+        num: String(item.num ?? String(i + 1).padStart(2, "0")),
+        title: String(item.title ?? ""),
+        desc: String(item.desc ?? ""),
+        image: String(item.imageUrl || SLIDE_CARDS[i]?.image || ""),
+      }))
+    : SLIDE_CARDS;
 
   useEffect(() => {
     const check = () => setIsMobileTablet(window.innerWidth <= 1024);
@@ -843,5 +859,9 @@ export function EducationSection() {
     return () => window.removeEventListener("resize", check);
   }, []);
 
-  return isMobileTablet ? <EducationMobileLayout /> : <EducationDesktopLayout />;
+  return (
+    <SlideCtx.Provider value={slides}>
+      {isMobileTablet ? <EducationMobileLayout /> : <EducationDesktopLayout />}
+    </SlideCtx.Provider>
+  );
 }
