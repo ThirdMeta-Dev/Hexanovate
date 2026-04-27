@@ -16,7 +16,7 @@ const SLIDE_CARDS = [
   },
   {
     num: "02",
-    title: "CybernetYX – 12.9x Qualified Leads",
+    title: "cybernetyx – 12.9x Qualified Leads",
     desc: "Scaled qualified leads from 120 to 1,548 — a 12.9x increase — while delivering 21.7x ROI and generating 1,992 ad leads through precision-targeted demand generation campaigns.",
     image: cybernetyxImg,
   },

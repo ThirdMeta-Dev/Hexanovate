@@ -111,7 +111,7 @@ export const SECTION_SCHEMAS: Record<string, SectionSchema> = {
     carouselLabel: "Education Portfolio Cases",
     defaultItems: [
       { num: "01", title: "ELMO – 3X Revenue Growth", desc: "Achieved 3X revenue growth with deeper website engagement — boosting scroll depth by 50% and higher on-site interactions through a full-funnel content and UX strategy.", imageUrl: "" },
-      { num: "02", title: "CybernetYX – 12.9x Qualified Leads", desc: "Scaled qualified leads from 120 to 1,548 — a 12.9x increase — while delivering 21.7x ROI and generating 1,992 ad leads through precision-targeted demand generation campaigns.", imageUrl: "" },
+      { num: "02", title: "cybernetyx – 12.9x Qualified Leads", desc: "Scaled qualified leads from 120 to 1,548 — a 12.9x increase — while delivering 21.7x ROI and generating 1,992 ad leads through precision-targeted demand generation campaigns.", imageUrl: "" },
       { num: "03", title: "EyRIS – 10X Lead Volume Growth", desc: "Lowered cost per lead by 2X while driving 10X growth in lead volume and doubling qualified demo requests through optimised paid media and conversion-rate improvements.", imageUrl: "" },
       { num: "04", title: "EduHexa – 4.2x Engagement Growth", desc: "Built a cohesive digital learning ecosystem for EduHexa, achieving 4.2x engagement growth and 60K new enrollments through a refined student acquisition funnel.", imageUrl: "" },
       { num: "05", title: "Future Skills Funnel – 52% CPL Reduction", desc: "Redesigned the full digital funnel for a global skills training platform — from paid demand gen to landing pages — cutting cost-per-lead by 52% while scaling reach.", imageUrl: "" },
