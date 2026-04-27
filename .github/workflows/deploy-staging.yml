@@ -26,6 +26,7 @@ jobs:
         run: npm run build
         env:
           VITE_ROBOTS_META: noindex,nofollow
+          VITE_DB_SCHEMA: staging
 
       - name: Deploy to Hostinger via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
