@@ -28,8 +28,8 @@ const SLIDE_CARDS = [
   },
   {
     num: "04",
-    title: "native.academy – 4.2x Engagement Growth",
-    desc: "Built a cohesive digital learning ecosystem for native.academy, achieving 4.2x engagement growth and 60K new enrollments through a refined student acquisition funnel.",
+    title: "EduHexa – 4.2x Engagement Growth",
+    desc: "Built a cohesive digital learning ecosystem for EduHexa, achieving 4.2x engagement growth and 60K new enrollments through a refined student acquisition funnel.",
     image: "https://images.unsplash.com/photo-1758272421542-b6bd81729cb5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
   },
   {
@@ -124,7 +124,7 @@ function EducationBadge() {
             whiteSpace: "nowrap",
           }}
         >
-          native.academy
+          EduHexa
         </span>
       </div>
     </div>

@@ -143,7 +143,7 @@ const NAV_DROPDOWNS: Record<string, { label: string; sub?: string; href?: string
   Solutions: [
     { label: "ThirdMeta", sub: "B2B Growth & Revenue", href: "https://thirdmeta.in/" },
     { label: "The Native Unit", sub: "FMCG & D2C Acceleration", href: "https://thenativeunit.com/" },
-    { label: "native.academy", sub: "Education Growth Solutions" },
+    { label: "EduHexa", sub: "Education Growth Solutions" },
   ],
   Company: [
     { label: "About Hexanovate", sub: "Our story & mission", href: "/about-us" },
