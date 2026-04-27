@@ -70,7 +70,7 @@ const DEFAULT_SLIDES: Slide[] = [
   {
     problem:         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the standard.",
     solution:        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsu has been the industry's standard Lorem Ipsum is simply dummy text of the printing.",
-    brandLogo:       imgAcumen,
+    brandLogo:       "/logos/Frame-1618876056.svg",
     brandAlt:        "Fincent",
     personName:      "Mr Lorem Ipsum",
     personRole:      "lorem ipsum is simply dum",
@@ -84,7 +84,7 @@ const DEFAULT_SLIDES: Slide[] = [
   {
     problem:         "Dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard since the 1500s.",
     solution:        "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.",
-    brandLogo:       imgEfax,
+    brandLogo:       "/logos/Frame-1618876058.svg",
     brandAlt:        "eFax",
     personName:      "Ms Jane Doe",
     personRole:      "Head of Marketing",
@@ -98,7 +98,7 @@ const DEFAULT_SLIDES: Slide[] = [
   {
     problem:         "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.",
     solution:        "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
-    brandLogo:       imgElmo,
+    brandLogo:       "/logos/Frame-1618874339.svg",
     brandAlt:        "Elmo",
     personName:      "Mr Rahul Verma",
     personRole:      "Founder & CEO",
@@ -310,7 +310,7 @@ export function AboutB2BPortfolioSection() {
     ? cmsItems.map((item, i) => ({
         problem:         String(item.problem         ?? ""),
         solution:        String(item.solution        ?? ""),
-        brandLogo:       String(item.brandLogoUrl    ?? "") || DEFAULT_SLIDES[i % DEFAULT_SLIDES.length]?.brandLogo || imgAcumen,
+        brandLogo:       String(item.brandLogoUrl    ?? "") || DEFAULT_SLIDES[i % DEFAULT_SLIDES.length]?.brandLogo || "/logos/Frame-1618876056.svg",
         brandAlt:        String(item.brandAlt        ?? ""),
         personName:      String(item.personName      ?? ""),
         personRole:      String(item.personRole      ?? ""),
