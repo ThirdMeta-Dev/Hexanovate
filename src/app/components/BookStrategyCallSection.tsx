@@ -196,7 +196,12 @@ function StrategyCallForm({ onSuccess }: { onSuccess: () => void }) {
         <div className="bsc-field">
           <label className="bsc-label">Full Name <span style={{ color: "#ef4444" }}>*</span></label>
           <input className={`bsc-input${errors.fullName ? " bsc-input-error" : ""}`} placeholder="Your full name"
-            {...register("fullName", { required: "Full name is required.", minLength: { value: 2, message: "Name must be at least 2 characters." } })} />
+            {...register("fullName", {
+              required: "Full name is required.",
+              minLength: { value: 2, message: "Name must be at least 2 characters." },
+              maxLength: { value: 60, message: "Name cannot exceed 60 characters." },
+              pattern: { value: /^[A-Za-z][A-Za-z\s.'-]*$/, message: "Name can only contain letters." },
+            })} />
           {errors.fullName && <span className="bsc-error">{errors.fullName.message}</span>}
         </div>
         <div className="bsc-field">
@@ -224,7 +229,11 @@ function StrategyCallForm({ onSuccess }: { onSuccess: () => void }) {
         <div className="bsc-field">
           <label className="bsc-label">Company <span style={{ color: "#ef4444" }}>*</span></label>
           <input className={`bsc-input${errors.company ? " bsc-input-error" : ""}`} placeholder="Your company name"
-            {...register("company", { required: "Company name is required." })} />
+            {...register("company", {
+            required: "Company name is required.",
+            minLength: { value: 2, message: "Must be at least 2 characters." },
+            maxLength: { value: 120, message: "Cannot exceed 120 characters." },
+          })} />
           {errors.company && <span className="bsc-error">{errors.company.message}</span>}
         </div>
       </div>
@@ -233,7 +242,11 @@ function StrategyCallForm({ onSuccess }: { onSuccess: () => void }) {
       <div className="bsc-field">
         <label className="bsc-label">Designation <span style={{ color: "#ef4444" }}>*</span></label>
         <input className={`bsc-input${errors.designation ? " bsc-input-error" : ""}`} placeholder="Your role"
-          {...register("designation", { required: "Designation is required." })} />
+          {...register("designation", {
+            required: "Designation is required.",
+            minLength: { value: 2, message: "Must be at least 2 characters." },
+            maxLength: { value: 80, message: "Cannot exceed 80 characters." },
+          })} />
         {errors.designation && <span className="bsc-error">{errors.designation.message}</span>}
       </div>
 
@@ -257,7 +270,11 @@ function StrategyCallForm({ onSuccess }: { onSuccess: () => void }) {
       <div className="bsc-field">
         <label className="bsc-label">Message <span style={{ color: "#ef4444" }}>*</span></label>
         <textarea className="bsc-input bsc-textarea" placeholder="What are you trying to fix or grow? Be as specific as you like." rows={3}
-          {...register("message", { required: "Message is required.", maxLength: { value: 1000, message: "Message cannot exceed 1000 characters." } })} />
+          {...register("message", {
+            required: "Message is required.",
+            minLength: { value: 10, message: "Please add more detail (min 10 characters)." },
+            maxLength: { value: 1000, message: "Message cannot exceed 1000 characters." },
+          })} />
         {errors.message && <span className="bsc-error">{errors.message.message}</span>}
       </div>
 
@@ -399,8 +416,8 @@ export function BookStrategyCallSection() {
               .bsc-input-error { border-color: rgba(239,68,68,0.7) !important; }
               .bsc-textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
               .bsc-label { display: block; font-family: Poppins, sans-serif; font-size: 12px; font-weight: 500; color: #8e8e8e; margin-bottom: 6px; letter-spacing: 0.3px; }
-              .bsc-field { display: flex; flex-direction: column; }
-              .bsc-error { font-family: Poppins, sans-serif; font-size: 11px; font-weight: 400; color: #ef4444; margin-top: 5px; }
+              .bsc-field { display: flex; flex-direction: column; position: relative; }
+              .bsc-error { font-family: Poppins, sans-serif; font-size: 11px; font-weight: 400; color: #ef4444; position: absolute; top: calc(100% + 3px); left: 0; line-height: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; pointer-events: none; }
               .bsc-client-scroll-track { animation: bscClientScroll 18s linear infinite; }
               .bsc-client-scroll-track:hover { animation-play-state: paused; }
               @keyframes bscClientScroll {

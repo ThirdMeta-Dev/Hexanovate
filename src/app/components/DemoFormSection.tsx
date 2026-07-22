@@ -325,6 +325,8 @@ function ContactForm({ onSuccess }: { onSuccess: () => void }) {
           {...register("name", {
             required: "Name is required.",
             minLength: { value: 2, message: "Name must be at least 2 characters." },
+            maxLength: { value: 60, message: "Name cannot exceed 60 characters." },
+            pattern: { value: /^[A-Za-z][A-Za-z\s.'-]*$/, message: "Name can only contain letters." },
           })}
         />
         {errors.name && <span className="demo-error">{errors.name.message}</span>}
@@ -372,7 +374,11 @@ function ContactForm({ onSuccess }: { onSuccess: () => void }) {
         <input
           className={`demo-input${errors.company ? " demo-input-error" : ""}`}
           placeholder="Your company and what you do there"
-          {...register("company", { required: "Company and designation is required." })}
+          {...register("company", {
+            required: "Company and designation is required.",
+            minLength: { value: 2, message: "Must be at least 2 characters." },
+            maxLength: { value: 120, message: "Cannot exceed 120 characters." },
+          })}
         />
         {errors.company && <span className="demo-error">{errors.company.message}</span>}
       </div>
@@ -406,6 +412,7 @@ function ContactForm({ onSuccess }: { onSuccess: () => void }) {
           rows={3}
           {...register("message", {
             required: "Message is required.",
+            minLength: { value: 10, message: "Please add more detail (min 10 characters)." },
             maxLength: { value: 1000, message: "Message cannot exceed 1000 characters." },
           })}
         />
@@ -715,13 +722,21 @@ export function DemoFormSection({ transparent = false }: { transparent?: boolean
                 margin-bottom: 6px;
                 letter-spacing: 0.3px;
               }
-              .demo-field { display: flex; flex-direction: column; }
+              .demo-field { display: flex; flex-direction: column; position: relative; }
               .demo-error {
                 font-family: Poppins, sans-serif;
                 font-size: 11px;
                 font-weight: 400;
                 color: #ef4444;
-                margin-top: 5px;
+                position: absolute;
+                top: calc(100% + 3px);
+                left: 0;
+                line-height: 1;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 100%;
+                pointer-events: none;
               }
 
               /* Logo scroll */
