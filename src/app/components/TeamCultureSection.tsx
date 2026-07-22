@@ -2,16 +2,17 @@ import { motion, AnimatePresence, useScroll, useTransform, useMotionValueEvent, 
 import { useState, useEffect, useRef, useCallback, createContext, useContext } from "react";
 import svgPaths from "../../imports/svg-9mxiszov0f";
 import { useCmsSectionContent } from "../context/CmsSectionContext";
-import img1  from "@/assets/393466a8f00e06a6dea5f6fbcd4d2c2de7939ace.jpg";
-import img2  from "@/assets/ea697fd1c8734ef50383a75ad5b573e938d827a7.jpg";
-import img3  from "@/assets/069f59e29dcfa5fdf46d9b87bab576654e88b958.jpg";
-import img4  from "@/assets/eec164b068f12d93431a8bacd150bf580ca70702.jpg";
-import img5  from "@/assets/efd98944bc6f56588be3895179bc887a6f605839.jpg";
-import img6  from "@/assets/3ef0c2306bfbc4191425edd723ba9de0447ca13b.jpg";
-import img7  from "@/assets/41c0422ed85993e6c6e32ab7f0dbec890b778a42.jpg";
-import img8  from "@/assets/848a8f3f3ccf5c02594ef185d8f3c463e8934575.jpg";
-import img9  from "@/assets/7b03408bcffa240a069a479d7048ae964cb0e0cc.jpg";
-import img10 from "@/assets/08ad4b6dca12bdd8a662a5973390d31479223094.jpg";
+import img1  from "@/assets/team/team-unmesh-wadekar.png";
+import img2  from "@/assets/team/team-urvi-mandge.png";
+import img3  from "@/assets/team/team-pankaj-dhamane.png";
+import img4  from "@/assets/team/team-kalpesh-wadekar.png";
+import img5  from "@/assets/team/team-drushti-gothi.png";
+import img6  from "@/assets/team/team-vamshi-vadali.png";
+import img7  from "@/assets/team/team-hasan-kanchwala.png";
+import img8  from "@/assets/team/team-pulkit-mirase.png";
+import img9  from "@/assets/team/team-kishor-rathod.png";
+import img10 from "@/assets/team/team-subhodip-adak.png";
+import img11 from "@/assets/team/team-harshita-patidar.png";
 
 /* ─── CONSTANTS ────────────────────────────────────────────────────────── */
 const SLIDE_DURATION = 5000;
@@ -57,16 +58,17 @@ function mod(n: number, m: number) {
 type Slide = { img: string; label: string; desc: [string, string] };
 
 const DEFAULT_SLIDES: Slide[] = [
-  { img: img1,  label: "Arjun Mehta",       desc: ["Co-Founder & CEO",           "Visionary growth strategist"] },
-  { img: img2,  label: "Rohan Sharma",       desc: ["Head of Performance",        "Paid media & funnel expert"] },
-  { img: img3,  label: "Priya Nair",         desc: ["Creative Director",          "Brand identity & storytelling"] },
-  { img: img4,  label: "Vikram Desai",       desc: ["SEO & Content Lead",         "Organic reach architect"] },
-  { img: img5,  label: "Faiz Ansari",        desc: ["Social Media Strategist",    "Community & engagement driver"] },
-  { img: img6,  label: "Karan Joshi",        desc: ["B2B Marketing Manager",      "Account-based growth leader"] },
-  { img: img7,  label: "Nikhil Patel",       desc: ["Data & Analytics Head",      "Insight-driven decision maker"] },
-  { img: img8,  label: "Rahul Verma",        desc: ["Video & Content Producer",   "High-impact visual storyteller"] },
-  { img: img9,  label: "Aditya Kapoor",      desc: ["Client Success Manager",     "Long-term retention specialist"] },
-  { img: img10, label: "Sneha Rajput",       desc: ["Brand & PR Strategist",      "Media relations & reputation"] },
+  { img: img1,  label: "Unmesh Wadekar",    desc: ["Founder",                    "UX Design and Research Head"] },
+  { img: img2,  label: "Urvi Mandge",       desc: ["Founder",                    "Fixing, Stabilizing & Scaling Systems for Consumer Brands"] },
+  { img: img3,  label: "Pankaj Dhamane",    desc: ["Founder",                    "RevOps & Operations Head"] },
+  { img: img4,  label: "Kalpesh Wadekar",   desc: ["Founder",                    "Revenue Strategy Head"] },
+  { img: img5,  label: "Drushti Gothi",     desc: ["Founder's Office",           "Lead UX & CRO Analyst"] },
+  { img: img6,  label: "Vamshi Vadali",     desc: ["Lead",                       "Narrative & Content Writer"] },
+  { img: img7,  label: "Hasan Kanchwala",   desc: ["Lead",                       "Engineering Manager & System Developer"] },
+  { img: img8,  label: "Pulkit Mirase",     desc: ["Lead",                       "UI & Brand Visual Designer"] },
+  { img: img9,  label: "Kishor Rathod",     desc: ["Lead",                       "Paid Media & Performance Strategist"] },
+  { img: img10, label: "Subhodip Adak",     desc: ["Lead",                       "Graphic Designer for B2B Brands"] },
+  { img: img11, label: "Harshita Patidar",  desc: ["Lead",                       "Content Writer for B2B Brands"] },
 ];
 
 const SlidesCtx = createContext<Slide[]>(DEFAULT_SLIDES);

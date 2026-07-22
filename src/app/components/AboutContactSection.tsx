@@ -92,10 +92,19 @@ const glass: React.CSSProperties = {
 const glassErr: React.CSSProperties = { borderColor: "#ef4444" };
 const errText: React.CSSProperties = {
   fontFamily: "Poppins, sans-serif",
-  fontSize: 12,
+  fontSize: 11,
   color: "#ef4444",
-  marginTop: -8,
+  position: "absolute",
+  top: "calc(100% + 1px)",
+  left: 0,
+  lineHeight: 1,
+  whiteSpace: "nowrap",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+  maxWidth: "100%",
+  pointerEvents: "none",
 };
+const fieldWrap: React.CSSProperties = { position: "relative", width: "100%" };
 
 /* ── Contact form ────────────────────────────────────────────────────────── */
 function ContactForm() {
@@ -106,7 +115,7 @@ function ContactForm() {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<FormValues>({ mode: "onSubmit" });
+  } = useForm<FormValues>({ mode: "onBlur" });
 
   const onSubmit = async (data: FormValues) => {
     setServerError(null);
@@ -138,51 +147,61 @@ function ContactForm() {
       style={{ display: "flex", flexDirection: "column", gap: 12, width: "100%" }}
     >
       {/* Name — full width */}
-      <input
-        placeholder="Your name"
-        style={{ ...glass, ...(errors.name ? glassErr : {}), height: 48, padding: "0 16px", width: "100%" }}
-        {...register("name", {
-          required: "Name is required.",
-          minLength: { value: 2, message: "At least 2 characters." },
-        })}
-      />
-      {errors.name && <span style={errText}>{errors.name.message}</span>}
+      <div style={fieldWrap}>
+        <input
+          placeholder="Your name"
+          style={{ ...glass, ...(errors.name ? glassErr : {}), height: 48, padding: "0 16px", width: "100%" }}
+          {...register("name", {
+            required: "Name is required.",
+            minLength: { value: 2, message: "At least 2 characters." },
+            maxLength: { value: 60, message: "Name cannot exceed 60 characters." },
+            pattern: { value: /^[A-Za-z][A-Za-z\s.'-]*$/, message: "Name can only contain letters." },
+          })}
+        />
+        {errors.name && <span style={errText}>{errors.name.message}</span>}
+      </div>
 
       {/* Email + Phone row — side by side on desktop, stacked on mobile */}
       <div className="cf-phone-email-row" style={{ display: "flex", gap: 12 }}>
-        <input
-          placeholder="Where should we write back?"
-          className="cf-email-input"
-          style={{ ...glass, ...(errors.email ? glassErr : {}), height: 48, padding: "0 16px", flex: 1, minWidth: 0 }}
-          {...register("email", {
-            required: "Email is required.",
-            pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: "Enter a valid email." },
-          })}
-        />
-        <input
-          placeholder="A number for a quick call if needed"
-          className="cf-phone-input"
-          style={{ ...glass, ...(errors.phone ? glassErr : {}), height: 48, padding: "0 16px", flex: 1, minWidth: 0 }}
-          {...register("phone", {
-            required: "Phone is required.",
-            pattern: { value: /^[0-9+\s\-()]{7,15}$/, message: "Enter a valid phone number." },
-          })}
-        />
-      </div>
-      {(errors.email || errors.phone) && (
-        <div className="cf-phone-email-errors" style={{ display: "flex", gap: 12, marginTop: -8 }}>
-          <span style={{ ...errText, flex: 1, marginTop: 0 }}>{errors.email?.message ?? ""}</span>
-          <span style={{ ...errText, flex: 1, marginTop: 0 }}>{errors.phone?.message ?? ""}</span>
+        <div style={{ ...fieldWrap, flex: 1, minWidth: 0 }}>
+          <input
+            placeholder="Where should we write back?"
+            className="cf-email-input"
+            style={{ ...glass, ...(errors.email ? glassErr : {}), height: 48, padding: "0 16px", width: "100%" }}
+            {...register("email", {
+              required: "Email is required.",
+              pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: "Enter a valid email." },
+            })}
+          />
+          {errors.email && <span style={errText}>{errors.email.message}</span>}
         </div>
-      )}
+        <div style={{ ...fieldWrap, flex: 1, minWidth: 0 }}>
+          <input
+            placeholder="A number for a quick call if needed"
+            className="cf-phone-input"
+            style={{ ...glass, ...(errors.phone ? glassErr : {}), height: 48, padding: "0 16px", width: "100%" }}
+            {...register("phone", {
+              required: "Phone is required.",
+              pattern: { value: /^[0-9+\s\-()]{7,15}$/, message: "Enter a valid phone number." },
+            })}
+          />
+          {errors.phone && <span style={errText}>{errors.phone.message}</span>}
+        </div>
+      </div>
 
       {/* Company + Designation — single field */}
-      <input
-        placeholder="Your company and what you do there"
-        style={{ ...glass, ...(errors.company ? glassErr : {}), height: 48, padding: "0 16px", width: "100%" }}
-        {...register("company", { required: "Company is required." })}
-      />
-      {errors.company && <span style={errText}>{errors.company.message}</span>}
+      <div style={fieldWrap}>
+        <input
+          placeholder="Your company and what you do there"
+          style={{ ...glass, ...(errors.company ? glassErr : {}), height: 48, padding: "0 16px", width: "100%" }}
+          {...register("company", {
+            required: "Company is required.",
+            minLength: { value: 2, message: "At least 2 characters." },
+            maxLength: { value: 120, message: "Cannot exceed 120 characters." },
+          })}
+        />
+        {errors.company && <span style={errText}>{errors.company.message}</span>}
+      </div>
 
       {/* Service dropdown */}
       <div style={{ position: "relative" }}>
@@ -215,27 +234,31 @@ function ContactForm() {
             <path d="M5 7L9 11L13 7" stroke="rgba(255,255,255,0.6)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </div>
+        {errors.service && <span style={errText}>{errors.service.message}</span>}
       </div>
-      {errors.service && <span style={errText}>{errors.service.message}</span>}
 
       {/* Notes textarea */}
-      <textarea
-        placeholder="The more context you give, the better we can help"
-        style={{
-          ...glass,
-          ...(errors.notes ? glassErr : {}),
-          padding: "14px 16px",
-          resize: "none",
-          height: 123,
-          width: "100%",
-          lineHeight: "22px",
-        }}
-        {...register("notes", {
-          required: "Please describe what you're looking for.",
-          minLength: { value: 10, message: "Please add more detail (min 10 characters)." },
-        })}
-      />
-      {errors.notes && <span style={errText}>{errors.notes.message}</span>}
+      <div style={fieldWrap}>
+        <textarea
+          placeholder="The more context you give, the better we can help"
+          style={{
+            ...glass,
+            ...(errors.notes ? glassErr : {}),
+            padding: "14px 16px",
+            resize: "none",
+            height: 123,
+            width: "100%",
+            lineHeight: "22px",
+            display: "block",
+          }}
+          {...register("notes", {
+            required: "Please describe what you're looking for.",
+            minLength: { value: 10, message: "Please add more detail (min 10 characters)." },
+            maxLength: { value: 1000, message: "Message cannot exceed 1000 characters." },
+          })}
+        />
+        {errors.notes && <span style={errText}>{errors.notes.message}</span>}
+      </div>
 
       {serverError && (
         <p style={{ fontFamily: "Poppins, sans-serif", fontSize: 13, color: "#ef4444", margin: 0 }}>
