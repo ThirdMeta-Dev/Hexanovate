@@ -20,7 +20,6 @@ import { TeamCultureSection } from "../components/TeamCultureSection";
 import { AboutB2BPortfolioSection } from "../components/AboutB2BPortfolioSection";
 import { ValuesApproachSection } from "../components/ValuesApproachSection";
 import { TagsCarouselSection } from "../components/TagsCarouselSection";
-import { AboutEcosystemAccordionSection } from "../components/AboutEcosystemAccordionSection";
 import { TestimonialsHeaderSection } from "../components/TestimonialsHeaderSection";
 import { AwardsLogoWallSection } from "../components/AwardsLogoWallSection";
 import { FooterSection } from "../components/FooterSection";
@@ -66,7 +65,7 @@ export default function AboutUsPage() {
       {W("AboutJourneySection", <AboutJourneySection />)}
       {W("AboutContactSection", <AboutContactSection />, { paddingLeft: 0, paddingRight: 0 })}
       {W("AboutEcosystemSection", <AboutEcosystemSection />)}
-      {W("AboutEcosystemAccordionSection", <AboutEcosystemAccordionSection />)}
+      {/* AboutEcosystemAccordionSection hidden per request (Jul 2026) */}
       {W("TeamCultureSection", <TeamCultureSection />)}
       {W("AboutB2BPortfolioSection", <AboutB2BPortfolioSection />)}
       {W("ValuesApproachSection", <ValuesApproachSection />)}

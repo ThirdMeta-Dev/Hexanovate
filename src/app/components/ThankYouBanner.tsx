@@ -5,10 +5,11 @@
    • Buttons: identical to HexanovateHero CTAButton (label pill + arrow circle)
    • Responsive: stacks to column on ≤1024px
    ───────────────────────────────────────────────────────────────────────────── */
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import { motion, useScroll, useTransform, MotionValue } from "motion/react";
 import svgPaths from "../../imports/svg-xvssryphbj";
 import { useCmsSectionContent } from "../context/CmsSectionContext";
+import { CtaButton } from "./CtaButton";
 
 /* ── Scroll-linked word reveal ──────────────────────────────────────────────── */
 function RevealWord({ children, progress, range }: { children: React.ReactNode; progress: MotionValue<number>; range: [number, number] }) {
@@ -16,84 +17,13 @@ function RevealWord({ children, progress, range }: { children: React.ReactNode; 
   return <motion.span style={{ opacity }}>{children}</motion.span>;
 }
 
-/* ── Arrow diagonal SVG ─────────────────────────────────────────────────────── */
-function ArrowDiagonal({ size = 16 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 17.09 17.0901" fill="none">
-      <path d={svgPaths.pe61a680} fill="white" stroke="white" strokeWidth="0.3" />
-    </svg>
-  );
-}
-
-/* ── CTA Button — label pill + arrow circle, identical to home page ─────────── */
+/* ── CTA Button — shared pill (Figma 10904:134 / 10904:141) ─────────────────── */
 function CTAButton({ label, variant }: { label: string; variant: "primary" | "secondary" }) {
-  const [hovered, setHovered] = useState(false);
-  const isPrimary = variant === "primary";
-
   return (
-    <motion.div
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      animate={{ y: hovered ? -2 : 0 }}
-      transition={{ duration: 0.18, ease: "easeOut" }}
-      className="flex items-center cursor-pointer"
-      style={{
-        boxShadow: hovered
-          ? isPrimary
-            ? "0 8px 24px rgba(27,97,219,0.40)"
-            : "0 6px 20px rgba(27,97,219,0.25)"
-          : isPrimary
-          ? "0px 4px 4px rgba(0,0,0,0.30)"
-          : "0px 4px 4px rgba(0,0,0,0.29)",
-        transition: "box-shadow 0.18s ease",
-        borderRadius: "30px",
-      }}
-    >
-      {/* Label pill */}
-      <div
-        style={{
-          backgroundColor: isPrimary ? "#1b61db" : "#0e1f3d",
-          borderRadius: "30px",
-          padding: "12px 24px",
-          border: isPrimary ? "none" : "1px solid #1b61db",
-          position: "relative",
-        }}
-      >
-        <span
-          style={{
-            fontFamily: "Poppins, sans-serif",
-            fontSize: 16,
-            fontWeight: 500,
-            color: "white",
-            whiteSpace: "nowrap",
-          }}
-        >
-          {label}
-        </span>
-      </div>
-
-      {/* Arrow circle */}
-      <div
-        className="flex items-center justify-center"
-        style={{
-          backgroundColor: isPrimary ? "#1b61db" : "#0e1f3d",
-          borderRadius: "30px",
-          width: 48,
-          height: 48,
-          border: isPrimary ? "none" : "1px solid #1b61db",
-          flexShrink: 0,
-          marginLeft: -1,
-        }}
-      >
-        <motion.div
-          animate={{ x: hovered ? 1 : 0, y: hovered ? -1 : 0 }}
-          transition={{ duration: 0.18 }}
-          style={{ display: "flex", transform: "rotate(90deg) scaleY(-1)" }}
-        >
-          <ArrowDiagonal size={16} />
-        </motion.div>
-      </div>
-    </motion.div>
+    <CtaButton
+      label={label}
+      variant={variant === "primary" ? "filled" : "outline"}
+    />
   );
 }
 

@@ -3,57 +3,23 @@ import { useId, useState, useEffect, useRef } from "react";
 import svgPaths from "../../imports/svg-29dk7258jb";
 import { TextRevealParagraph } from "./TextRevealParagraph";
 import { useCmsSectionContent } from "../context/CmsSectionContext";
+import { CtaButton } from "./CtaButton";
 
 /* ─── VIDEO URLS ─────────────────────────────────────────────────────────── */
 const DEFAULT_VIDEO_FMCG     = "https://sienna-pelican-786032.hostingersite.com/wp-content/uploads/2026/03/FMCG.mp4";
 const DEFAULT_VIDEO_NATIVE   = "https://sienna-pelican-786032.hostingersite.com/wp-content/uploads/2026/03/B2B.mp4";
 const DEFAULT_VIDEO_CONSUMER = "https://sienna-pelican-786032.hostingersite.com/wp-content/uploads/2026/03/Education.mp4";
 
-/* ─── DIAGONAL ARROW ICON ─────────────────────────────────────────────────── */
-function DiagonalArrow() {
-  return (
-    <div style={{ width: 16, height: 16, overflow: "clip", position: "relative", flexShrink: 0 }}>
-      <div style={{ position: "absolute", inset: "5%" }}>
-        <div style={{ position: "absolute", inset: "-9.8% -9.8% -8.88% -8.88%" }}>
-          <svg fill="none" viewBox="0 0 17.09 17.0901" style={{ display: "block", width: "100%", height: "100%" }}>
-            <path d={svgPaths.pe61a680} fill="white" stroke="white" />
-          </svg>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ─── CTA BUTTON GROUP ───────────────────────────────────────────────────── */
+/* ─── CTA BUTTON GROUP — shared pill (Figma 10904:134) ───────────────────── */
 function CtaGroup({ label, semibold = false, compact = false, href }: { label: string; semibold?: boolean; compact?: boolean; href?: string }) {
-  const inner = (
-    <motion.div
-      style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
-      whileHover={{ scale: 1.03 }}
-      whileTap={{ scale: 0.97 }}
-      transition={{ type: "spring", stiffness: 400, damping: 22 }}
-    >
-      <div style={{ background: "#1b61db", padding: compact ? "8px 14px" : "12px 24px", borderRadius: 30, flexShrink: 0 }}>
-        <span style={{ fontFamily: "Poppins, sans-serif", fontWeight: semibold ? 600 : 500, fontSize: compact ? 12 : 16, color: "white", whiteSpace: "nowrap", lineHeight: "normal" }}>
-          {label}
-        </span>
-      </div>
-      <div style={{ background: "#1b61db", padding: compact ? 10 : 16, borderRadius: 30, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-        <div style={{ width: compact ? 12 : 16, height: compact ? 12 : 16, transform: "rotate(90deg) scaleY(-1)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <DiagonalArrow />
-        </div>
-      </div>
-    </motion.div>
+  void semibold;
+  return (
+    <CtaButton
+      label={label}
+      size={compact ? "compact" : "default"}
+      href={href}
+    />
   );
-
-  if (href) {
-    return (
-      <a href={href} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", display: "inline-flex" }}>
-        {inner}
-      </a>
-    );
-  }
-  return inner;
 }
 
 /* ─── BADGES ─────────────────────────────────────────────────────────────── */
@@ -131,7 +97,7 @@ function FmcgLeftCard({ isMobile, videoSrc }: { isMobile: boolean; videoSrc: str
           <p style={{ fontFamily: "Poppins, sans-serif", fontWeight: 300, fontSize: 13, lineHeight: "1.7", color: "#888", margin: 0, width: "100%" }}>
             B2B SaaS and tech companies come here to build real, compounding pipeline. Intent turned into revenue. No noise.
           </p>
-          <div style={{ marginTop: 4 }}><CtaGroup label="Explore ThirdMeta ↗" compact href="https://thirdmeta.in/" /></div>
+          <div style={{ marginTop: 4 }}><CtaGroup label="Explore ThirdMeta" compact href="https://thirdmeta.in/" /></div>
         </div>
       </GradientBorderCard>
     );
@@ -219,7 +185,7 @@ function FmcgLeftCard({ isMobile, videoSrc }: { isMobile: boolean; videoSrc: str
 
         {/* CTA — always visible */}
         <div style={{ position: "absolute", left: 0, bottom: 0, paddingTop: 8, paddingRight: 8, zIndex: 4 }}>
-          <CtaGroup label="Explore ThirdMeta ↗" href="https://thirdmeta.in/" />
+          <CtaGroup label="Explore ThirdMeta" href="https://thirdmeta.in/" />
         </div>
 
       </div>
@@ -261,7 +227,7 @@ function B2bRightCard({ isMobile, videoSrc }: { isMobile: boolean; videoSrc: str
           <p style={{ fontFamily: "Poppins, sans-serif", fontWeight: 300, fontSize: 13, lineHeight: "1.7", color: "#888", margin: 0, width: "100%" }}>
             Built for consumer brands ready to grow beyond word of mouth. Discovery, trust, purchase, repeat. All of it.
           </p>
-          <div style={{ marginTop: 4 }}><CtaGroup label="Explore NativeUnit ↗" semibold compact href="https://thenativeunit.com/" /></div>
+          <div style={{ marginTop: 4 }}><CtaGroup label="Explore NativeUnit" semibold compact href="https://thenativeunit.com/" /></div>
         </div>
       </GradientBorderCard>
     );
@@ -348,7 +314,7 @@ function B2bRightCard({ isMobile, videoSrc }: { isMobile: boolean; videoSrc: str
 
         {/* CTA — always visible */}
         <div style={{ position: "absolute", left: 0, bottom: 0, paddingTop: 8, paddingRight: 8, zIndex: 4 }}>
-          <CtaGroup label="Explore NativeUnit ↗" semibold href="https://thenativeunit.com/" />
+          <CtaGroup label="Explore NativeUnit" semibold href="https://thenativeunit.com/" />
         </div>
 
       </div>
@@ -389,7 +355,7 @@ function FmcgBottomCard({ isMobile, videoSrc }: { isMobile: boolean; videoSrc: s
           <p style={{ fontFamily: "Poppins, sans-serif", fontWeight: 300, fontSize: 13, lineHeight: "1.7", color: "#888", margin: 0, width: "100%" }}>
             Schools get one consultant, five brands compared, zero bias. The right technology matched to the right institution.
           </p>
-          <div style={{ marginTop: 4 }}><CtaGroup label="Explore EduHexa ↗" compact href="https://eduhexa.in/" /></div>
+          <div style={{ marginTop: 4 }}><CtaGroup label="Explore EduHexa" compact href="https://eduhexa.in/" /></div>
         </div>
       </GradientBorderCard>
     );
@@ -470,7 +436,7 @@ function FmcgBottomCard({ isMobile, videoSrc }: { isMobile: boolean; videoSrc: s
 
         {/* CTA — always visible */}
         <div style={{ position: "absolute", left: "80.2%", bottom: 0, paddingTop: 8, paddingRight: 8, zIndex: 4 }}>
-          <CtaGroup label="Explore EduHexa ↗" href="https://eduhexa.in/" />
+          <CtaGroup label="Explore EduHexa" href="https://eduhexa.in/" />
         </div>
 
       </div>

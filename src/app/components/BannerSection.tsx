@@ -10,6 +10,7 @@ import { Menu, X } from "lucide-react";
 import { useNavigate } from "react-router";
 import svgPaths from "../../imports/svg-icprnzbobl";
 import { useCmsSectionContent } from "../context/CmsSectionContext";
+import { CtaButton } from "./CtaButton";
 
 const VIDEO_SRC =
   "https://sienna-pelican-786032.hostingersite.com/wp-content/uploads/2026/03/social_SEO_Continuation_from_previous_scene._On_the_RIGHT_side_of_th_275c5974-1f7e-49bb-9f8a-647eb3ffd219_0.mp4";
@@ -62,22 +63,6 @@ function ChevronIcon({ color = "white" }: { color?: string }) {
           <rect width="16" height="16" fill="white" />
         </clipPath>
       </defs>
-    </svg>
-  );
-}
-
-/* ── Diagonal Arrow ↗ (pe61a680) ─────────────────────────────────────────── */
-// Figma: rotate-90 scaleY(-1) on the icon wrapper → points ↗
-function ArrowDiag({ size = 16, color = "white" }: { size?: number; color?: string }) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 17.09 17.09"
-      fill="none"
-      style={{ display: "block" }}
-    >
-      <path d={svgPaths.pe61a680} fill={color} stroke={color} strokeWidth="0.3" />
     </svg>
   );
 }
@@ -332,7 +317,6 @@ function DropdownItem({ label, sub, href, anchor }: { label: string; sub?: strin
 // Figma Frame10: backdrop-blur-[10px] bg-rgba(255,255,255,0.1) h-[59px] pl-[40px] pr-[6px] rounded-[60px]
 // CTA pair (Book a Demo + arrow) now animates identically to the primary CtaBtn
 function GlassNavPill() {
-  const [ctaHov, setCtaHov] = useState(false);
   const navigate = useNavigate();
 
   return (
@@ -359,68 +343,10 @@ function GlassNavPill() {
         <NavItem label="Contact Us" />
       </div>
 
-      {/* Frame32 — CTA pair: gradient + arrow rotate on hover, no scale zoom */}
-      <motion.div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          marginLeft: 28,
-          cursor: "pointer",
-          borderRadius: 30,
-          boxShadow: "0px 4px 4px 0px rgba(0,0,0,0.30)",
-          flexShrink: 0,
-        }}
-        onHoverStart={() => setCtaHov(true)}
-        onHoverEnd={() => setCtaHov(false)}
-        onClick={() => navigate("/schedule-demo")}
-      >
-        {/* Label — Book a Demo */}
-        <div
-          style={{
-            background: ctaHov
-              ? "linear-gradient(135deg, #2470f0 0%, #1b61db 100%)"
-              : "#1b61db",
-            borderRadius: 30,
-            padding: "12px 24px",
-            transition: "background 0.22s ease",
-          }}
-        >
-          <span
-            style={{
-              fontFamily: "Poppins, sans-serif",
-              fontWeight: 500,
-              fontSize: 16,
-              color: "white",
-              lineHeight: "normal",
-              whiteSpace: "nowrap",
-            }}
-          >
-            Book a Demo
-          </span>
-        </div>
-
-        {/* Arrow circle — same 48px as CtaBtn arrow */}
-        <motion.div
-          style={{
-            width: 48,
-            height: 48,
-            borderRadius: 30,
-            background: ctaHov ? "#2470f0" : "#1b61db",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            flexShrink: 0,
-            marginLeft: -1,
-            transition: "background 0.22s ease",
-          }}
-          animate={{ rotate: ctaHov ? 8 : 0 }}
-          transition={{ type: "spring", stiffness: 400, damping: 20 }}
-        >
-          <div style={{ transform: "rotate(90deg) scaleY(-1)", display: "flex" }}>
-            <ArrowDiag size={16} color="white" />
-          </div>
-        </motion.div>
-      </motion.div>
+      {/* Frame32 — CTA: shared pill + ringed arrow circle (Figma 10904:134) */}
+      <div style={{ marginLeft: 28, flexShrink: 0 }}>
+        <CtaButton label="Book a Demo" onClick={() => navigate("/schedule-demo")} />
+      </div>
     </div>
   );
 }
@@ -483,111 +409,15 @@ interface CtaBtnProps {
   href?: string;
 }
 function CtaBtn({ label, variant, delay = 0, small = false, href }: CtaBtnProps) {
-  const [hov, setHov] = useState(false);
-  const isPrimary = variant === "primary";
-  const handleClick = () => {
-    if (href) window.open(href, "_blank", "noopener,noreferrer");
-  };
   return (
-    <motion.div
-      onClick={handleClick}
-      style={{
-        display: "flex",
-        alignItems: "center",
-        cursor: "pointer",
-        flexShrink: 0,
-        borderRadius: 30,
-        boxShadow: isPrimary
-          ? "0px 4px 4px 0px rgba(0,0,0,0.30)"
-          : "0px 4px 4px 0px rgba(0,0,0,0.29)",
-      }}
-      initial={{ opacity: 0, y: 18 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.55, delay, ease: [0.22, 1, 0.36, 1] }}
-      onHoverStart={() => setHov(true)}
-      onHoverEnd={() => setHov(false)}
-      whileHover={{ scale: 1.04, y: -2 }}
-      whileTap={{ scale: 0.97 }}
-    >
-      {/* Label pill */}
-      <div
-        style={{
-          background:
-            hov && isPrimary
-              ? "linear-gradient(135deg, #2470f0 0%, #1b61db 100%)"
-              : isPrimary
-              ? "#1b61db"
-              : "#0e1f3d",
-          borderRadius: 30,
-          padding: small ? "8px 16px" : "12px 24px",
-          position: "relative",
-          transition: "background 0.22s ease",
-        }}
-      >
-        {!isPrimary && (
-          <div
-            aria-hidden="true"
-            style={{
-              position: "absolute",
-              inset: 0,
-              border: "1px solid #1b61db",
-              borderRadius: 30,
-              pointerEvents: "none",
-            }}
-          />
-        )}
-        <span
-          style={{
-            fontFamily: "Poppins, sans-serif",
-            fontWeight: 500,
-            fontSize: small ? 13 : 16,
-            color: "white",
-            lineHeight: "normal",
-            whiteSpace: "nowrap",
-            position: "relative",
-          }}
-        >
-          {label}
-        </span>
-      </div>
-
-      {/* Arrow circle: p-16 rounded-30 → 32px padding + 16px icon = 48px total */}
-      <motion.div
-        style={{
-          width: small ? 36 : 48,
-          height: small ? 36 : 48,
-          borderRadius: 30,
-          flexShrink: 0,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          position: "relative",
-          marginLeft: -1,
-          background:
-            hov && isPrimary ? "#2470f0" : isPrimary ? "#1b61db" : "#0e1f3d",
-          transition: "background 0.22s ease",
-        }}
-        animate={{ rotate: hov ? 8 : 0 }}
-        transition={{ type: "spring", stiffness: 400, damping: 20 }}
-      >
-        {!isPrimary && (
-          <div
-            aria-hidden="true"
-            style={{
-              position: "absolute",
-              inset: 0,
-              border: "1px solid #1b61db",
-              borderRadius: 30,
-              pointerEvents: "none",
-            }}
-          />
-        )}
-        {/* rotate-90 scaleY(-1) → arrow points ↗ */}
-        <div style={{ transform: "rotate(90deg) scaleY(-1)", display: "flex" }}>
-          <ArrowDiag size={16} color="white" />
-        </div>
-      </motion.div>
-    </motion.div>
+    <CtaButton
+      label={label}
+      variant={variant === "primary" ? "filled" : "outline"}
+      size={small ? "small" : "default"}
+      href={href}
+      animateIn
+      delay={delay}
+    />
   );
 }
 
@@ -814,32 +644,11 @@ function MobileNav() {
 
             {/* Book a Demo in mobile menu */}
             <div style={{ padding: "16px 20px 0" }}>
-              <button
+              <CtaButton
+                label="Book a Demo"
+                fullWidth
                 onClick={() => { navigate("/schedule-demo"); closeAll(); }}
-                style={{
-                  width: "100%",
-                  background: "#1b61db",
-                  borderRadius: 30,
-                  padding: "12px 24px",
-                  border: "none",
-                  outline: "none",
-                  cursor: "pointer",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <span
-                  style={{
-                    fontFamily: "Poppins, sans-serif",
-                    fontWeight: 500,
-                    fontSize: 15,
-                    color: "white",
-                  }}
-                >
-                  Book a Demo
-                </span>
-              </button>
+              />
             </div>
           </motion.div>
         )}
