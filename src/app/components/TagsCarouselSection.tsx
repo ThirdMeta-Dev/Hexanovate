@@ -1,7 +1,8 @@
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import { motion, useScroll, useTransform, MotionValue } from "motion/react";
 import svgPaths from "../../imports/svg-4dyynmyd9a";
 import { useCmsSectionContent } from "../context/CmsSectionContext";
+import { CtaButton } from "./CtaButton";
 
 /* ─── TAG DATA ────────────────────────────────────────────────────────────────
  * Figma Frame15 (row 1) — 5 tags, scrolls LEFT
@@ -159,41 +160,6 @@ function RevealWord({
   );
 }
 
-/* ─── ARROW ICON (Frame10 inner) ──────────────────────────────────────────────
- * Figma DiagonalLeft path pe61a680, viewBox 0 0 17.09 17.09
- * Inner transform: -scale-y-100 rotate-90 on the Arrow wrapper
- * Result: top-right diagonal arrow ↗
- * ──────────────────────────────────────────────────────────────────────────── */
-function ArrowIcon() {
-  return (
-    // Arrow: overflow-clip, size-16
-    <div style={{ overflow: "clip", position: "relative", width: 16, height: 16 }}>
-      {/* DiagonalLeft: absolute inset-5% */}
-      <div style={{ position: "absolute", inset: "5%" }}>
-        {/* inner inset -9.8%/-9.8%/-8.88%/-8.88% */}
-        <div
-          style={{
-            position: "absolute",
-            top: "-9.8%",
-            right: "-9.8%",
-            bottom: "-8.88%",
-            left: "-8.88%",
-          }}
-        >
-          <svg
-            style={{ display: "block", width: "100%", height: "100%" }}
-            fill="none"
-            preserveAspectRatio="none"
-            viewBox="0 0 17.09 17.0901"
-          >
-            <path d={svgPaths.pe61a680} fill="white" stroke="white" strokeWidth="0.1" />
-          </svg>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 /* ─── MAIN EXPORT ─────────────────────────────────────────────────────────────
  * Figma Frame13: flex-col gap-52, items-center, size-full
  *
@@ -214,9 +180,6 @@ function ArrowIcon() {
  *   Frame12: Frame11 (blue pill "B2B ThirdMeta") + Frame10 (blue circle arrow)
  * ──────────────────────────────────────────────────────────────────────────── */
 export function TagsCarouselSection({ transparent = false }: { transparent?: boolean }) {
-  const [btnHovered, setBtnHovered] = useState(false);
-  const [arrowHovered, setArrowHovered] = useState(false);
-
   const { items } = useCmsSectionContent();
   const ROW1_TAGS = items.length
     ? items.filter(i => String(i.row ?? "1") === "1").map(i => String(i.label ?? "")).filter(Boolean)
@@ -409,91 +372,8 @@ export function TagsCarouselSection({ transparent = false }: { transparent?: boo
               flexShrink: 0,
             }}
           >
-            {/* Frame12: pill + circle, flex row, items-center */}
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                flexShrink: 0,
-              }}
-            >
-              {/* Frame11: "B2B ThirdMeta" blue pill button */}
-              <motion.div
-                onHoverStart={() => setBtnHovered(true)}
-                onHoverEnd={() => setBtnHovered(false)}
-                animate={{
-                  background: btnHovered ? "#1550c0" : "#1b61db",
-                  scale: btnHovered ? 1.03 : 1,
-                }}
-                transition={{ duration: 0.18 }}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  padding: "12px 24px",
-                  borderRadius: 30,
-                  flexShrink: 0,
-                  cursor: "pointer",
-                }}
-              >
-                <p
-                  style={{
-                    fontFamily: "Poppins, sans-serif",
-                    fontWeight: 500,
-                    fontSize: 16,
-                    color: "white",
-                    lineHeight: "normal",
-                    margin: 0,
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  Show Me How
-                </p>
-              </motion.div>
-
-              {/* Frame10: blue circle with arrow icon, size-48, p-12, rounded-30 */}
-              <motion.div
-                onHoverStart={() => setArrowHovered(true)}
-                onHoverEnd={() => setArrowHovered(false)}
-                animate={{
-                  background: arrowHovered ? "#1550c0" : "#1b61db",
-                  scale: arrowHovered ? 1.08 : 1,
-                }}
-                transition={{ duration: 0.18 }}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  width: 48,
-                  height: 48,
-                  borderRadius: 30,
-                  padding: 12,
-                  flexShrink: 0,
-                  cursor: "pointer",
-                  boxSizing: "border-box",
-                }}
-              >
-                {/*
-                 * Arrow wrapper: size-16, flex items-center justify-center
-                 * Transform: -scale-y-100 rotate-90 on inner arrow
-                 * = scaleY(-1) + rotate(90deg)
-                 * Applied to the ArrowIcon to produce ↗ direction
-                 */}
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    flexShrink: 0,
-                    width: 16,
-                    height: 16,
-                  }}
-                >
-                  <div style={{ transform: "scaleY(-1) rotate(90deg)", flexShrink: 0 }}>
-                    <ArrowIcon />
-                  </div>
-                </div>
-              </motion.div>
-            </div>
+            {/* Frame12: shared pill + ringed arrow circle (Figma 10904:134) */}
+            <CtaButton label="Show Me How" />
           </div>
         </div>
       </div>

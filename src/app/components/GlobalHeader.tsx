@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { Menu, X } from "lucide-react";
 import { useNavigate, useLocation } from "react-router";
 import svgPaths from "../../imports/svg-icprnzbobl";
+import { CtaButton } from "./CtaButton";
 
 /* ── Helpers ─────────────────────────────────────────────────────────────── */
 function navigateTo(anchor: string | undefined, href: string | undefined, navigate: ReturnType<typeof useNavigate>) {
@@ -38,15 +39,6 @@ function ChevronIcon({ color = "white" }: { color?: string }) {
   return (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ display: "block", flexShrink: 0 }}>
       <path d="M4 6L8 10L12 6" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-/* ── Arrow diagonal ↗ ───────────────────────────────────────────────────── */
-function ArrowDiag({ size = 16, color = "white" }: { size?: number; color?: string }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 17.09 17.09" fill="none" style={{ display: "block" }}>
-      <path d={svgPaths.pe61a680} fill={color} stroke={color} strokeWidth="0.3" />
     </svg>
   );
 }
@@ -144,7 +136,6 @@ function NavItem({ label, hasDropdown = false }: { label: string; hasDropdown?: 
 /* ── Desktop Glass Nav Pill ──────────────────────────────────────────────── */
 function GlassNavPill() {
   const navigate = useNavigate();
-  const [ctaHov, setCtaHov] = useState(false);
 
   return (
     <div style={{ height: 59, paddingLeft: 40, paddingRight: 6, borderRadius: 60, background: "rgba(255,255,255,0.10)", backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)", border: "1px solid rgba(255,255,255,0.07)", display: "flex", alignItems: "center", position: "relative" }}>
@@ -155,25 +146,9 @@ function GlassNavPill() {
         <NavItem label="Contact Us" />
       </div>
 
-      <motion.div
-        style={{ display: "flex", alignItems: "center", marginLeft: 28, cursor: "pointer", borderRadius: 30, boxShadow: "0px 4px 4px 0px rgba(0,0,0,0.30)", flexShrink: 0 }}
-        onHoverStart={() => setCtaHov(true)}
-        onHoverEnd={() => setCtaHov(false)}
-        onClick={() => navigate("/schedule-demo")}
-      >
-        <div style={{ background: ctaHov ? "linear-gradient(135deg, #2470f0 0%, #1b61db 100%)" : "#1b61db", borderRadius: 30, padding: "12px 24px", transition: "background 0.22s ease" }}>
-          <span style={{ fontFamily: "Poppins, sans-serif", fontWeight: 500, fontSize: 16, color: "white", lineHeight: "normal", whiteSpace: "nowrap" }}>Book a Demo</span>
-        </div>
-        <motion.div
-          style={{ width: 48, height: 48, borderRadius: 30, background: ctaHov ? "#2470f0" : "#1b61db", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginLeft: -1, transition: "background 0.22s ease" }}
-          animate={{ rotate: ctaHov ? 8 : 0 }}
-          transition={{ type: "spring", stiffness: 400, damping: 20 }}
-        >
-          <div style={{ transform: "rotate(90deg) scaleY(-1)", display: "flex" }}>
-            <ArrowDiag size={16} color="white" />
-          </div>
-        </motion.div>
-      </motion.div>
+      <div style={{ marginLeft: 28, flexShrink: 0 }}>
+        <CtaButton label="Book a Demo" onClick={() => navigate("/schedule-demo")} />
+      </div>
     </div>
   );
 }
@@ -280,12 +255,11 @@ function MobileNav() {
               );
             })}
             <div style={{ padding: "16px 20px 0" }}>
-              <button
+              <CtaButton
+                label="Book a Demo"
+                fullWidth
                 onClick={() => { navigate("/schedule-demo"); closeAll(); }}
-                style={{ width: "100%", background: "#1b61db", borderRadius: 30, padding: "12px 24px", border: "none", outline: "none", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}
-              >
-                <span style={{ fontFamily: "Poppins, sans-serif", fontWeight: 500, fontSize: 15, color: "white" }}>Book a Demo</span>
-              </button>
+              />
             </div>
           </motion.div>
         )}

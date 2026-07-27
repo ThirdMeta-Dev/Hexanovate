@@ -1,65 +1,7 @@
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import { motion, useScroll, useTransform, MotionValue } from "motion/react";
-import svgPaths from "../../imports/svg-arxttmd309";
 import { useCmsSectionContent } from "../context/CmsSectionContext";
-
-/* ─── ARROW ICON (↗) ─────────────────────────────────────────────────────── */
-/*
- * Exactly mirrors Figma Frame5/Frame6 inner structure:
- *   overflow-clip, size-16
- *   └── absolute inset-[5%]
- *       └── absolute inset-[-9.8%_-9.8%_-8.88%_-8.88%]
- *           └── SVG 17.09×17.09, pe61a680 path
- * Parent applies -scale-y-100 rotate-90 → points ↗
- */
-function ArrowIcon() {
-  return (
-    <div
-      style={{ overflow: "clip", position: "relative", width: 16, height: 16 }}
-    >
-      <div style={{ position: "absolute", inset: "5%" }}>
-        <div
-          style={{
-            position: "absolute",
-            top: "-9.8%",
-            left: "-9.8%",
-            right: "-8.88%",
-            bottom: "-8.88%",
-          }}
-        >
-          <svg
-            style={{ display: "block", width: "100%", height: "100%" }}
-            fill="none"
-            preserveAspectRatio="none"
-            viewBox="0 0 17.09 17.0901"
-          >
-            <path d={svgPaths.pe61a680} fill="white" stroke="white" />
-          </svg>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* The rotate+flip wrapper Figma applies inside each arrow circle */
-function ArrowTransformed() {
-  return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        flexShrink: 0,
-        width: 16,
-        height: 16,
-      }}
-    >
-      <div style={{ transform: "rotate(90deg) scaleY(-1)", flexShrink: 0 }}>
-        <ArrowIcon />
-      </div>
-    </div>
-  );
-}
+import { CtaButton } from "./CtaButton";
 
 /* ─── TESTIMONIALS BADGE ──────────────────────────────────────────────────── */
 /*
@@ -124,73 +66,12 @@ interface CtaBtnProps {
 }
 
 function CtaBtn({ label, color, hoverColor }: CtaBtnProps) {
-  const [hovered, setHovered] = useState(false);
-  const bg = hovered ? hoverColor : color;
-
   return (
-    <motion.div
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      whileHover={{ scale: 1.03 }}
-      whileTap={{ scale: 0.97 }}
-      transition={{ type: "spring", stiffness: 400, damping: 22 }}
-      style={{
-        display: "flex",
-        alignItems: "center",
-        cursor: "pointer",
-        flexShrink: 0,
-        boxShadow: hovered
-          ? `0 4px 20px ${color}55`
-          : "0 2px 8px rgba(0,0,0,0.2)",
-        transition: "box-shadow 0.3s ease",
-      }}
-    >
-      {/* Label pill */}
-      <div
-        style={{
-          background: bg,
-          borderRadius: 30,
-          padding: "12px 24px",
-          display: "flex",
-          alignItems: "center",
-          transition: "background 0.25s ease",
-        }}
-      >
-        <p
-          style={{
-            fontFamily: "Poppins, sans-serif",
-            fontWeight: 500,
-            fontSize: 16,
-            color: "white",
-            lineHeight: "normal",
-            whiteSpace: "nowrap",
-            marginTop: 0,
-            marginBottom: 0,
-          }}
-        >
-          {label}
-        </p>
-      </div>
-
-      {/* Arrow circle */}
-      <div
-        style={{
-          background: bg,
-          borderRadius: 30,
-          width: 48,
-          height: 48,
-          flexShrink: 0,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          padding: 12,
-          boxSizing: "border-box",
-          transition: "background 0.25s ease",
-        }}
-      >
-        <ArrowTransformed />
-      </div>
-    </motion.div>
+    <CtaButton
+      label={label}
+      fillColor={color}
+      hoverFillColor={`linear-gradient(135deg, ${hoverColor} 0%, ${color} 100%)`}
+    />
   );
 }
 

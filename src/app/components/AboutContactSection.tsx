@@ -16,6 +16,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { motion } from "motion/react";
 import { projectId, publicAnonKey } from "../../../utils/supabase/info";
+import { CtaButton } from "./CtaButton";
 
 const SERVICE_OPTIONS = [
   "Growth partnership enquiry",
@@ -266,56 +267,13 @@ function ContactForm() {
         </p>
       )}
 
-      {/* Submit — two SEPARATE fully-rounded elements per Figma */}
+      {/* Submit — shared pill + ringed arrow circle (Figma 10904:134) */}
       <div style={{ display: "flex", alignItems: "center", gap: 0, marginTop: 4 }}>
-        <motion.button
+        <CtaButton
           type="submit"
+          label={isSubmitting ? "Sending…" : "Start The Conversation"}
           disabled={isSubmitting}
-          whileHover={{ opacity: isSubmitting ? 1 : 0.88 }}
-          whileTap={{ scale: isSubmitting ? 1 : 0.97 }}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            border: "none",
-            background: "transparent",
-            cursor: isSubmitting ? "not-allowed" : "pointer",
-            padding: 0,
-            gap: 6,
-          }}
-        >
-          {/* Text pill — fully rounded */}
-          <div
-            style={{
-              background: "#1b61db",
-              borderRadius: 30,
-              padding: "12px 24px",
-              fontFamily: "Poppins, sans-serif",
-              fontWeight: 500,
-              fontSize: 16,
-              color: "#ffffff",
-              whiteSpace: "nowrap",
-              boxShadow: "0 4px 4px rgba(0,0,0,0.3)",
-            }}
-          >
-            {isSubmitting ? "Sending…" : "Start The Conversation"}
-          </div>
-          {/* Arrow circle — fully rounded */}
-          <div
-            style={{
-              background: "#1b61db",
-              borderRadius: 30,
-              width: 48,
-              height: 48,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              boxShadow: "0 4px 4px rgba(0,0,0,0.3)",
-              flexShrink: 0,
-            }}
-          >
-            <ArrowIcon size={16} />
-          </div>
-        </motion.button>
+        />
       </div>
     </form>
   );

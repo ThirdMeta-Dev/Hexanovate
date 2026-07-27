@@ -4,10 +4,10 @@
    • Heading with scroll-based word-reveal animation
    • CTA buttons — centered
    ───────────────────────────────────────────────────────────────────────────── */
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
-import svgPaths from "../../imports/svg-icprnzbobl";
 import { useCmsSectionContent } from "../context/CmsSectionContext";
+import { CtaButton } from "./CtaButton";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 const VP   = { once: true, margin: "-80px" } as const;
@@ -46,46 +46,20 @@ function RevealWord({
   );
 }
 
-/* ── Arrow icon ─────────────────────────────────────────────────────────── */
-function ArrowDiag({ size = 16 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 17.09 17.09" fill="none" style={{ display: "block" }}>
-      <path d={svgPaths.pe61a680} fill="white" stroke="white" strokeWidth="0.3" />
-    </svg>
-  );
-}
-
-/* ── Pill CTA button ────────────────────────────────────────────────────── */
+/* ── Pill CTA button — shared pill (Figma 10904:134) ────────────────────── */
 function CtaBtn({ label, bg, href }: { label: string; bg: string; href?: string }) {
-  const [hov, setHov] = useState(false);
+  const isAmber = bg.toLowerCase() === "#ffa600";
   return (
-    <motion.div
-      onClick={() => href && window.open(href, "_blank", "noopener,noreferrer")}
-      style={{ display: "flex", alignItems: "center", cursor: "pointer", borderRadius: 30 }}
-      onHoverStart={() => setHov(true)}
-      onHoverEnd={() => setHov(false)}
-      whileHover={{ scale: 1.04, y: -2 }}
-      whileTap={{ scale: 0.97 }}
-    >
-      <div style={{ background: bg, borderRadius: 30, padding: "12px 24px", transition: "opacity 0.2s", opacity: hov ? 0.88 : 1 }}>
-        <span style={{ fontFamily: "Poppins, sans-serif", fontWeight: 500, fontSize: 16, color: "white", whiteSpace: "nowrap" }}>
-          {label}
-        </span>
-      </div>
-      <motion.div
-        style={{
-          width: 48, height: 48, borderRadius: 30, flexShrink: 0, marginLeft: -1,
-          background: bg, display: "flex", alignItems: "center", justifyContent: "center",
-          opacity: hov ? 0.88 : 1, transition: "opacity 0.2s",
-        }}
-        animate={{ rotate: hov ? 8 : 0 }}
-        transition={{ type: "spring", stiffness: 400, damping: 20 }}
-      >
-        <div style={{ transform: "rotate(90deg) scaleY(-1)", display: "flex" }}>
-          <ArrowDiag size={16} />
-        </div>
-      </motion.div>
-    </motion.div>
+    <CtaButton
+      label={label}
+      href={href}
+      fillColor={bg}
+      hoverFillColor={
+        isAmber
+          ? "linear-gradient(135deg, #e69400 0%, #ffa600 100%)"
+          : undefined
+      }
+    />
   );
 }
 

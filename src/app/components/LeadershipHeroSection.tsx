@@ -10,8 +10,8 @@
    ───────────────────────────────────────────────────────────────────────────── */
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import svgPaths from "../../imports/svg-icprnzbobl";
 import { useCmsSectionContent } from "../context/CmsSectionContext";
+import { CtaButton } from "./CtaButton";
 
 const EASE     = [0.22, 1, 0.36, 1] as const;
 const HEADER_H = 81;
@@ -19,63 +19,22 @@ const ARCH_RX  = 88;
 const ARCH_RY  = 44;
 const VB_W     = 1200;
 
-/* ── Arrow ↗ ─────────────────────────────────────────────────────────────── */
-function ArrowDiag({ size = 16 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 17.09 17.09" fill="none" style={{ display: "block" }}>
-      <path d={svgPaths.pe61a680} fill="white" stroke="white" strokeWidth="0.3" />
-    </svg>
-  );
-}
-
-/* ── CTA Button ──────────────────────────────────────────────────────────── */
+/* ── CTA Button — shared pill (Figma 10904:134 / 10904:141) ──────────────── */
 function CtaBtn({ label, variant, delay = 0, href }: {
   label: string; variant: "primary" | "outlined"; delay?: number; href?: string;
 }) {
-  const [hov, setHov] = useState(false);
-  const isPrimary = variant === "primary";
   return (
-    <motion.div
-      onClick={() => { if (!href) return; if (href.startsWith("/")) window.location.href = href; else window.open(href, "_blank", "noopener,noreferrer"); }}
-      style={{
-        display: "flex", alignItems: "center", cursor: "pointer", flexShrink: 0,
-        borderRadius: 30,
-        boxShadow: isPrimary ? "0px 4px 4px rgba(0,0,0,0.30)" : "0px 4px 4px rgba(0,0,0,0.29)",
+    <CtaButton
+      label={label}
+      variant={variant === "primary" ? "filled" : "outline"}
+      animateIn
+      delay={delay}
+      onClick={() => {
+        if (!href) return;
+        if (href.startsWith("/")) window.location.href = href;
+        else window.open(href, "_blank", "noopener,noreferrer");
       }}
-      initial={{ opacity: 0, y: 18 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.55, delay, ease: EASE }}
-      onHoverStart={() => setHov(true)}
-      onHoverEnd={() => setHov(false)}
-      whileHover={{ scale: 1.04, y: -2 }}
-      whileTap={{ scale: 0.97 }}
-    >
-      <div style={{
-        background: hov && isPrimary ? "linear-gradient(135deg,#2470f0 0%,#1b61db 100%)" : isPrimary ? "#1b61db" : "#0e1f3d",
-        borderRadius: 30, padding: "12px 24px", position: "relative", transition: "background 0.22s ease",
-      }}>
-        {!isPrimary && <div aria-hidden="true" style={{ position: "absolute", inset: 0, border: "1px solid #1b61db", borderRadius: 40, pointerEvents: "none" }} />}
-        <span style={{ fontFamily: "Poppins, sans-serif", fontWeight: 500, fontSize: 16, color: "white", lineHeight: "normal", whiteSpace: "nowrap", position: "relative" }}>
-          {label}
-        </span>
-      </div>
-      <motion.div
-        style={{
-          width: 48, height: 48, borderRadius: 30, flexShrink: 0,
-          display: "flex", alignItems: "center", justifyContent: "center",
-          position: "relative", marginLeft: -1,
-          background: hov && isPrimary ? "#2470f0" : isPrimary ? "#1b61db" : "#0e1f3d",
-          transition: "background 0.22s ease",
-        }}
-        animate={{ rotate: hov ? 8 : 0 }}
-        transition={{ type: "spring", stiffness: 400, damping: 20 }}
-      >
-        {!isPrimary && <div aria-hidden="true" style={{ position: "absolute", inset: 0, border: "1px solid #1b61db", borderRadius: 30, pointerEvents: "none" }} />}
-        <div style={{ transform: "rotate(90deg) scaleY(-1)", display: "flex" }}>
-          <ArrowDiag size={16} />
-        </div>
-      </motion.div>
-    </motion.div>
+    />
   );
 }
 
@@ -86,19 +45,23 @@ function HeroBorder({ height }: { height: number }) {
   const cx = W / 2;
   const s  = 1;
   const CR = 40; // bottom corner radius in viewBox units
-  const svgH = H + 8;
+  const svgH = H + 4;
+  /* The border line sits ARCH_RY above the hero bottom so the arch pocket's
+     deepest point lands exactly on the hero (= viewport) bottom edge — the
+     whole notch stays visible without scrolling. */
+  const lineY = H - ARCH_RY - s;
 
   /* Bottom border with rounded bottom-left and bottom-right corners:
-     - Start on left edge, CR px above bottom → Q curve to bottom-left corner
-     - Flat right → arch notch → flat right
+     - Start on left edge, CR px above the line → Q curve to bottom-left corner
+     - Flat right → arch notch (dips to hero bottom) → flat right
      - Q curve at bottom-right → up CR px on right edge */
   const d = [
-    `M 0 ${H - CR - s}`,
-    `Q 0 ${H - s} ${CR} ${H - s}`,
-    `L ${cx - ARCH_RX} ${H - s}`,
-    `A ${ARCH_RX} ${ARCH_RY} 0 0 0 ${cx + ARCH_RX} ${H - s}`,
-    `L ${W - CR} ${H - s}`,
-    `Q ${W} ${H - s} ${W} ${H - CR - s}`,
+    `M 0 ${lineY - CR}`,
+    `Q 0 ${lineY} ${CR} ${lineY}`,
+    `L ${cx - ARCH_RX} ${lineY}`,
+    `A ${ARCH_RX} ${ARCH_RY} 0 0 0 ${cx + ARCH_RX} ${lineY}`,
+    `L ${W - CR} ${lineY}`,
+    `Q ${W} ${lineY} ${W} ${lineY - CR}`,
   ].join(" ");
 
   return (
@@ -132,7 +95,7 @@ function ScrollIndicator({ heroHeight }: { heroHeight: number }) {
           key="scroll-ind"
           style={{
             position: "absolute",
-            top: heroHeight - Math.round(ARCH_RY * 0.55),
+            top: heroHeight - ARCH_RY - 26,
             left: "50%",
             transform: "translateX(-50%)",
             display: "inline-flex", alignItems: "center", gap: 5,
@@ -198,15 +161,13 @@ export function LeadershipHeroSection() {
         position: "relative",
         width: "100%",
         height: isMobile ? `calc(100svh - ${HEADER_H}px)` : `calc(100vh - ${HEADER_H}px)`,
-        /* Rounded bottom corners */
-        borderBottomLeftRadius: 40,
-        borderBottomRightRadius: 40,
         /* Sit above the section below so the notch SVG is never hidden */
         zIndex: 2,
       }}
     >
-      {/* ── Black bg + blue gradient (clipped within hero) ── */}
-      <div style={{ position: "absolute", inset: 0, background: "#0a0a0a", overflow: "hidden", zIndex: 0 }}>
+      {/* ── Black bg + blue gradient — stops at the border line (ARCH_RY above
+             the hero bottom) so the notch area below the line stays clear ── */}
+      <div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: ARCH_RY, background: "#0a0a0a", overflow: "hidden", zIndex: 0, borderBottomLeftRadius: 40, borderBottomRightRadius: 40 }}>
         <div
           aria-hidden="true"
           style={{
@@ -227,18 +188,18 @@ export function LeadershipHeroSection() {
       <div
         style={{
           position: "relative", zIndex: 10, height: "100%",
-          display: "flex", flexDirection: "column", alignItems: "flex-start",
+          display: "flex", flexDirection: "column", alignItems: "center",
           justifyContent: "flex-start",
-          paddingTop: isMobile ? "8%" : "11%",
-          paddingLeft: isMobile ? 24 : 96,
-          paddingRight: isMobile ? 24 : 48,
-          textAlign: "left",
+          paddingTop: isMobile ? "8%" : "9%",
+          paddingLeft: 24,
+          paddingRight: 24,
+          textAlign: "center",
           gap: isMobile ? 36 : 60,
         }}
       >
         {/* Badge + heading + subtitle */}
         <motion.div
-          style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 24, maxWidth: 1008, width: "100%" }}
+          style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 24, maxWidth: 1008, width: "100%" }}
           initial={{ opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.75, ease: EASE }}
@@ -283,7 +244,7 @@ export function LeadershipHeroSection() {
         </motion.div>
 
         {/* CTA buttons */}
-        <div style={{ display: "flex", alignItems: "center", gap: 16, flexWrap: isMobile ? "wrap" : "nowrap", justifyContent: "flex-start" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 16, flexWrap: isMobile ? "wrap" : "nowrap", justifyContent: "center" }}>
           <CtaBtn label={cta1Text} variant="primary"  delay={0.65} href={cta1Link || "/leadership-and-team"} />
           <CtaBtn label={cta2Text} variant="outlined" delay={0.75} href={cta2Link || undefined} />
         </div>
