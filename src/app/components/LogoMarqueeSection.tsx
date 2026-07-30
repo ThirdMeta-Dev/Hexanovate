@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { ALL_LOGO_SOURCES, isConsumerLogoSource } from "./BrandLogos";
 
 const CSS = `
 @keyframes marquee-left {
@@ -11,36 +12,8 @@ const CSS = `
 }
 `;
 
-const ROW1 = [
-  "/logos/Frame-1618876056.svg",
-  "/logos/Frame-1618876056-1.svg",
-  "/logos/Frame-1618876057.svg",
-  "/logos/Frame-1618876058.svg",
-  "/logos/Frame-1618876058-1.svg",
-  "/logos/Frame-1618876059.svg",
-  "/logos/Frame-1618876060.svg",
-  "/logos/Frame-1618876060-1.svg",
-  "/logos/Frame-1618876061.svg",
-  "/logos/Frame-1618876061-1.svg",
-  "/logos/Frame-1618876062.svg",
-  "/logos/Frame-1618876062-1.svg",
-];
-
-const ROW2 = [
-  "/logos/Frame-1618874328.svg",
-  "/logos/Frame-1618874330.svg",
-  "/logos/Frame-1618874331.svg",
-  "/logos/Frame-1618874333.svg",
-  "/logos/Frame-1618874333-1.svg",
-  "/logos/Frame-1618874335.svg",
-  "/logos/Frame-1618874336.svg",
-  "/logos/Frame-1618874338.svg",
-  "/logos/Frame-1618874339.svg",
-  "/logos/Frame-1618874339-1.svg",
-  "/logos/Frame-1618874340.svg",
-  "/logos/Frame-1618874340-1.svg",
-  "/logos/Frame-1618874341.svg",
-];
+const ROW1 = ALL_LOGO_SOURCES.filter((_, index) => index % 2 === 0);
+const ROW2 = ALL_LOGO_SOURCES.filter((_, index) => index % 2 === 1);
 
 function MarqueeRow({
   logos,
@@ -90,6 +63,10 @@ function MarqueeRow({
                   height: logoH,
                   objectFit: "contain",
                   display: "block",
+                  transform: isConsumerLogoSource(src)
+                    ? "scale(1.65)"
+                    : undefined,
+                  transformOrigin: "center",
                 }}
               />
             </div>
@@ -110,7 +87,7 @@ export function LogoMarqueeSection() {
   }, []);
 
   return (
-    <section style={{
+    <section aria-label="Client logo marquee" style={{
       width: "100%",
       background: "#0a0a0a",
       overflow: "hidden",
@@ -120,8 +97,8 @@ export function LogoMarqueeSection() {
       <style>{CSS}</style>
 
       <div style={{ display: "flex", flexDirection: "column", gap: isMobile ? 20 : 40 }}>
-        <MarqueeRow logos={ROW1} dir="left"  speed={45} mobile={isMobile} />
-        <MarqueeRow logos={ROW2} dir="right" speed={45} mobile={isMobile} />
+        <MarqueeRow logos={ROW1} dir="left"  speed={ROW1.length * 3.75} mobile={isMobile} />
+        <MarqueeRow logos={ROW2} dir="right" speed={ROW2.length * 3.75} mobile={isMobile} />
       </div>
 
       {/* left fade */}

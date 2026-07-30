@@ -11,8 +11,11 @@ import img6  from "@/assets/team/team-vamshi-vadali.png";
 import img7  from "@/assets/team/team-hasan-kanchwala.png";
 import img8  from "@/assets/team/team-pulkit-mirase.png";
 import img9  from "@/assets/team/team-kishor-rathod.png";
-import img10 from "@/assets/team/team-subhodip-adak.png";
 import img11 from "@/assets/team/team-harshita-patidar.png";
+import img12 from "@/assets/team/team-vinaya-jain.png";
+import img13 from "@/assets/team/team-subhodip-consumer.png";
+import img14 from "@/assets/team/team-ayush-singh.png";
+import img15 from "@/assets/team/team-sachin-ingawale.png";
 
 /* ─── CONSTANTS ────────────────────────────────────────────────────────── */
 const SLIDE_DURATION = 5000;
@@ -55,7 +58,14 @@ function mod(n: number, m: number) {
 }
 
 /* ─── SLIDE DATA ─────────────────────────────────────────────────────────── */
-type Slide = { img: string; label: string; desc: [string, string] };
+type Slide = { img: string; label: string; desc: string[] };
+
+const ADDITIONAL_CONSUMER_SLIDES: Slide[] = [
+  { img: img12, label: "Vinaya Jain",      desc: ["Brand Manager for Consumer Brands"] },
+  { img: img13, label: "Subhodip Adak",    desc: ["Visual Strategist for Consumer Brands"] },
+  { img: img14, label: "Ayush Singh",      desc: ["Video Editor for Consumer Brands"] },
+  { img: img15, label: "Sachin Ingawale",  desc: ["Visual Designer for Consumer Brands"] },
+];
 
 const DEFAULT_SLIDES: Slide[] = [
   { img: img1,  label: "Unmesh Wadekar",    desc: ["Founder",                    "UX Design and Research Head"] },
@@ -67,9 +77,15 @@ const DEFAULT_SLIDES: Slide[] = [
   { img: img7,  label: "Hasan Kanchwala",   desc: ["Lead",                       "Engineering Manager & System Developer"] },
   { img: img8,  label: "Pulkit Mirase",     desc: ["Lead",                       "UI & Brand Visual Designer"] },
   { img: img9,  label: "Kishor Rathod",     desc: ["Lead",                       "Paid Media & Performance Strategist"] },
-  { img: img10, label: "Subhodip Adak",     desc: ["Lead",                       "Graphic Designer for B2B Brands"] },
   { img: img11, label: "Harshita Patidar",  desc: ["Lead",                       "Content Writer for B2B Brands"] },
+  ...ADDITIONAL_CONSUMER_SLIDES,
 ];
+
+function slideIdentity(slide: Slide) {
+  return `${slide.label}|${slide.desc.filter(Boolean).join(" ")}`
+    .trim()
+    .toLowerCase();
+}
 
 const SlidesCtx = createContext<Slide[]>(DEFAULT_SLIDES);
 
@@ -603,12 +619,28 @@ function DesktopTeamCulture({
 /* ─── MAIN SECTION ───────────────────────────────────────────────────────── */
 export function TeamCultureSection() {
   const { items: cmsItems } = useCmsSectionContent();
-  const slides: Slide[] = cmsItems.length > 0
-    ? cmsItems.map((item, i) => ({
+  const cmsSlides: Slide[] = cmsItems.map((item, i) => ({
         img:   String(item.imageUrl || DEFAULT_SLIDES[i % DEFAULT_SLIDES.length]?.img || ""),
         label: String(item.label ?? item.name ?? ""),
-        desc:  [String(item.desc1 ?? item.role ?? ""), String(item.desc2 ?? "")] as [string, string],
-      }))
+        desc:  [
+          String(item.desc1 ?? item.role ?? ""),
+          String(item.desc2 ?? ""),
+        ].filter(Boolean),
+      })).filter((slide) => {
+        const description = slide.desc.join(" ").toLowerCase();
+        return !(
+          slide.label.trim().toLowerCase() === "subhodip adak" &&
+          description.includes("b2b")
+        );
+      });
+  const cmsSlideIdentities = new Set(cmsSlides.map(slideIdentity));
+  const slides: Slide[] = cmsSlides.length > 0
+    ? [
+        ...cmsSlides,
+        ...ADDITIONAL_CONSUMER_SLIDES.filter(
+          (slide) => !cmsSlideIdentities.has(slideIdentity(slide)),
+        ),
+      ]
     : DEFAULT_SLIDES;
 
   const numSlides = slides.length;

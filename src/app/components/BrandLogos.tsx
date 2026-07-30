@@ -1,4 +1,4 @@
-const ALL_LOGOS = [
+const B2B_LOGOS = [
   "/logos/Frame-1618876056.svg",
   "/logos/Frame-1618876056-1.svg",
   "/logos/Frame-1618876057.svg",
@@ -26,7 +26,36 @@ const ALL_LOGOS = [
   "/logos/Frame-1618874341.svg",
 ];
 
+const CONSUMER_LOGOS = [
+  "/logos/native-unit/brahmi.png",
+  "/logos/native-unit/abk.png",
+  "/logos/native-unit/ajmal.png",
+  "/logos/native-unit/braincells.png",
+  "/logos/native-unit/cafe-kanak.png",
+  "/logos/native-unit/warana-english.png",
+  "/logos/native-unit/gajraj.png",
+  "/logos/native-unit/golecha.png",
+  "/logos/native-unit/indovill.png",
+  "/logos/native-unit/laado.png",
+  "/logos/native-unit/numaani.png",
+  "/logos/native-unit/mrs-foodrite.png",
+  "/logos/native-unit/onzemore.png",
+  "/logos/native-unit/peppermint.png",
+  "/logos/native-unit/sleek-studio.png",
+  "/logos/native-unit/pipal.png",
+  "/logos/native-unit/pushti.png",
+  "/logos/native-unit/warana-marathi.png",
+];
+
+export const ALL_LOGO_SOURCES = [...B2B_LOGOS, ...CONSUMER_LOGOS];
+
+export function isConsumerLogoSource(src: string) {
+  return src.includes("/logos/native-unit/");
+}
+
 function LogoBrand({ src }: { src: string }) {
+  const isConsumerLogo = isConsumerLogoSource(src);
+
   return (
     <div
       style={{
@@ -41,12 +70,19 @@ function LogoBrand({ src }: { src: string }) {
       <img
         alt=""
         src={src}
-        style={{ width: 140, height: 56, objectFit: "contain", display: "block" }}
+        style={{
+          width: 140,
+          height: 56,
+          objectFit: "contain",
+          display: "block",
+          transform: isConsumerLogo ? "scale(1.65)" : undefined,
+          transformOrigin: "center",
+        }}
       />
     </div>
   );
 }
 
-export const BRAND_LOGOS = ALL_LOGOS.map(src => function BrandLogoItem() {
+export const BRAND_LOGOS = ALL_LOGO_SOURCES.map(src => function BrandLogoItem() {
   return <LogoBrand src={src} />;
 });

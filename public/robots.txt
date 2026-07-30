@@ -1,7 +1,6 @@
 User-agent: *
-Disallow: /admin
+Allow: /
 Disallow: /admin/
+Disallow: /thank-you
 
-User-agent: Googlebot
-Disallow: /admin
-Disallow: /admin/
+Sitemap: https://hexanovate.com/sitemap.xml

@@ -1,1442 +1,1363 @@
 import {
   motion,
-  useScroll,
-  useTransform,
   useMotionValue,
   useMotionValueEvent,
-  useInView,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
   type MotionValue,
 } from "motion/react";
 import {
+  useCallback,
+  useEffect,
+  useMemo,
   useRef,
   useState,
-  useCallback,
-  useId,
-  useEffect,
-  createContext,
-  useContext,
   type RefObject,
 } from "react";
 import { useCmsSectionContent } from "../context/CmsSectionContext";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 
-/* ─── FIGMA ASSET IMAGES ─────────────────────────────────────────────────── */
-import imgMangolicious from "@/assets/0689329b6a406383b42f36cc7b10f6cd406be03a.jpg";
-import imgAbkGrooming from "@/assets/992616aa3d1169004f509036de7973baac842487.jpg";
-import imgFoodriteBbq from "@/assets/4f069c8843666a15fcb4413192db994cb8b747c0.jpg";
-import imgFoodriteRedChilly from "@/assets/62101aad23ca30f4d7b0f2d1557823af3e2ed284.jpg";
-import imgCreditCard from "@/assets/d11b72bafb73375ebedb3c8ed6fe8452fb412a33.jpg";
-import imgFoodriteKetchup from "@/assets/3e7e50869b3f586ec239e79e0714db484b037067.jpg";
-import imgEyeRis from "@/assets/b0015ce0a5a601ba8e77012c9ad259ee7e4cbd0f.jpg";
+const ACCENT = "#FFA600";
+const INTRO_END = 0.16;
 
-/* ─── IMAGE CONSTANTS ────────────────────────────────────────────────────── */
-const IMG_HERO = imgFoodriteRedChilly;
-const IMG_C1_TOP  = imgMangolicious;
-const IMG_C1_BTM  = imgAbkGrooming;
-const IMG_C2_TOP  = imgFoodriteBbq;
-const IMG_C2_HERO = imgFoodriteRedChilly;
-const IMG_C2_BTM  = imgCreditCard;
-const IMG_C3_TOP  = imgFoodriteKetchup;
-const IMG_C3_MID  = imgEyeRis;
-
-interface FmcgImages { hero: string; c1top: string; c1btm: string; c2top: string; c2hero: string; c2btm: string; c3top: string; c3mid: string; }
-const DEFAULT_FMCG_IMAGES: FmcgImages = { hero: IMG_HERO, c1top: IMG_C1_TOP, c1btm: IMG_C1_BTM, c2top: IMG_C2_TOP, c2hero: IMG_C2_HERO, c2btm: IMG_C2_BTM, c3top: IMG_C3_TOP, c3mid: IMG_C3_MID };
-const FmcgImagesCtx = createContext<FmcgImages>(DEFAULT_FMCG_IMAGES);
-
-/* ─── UTILITIES ──────────────────────────────────────────────────────────── */
-function lerp(a: number, b: number, t: number) {
-  return a + (b - a) * t;
-}
-function clamp(v: number, lo: number, hi: number) {
-  return Math.max(lo, Math.min(hi, v));
-}
-function easeInOut(t: number) {
-  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+interface PortfolioMetric {
+  value: string;
+  label: string;
 }
 
-/* ─── GRADIENT DIVIDER LINE ─────────────────────────────────────────────── */
-function GradientLine({
-  width = 115,
-  reversed = false,
+interface NativeUnitPortfolio {
+  id: string;
+  name: string;
+  metrics: [PortfolioMetric, PortfolioMetric];
+  images: string[];
+}
+
+const NATIVE_UNIT_PORTFOLIOS: NativeUnitPortfolio[] = [
+  {
+    id: "ajmal",
+    name: "Ajmal",
+    metrics: [
+      { value: "18X", label: "ROAS" },
+      { value: "388k", label: "Website clicks" },
+    ],
+    images: [
+      "/portfolio/native-unit/ajmal/ajmal-01.png",
+      "/portfolio/native-unit/ajmal/ajmal-02.png",
+      "/portfolio/native-unit/ajmal/ajmal-03.png",
+      "/portfolio/native-unit/ajmal/ajmal-04.png",
+    ],
+  },
+  {
+    id: "abk-grooming",
+    name: "ABK Grooming",
+    metrics: [
+      { value: "22 Lacs+", label: "Sales in 3 months" },
+      { value: "30%", label: "Returning customer rate" },
+    ],
+    images: [
+      "/portfolio/native-unit/abk-grooming/abk-01.jpg",
+      "/portfolio/native-unit/abk-grooming/abk-02.png",
+      "/portfolio/native-unit/abk-grooming/abk-03.png",
+      "/portfolio/native-unit/abk-grooming/abk-04.jpg",
+      "/portfolio/native-unit/abk-grooming/abk-05.jpg",
+      "/portfolio/native-unit/abk-grooming/abk-06.png",
+    ],
+  },
+  {
+    id: "mrs-foodrite",
+    name: "Mrs. Foodrite",
+    metrics: [
+      { value: "400k", label: "Content Views in 1 month" },
+      { value: "101%", label: "Audience growth" },
+    ],
+    images: [
+      "/portfolio/native-unit/mrs-foodrite/foodrite-01.png",
+      "/portfolio/native-unit/mrs-foodrite/foodrite-02.png",
+      "/portfolio/native-unit/mrs-foodrite/foodrite-03.png",
+      "/portfolio/native-unit/mrs-foodrite/foodrite-04.png",
+      "/portfolio/native-unit/mrs-foodrite/foodrite-05.png",
+      "/portfolio/native-unit/mrs-foodrite/foodrite-06.png",
+    ],
+  },
+  {
+    id: "warana",
+    name: "Warana",
+    metrics: [
+      { value: "200%+", label: "Content interactions in 3 months" },
+      { value: "233%+", label: "Profile visits" },
+    ],
+    images: [
+      "/portfolio/native-unit/warana/warana-01.jpg",
+      "/portfolio/native-unit/warana/warana-02.jpg",
+      "/portfolio/native-unit/warana/warana-03.jpg",
+      "/portfolio/native-unit/warana/warana-04.jpg",
+      "/portfolio/native-unit/warana/warana-05.png",
+      "/portfolio/native-unit/warana/warana-06.png",
+      "/portfolio/native-unit/warana/warana-07.png",
+    ],
+  },
+  {
+    id: "indovill",
+    name: "Indovill",
+    metrics: [
+      { value: "5.5X", label: "ROAS in 4 months" },
+      { value: "1.1M", label: "Revenue Generated" },
+    ],
+    images: [
+      "/portfolio/native-unit/indovill/indovill-02.png",
+      "/portfolio/native-unit/indovill/indovill-03.png",
+      "/portfolio/native-unit/indovill/indovill-04.jpg",
+      "/portfolio/native-unit/indovill/indovill-05.png",
+      "/portfolio/native-unit/indovill/indovill-06.png",
+      "/portfolio/native-unit/indovill/indovill-07.jpg",
+      "/portfolio/native-unit/indovill/indovill-08.jpg",
+      "/portfolio/native-unit/indovill/indovill-09.jpg",
+    ],
+  },
+];
+
+function clamp(value: number, min: number, max: number) {
+  return Math.max(min, Math.min(max, value));
+}
+
+function lerp(from: number, to: number, progress: number) {
+  return from + (to - from) * progress;
+}
+
+function easeInOut(progress: number) {
+  return progress < 0.5
+    ? 4 * progress * progress * progress
+    : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+}
+
+const IMAGE_HEIGHT_RATIOS: Record<string, number> = {
+  "foodrite-01.png": 2099 / 1080,
+  "foodrite-02.png": 1361 / 1080,
+  "foodrite-03.png": 1105 / 1080,
+  "foodrite-04.png": 1361 / 1080,
+  "foodrite-05.png": 335 / 268,
+  "foodrite-06.png": 643 / 513,
+  "warana-01.jpg": 1350 / 1080,
+  "warana-02.jpg": 1350 / 1080,
+  "warana-03.jpg": 1350 / 1080,
+  "warana-04.jpg": 1350 / 1082,
+  "warana-06.png": 2099 / 1080,
+  "warana-07.png": 2099 / 1080,
+  "indovill-04.jpg": 628 / 1200,
+};
+
+function estimatedImageHeight(src: string) {
+  const filename = src.split("/").pop() || "";
+  return IMAGE_HEIGHT_RATIOS[filename] || 1;
+}
+
+function resolvePortfolios(items: Record<string, unknown>[]) {
+  if (!items.length) return NATIVE_UNIT_PORTFOLIOS;
+
+  return NATIVE_UNIT_PORTFOLIOS.map((portfolio) => {
+    const item = items.find(
+      (candidate) =>
+        String(candidate.clientName || "").trim().toLowerCase() ===
+        portfolio.name.toLowerCase(),
+    );
+    if (!item) return portfolio;
+
+    const metric1Value = String(item.metric1Value || "").trim();
+    const metric1Label = String(item.metric1Label || "").trim();
+    const metric2Value = String(item.metric2Value || "").trim();
+    const metric2Label = String(item.metric2Label || "").trim();
+
+    return {
+      ...portfolio,
+      metrics: [
+        {
+          value: metric1Value || portfolio.metrics[0].value,
+          label: metric1Label || portfolio.metrics[0].label,
+        },
+        {
+          value: metric2Value || portfolio.metrics[1].value,
+          label: metric2Label || portfolio.metrics[1].label,
+        },
+      ] as [PortfolioMetric, PortfolioMetric],
+    };
+  });
+}
+
+interface LightboxSelection {
+  portfolioIndex: number;
+  imageIndex: number;
+}
+
+function PortfolioLightbox({
+  portfolios,
+  selection,
+  onClose,
+  onChange,
 }: {
-  width?: number;
-  reversed?: boolean;
+  portfolios: NativeUnitPortfolio[];
+  selection: LightboxSelection | null;
+  onClose: () => void;
+  onChange: (selection: LightboxSelection) => void;
 }) {
-  const uid = useId();
-  const gradId = `gl-${uid.replace(/:/g, "")}`;
-  return (
-    <svg
-      width={width}
-      height="1"
-      viewBox={`0 0 ${width} 1`}
-      fill="none"
-      style={{ display: "block", flexShrink: 0 }}
-    >
-      <defs>
-        <linearGradient
-          id={gradId}
-          x1="0"
-          x2={width}
-          y1="0"
-          y2="0"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop stopColor={reversed ? "#0A0A0A" : "#414141"} />
-          <stop offset="1" stopColor={reversed ? "#414141" : "#0A0A0A"} />
-        </linearGradient>
-      </defs>
-      <path d={`M0 0.5H${width}`} stroke={`url(#${gradId})`} />
-    </svg>
-  );
-}
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
 
-/* ─── FMCG BADGE ─────────────────────────────────────────────────────────── */
-function FmcgBadge() {
+  useEffect(() => {
+    if (!selection) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    closeButtonRef.current?.focus();
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      const portfolio = portfolios[selection.portfolioIndex];
+      if (event.key === "Escape") onClose();
+      if (event.key === "ArrowRight") {
+        onChange({
+          ...selection,
+          imageIndex: (selection.imageIndex + 1) % portfolio.images.length,
+        });
+      }
+      if (event.key === "ArrowLeft") {
+        onChange({
+          ...selection,
+          imageIndex:
+            (selection.imageIndex - 1 + portfolio.images.length) %
+            portfolio.images.length,
+        });
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [onChange, onClose, portfolios, selection]);
+
+  if (!selection) return null;
+
+  const portfolio = portfolios[selection.portfolioIndex];
+  const image = portfolio.images[selection.imageIndex];
+  const changeImage = (direction: -1 | 1) => {
+    onChange({
+      ...selection,
+      imageIndex:
+        (selection.imageIndex + direction + portfolio.images.length) %
+        portfolio.images.length,
+    });
+  };
+
+  const iconButtonStyle = {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 44,
+    height: 44,
+    padding: 0,
+    border: "1px solid #3a3a3a",
+    borderRadius: "50%",
+    background: "rgba(10,10,10,.78)",
+    color: "#fff",
+    cursor: "pointer",
+    fontFamily: "system-ui, sans-serif",
+    fontSize: 25,
+    lineHeight: 1,
+  } as const;
+
   return (
     <div
-      className="relative flex items-center justify-center"
+      role="dialog"
+      aria-modal="true"
+      aria-label={`${portfolio.name} portfolio image`}
+      onMouseDown={(event) => {
+        if (event.target === event.currentTarget) onClose();
+      }}
       style={{
-        background: "#111",
-        border: "1px solid #414141",
-        borderRadius: "40px",
-        padding: "6px 20px",
-        display: "inline-flex",
+        position: "fixed",
+        inset: 0,
+        zIndex: 10000,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "72px 86px",
+        background: "rgba(0,0,0,.92)",
       }}
     >
-      <span
+      <button
+        ref={closeButtonRef}
+        type="button"
+        aria-label="Close image viewer"
+        onClick={onClose}
         style={{
-          fontFamily: "Poppins, sans-serif",
-          fontWeight: 400,
-          fontSize: "13px",
-          color: "#FFA600",
-          lineHeight: "normal",
+          ...iconButtonStyle,
+          position: "absolute",
+          top: 22,
+          right: 24,
         }}
       >
-        The Native Unit
-      </span>
+        ×
+      </button>
+
+      <button
+        type="button"
+        aria-label="Previous portfolio image"
+        onClick={() => changeImage(-1)}
+        style={{
+          ...iconButtonStyle,
+          position: "absolute",
+          left: 24,
+          top: "50%",
+          transform: "translateY(-50%)",
+        }}
+      >
+        ‹
+      </button>
+
+      <ImageWithFallback
+        src={image}
+        alt={`${portfolio.name} portfolio creative ${selection.imageIndex + 1}`}
+        style={{
+          display: "block",
+          maxWidth: "100%",
+          maxHeight: "calc(100vh - 144px)",
+          width: "auto",
+          height: "auto",
+          objectFit: "contain",
+          borderRadius: 12,
+          boxShadow: "0 24px 80px rgba(0,0,0,.5)",
+        }}
+      />
+
+      <button
+        type="button"
+        aria-label="Next portfolio image"
+        onClick={() => changeImage(1)}
+        style={{
+          ...iconButtonStyle,
+          position: "absolute",
+          right: 24,
+          top: "50%",
+          transform: "translateY(-50%)",
+        }}
+      >
+        ›
+      </button>
+
+      <div
+        style={{
+          position: "absolute",
+          bottom: 22,
+          left: "50%",
+          transform: "translateX(-50%)",
+          color: "#aaa",
+          fontFamily: "Poppins, sans-serif",
+          fontSize: 12,
+          whiteSpace: "nowrap",
+        }}
+      >
+        {portfolio.name} · {selection.imageIndex + 1} /{" "}
+        {portfolio.images.length}
+      </div>
     </div>
   );
 }
 
-/* ─── ANIMATED COUNTER ───────────────────────────────────────────────────── */
-// `start` prop: when provided, the counter waits for it to become true instead
-// of relying on its own IntersectionObserver (which fires too early inside the
-// sticky scroll architecture because opacity:0 ancestors are ignored by IO).
-function AnimatedCounter({
-  target,
-  suffix = "",
-  start,
-}: {
-  target: number;
-  suffix?: string;
-  start?: boolean;
-}) {
-  const ref = useRef<HTMLSpanElement>(null);
-  // Fallback to internal viewport check when no external trigger is provided
-  const internalInView = useInView(ref, { once: true, margin: "-40px" });
-  const shouldStart = start !== undefined ? start : internalInView;
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    if (!shouldStart) return;
-    setCount(0); // reset so it always counts from 0 when triggered
-    let startTime: number | null = null;
-    const duration = 1800;
-    const step = (now: number) => {
-      if (!startTime) startTime = now;
-      const t = clamp((now - startTime) / duration, 0, 1);
-      const eased = easeInOut(t);
-      setCount(Math.round(eased * target));
-      if (t < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
-  }, [shouldStart, target]);
-
+function NativeUnitBadge() {
   return (
-    <span ref={ref}>
-      {count}
-      {suffix}
+    <span
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        minHeight: 38,
+        padding: "7px 18px",
+        border: "1px solid #343434",
+        borderRadius: 999,
+        background: "#111",
+        color: ACCENT,
+        fontFamily: "Poppins, sans-serif",
+        fontSize: 13,
+        lineHeight: 1,
+      }}
+    >
+      The Native Unit
     </span>
   );
 }
 
-/* ─── DYNAMIC STAT BLOCK (client-specific) ──────────────────────────────── */
-function DynamicStatBlock({ 
-  value, 
-  suffix, 
-  label, 
-  delay = 0,
-  scrollYProgress 
-}: { 
-  value: number;
-  suffix: string;
-  label: string;
-  delay?: number;
-  scrollYProgress?: MotionValue<number>;
+function SectionHeading({
+  heading,
+  subheading,
+  compact = false,
+}: {
+  heading: string;
+  subheading: string;
+  compact?: boolean;
 }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-50px" });
-
-  const [phaseActive, setPhaseActive] = useState(false);
-  useEffect(() => {
-    if (!scrollYProgress) return;
-    return scrollYProgress.on("change", (p: number) => {
-      if (p >= 0.40) setPhaseActive(true);
-    });
-  }, [scrollYProgress]);
-
-  const triggered = scrollYProgress ? phaseActive : inView;
-
   return (
-    <div
-      ref={ref}
-      className="flex flex-col"
-      style={{ gap: "6px", height: "110px", width: "100%" }}
-    >
-      <motion.p
-        style={{ lineHeight: 0, margin: 0 }}
-        initial={{ opacity: 0, y: 12 }}
-        animate={triggered ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.5, delay: delay, ease: [0.22, 1, 0.36, 1] }}
-      >
-        <span
-          style={{
-            fontFamily: "Manrope, sans-serif",
-            fontWeight: 400,
-            fontSize: "44px",
-            lineHeight: "60px",
-            color: "#FFA600",
-          }}
-        >
-          <AnimatedCounter target={value} start={triggered} />
-        </span>
-        <span
-          style={{
-            fontFamily: "Manrope, sans-serif",
-            fontWeight: 400,
-            fontSize: "32px",
-            lineHeight: "60px",
-            color: "#FFA600",
-          }}
-        >
-          {suffix}
-        </span>
-      </motion.p>
+    <div>
       <p
         style={{
-          fontFamily: "Poppins, sans-serif",
-          fontWeight: 300,
-          fontSize: "15px",
-          lineHeight: "22px",
-          color: "#747474",
-          width: "100%",
-          whiteSpace: "pre-wrap",
           margin: 0,
-          minWidth: "100%",
+          color: "#fff",
+          fontFamily: "Manrope, sans-serif",
+          fontSize: compact ? "clamp(30px, 7vw, 44px)" : "clamp(44px, 4vw, 62px)",
+          fontWeight: 700,
+          lineHeight: 1.08,
+          letterSpacing: "-0.035em",
         }}
       >
-        {label}
+        {heading}
+      </p>
+      <p
+        style={{
+          maxWidth: compact ? 620 : 760,
+          margin: compact ? "10px 0 0" : "12px 0 0",
+          color: "#777",
+          fontFamily: "Manrope, sans-serif",
+          fontSize: compact ? "clamp(22px, 5vw, 34px)" : "clamp(30px, 3vw, 46px)",
+          fontWeight: 300,
+          lineHeight: 1.2,
+          letterSpacing: "-0.035em",
+        }}
+      >
+        {subheading}
       </p>
     </div>
   );
 }
 
-/* ─── IMAGE CARD ─────────────────────────────────────────────────────────── */
-function ImageCard({
-  height,
-  src,
-  innerRef,
-  onMouseEnter,
-  onMouseLeave,
-  isHovered,
+function Metrics({
+  metrics,
+  compact = false,
 }: {
-  height: number;
-  src: string;
-  innerRef?: RefObject<HTMLDivElement>;
-  onMouseEnter?: () => void;
-  onMouseLeave?: () => void;
-  isHovered?: boolean;
+  metrics: [PortfolioMetric, PortfolioMetric];
+  compact?: boolean;
 }) {
   return (
     <div
-      ref={innerRef}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
       style={{
-        height: `${height}px`,
-        borderRadius: "16px",
-        flexShrink: 0,
-        width: "100%",
-        overflow: "hidden",
-        position: "relative",
-        cursor: isHovered ? "none" : "auto",
+        display: "grid",
+        gridTemplateColumns: compact ? "repeat(2, minmax(0, 1fr))" : "1fr",
+        gap: compact ? 18 : 26,
       }}
     >
-      <ImageWithFallback
-        src={src}
-        alt=""
-        style={{
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          display: "block",
-        }}
-      />
+      {metrics.map((metric) => (
+        <div key={`${metric.value}-${metric.label}`}>
+          <p
+            style={{
+              margin: 0,
+              color: ACCENT,
+              fontFamily: "Manrope, sans-serif",
+              fontSize: compact ? "clamp(29px, 7vw, 42px)" : "clamp(27px, 2.2vw, 38px)",
+              fontWeight: 400,
+              lineHeight: 1.05,
+              letterSpacing: "-0.035em",
+            }}
+          >
+            {metric.value}
+          </p>
+          <p
+            style={{
+              margin: "7px 0 0",
+              color: "#858585",
+              fontFamily: "Poppins, sans-serif",
+              fontSize: compact ? 12 : 13,
+              fontWeight: 300,
+              lineHeight: 1.5,
+            }}
+          >
+            {metric.label}
+          </p>
+        </div>
+      ))}
     </div>
   );
 }
 
-/* ─── VIEW ICON ──────────────────────────────────────────────────────────── */
-function ViewIcon() {
-  return (
-    <svg
-      width="22"
-      height="22"
-      viewBox="0 0 22 22"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      {/* corner brackets → "expand / view" */}
-      <path d="M9 3H3v6"   stroke="#111" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M13 3h6v6"  stroke="#111" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M9 19H3v-6" stroke="#111" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M13 19h6v-6" stroke="#111" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-/* ─── CUSTOM CURSOR ──────────────────────────────────────────────────────── */
-// Rendered at position:fixed so it floats above everything regardless of
-// overflow:hidden parents. bounceKey remounts the div on each new card hover,
-// re-running the spring from scale:0 → overshoot → 1 every time.
-function CustomCursor({
-  cursorX,
-  cursorY,
-  isHovering,
-  bounceKey,
+function PortfolioNavigation({
+  portfolios,
+  activeIndex,
+  onSelect,
 }: {
-  cursorX: MotionValue<number>;
-  cursorY: MotionValue<number>;
-  isHovering: boolean;
-  bounceKey: number;
+  portfolios: NativeUnitPortfolio[];
+  activeIndex: number;
+  onSelect: (index: number) => void;
 }) {
   return (
-    <motion.div
-      key={bounceKey}
-      initial={{ scale: 0, opacity: 0 }}
-      animate={
-        isHovering
-          ? { scale: 1, opacity: 1 }
-          : { scale: 0, opacity: 0 }
-      }
-      transition={{
-        type: "spring",
-        stiffness: 420,
-        damping: 16,
-        mass: 0.8,
-      }}
-      style={{
-        position: "fixed",
-        left: cursorX,
-        top: cursorY,
-        x: "-50%",
-        y: "-50%",
-        width: 64,
-        height: 64,
-        borderRadius: "50%",
-        background: "white",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        pointerEvents: "none",
-        zIndex: 9999,
-        boxShadow: "0 4px 24px rgba(0,0,0,0.22)",
-      }}
-    >
-      <ViewIcon />
-    </motion.div>
-  );
-}
-
-/* ─── SCROLL REVEAL CARD ─────────────────────────────────────────────────── */
-// Each image card scales up from slightly-below as the scroll progress reaches
-// its individual entrance threshold — staggered by the card's y-position in
-// the grid so lower cards appear later (one-by-one "maximize from bottom").
-function ScrollRevealCard({
-  scrollYProgress,
-  cardY,
-  children,
-}: {
-  scrollYProgress: MotionValue<number>;
-  cardY: number;           // card's top y-position in the grid (px)
-  children: React.ReactNode;
-}) {
-  // Map cardY 0..764 → enterStart within Phase C 0.40..0.70
-  const GRID_H   = 764;
-  const C_START  = 0.40;
-  const C_SPREAD = 0.30; // stagger occupies the first 30% of Phase C
-
-  const enterStart = C_START + (cardY / GRID_H) * C_SPREAD;
-  const enterEnd   = enterStart + 0.13;
-
-  const scale   = useTransform(scrollYProgress, [enterStart, enterEnd], [0.82, 1.0]);
-  const y       = useTransform(scrollYProgress, [enterStart, enterEnd], [28, 0]);
-  const opacity = useTransform(scrollYProgress, [enterStart, Math.min(enterEnd - 0.03, 0.98)], [0, 1]);
-
-  return (
-    <motion.div
-      style={{
-        scale,
-        y,
-        opacity,
-        transformOrigin: "center bottom",
-      }}
-    >
-      {children}
-    </motion.div>
-  );
-}
-
-/* ─── MASONRY GRID ───────────────────────────────────────────────────────── */
-function MasonryGrid({
-  scrollYProgress,
-  heroCardRef,
-  activeClientIndex,
-}: {
-  scrollYProgress: MotionValue<number>;
-  heroCardRef: RefObject<HTMLDivElement>;
-  activeClientIndex: number;
-}) {
-  // Phase C (0.40 → 1.0): grid scrolls up
-  const gridY = useTransform(scrollYProgress, [0.4, 1.0], [0, -360]);
-
-  // ── Custom cursor state ──
-  const cursorX   = useMotionValue(0);
-  const cursorY   = useMotionValue(0);
-  const [isHovering, setIsHovering] = useState(false);
-  const [bounceKey, setBounceKey]   = useState(0);
-  const [hoveredId, setHoveredId]   = useState<string | null>(null);
-
-  const handleCardEnter = useCallback((id: string) => {
-    setIsHovering(true);
-    setHoveredId(id);
-    setBounceKey((k) => k + 1); // remounts cursor → fresh spring bounce
-  }, []);
-
-  const handleCardLeave = useCallback(() => {
-    setIsHovering(false);
-    setHoveredId(null);
-  }, []);
-
-  const handleMouseMove = useCallback(
-    (e: React.MouseEvent) => {
-      cursorX.set(e.clientX);
-      cursorY.set(e.clientY);
-    },
-    [cursorX, cursorY]
-  );
-
-  // Get current client's portfolio
-  const currentPortfolio = CLIENT_PORTFOLIOS[activeClientIndex];
-  const posts = currentPortfolio.posts;
-  const metrics = currentPortfolio.metrics;
-
-  return (
-    <>
-      {/* ── Custom cursor (position:fixed, floats above all overflow clips) ── */}
-      <CustomCursor
-        cursorX={cursorX}
-        cursorY={cursorY}
-        isHovering={isHovering}
-        bounceKey={bounceKey}
-      />
-
-      <motion.div
-        onMouseMove={handleMouseMove}
-        style={{
-          display: "inline-grid",
-          gridTemplateColumns: "max-content",
-          gridTemplateRows: "max-content",
-          placeItems: "start",
-          position: "relative",
-          flexShrink: 0,
-          translateY: gridY,
-        }}
-      >
-        {/* ── Column 1 — ml:0, mt:115.58 — Posts 0, 3, 4 + Metric1 ── */}
-        <div
-          style={{
-            gridColumn: 1,
-            gridRow: 1,
-            marginLeft: 0,
-            marginTop: "115.58px",
-            width: "222.145px",
-            display: "flex",
-            flexDirection: "column",
-            gap: "24px",
-          }}
-        >
-          <ScrollRevealCard scrollYProgress={scrollYProgress} cardY={115.58} key={`c1-0-${activeClientIndex}`}>
-            <ImageCard
-              height={302}
-              src={posts[0]}
-              isHovered={hoveredId === "c1-0"}
-              onMouseEnter={() => handleCardEnter("c1-0")}
-              onMouseLeave={handleCardLeave}
-            />
-          </ScrollRevealCard>
-          <DynamicStatBlock
-            value={metrics.metric1.value}
-            suffix={metrics.metric1.suffix}
-            label={metrics.metric1.label}
-            delay={0}
-            scrollYProgress={scrollYProgress}
-            key={`metric1-${activeClientIndex}`}
-          />
-          {/* cardY = 115.58 + 302 + 24 + 110 + 24 = 575.58 */}
-          <ScrollRevealCard scrollYProgress={scrollYProgress} cardY={575.58} key={`c1-3-${activeClientIndex}`}>
-            <ImageCard
-              height={222}
-              src={posts[3]}
-              isHovered={hoveredId === "c1-3"}
-              onMouseEnter={() => handleCardEnter("c1-3")}
-              onMouseLeave={handleCardLeave}
-            />
-          </ScrollRevealCard>
-        </div>
-
-        {/* ── Column 2 — ml:260, mt:0 — Posts 1, 5, 6 (hero is post 1) ── */}
-        <div
-          style={{
-            gridColumn: 1,
-            gridRow: 1,
-            marginLeft: "260px",
-            marginTop: 0,
-            width: "222.3px",
-            display: "flex",
-            flexDirection: "column",
-            gap: "24px",
-          }}
-        >
-          {/* cardY = 0 */}
-          <ScrollRevealCard scrollYProgress={scrollYProgress} cardY={0} key={`c2-1-${activeClientIndex}`}>
-            <ImageCard
-              height={277}
-              src={posts[1]}
-              isHovered={hoveredId === "c2-1"}
-              onMouseEnter={() => handleCardEnter("c2-1")}
-              onMouseLeave={handleCardLeave}
-            />
-          </ScrollRevealCard>
-          {/* Hero card — measured for fullscreen → grid animation; cardY = 0+277+24 = 301 */}
-          <div ref={heroCardRef}>
-            <ScrollRevealCard scrollYProgress={scrollYProgress} cardY={301} key={`c2-hero-${activeClientIndex}`}>
-              <ImageCard
-                height={302}
-                src={posts[5]}
-                isHovered={hoveredId === "c2-hero"}
-                onMouseEnter={() => handleCardEnter("c2-hero")}
-                onMouseLeave={handleCardLeave}
-              />
-            </ScrollRevealCard>
-          </div>
-          {/* cardY = 301 + 302 + 24 = 627 */}
-          <ScrollRevealCard scrollYProgress={scrollYProgress} cardY={627} key={`c2-6-${activeClientIndex}`}>
-            <ImageCard
-              height={253}
-              src={posts[6]}
-              isHovered={hoveredId === "c2-6"}
-              onMouseEnter={() => handleCardEnter("c2-6")}
-              onMouseLeave={handleCardLeave}
-            />
-          </ScrollRevealCard>
-        </div>
-
-        {/* ── Column 3 — ml:519.86, mt:43 — Posts 2, 4 + Metric2 ── */}
-        <div
-          style={{
-            gridColumn: 1,
-            gridRow: 1,
-            marginLeft: "519.86px",
-            marginTop: "43px",
-            width: "222.144px",
-            display: "flex",
-            flexDirection: "column",
-            gap: "24px",
-          }}
-        >
-          {/* cardY = 43 */}
-          <ScrollRevealCard scrollYProgress={scrollYProgress} cardY={43} key={`c3-2-${activeClientIndex}`}>
-            <ImageCard
-              height={302}
-              src={posts[2]}
-              isHovered={hoveredId === "c3-2"}
-              onMouseEnter={() => handleCardEnter("c3-2")}
-              onMouseLeave={handleCardLeave}
-            />
-          </ScrollRevealCard>
-          <DynamicStatBlock
-            value={metrics.metric2.value}
-            suffix={metrics.metric2.suffix}
-            label={metrics.metric2.label}
-            delay={0.1}
-            scrollYProgress={scrollYProgress}
-            key={`metric2-${activeClientIndex}`}
-          />
-          {/* cardY = 43 + 302 + 24 + 110 + 24 = 503 */}
-          <ScrollRevealCard scrollYProgress={scrollYProgress} cardY={503} key={`c3-4-${activeClientIndex}`}>
-            <ImageCard
-              height={222}
-              src={posts[4]}
-              isHovered={hoveredId === "c3-4"}
-              onMouseEnter={() => handleCardEnter("c3-4")}
-              onMouseLeave={handleCardLeave}
-            />
-          </ScrollRevealCard>
-        </div>
-      </motion.div>
-    </>
-  );
-}
-
-/* ─── LIST ITEMS DATA ────────────────────────────────────────────────────── */
-const LIST_ITEMS = [
-  { label: "Foodrite" },
-  { label: "NutriBlend" },
-  { label: "FreshHarvest" },
-  { label: "PureVitality" },
-  { label: "GoldenGrain" },
-];
-
-/* ─── CLIENT PORTFOLIO DATA ──────────────────────────────────────────────── */
-// Each client has 7 creative posts + 2 metrics (9 items total in masonry grid)
-const CLIENT_PORTFOLIOS = [
-  // Foodrite
-  {
-    posts: [
-      "https://images.unsplash.com/photo-1669384536597-99ae8c881e65?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1760754726716-45970152ebd5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1759167632930-298bca6b4268?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1757800945895-a08e7eff9702?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1760020945158-3e953b4d7ea6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1642294541583-c58730caa762?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1526383426426-c1716158d22a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-    ],
-    metrics: {
-      metric1: { value: 156, suffix: "+", label: "Products Launched Successfully" },
-      metric2: { value: 87, suffix: "%", label: "Market Share Growth Rate" },
-    },
-  },
-  // NutriBlend
-  {
-    posts: [
-      "https://images.unsplash.com/photo-1683343960120-830be550f611?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1734773557735-8fc50f94b473?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1661668998418-ff67c6b0194e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1621601928608-35b5e634e6da?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1768850418251-17480117ac9b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1616662707741-9f32deea4863?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1771209935035-26c1b6635d54?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-    ],
-    metrics: {
-      metric1: { value: 240, suffix: "+", label: "We power discovery engagement" },
-      metric2: { value: 92, suffix: "%", label: "Customer retention rate achieved" },
-    },
-  },
-  // FreshHarvest
-  {
-    posts: [
-      "https://images.unsplash.com/photo-1634825881542-9bd54ca437ea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1641693148759-843d17ceac24?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1741519301128-8426ea15d03e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1734018959142-cf239ce90c82?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1763686483398-730a9555b3f5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1629148302952-75d79bb167ad?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1766871138860-bff0f7a91395?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-    ],
-    metrics: {
-      metric1: { value: 189, suffix: "+", label: "Brand campaigns delivered" },
-      metric2: { value: 95, suffix: "%", label: "Organic reach improvement" },
-    },
-  },
-  // PureVitality
-  {
-    posts: [
-      "https://images.unsplash.com/photo-1678875525705-1952dd9dd430?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1617570794101-8d64becb0167?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1772900764482-ea6c74fb3bfa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1757856632627-0c2b8453348f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1582587931228-ea9fc296ffb0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1619995746608-bef3de4f075a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1555932450-31a8aec2adf1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-    ],
-    metrics: {
-      metric1: { value: 310, suffix: "+", label: "Social media posts created" },
-      metric2: { value: 88, suffix: "%", label: "Conversion rate uplift" },
-    },
-  },
-  // GoldenGrain
-  {
-    posts: [
-      "https://images.unsplash.com/photo-1645549826194-1956802d83c2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1607522154446-86a1b4b90556?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1651927192156-7d4b2360a31d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1765850257647-811b8d3c20ca?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1633360821154-1935fb5671e6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1622766815178-641bef2b4630?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-      "https://images.unsplash.com/photo-1646980990815-1e97d5ee932f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
-    ],
-    metrics: {
-      metric1: { value: 275, suffix: "+", label: "Content assets produced" },
-      metric2: { value: 91, suffix: "%", label: "Brand awareness increase" },
-    },
-  },
-];
-
-/* ─── LIST PANEL ─────────────────────────────────────────────────────────── */
-function ListPanel({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [hoverIndex, setHoverIndex] = useState<number | null>(null);
-
-  // Phase C (0.40 → 1.0): drive active item with scroll
-  useMotionValueEvent(scrollYProgress, "change", (p) => {
-    if (p >= 0.4) {
-      const phaseC = clamp((p - 0.4) / 0.6, 0, 1);
-      const idx = Math.min(LIST_ITEMS.length - 1, Math.floor(phaseC * LIST_ITEMS.length));
-      setActiveIndex(idx);
-    }
-  });
-
-  const handleClick = useCallback((i: number) => {
-    setActiveIndex(i);
-  }, []);
-
-  return (
-    <div
-      style={{
-        width: "257px",
-        flexShrink: 0,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "flex-start",
-        justifyContent: "center",
-        alignSelf: "flex-start",
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "14px",
-          alignItems: "flex-start",
-          paddingLeft: "40px",
-          paddingTop: "84px",
-          width: "100%",
-        }}
-      >
-        {LIST_ITEMS.map((item, i) => {
-          const isActive = i === activeIndex;
-          const isHovered = i === hoverIndex;
-          const labelWords  = item.label.split(" ");
-
+    <nav aria-label="Native Unit portfolio clients">
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        {portfolios.map((portfolio, index) => {
+          const active = index === activeIndex;
           return (
-            <div key={i} style={{ display: "contents" }}>
-              {/* List item row */}
-              <motion.div
-                onClick={() => handleClick(i)}
-                onHoverStart={() => setHoverIndex(i)}
-                onHoverEnd={() => setHoverIndex(null)}
+            <button
+              key={portfolio.id}
+              type="button"
+              aria-current={active ? "true" : undefined}
+              onClick={() => onSelect(index)}
+              style={{
+                position: "relative",
+                width: "100%",
+                padding: "14px 8px 14px 24px",
+                border: 0,
+                borderBottom: "1px solid #222",
+                background: "transparent",
+                color: active ? "#fff" : "#555",
+                cursor: "pointer",
+                fontFamily: "Manrope, sans-serif",
+                fontSize: 15,
+                fontWeight: active ? 650 : 500,
+                lineHeight: 1.35,
+                textAlign: "left",
+                transition: "color 180ms ease",
+              }}
+            >
+              <motion.span
+                aria-hidden="true"
                 animate={{
-                  opacity: isActive ? 1 : isHovered ? 0.75 : 0.45,
-                  x: isActive ? 0 : isHovered ? 2 : 0,
+                  scale: active ? 1 : 0,
+                  opacity: active ? 1 : 0,
                 }}
-                transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
                 style={{
-                  width: "100%",
-                  cursor: "pointer",
-                  userSelect: "none",
+                  position: "absolute",
+                  top: "50%",
+                  left: 4,
+                  width: 7,
+                  height: 7,
+                  marginTop: -3.5,
+                  borderRadius: "50%",
+                  background: ACCENT,
                 }}
-              >
-                {isActive ? (
-                  /* Active: bullet + white text + detail */
-                  <div style={{ width: "100%" }}>
-                    <div
-                      className="flex flex-row items-center"
-                      style={{ paddingLeft: "6px" }}
-                    >
-                      <ul
-                        style={{
-                          fontFamily: "Manrope, sans-serif",
-                          fontWeight: 600,
-                          fontSize: "16px",
-                          lineHeight: "26px",
-                          color: "white",
-                          width: "217px",
-                          margin: 0,
-                          padding: 0,
-                          listStyle: "disc",
-                          paddingLeft: "24px",
-                        }}
-                      >
-                        {/* Active label — word-by-word reveal on mount */}
-                        <li style={{ whiteSpace: "pre-wrap" }}>
-                          {labelWords.map((word, wi) => (
-                            <motion.span
-                              key={wi}
-                              initial={{ opacity: 0.15 }}
-                              animate={{ opacity: 1 }}
-                              transition={{
-                                duration: 0.45,
-                                ease: "easeOut",
-                                delay: wi * 0.07,
-                              }}
-                              style={{
-                                marginRight: wi < labelWords.length - 1 ? "0.28em" : 0,
-                              }}
-                            >
-                              {word}
-                            </motion.span>
-                          ))}
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                ) : (
-                  /* Inactive: plain gray text (parent motion.div handles opacity) */
-                  <div className="flex items-center" style={{ width: "100%" }}>
-                    <p
-                      style={{
-                        fontFamily: "Manrope, sans-serif",
-                        fontWeight: 500,
-                        fontSize: "15px",
-                        lineHeight: "26px",
-                        color: "#414141",
-                        width: "217px",
-                        whiteSpace: "pre-wrap",
-                        margin: 0,
-                        transition: "color 0.2s ease",
-                      }}
-                    >
-                      {item.label}
-                    </p>
-                  </div>
-                )}
-              </motion.div>
-
-              {/* Gradient divider */}
-              {i < LIST_ITEMS.length - 1 && (
-                <div style={{ flexShrink: 0 }}>
-                  <GradientLine width={115} />
-                </div>
-              )}
-            </div>
+              />
+              {portfolio.name}
+            </button>
           );
         })}
       </div>
-    </div>
+    </nav>
   );
 }
 
-/* ─── TITLE ROW ──────────────────────────────────────────────────────────── */
-function TitleRow() {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: false, margin: "-50px" });
-
-  // Helper: one motion.span per word with staggered scroll-reveal opacity
-  const W = (word: string, i: number, fw: number, color: string) => (
-    <motion.span
-      style={{ fontWeight: fw, color }}
-      animate={{ opacity: isInView ? 1 : 0.15 }}
-      transition={{ duration: 0.5, ease: "easeOut", delay: i * 0.07 }}
-    >
-      {word}
-    </motion.span>
-  );
-
-  return (
-    <div
-      ref={ref}
-      style={{
-        display: "flex",
-        alignItems: "flex-start",
-        justifyContent: "space-between",
-        width: "1061px",
-        flexShrink: 0,
-      }}
-    >
-      {/* Left: Title text */}
-      <div style={{ width: "680px", flexShrink: 0 }}>
-        <div
-          className="capitalize"
-          style={{
-            fontFamily: "Manrope, sans-serif",
-            fontSize: "48px",
-            lineHeight: "1.44",
-            whiteSpace: "pre-wrap",
-            width: "100%",
-          }}
-        >
-          <p style={{ margin: 0 }}>
-            {W("The", 0, 700, "white")}{" "}
-            {W("Native", 1, 700, "white")}{" "}
-            {W("Unit", 2, 700, "white")}
-          </p>
-          <p style={{ margin: 0, fontWeight: 300, color: "#8e8e8e" }}>
-            {W("Scale", 3, 300, "#8e8e8e")}{" "}
-            {W("That", 4, 300, "#8e8e8e")}{" "}
-            {W("Converts.", 5, 300, "#8e8e8e")}{" "}
-            {W("From", 6, 300, "#8e8e8e")}{" "}
-            {W("Shelf", 7, 300, "#8e8e8e")}{" "}
-            {W("to", 8, 300, "#8e8e8e")}{" "}
-            {W("Cart.", 9, 300, "#8e8e8e")}
-          </p>
-        </div>
-      </div>
-
-      {/* Right: Badge + Gradient line */}
-      <div style={{ position: "relative", flexShrink: 0 }}>
-        <div style={{ paddingTop: "20px", marginLeft: "148.5px" }}>
-          <FmcgBadge />
-        </div>
-        <div
-          style={{
-            position: "absolute",
-            top: "36px",
-            left: 0,
-            transform: "rotate(180deg)",
-          }}
-        >
-          <GradientLine width={134} />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ─── CONTENT ROW (selected element) ────────────────────────────────────── */
-function ContentRow({
-  scrollYProgress,
-  heroCardRef,
-  activeClientIndex,
+function ContinuousPortfolioTrack({
+  portfolios,
+  galleryY,
+  galleryRef,
+  firstCardRef,
+  onMarkerRef,
+  onImageClick,
 }: {
-  scrollYProgress: MotionValue<number>;
-  heroCardRef: RefObject<HTMLDivElement | null>;
-  activeClientIndex: number;
+  portfolios: NativeUnitPortfolio[];
+  galleryY: MotionValue<number>;
+  galleryRef: RefObject<HTMLDivElement | null>;
+  firstCardRef?: RefObject<HTMLElement | null>;
+  onMarkerRef: (index: number, element: HTMLDivElement | null) => void;
+  onImageClick: (portfolioIndex: number, imageIndex: number) => void;
 }) {
-  return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "flex-start",
-        justifyContent: "space-between",
-        width: "1100px",
-        flexShrink: 0,
-        position: "relative",
-      }}
-    >
-      {/* ── Left: Sticky interactive list ── */}
-      <ListPanel scrollYProgress={scrollYProgress} />
+  const columns = useMemo(() => {
+    const nextColumns: {
+      portfolio: NativeUnitPortfolio;
+      portfolioIndex: number;
+      imageIndex: number;
+      src: string;
+    }[][] = [[], [], []];
+    const estimatedColumnHeights = [0.25, 0, 0.12];
 
-      {/* ── Right: Scrolling masonry grid with bottom fade ── */}
-      <div
-        style={{
-          flexShrink: 0,
-          position: "relative",
-          height: "680px",
-          overflow: "hidden",
-        }}
-      >
-        <MasonryGrid
-          scrollYProgress={scrollYProgress}
-          heroCardRef={heroCardRef}
-          activeClientIndex={activeClientIndex}
-        />
+    portfolios.forEach((portfolio, portfolioIndex) => {
+      portfolio.images.forEach((src, imageIndex) => {
+        const isFirstCard = portfolioIndex === 0 && imageIndex === 0;
+        const columnIndex = isFirstCard
+          ? 0
+          : estimatedColumnHeights.indexOf(
+              Math.min(...estimatedColumnHeights),
+            );
 
-        {/* Bottom fade → infinite scroll illusion */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: 0,
-            left: 0,
-            right: 0,
-            height: "220px",
-            background:
-              "linear-gradient(to top, #0a0a0a 0%, rgba(10,10,10,0.85) 40%, transparent 100%)",
-            pointerEvents: "none",
-            zIndex: 5,
-          }}
-        />
-
-        {/* Top fade → smooth entry */}
-        <div
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            height: "60px",
-            background:
-              "linear-gradient(to bottom, #0a0a0a 0%, transparent 100%)",
-            pointerEvents: "none",
-            zIndex: 5,
-          }}
-        />
-      </div>
-    </div>
-  );
-}
-
-/* ─── MOBILE / TABLET LAYOUT (≤ 1024 px) ────────────────────────────────── */
-// Sections stacked vertically. Sticky tab bar auto-activates + auto-scrolls
-// as the user scrolls through each content block. Clicking a tab jumps there.
-function FmcgMobileLayout() {
-  const imgs = useContext(FmcgImagesCtx);
-  const [activeTab, setActiveTab] = useState(0);
-  const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const tabsRef    = useRef<HTMLDivElement>(null);
-  const tabBtnRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const isClickScrolling = useRef(false);
-
-  // 2 images per tab — hero (tall) + secondary (shorter)
-  const TAB_IMAGES: [string, string][] = [
-    [imgs.c2top, imgs.c1top],
-    [imgs.c1top, imgs.c3top],
-    [imgs.c3top, imgs.c3mid],
-    [imgs.c2btm, imgs.c1btm],
-    [imgs.c3mid, imgs.c2top],
-  ];
-
-  // Centre the active tab pill in the scrollable bar
-  const scrollTabIntoView = useCallback((idx: number) => {
-    const btn       = tabBtnRefs.current[idx];
-    const container = tabsRef.current;
-    if (!btn || !container) return;
-    container.scrollTo({
-      left: btn.offsetLeft - container.offsetWidth / 2 + btn.offsetWidth / 2,
-      behavior: "smooth",
+        nextColumns[columnIndex].push({
+          portfolio,
+          portfolioIndex,
+          imageIndex,
+          src,
+        });
+        estimatedColumnHeights[columnIndex] += estimatedImageHeight(src) + 0.05;
+      });
     });
-  }, []);
 
-  // Scroll listener — activate whichever section's top is ≤ 38 % of viewport
-  useEffect(() => {
-    const onScroll = () => {
-      if (isClickScrolling.current) return;
-      const trigger = window.scrollY + window.innerHeight * 0.38;
-      let active = 0;
-      sectionRefs.current.forEach((ref, i) => {
-        if (ref && ref.getBoundingClientRect().top + window.scrollY <= trigger) {
-          active = i;
-        }
-      });
-      setActiveTab((prev) => {
-        if (prev !== active) scrollTabIntoView(active);
-        return active;
-      });
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [scrollTabIntoView]);
-
-  const handleTabClick = (i: number) => {
-    setActiveTab(i);
-    scrollTabIntoView(i);
-    isClickScrolling.current = true;
-    sectionRefs.current[i]?.scrollIntoView({ behavior: "smooth", block: "start" });
-    setTimeout(() => { isClickScrolling.current = false; }, 900);
-  };
+    return nextColumns;
+  }, [portfolios]);
 
   return (
-    <section
+    <motion.div
+      ref={galleryRef}
       style={{
-        background: "#0a0a0a",
-        width: "100%",
-        boxSizing: "border-box",
-        padding: "52px 0 60px",
+        position: "relative",
+        display: "grid",
+        gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+        alignItems: "start",
+        gap: 18,
+        y: galleryY,
+        padding: "8px 0 40px",
+        transformOrigin: "center top",
       }}
     >
-      {/* hide scrollbar cross-browser */}
-      <style>{`.fmcg-tabs::-webkit-scrollbar{display:none}`}</style>
-
-      {/* Header: badge + title */}
-      <div style={{ padding: "0 20px", boxSizing: "border-box" }}>
-        <FmcgBadge />
+      {columns.map((items, columnIndex) => (
         <div
-          style={{
-            fontFamily: "Manrope, sans-serif",
-            lineHeight: "1.35",
-            marginTop: "20px",
-            marginBottom: "28px",
-          }}
-        >
-          <p style={{ margin: 0, fontSize: "clamp(26px, 7vw, 38px)" }}>
-            <span style={{ fontWeight: 700, color: "white" }}>The Native Unit </span>
-            <span style={{ fontWeight: 300, color: "#8e8e8e" }}>Scale That Converts. From Shelf to Cart.</span>
-          </p>
-        </div>
-      </div>
-
-      {/* ── Sticky horizontal tab bar ── */}
-      <div
-        style={{
-          position: "sticky",
-          top: 0,
-          zIndex: 30,
-          background: "#0a0a0a",
-          borderBottom: "1px solid #1a1a1a",
-        }}
-      >
-        <div
-          ref={tabsRef}
-          className="fmcg-tabs"
+          key={`continuous-column-${columnIndex}`}
           style={{
             display: "flex",
-            gap: "10px",
-            overflowX: "auto",
-            scrollbarWidth: "none",
-            padding: "12px 20px 10px",
+            flexDirection: "column",
+            gap: 18,
+            paddingTop: columnIndex === 0 ? 88 : columnIndex === 2 ? 42 : 0,
           }}
         >
-          {LIST_ITEMS.map((item, i) => (
-            <button
-              key={i}
-              ref={(el) => { tabBtnRefs.current[i] = el; }}
-              onClick={() => handleTabClick(i)}
-              style={{
-                flexShrink: 0,
-                padding: "8px 18px",
-                borderRadius: "40px",
-                border: `1px solid ${i === activeTab ? "#FFA600" : "#414141"}`,
-                background: i === activeTab ? "rgba(255,166,0,0.08)" : "#111",
-                color: i === activeTab ? "#FFA600" : "#747474",
-                fontFamily: "Poppins, sans-serif",
-                fontSize: "13px",
-                fontWeight: 400,
-                cursor: "pointer",
-                whiteSpace: "nowrap",
-                lineHeight: "normal",
-                transition: "border-color 0.2s, color 0.2s, background 0.2s",
-              }}
+          {items.map(({ portfolio, portfolioIndex, imageIndex, src }) => (
+            <div
+              key={`${portfolio.id}-${src}`}
+              ref={
+                portfolioIndex === 0 && imageIndex === 0
+                  ? firstCardRef
+                  : undefined
+              }
+              style={{ position: "relative", width: "100%" }}
             >
-              {item.label}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* ── Vertically stacked tab sections ── */}
-      <div style={{ padding: "0 20px", boxSizing: "border-box" }}>
-        {LIST_ITEMS.map((item, i) => (
-          <div
-            key={i}
-            ref={(el) => { sectionRefs.current[i] = el; }}
-            style={{
-              paddingTop: "32px",
-              paddingBottom: "44px",
-              borderBottom: i < LIST_ITEMS.length - 1 ? "1px solid #1a1a1a" : "none",
-            }}
-          >
-            {/* Images: hero (tall) + secondary (shorter) */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
-              {TAB_IMAGES[i].map((src, j) => (
+              {imageIndex === 0 && (
                 <div
-                  key={j}
+                  ref={(element) => onMarkerRef(portfolioIndex, element)}
+                  aria-hidden="true"
                   style={{
+                    position: "absolute",
+                    top: -9,
+                    left: 0,
+                    width: 1,
+                    height: 1,
+                    pointerEvents: "none",
+                  }}
+                />
+              )}
+              <figure
+                style={{
+                  width: "100%",
+                  margin: 0,
+                  overflow: "hidden",
+                  border: "1px solid #202020",
+                  borderRadius: 14,
+                  background: "#111",
+                }}
+              >
+                <button
+                  type="button"
+                  aria-label={`Open ${portfolio.name} portfolio creative ${imageIndex + 1}`}
+                  onClick={() => onImageClick(portfolioIndex, imageIndex)}
+                  style={{
+                    display: "block",
                     width: "100%",
-                    borderRadius: "16px",
-                    overflow: "hidden",
-                    height: j === 0 ? "clamp(200px, 55vw, 300px)" : "clamp(140px, 36vw, 200px)",
-                    flexShrink: 0,
+                    padding: 0,
+                    border: 0,
+                    background: "transparent",
+                    cursor: "zoom-in",
                   }}
                 >
                   <ImageWithFallback
                     src={src}
-                    alt=""
-                    style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                    alt={`${portfolio.name} portfolio creative ${imageIndex + 1}`}
+                    loading={portfolioIndex === 0 ? "eager" : "lazy"}
+                    decoding="async"
+                    style={{
+                      display: "block",
+                      width: "100%",
+                      height: "auto",
+                      objectFit: "contain",
+                    }}
                   />
-                </div>
-              ))}
+                </button>
+              </figure>
             </div>
-          </div>
-        ))}
-      </div>
-
-      {/* ── Stats row ── */}
-      <div style={{ padding: "0 20px", boxSizing: "border-box" }}>
-        <div style={{ display: "flex", gap: "32px", flexWrap: "wrap" }}>
-          <div style={{ display: "flex", flexDirection: "column", gap: "6px", flex: "1 1 120px" }}>
-            <p style={{ margin: 0, fontFamily: "Manrope, sans-serif", fontWeight: 400, fontSize: "48px", lineHeight: "56px", color: "#FFA600" }}>
-              123<span style={{ fontWeight: 200, fontSize: "40px" }}>+</span>
-            </p>
-            <p style={{ margin: 0, fontFamily: "Poppins, sans-serif", fontWeight: 300, fontSize: "14px", lineHeight: "22px", color: "#747474" }}>
-              Revenue Growth for Clients
-            </p>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: "6px", flex: "1 1 120px" }}>
-            <p style={{ margin: 0, fontFamily: "Manrope, sans-serif", fontWeight: 400, fontSize: "48px", lineHeight: "56px", color: "#FFA600" }}>
-              98<span style={{ fontWeight: 400, fontSize: "30px" }}>%</span>
-            </p>
-            <p style={{ margin: 0, fontFamily: "Poppins, sans-serif", fontWeight: 300, fontSize: "14px", lineHeight: "22px", color: "#747474" }}>
-              Repeat Purchase Strategy Success
-            </p>
-          </div>
+          ))}
         </div>
-      </div>
-    </section>
+      ))}
+    </motion.div>
   );
 }
 
-/* ─── FMCG PORTFOLIO SECTION ─────────────────────────────────────────────── */
-// Desktop logic lives in FmcgDesktopLayout so that FmcgSection can
-// conditionally render mobile/desktop without violating the Rules of Hooks.
-function FmcgDesktopLayout() {
-  const imgs = useContext(FmcgImagesCtx);
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const heroCardRef = useRef<HTMLDivElement>(null);
-  const cardBoundsRef = useRef({ top: 520, left: 788, width: 222, height: 301 });
-  const hasMeasured = useRef(false);
-
-  const heroLeft = useMotionValue(0);
-  const heroTop = useMotionValue(0);
-  const heroW = useMotionValue(
-    typeof window !== "undefined" ? window.innerWidth : 1440
+function FullscreenIntro({
+  progress,
+  image,
+  targetRef,
+}: {
+  progress: MotionValue<number>;
+  image: string;
+  targetRef: RefObject<HTMLElement | null>;
+}) {
+  const bounds = useRef({ top: 220, left: 660, width: 260, height: 300 });
+  const left = useMotionValue(0);
+  const top = useMotionValue(0);
+  const width = useMotionValue(
+    typeof window === "undefined" ? 1440 : window.innerWidth,
   );
-  const heroH = useMotionValue(
-    typeof window !== "undefined" ? window.innerHeight : 900
+  const height = useMotionValue(
+    typeof window === "undefined" ? 900 : window.innerHeight,
   );
-  const heroBR = useMotionValue(0);
-
-  const { scrollY } = useScroll();
-
-  const sectionTopRef = useRef(0);
-  const sectionHeightRef = useRef(
-    typeof window !== "undefined" ? window.innerHeight * 5 : 4500
+  const radius = useMotionValue(0);
+  const opacity = useTransform(progress, [0.105, 0.14], [1, 0]);
+  const display = useTransform(progress, (value) =>
+    value >= 0.145 ? "none" : "block",
   );
 
-  // Track active client index based on scroll
-  const [activeClientIndex, setActiveClientIndex] = useState(0);
+  const measure = useCallback(() => {
+    const target = targetRef.current;
+    if (!target) return;
+    const rect = target.getBoundingClientRect();
+    bounds.current = {
+      top: rect.top,
+      left: rect.left,
+      width: rect.width,
+      height: rect.height,
+    };
+  }, [targetRef]);
 
   useEffect(() => {
-    const measure = () => {
-      if (sectionRef.current) {
-        const rect = sectionRef.current.getBoundingClientRect();
-        sectionTopRef.current = window.scrollY + rect.top;
-        sectionHeightRef.current = rect.height;
-      }
-    };
-    requestAnimationFrame(measure);
+    const frame = requestAnimationFrame(measure);
+    const observer = new ResizeObserver(measure);
+    if (targetRef.current) observer.observe(targetRef.current);
     window.addEventListener("resize", measure);
-    return () => window.removeEventListener("resize", measure);
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, [measure]);
+
+  useMotionValueEvent(progress, "change", (value) => {
+    const transitionProgress = easeInOut(clamp(value / INTRO_END, 0, 1));
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+    const target = bounds.current;
+    left.set(lerp(0, target.left, transitionProgress));
+    top.set(lerp(0, target.top, transitionProgress));
+    width.set(lerp(viewportWidth, target.width, transitionProgress));
+    height.set(lerp(viewportHeight, target.height, transitionProgress));
+    radius.set(lerp(0, 14, transitionProgress));
+  });
+
+  return (
+    <motion.div
+      aria-hidden="true"
+      style={{
+        position: "absolute",
+        left,
+        top,
+        width,
+        height,
+        borderRadius: radius,
+        overflow: "hidden",
+        opacity,
+        display,
+        zIndex: 20,
+        background: "#111",
+        pointerEvents: "none",
+      }}
+    >
+      <ImageWithFallback
+        src={image}
+        alt=""
+        style={{
+          display: "block",
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+        }}
+      />
+    </motion.div>
+  );
+}
+
+function DesktopPortfolio({
+  portfolios,
+  heading,
+  subheading,
+}: {
+  portfolios: NativeUnitPortfolio[];
+  heading: string;
+  subheading: string;
+}) {
+  const sectionRef = useRef<HTMLElement>(null);
+  const galleryViewportRef = useRef<HTMLDivElement>(null);
+  const galleryRef = useRef<HTMLDivElement>(null);
+  const firstCardRef = useRef<HTMLElement>(null);
+  const clientMarkerRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const clientMarkerOffsets = useRef<number[]>([]);
+  const galleryOverflow = useRef(0);
+  const activeIndexRef = useRef(0);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [selectedImage, setSelectedImage] =
+    useState<LightboxSelection | null>(null);
+  const galleryTargetY = useMotionValue(0);
+  const galleryY = useSpring(galleryTargetY, {
+    stiffness: 150,
+    damping: 28,
+    mass: 0.35,
+  });
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end end"],
+  });
+
+  const measureGallery = useCallback(() => {
+    const gallery = galleryRef.current;
+    galleryOverflow.current = Math.max(
+      0,
+      (gallery?.scrollHeight || 0) -
+        (galleryViewportRef.current?.clientHeight || 0),
+    );
+
+    if (gallery) {
+      const galleryTop = gallery.getBoundingClientRect().top;
+      clientMarkerOffsets.current = clientMarkerRefs.current.map((marker) =>
+        marker ? marker.getBoundingClientRect().top - galleryTop : 0,
+      );
+    }
   }, []);
 
-  const scrollYProgress = useTransform(scrollY, (sy) => {
-    const top = sectionTopRef.current;
-    const height = sectionHeightRef.current;
-    if (height === 0) return 0;
-    return clamp((sy - top) / height, 0, 1);
+  useEffect(() => {
+    const frame = requestAnimationFrame(measureGallery);
+    const observer = new ResizeObserver(measureGallery);
+    if (galleryRef.current) observer.observe(galleryRef.current);
+    if (galleryViewportRef.current) observer.observe(galleryViewportRef.current);
+    window.addEventListener("resize", measureGallery);
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      window.removeEventListener("resize", measureGallery);
+    };
+  }, [activeIndex, measureGallery]);
+
+  useMotionValueEvent(scrollYProgress, "change", (progress) => {
+    const portfolioProgress = clamp(
+      (progress - INTRO_END) / (1 - INTRO_END),
+      0,
+      1,
+    );
+    const travelProgress = clamp(
+      (portfolioProgress - 0.02) / 0.96,
+      0,
+      1,
+    );
+    const nextGalleryY = -galleryOverflow.current * travelProgress;
+    galleryTargetY.set(nextGalleryY);
+
+    const focusOffset =
+      -nextGalleryY +
+      (galleryViewportRef.current?.clientHeight || window.innerHeight) * 0.28;
+    let nextIndex = 0;
+    clientMarkerOffsets.current.forEach((offset, index) => {
+      if (offset <= focusOffset) nextIndex = index;
+    });
+
+    if (nextIndex !== activeIndexRef.current) {
+      activeIndexRef.current = nextIndex;
+      setActiveIndex(nextIndex);
+    }
   });
 
-  const heroOpacity = useTransform(scrollYProgress, [0.33, 0.50], [1, 0]);
-  const heroTextOpacity = useTransform(scrollYProgress, [0.0, 0.14], [1, 0]);
-  const layoutOpacity = useTransform(scrollYProgress, [0.28, 0.46], [0, 1]);
+  const selectPortfolio = useCallback(
+    (index: number) => {
+      const section = sectionRef.current;
+      if (!section) return;
+      const sectionTop = window.scrollY + section.getBoundingClientRect().top;
+      const scrollableDistance = section.offsetHeight - window.innerHeight;
+      const viewportLead =
+        (galleryViewportRef.current?.clientHeight || window.innerHeight) * 0.18;
+      const markerOffset =
+        clientMarkerOffsets.current[index] ??
+        (galleryOverflow.current * index) / portfolios.length;
+      const travelProgress =
+        galleryOverflow.current > 0
+          ? clamp(
+              (markerOffset - viewportLead) / galleryOverflow.current,
+              0,
+              1,
+            )
+          : 0;
+      const portfolioProgress = 0.02 + travelProgress * 0.96;
+      const targetProgress =
+        INTRO_END + portfolioProgress * (1 - INTRO_END);
+      window.scrollTo({
+        top: sectionTop + scrollableDistance * targetProgress,
+        behavior: "smooth",
+      });
+    },
+    [portfolios.length],
+  );
 
-  useMotionValueEvent(scrollYProgress, "change", (p) => {
-    if (p > 0.005 && !hasMeasured.current) {
-      hasMeasured.current = true;
-      if (heroCardRef.current) {
-        const rect = heroCardRef.current.getBoundingClientRect();
-        cardBoundsRef.current = {
-          top: rect.top,
-          left: rect.left,
-          width: rect.width,
-          height: rect.height,
-        };
-      }
-    }
-
-    // Update active client index based on scroll progress in Phase C
-    if (p >= 0.4) {
-      const phaseC = clamp((p - 0.4) / 0.6, 0, 1);
-      const idx = Math.min(CLIENT_PORTFOLIOS.length - 1, Math.floor(phaseC * CLIENT_PORTFOLIOS.length));
-      setActiveClientIndex(idx);
-    }
-
-    const phaseB_t = clamp((p - 0.15) / (0.4 - 0.15), 0, 1);
-    const t = easeInOut(phaseB_t);
-
-    const vw = typeof window !== "undefined" ? window.innerWidth : 1440;
-    const vh = typeof window !== "undefined" ? window.innerHeight : 900;
-    const b = cardBoundsRef.current;
-
-    heroLeft.set(lerp(0, b.left, t));
-    heroTop.set(lerp(0, b.top, t));
-    heroW.set(lerp(vw, b.width, t));
-    heroH.set(lerp(vh, b.height, t));
-    heroBR.set(lerp(0, 16, t));
-  });
+  const activePortfolio = portfolios[activeIndex];
 
   return (
     <section
       ref={sectionRef}
-      style={{ height: "500vh", position: "relative", width: "100%" }}
+      aria-label="The Native Unit client portfolio"
+      style={{
+        position: "relative",
+        width: "100%",
+        height: "760vh",
+        background: "#0a0a0a",
+      }}
     >
       <div
         style={{
           position: "sticky",
           top: 0,
+          width: "100%",
           height: "100vh",
           overflow: "hidden",
           background: "#0a0a0a",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
         }}
       >
-        {/* ── Hero image overlay: fullscreen → middle card ── */}
-        <motion.div
-          style={{
-            position: "absolute",
-            left: heroLeft,
-            top: heroTop,
-            width: heroW,
-            height: heroH,
-            borderRadius: heroBR,
-            overflow: "hidden",
-            zIndex: 20,
-            opacity: heroOpacity,
-          }}
-        >
-          <ImageWithFallback
-            src={imgs.hero}
-            alt="FMCG Portfolio"
-            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-          />
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              background:
-                "linear-gradient(to right, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.15) 60%, transparent 100%)",
-            }}
-          />
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              background: "linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 50%)",
-            }}
-          />
-          <motion.div
-            style={{
-              position: "absolute",
-              bottom: "12%",
-              left: "7%",
-              opacity: heroTextOpacity,
-            }}
-          >
-            <div
-              style={{
-                background: "#111",
-                border: "1px solid #414141",
-                borderRadius: "40px",
-                padding: "6px 20px",
-                display: "inline-flex",
-                marginBottom: "16px",
-              }}
-            >
-              <span
-                style={{
-                  fontFamily: "Poppins, sans-serif",
-                  fontWeight: 400,
-                  fontSize: "13px",
-                  color: "#FFA600",
-                }}
-              >
-                The Native Unit
-              </span>
-            </div>
-            <div
-              style={{
-                fontFamily: "Manrope, sans-serif",
-                fontWeight: 700,
-                fontSize: "52px",
-                lineHeight: "1.22",
-                color: "white",
-              }}
-            >
-              <div>Scale That Converts.</div>
-              <div style={{ fontWeight: 300, color: "#8e8e8e" }}>From Shelf to Cart.</div>
-            </div>
-          </motion.div>
-        </motion.div>
-
-        {/* ── Main layout (fades in as hero contracts) ── */}
         <motion.div
           style={{
             position: "absolute",
             inset: 0,
-            opacity: layoutOpacity,
             display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            paddingTop: "52px",
-            zIndex: 10,
+            justifyContent: "center",
+            padding: "34px 36px 28px",
+            boxSizing: "border-box",
           }}
         >
           <div
             style={{
-              width: "1200px",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
+              display: "grid",
+              gridTemplateRows: "auto minmax(0, 1fr)",
+              width: "min(1220px, 100%)",
+              minHeight: 0,
+              gap: 26,
+            }}
+          >
+            <header
+              style={{
+                display: "flex",
+                alignItems: "flex-start",
+                justifyContent: "space-between",
+                gap: 40,
+              }}
+            >
+              <SectionHeading heading={heading} subheading={subheading} />
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 14,
+                  paddingTop: 8,
+                  flexShrink: 0,
+                }}
+              >
+                <div
+                  aria-hidden="true"
+                  style={{
+                    width: 112,
+                    height: 1,
+                    background:
+                      "linear-gradient(90deg, transparent, #353535)",
+                  }}
+                />
+                <NativeUnitBadge />
+              </div>
+            </header>
+
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "230px minmax(0, 1fr)",
+                minHeight: 0,
+                gap: 44,
+              }}
+            >
+              <aside
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  minHeight: 0,
+                  paddingBottom: 70,
+                }}
+              >
+                <div>
+                  <p
+                    style={{
+                      margin: "0 0 10px",
+                      color: "#555",
+                      fontFamily: "Poppins, sans-serif",
+                      fontSize: 11,
+                      letterSpacing: "0.12em",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    Client portfolios
+                  </p>
+                  <PortfolioNavigation
+                    portfolios={portfolios}
+                    activeIndex={activeIndex}
+                    onSelect={selectPortfolio}
+                  />
+                </div>
+                <div
+                  key={`${activePortfolio.id}-metrics`}
+                >
+                  <Metrics metrics={activePortfolio.metrics} />
+                </div>
+              </aside>
+
+              <div
+                ref={galleryViewportRef}
+                style={{
+                  position: "relative",
+                  minWidth: 0,
+                  minHeight: 0,
+                  overflow: "hidden",
+                  borderTop: "1px solid #222",
+                }}
+              >
+                <ContinuousPortfolioTrack
+                  portfolios={portfolios}
+                  galleryY={galleryY}
+                  galleryRef={galleryRef}
+                  firstCardRef={firstCardRef}
+                  onMarkerRef={(index, element) => {
+                    clientMarkerRefs.current[index] = element;
+                  }}
+                  onImageClick={(portfolioIndex, imageIndex) =>
+                    setSelectedImage({ portfolioIndex, imageIndex })
+                  }
+                />
+                <div
+                  style={{
+                    position: "absolute",
+                    right: 12,
+                    bottom: 12,
+                    zIndex: 6,
+                    padding: "7px 10px",
+                    border: "1px solid #2d2d2d",
+                    borderRadius: 999,
+                    background: "rgba(10,10,10,.8)",
+                    color: "#858585",
+                    fontFamily: "Poppins, sans-serif",
+                    fontSize: 11,
+                  }}
+                >
+                  {String(activeIndex + 1).padStart(2, "0")} /{" "}
+                  {String(portfolios.length).padStart(2, "0")} ·{" "}
+                  {activePortfolio.images.length} creatives
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        <FullscreenIntro
+          progress={scrollYProgress}
+          image={portfolios[0].images[0]}
+          targetRef={firstCardRef}
+        />
+      </div>
+      <PortfolioLightbox
+        portfolios={portfolios}
+        selection={selectedImage}
+        onClose={() => setSelectedImage(null)}
+        onChange={setSelectedImage}
+      />
+    </section>
+  );
+}
+
+function MobilePortfolio({
+  portfolios,
+  heading,
+  subheading,
+}: {
+  portfolios: NativeUnitPortfolio[];
+  heading: string;
+  subheading: string;
+}) {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [selectedImage, setSelectedImage] =
+    useState<LightboxSelection | null>(null);
+  const sectionRefs = useRef<(HTMLElement | null)[]>([]);
+  const tabsRef = useRef<HTMLDivElement>(null);
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+
+  const centerTab = useCallback((index: number) => {
+    const tab = tabRefs.current[index];
+    const container = tabsRef.current;
+    if (!tab || !container) return;
+    container.scrollTo({
+      left: tab.offsetLeft - container.offsetWidth / 2 + tab.offsetWidth / 2,
+      behavior: "smooth",
+    });
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (!visible) return;
+        const index = Number(
+          (visible.target as HTMLElement).dataset.portfolioIndex,
+        );
+        setActiveIndex(index);
+        centerTab(index);
+      },
+      { rootMargin: "-24% 0px -55% 0px", threshold: [0.1, 0.35] },
+    );
+
+    sectionRefs.current.forEach((section) => {
+      if (section) observer.observe(section);
+    });
+    return () => observer.disconnect();
+  }, [centerTab]);
+
+  const selectPortfolio = (index: number) => {
+    setActiveIndex(index);
+    centerTab(index);
+    sectionRefs.current[index]?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
+  return (
+    <section
+      aria-label="The Native Unit client portfolio"
+      style={{
+        width: "100%",
+        padding: "56px 0 72px",
+        background: "#0a0a0a",
+      }}
+    >
+      <header style={{ padding: "0 20px 28px" }}>
+        <NativeUnitBadge />
+        <div style={{ marginTop: 22 }}>
+          <SectionHeading
+            heading={heading}
+            subheading={subheading}
+            compact
+          />
+        </div>
+      </header>
+
+      <div
+        style={{
+          position: "sticky",
+          top: 0,
+          zIndex: 20,
+          padding: "10px 0",
+          borderBlock: "1px solid #202020",
+          background: "rgba(10,10,10,.96)",
+          backdropFilter: "blur(12px)",
+        }}
+      >
+        <div
+          ref={tabsRef}
+          className="native-unit-tabs"
+          style={{
+            display: "flex",
+            gap: 9,
+            overflowX: "auto",
+            padding: "0 20px",
+            scrollbarWidth: "none",
+          }}
+        >
+          {portfolios.map((portfolio, index) => {
+            const active = index === activeIndex;
+            return (
+              <button
+                key={portfolio.id}
+                ref={(element) => {
+                  tabRefs.current[index] = element;
+                }}
+                type="button"
+                onClick={() => selectPortfolio(index)}
+                style={{
+                  flexShrink: 0,
+                  padding: "9px 15px",
+                  border: `1px solid ${active ? ACCENT : "#343434"}`,
+                  borderRadius: 999,
+                  background: active ? "rgba(255,166,0,.08)" : "#111",
+                  color: active ? ACCENT : "#777",
+                  cursor: "pointer",
+                  fontFamily: "Poppins, sans-serif",
+                  fontSize: 12,
+                  transition: "all 180ms ease",
+                }}
+              >
+                {portfolio.name}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      <div style={{ padding: "0 20px" }}>
+        {portfolios.map((portfolio, portfolioIndex) => (
+          <motion.article
+            key={portfolio.id}
+            ref={(element) => {
+              sectionRefs.current[portfolioIndex] = element;
+            }}
+            data-portfolio-index={portfolioIndex}
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-12%" }}
+            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            style={{
+              scrollMarginTop: 72,
+              padding: "44px 0 54px",
+              borderBottom:
+                portfolioIndex < portfolios.length - 1
+                  ? "1px solid #222"
+                  : 0,
             }}
           >
             <div
               style={{
                 display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                width: "100%",
-                gap: "28px",
+                alignItems: "baseline",
+                justifyContent: "space-between",
+                gap: 20,
+                marginBottom: 22,
               }}
             >
-              <TitleRow />
-              <ContentRow
-                scrollYProgress={scrollYProgress}
-                heroCardRef={heroCardRef}
-                activeClientIndex={activeClientIndex}
-              />
+              <h3
+                style={{
+                  margin: 0,
+                  color: "#fff",
+                  fontFamily: "Manrope, sans-serif",
+                  fontSize: "clamp(25px, 6vw, 34px)",
+                  fontWeight: 650,
+                  letterSpacing: "-0.025em",
+                }}
+              >
+                {portfolio.name}
+              </h3>
+              <span
+                style={{
+                  color: "#5f5f5f",
+                  fontFamily: "Poppins, sans-serif",
+                  fontSize: 11,
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {portfolio.images.length} creatives
+              </span>
             </div>
-          </div>
-        </motion.div>
+
+            <div style={{ marginBottom: 26 }}>
+              <Metrics metrics={portfolio.metrics} compact />
+            </div>
+
+            <div
+              className="native-unit-mobile-grid"
+              style={{
+                columnCount: 2,
+                columnGap: 10,
+              }}
+            >
+              {portfolio.images.map((src, imageIndex) => (
+                <figure
+                  key={src}
+                  style={{
+                    width: "100%",
+                    margin: "0 0 10px",
+                    breakInside: "avoid",
+                    overflow: "hidden",
+                    border: "1px solid #202020",
+                    borderRadius: 10,
+                    background: "#111",
+                  }}
+                >
+                  <button
+                    type="button"
+                    aria-label={`Open ${portfolio.name} portfolio creative ${imageIndex + 1}`}
+                    onClick={() =>
+                      setSelectedImage({ portfolioIndex, imageIndex })
+                    }
+                    style={{
+                      display: "block",
+                      width: "100%",
+                      padding: 0,
+                      border: 0,
+                      background: "transparent",
+                      cursor: "zoom-in",
+                    }}
+                  >
+                    <ImageWithFallback
+                      src={src}
+                      alt={`${portfolio.name} portfolio creative ${imageIndex + 1}`}
+                      loading="lazy"
+                      decoding="async"
+                      style={{
+                        display: "block",
+                        width: "100%",
+                        height: "auto",
+                        objectFit: "contain",
+                      }}
+                    />
+                  </button>
+                </figure>
+              ))}
+            </div>
+          </motion.article>
+        ))}
       </div>
+
+      <PortfolioLightbox
+        portfolios={portfolios}
+        selection={selectedImage}
+        onClose={() => setSelectedImage(null)}
+        onChange={setSelectedImage}
+      />
+
+      <style>{`
+        .native-unit-tabs::-webkit-scrollbar { display: none; }
+        @media (max-width: 420px) {
+          .native-unit-mobile-grid { column-count: 1; }
+        }
+      `}</style>
     </section>
   );
 }
 
 export function FmcgSection() {
-  const { content } = useCmsSectionContent();
-  const [isMobileTablet, setIsMobileTablet] = useState(() => window.innerWidth <= 1024);
-
-  const images: FmcgImages = {
-    hero:  String(content.heroImageUrl  || "") || IMG_HERO,
-    c1top: String(content.galleryImg1   || "") || IMG_C1_TOP,
-    c1btm: String(content.galleryImg2   || "") || IMG_C1_BTM,
-    c2top: String(content.galleryImg3   || "") || IMG_C2_TOP,
-    c2hero:String(content.heroImageUrl  || "") || IMG_C2_HERO,
-    c2btm: String(content.galleryImg4   || "") || IMG_C2_BTM,
-    c3top: String(content.galleryImg5   || "") || IMG_C3_TOP,
-    c3mid: String(content.galleryImg6   || "") || IMG_C3_MID,
-  };
+  const { content, items } = useCmsSectionContent();
+  const reduceMotion = useReducedMotion();
+  const [isMobileTablet, setIsMobileTablet] = useState(
+    () => typeof window !== "undefined" && window.innerWidth <= 1024,
+  );
+  const portfolios = useMemo(() => resolvePortfolios(items), [items]);
+  const heading = String(content.heading || "The Native Unit");
+  const subheading = String(
+    content.subheading || "Scale That Converts. From Shelf to Cart.",
+  );
 
   useEffect(() => {
-    const check = () => setIsMobileTablet(window.innerWidth <= 1024);
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
+    const checkViewport = () => setIsMobileTablet(window.innerWidth <= 1024);
+    window.addEventListener("resize", checkViewport, { passive: true });
+    return () => window.removeEventListener("resize", checkViewport);
   }, []);
 
+  if (isMobileTablet || reduceMotion) {
+    return (
+      <MobilePortfolio
+        portfolios={portfolios}
+        heading={heading}
+        subheading={subheading}
+      />
+    );
+  }
+
   return (
-    <FmcgImagesCtx.Provider value={images}>
-      {isMobileTablet ? <FmcgMobileLayout /> : <FmcgDesktopLayout />}
-    </FmcgImagesCtx.Provider>
+    <DesktopPortfolio
+      portfolios={portfolios}
+      heading={heading}
+      subheading={subheading}
+    />
   );
 }
