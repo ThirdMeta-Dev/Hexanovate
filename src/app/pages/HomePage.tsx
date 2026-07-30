@@ -13,7 +13,6 @@ import { DemoFormSection } from "../components/DemoFormSection";
 import { TagsCarouselSection } from "../components/TagsCarouselSection";
 import { FooterSection } from "../components/FooterSection";
 import { WhatDefinesUsSection } from "../components/WhatDefinesUsSection";
-import { motion } from "motion/react";
 import { FmcgSection } from "../components/FmcgSection";
 import { B2bSection } from "../components/B2bSection";
 import { EducationSection } from "../components/EducationSection";
@@ -44,16 +43,12 @@ export default function HomePage() {
       <CmsSection component="BannerSection" page={P}><BannerSection /></CmsSection>
 
       <CmsSection component="FmcgSection" page={P}>
-        <motion.div
+        <div
           id="fmcg-portfolio"
           style={{ marginTop: isMobile ? "0px" : "0px", position: "relative", zIndex: 1 }}
-          initial={{ y: 60, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
         >
           <FmcgSection />
-        </motion.div>
+        </div>
       </CmsSection>
 
       <CmsSection component="B2bSection" page={P}><div style={{ marginTop: "80px" }}><B2bSection /></div></CmsSection>
