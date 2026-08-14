@@ -13,8 +13,8 @@ import { CmsSection } from "../components/CmsSection";
 
 export default function ContactUsPage() {
   useMeta(
-    "Contact Us — Hexanovate",
-    "Reach out to Hexanovate for growth partnerships, press, careers, or any general enquiries. We respond within 48 hours."
+    "Contact Us — ThirdMeta",
+    "Reach out to ThirdMeta for growth partnerships, press, careers, or any general enquiries. We respond within 48 hours."
   );
   const P = "contact-us";
   return (

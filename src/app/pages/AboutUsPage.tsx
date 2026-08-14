@@ -30,8 +30,8 @@ const VP = { once: true, margin: "-80px" } as const;
 
 export default function AboutUsPage() {
   useMeta(
-    "About Us — Hexanovate",
-    "Learn how Hexanovate was built to close the gap between ambition and outcome for B2B, FMCG, and education businesses."
+    "About Us — ThirdMeta",
+    "Learn how ThirdMeta was built to close the gap between ambition and outcome for B2B, FMCG, and education businesses."
   );
   const [vw, setVw] = useState(typeof window !== "undefined" ? window.innerWidth : 1440);
   useEffect(() => {

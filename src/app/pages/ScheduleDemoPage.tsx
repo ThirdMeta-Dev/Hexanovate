@@ -8,7 +8,7 @@ import { CmsSection } from "../components/CmsSection";
 
 export default function ScheduleDemoPage() {
   useMeta(
-    "Book a Free Strategy Call — Hexanovate",
+    "Book a Free Strategy Call — ThirdMeta",
     "Get a tailored 90-day growth roadmap in 30 minutes. No pitch, no pressure. Just honest thinking about your business."
   );
   const P = "schedule-demo";

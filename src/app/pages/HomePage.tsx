@@ -25,8 +25,8 @@ import { useMeta } from "../hooks/useMeta";
 
 export default function HomePage() {
   useMeta(
-    "Hexanovate — Growth Systems for B2B, FMCG & Education",
-    "Hexanovate builds intelligent growth systems that drive predictable revenue for B2B, consumer brands, and education businesses."
+    "ThirdMeta — Growth Systems for B2B, FMCG & Education",
+    "ThirdMeta builds intelligent growth systems that drive predictable revenue for B2B, consumer brands, and education businesses."
   );
   const [vw, setVw] = useState(typeof window !== "undefined" ? window.innerWidth : 1440);
   useEffect(() => {
