@@ -319,7 +319,7 @@ export function AboutHeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.5, ease: EASE }}
           >
-            short We unlock scale fixing what's leaking explanation that ThirdMeta powers two
+            short We unlock scale fixing what's leaking explanation that Hexanovate powers two
           </motion.p>
         </motion.div>
 

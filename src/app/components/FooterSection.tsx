@@ -190,7 +190,7 @@ function BluePanel() {
                 fontFamily: "Poppins, sans-serif", fontWeight: 600,
                 fontSize: 28, color: "white", lineHeight: 1.4, margin: 0, whiteSpace: "nowrap",
               }}>
-                ThirdMeta
+                Hexanovate
               </p>
             </div>
 

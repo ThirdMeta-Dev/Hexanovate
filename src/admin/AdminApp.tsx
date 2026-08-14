@@ -626,7 +626,7 @@ export default function AdminApp() {
               <span style={{ fontSize: 16, fontWeight: 900, color: "#000" }}>H</span>
             </div>
             <div>
-              <div style={{ color: C.text, fontWeight: 700, fontSize: 13.5 }}>ThirdMeta CMS</div>
+              <div style={{ color: C.text, fontWeight: 700, fontSize: 13.5 }}>Hexanovate CMS</div>
               <div style={{ color: "#444", fontSize: 10.5 }}>Admin Panel</div>
             </div>
           </div>

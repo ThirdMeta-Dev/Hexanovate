@@ -72,7 +72,7 @@ export default function LoginPage() {
           <h1 style={{ color: "#fff", fontSize: 22, fontWeight: 700, margin: "0 0 4px" }}>
             Admin Dashboard
           </h1>
-          <p style={{ color: "#555", fontSize: 13, margin: 0 }}>ThirdMeta CMS</p>
+          <p style={{ color: "#555", fontSize: 13, margin: 0 }}>Hexanovate CMS</p>
         </div>
 
         <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 16 }}>

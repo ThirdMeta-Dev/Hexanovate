@@ -475,7 +475,7 @@ export function SolutionsSection() {
           <SolutionsBadge />
           <TextRevealParagraph />
           <p style={{ fontFamily: "Poppins, sans-serif", fontWeight: 300, fontSize: isMobile ? 14 : 16, lineHeight: "26px", color: "#727272", margin: 0, textAlign: "center", maxWidth: 600 }}>
-            Big vision means knowing exactly where to focus. Here is where ThirdMeta actually lives right now.
+            Big vision means knowing exactly where to focus. Here is where Hexanovate actually lives right now.
           </p>
         </motion.div>
 

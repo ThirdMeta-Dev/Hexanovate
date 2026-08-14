@@ -46,7 +46,7 @@ const DEFAULT_ITEMS = [
     date: "June 2022",
     label: "The Gap Found",
     title: "Effort vs Outcome. Nobody Was Talking About This.",
-    detail: "Tasks were completed. Budgets were spent. Results did not show up. Named the real problem: nobody owned the outcome. That one insight became the founding principle of ThirdMeta.",
+    detail: "Tasks were completed. Budgets were spent. Results did not show up. Named the real problem: nobody owned the outcome. That one insight became the founding principle of Hexanovate.",
   },
   {
     id: "journey-4",

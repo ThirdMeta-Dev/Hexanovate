@@ -46,7 +46,7 @@ CREATE POLICY "settings_auth_all"    ON cms_settings FOR ALL    USING (auth.role
 
 -- Seed default settings
 INSERT INTO cms_settings (key, value) VALUES
-  ('site_name',       '"ThirdMeta"'),
+  ('site_name',       '"Hexanovate"'),
   ('site_tagline',    '"The Future of Business Deserves a Better World"'),
   ('contact_email',   '"hello@hexanovate.com"'),
   ('contact_phone',   '"+"'),

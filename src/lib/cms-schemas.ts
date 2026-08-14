@@ -174,7 +174,7 @@ export const SECTION_SCHEMAS: Record<string, SectionSchema> = {
 
   WhyChooseUsSection: {
     defaultContent: {
-      heading: "Why Choose ThirdMeta",
+      heading: "Why Choose Hexanovate",
       subheading: "We don't just execute. We own the number.",
     },
     fields: [
@@ -218,8 +218,8 @@ export const SECTION_SCHEMAS: Record<string, SectionSchema> = {
     isCarousel: true,
     carouselLabel: "Testimonials",
     defaultItems: [
-      { quote: "ThirdMeta redefined how we approach revenue growth. The Native Unit's data-driven FMCG strategy fixed our funnel leaks and compounded results month over month without extra spend.", name: "Mr Vikram Mehta", role: "Supply Chain Head", metric1Value: "98%", metric1Label: "On-time delivery rate achieved", metric2Value: "123+", metric2Label: "Markets successfully activated" },
-      { quote: "ThirdMeta transformed our brand visibility entirely. Their FMCG marketing expertise brought measurable growth across all channels and target demographics.", name: "Ms Priya Sharma", role: "Marketing Director", metric1Value: "87%", metric1Label: "Customer retention rate improved", metric2Value: "245+", metric2Label: "Campaigns successfully launched" },
+      { quote: "Hexanovate redefined how we approach revenue growth. The Native Unit's data-driven FMCG strategy fixed our funnel leaks and compounded results month over month without extra spend.", name: "Mr Vikram Mehta", role: "Supply Chain Head", metric1Value: "98%", metric1Label: "On-time delivery rate achieved", metric2Value: "123+", metric2Label: "Markets successfully activated" },
+      { quote: "Hexanovate transformed our brand visibility entirely. Their FMCG marketing expertise brought measurable growth across all channels and target demographics.", name: "Ms Priya Sharma", role: "Marketing Director", metric1Value: "87%", metric1Label: "Customer retention rate improved", metric2Value: "245+", metric2Label: "Campaigns successfully launched" },
       { quote: "Our B2B pipeline tripled in just six months. ThirdMeta's account-based marketing approach exceeded all of our revenue and lead generation targets.", name: "Mr Rahul Kapoor", role: "VP Sales, TechCorp", metric1Value: "312%", metric1Label: "ROI on marketing investment", metric2Value: "89+", metric2Label: "Enterprise clients acquired" },
     ],
     itemFields: [
@@ -239,7 +239,7 @@ export const SECTION_SCHEMAS: Record<string, SectionSchema> = {
     isCarousel: true,
     carouselLabel: "Testimonials",
     defaultItems: [
-      { quote: "ThirdMeta redefined how we approach revenue growth.", name: "Mr Vikram Mehta", role: "Supply Chain Head" },
+      { quote: "Hexanovate redefined how we approach revenue growth.", name: "Mr Vikram Mehta", role: "Supply Chain Head" },
     ],
     itemFields: [
       { key: "quote", label: "Quote", type: "textarea" },
@@ -315,7 +315,7 @@ export const SECTION_SCHEMAS: Record<string, SectionSchema> = {
     isCarousel: true,
     carouselLabel: "FAQ Items",
     defaultItems: [
-      { question: "Is ThirdMeta an agency?", answer: "No. ThirdMeta is a connected growth ecosystem. Think of us as the infrastructure your business needs to scale. We house specialized brands for B2B, The Native Unit (FMCG), and EduHexa (Education), all working under one unified vision." },
+      { question: "Is Hexanovate an agency?", answer: "No. Hexanovate is a connected growth ecosystem. Think of us as the infrastructure your business needs to scale. We house specialized brands like ThirdMeta (B2B), The Native Unit (FMCG), and EduHexa (Education), all working under one unified vision." },
       { question: "What industries do you typically work with?", answer: "We work across B2B SaaS, FMCG, D2C, and enterprise brands. Our specialized brands adapt to your industry's specific GTM motions and compliance requirements." },
       { question: "How long before we see results?", answer: "Most clients see measurable pipeline impact within 60–90 days. Full integration with our ecosystem typically reaches peak velocity by month 4–6." },
       { question: "Do you work with early-stage startups?", answer: "We partner with growth-stage and scale-up companies that have product-market fit. If you're pre-revenue, our advisory retainer may be a better starting point." },
@@ -393,7 +393,7 @@ export const SECTION_SCHEMAS: Record<string, SectionSchema> = {
       sol1Label: "TheNativeUnit", sol1Link: "https://thenativeunit.com/",
       sol2Label: "EduHexa", sol2Link: "https://eduhexa.in/",
       sol3Label: "ThirdMeta", sol3Link: "https://thirdmeta.in/",
-      copy: "© 2026 ThirdMeta. All rights reserved.",
+      copy: "© 2026 Hexanovate. All rights reserved.",
     },
     fields: [
       { key: "linkedinUrl", label: "LinkedIn URL", type: "url" },
@@ -412,7 +412,7 @@ export const SECTION_SCHEMAS: Record<string, SectionSchema> = {
 
   ContactInfoSection: {
     defaultContent: {
-      address: "ThirdMeta HQ, Mumbai, India",
+      address: "Hexanovate HQ, Mumbai, India",
       email: "seo@hexanovate.com",
       phone: "+91 00000 00000",
       mapEmbedUrl: "",
@@ -427,7 +427,7 @@ export const SECTION_SCHEMAS: Record<string, SectionSchema> = {
 
   AboutIntroSection: {
     defaultContent: {
-      heading: "About ThirdMeta",
+      heading: "About Hexanovate",
     },
     fields: [
       { key: "heading", label: "Heading", type: "text" },
@@ -463,7 +463,7 @@ export const SECTION_SCHEMAS: Record<string, SectionSchema> = {
 
   AboutEcosystemSection: {
     defaultContent: {
-      heading: "The ThirdMeta Ecosystem",
+      heading: "The Hexanovate Ecosystem",
       subheading: "Three specialized brands. One unified vision.",
     },
     fields: [
@@ -511,7 +511,7 @@ export const SECTION_SCHEMAS: Record<string, SectionSchema> = {
 
   LeadershipWhyChooseUsSection: {
     defaultContent: {
-      heading: "Why Choose ThirdMeta",
+      heading: "Why Choose Hexanovate",
       subheading: "We are built differently.",
     },
     fields: [
@@ -616,7 +616,7 @@ export const SECTION_SCHEMAS: Record<string, SectionSchema> = {
     defaultItems: [
       { date: "Sept 2020", label: "The Beginning", title: "Two Products. One Big Dream.", detail: "Built Vegigo, a hyperlocal ecommerce platform. Built an all-in-one restaurant management solution. Building was our profession. Zero marketing knowledge. Maximum optimism." },
       { date: "Dec 2021", label: "The Hard Truth", title: "Great Product. Terrible Growth. Classic Failure.", detail: "Went to market with 2 products. Got ignored. Hired agencies. Got reports, decks, and invoices. Numbers never moved. Finance shook. Started learning marketing from scratch, out of necessity." },
-      { date: "June 2022", label: "The Gap Found", title: "Effort vs Outcome. Nobody Was Talking About This.", detail: "Tasks were completed. Budgets were spent. Results did not show up. Named the real problem: nobody owned the outcome. That one insight became the founding principle of ThirdMeta." },
+      { date: "June 2022", label: "The Gap Found", title: "Effort vs Outcome. Nobody Was Talking About This.", detail: "Tasks were completed. Budgets were spent. Results did not show up. Named the real problem: nobody owned the outcome. That one insight became the founding principle of Hexanovate." },
       { date: "Dec 2022 – Dec 2023", label: "Proof Found", title: "What Worked For Us, Worked For Them Too.", detail: "Onboarded clients. Applied everything learned the hard way. Worked with 40+ businesses across 12 domains. Became the primary growth driver for several of them. Combined revenue influenced: INR 12Cr+ across active partnerships." },
       { date: "May – Nov 2024", label: "Going Deep", title: "Twelve Domains Was Ambition. Three Is Mastery.", detail: "Niched down to 3 domains with proven, significant impact. Sept 2024: ThirdMeta launched for B2B businesses. Nov 2024: NativeUnit launched for D2C and FMCG brands. Client retention after niching down: 91%" },
       { date: "April 2025", label: "New Category", title: "Ed-Tech Needed This. We Built It.", detail: "EduHexa launched as India's first independent AI Smart Classroom consultancy. Not a reseller. Not an agency. A neutral expert. 35+ institutions audited within the first 6 months of launch." },

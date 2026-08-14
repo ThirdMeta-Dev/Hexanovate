@@ -103,7 +103,7 @@ const PARA_SEGMENTS = [
     weight: 600,
   },
   {
-    text: "So why do the numbers still feel like they are holding your vision hostage? ThirdMeta is the Planetary System around YOU, the Sun. Human intelligence, AI systems, automation frameworks, pipelines, marketing and revenue engines. All of it designed and engineered toward a single goal. No tasks. No deliverables. No activities. Just predictable, measurable, consistent and scalable growth of your business.",
+    text: "So why do the numbers still feel like they are holding your vision hostage? Hexanovate is the Planetary System around YOU, the Sun. Human intelligence, AI systems, automation frameworks, pipelines, marketing and revenue engines. All of it designed and engineered toward a single goal. No tasks. No deliverables. No activities. Just predictable, measurable, consistent and scalable growth of your business.",
     weight: 300,
   },
   {
