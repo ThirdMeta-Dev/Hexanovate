@@ -413,9 +413,9 @@ const FAQS = [
 const FAQS_BY_TAB: Record<number, typeof FAQS> = {
   0: [
     {
-      question: "Is Hexanovate an agency?",
+      question: "Is ThirdMeta an agency?",
       answer:
-        "No. Hexanovate is a connected growth ecosystem. Think of us as the infrastructure your business needs to scale. We house specialized brands like ThirdMeta (B2B), The Native Unit (FMCG), and EduHexa (Education), all working under one unified vision.",
+        "No. ThirdMeta is a connected growth ecosystem. Think of us as the infrastructure your business needs to scale. We house specialized brands for B2B, The Native Unit (FMCG), and EduHexa (Education), all working under one unified vision.",
     },
     {
       question: "What industries do you typically work with?",

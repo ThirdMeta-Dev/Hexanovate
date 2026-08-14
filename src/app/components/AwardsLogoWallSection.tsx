@@ -270,7 +270,7 @@ function SectionBadge() {
           position: "relative",
         }}
       >
-        The Hexanovate Effect
+        The ThirdMeta Effect
       </span>
     </div>
   );
@@ -386,7 +386,7 @@ export function AwardsLogoWallSection() {
             {" "}
             <motion.span style={{ color: "#8e8e8e", fontWeight: 400, opacity: tw6 }}>When</motion.span>
             {" "}
-            <motion.span style={{ fontWeight: 700, opacity: tw7 }}>Hexanovate</motion.span>
+            <motion.span style={{ fontWeight: 700, opacity: tw7 }}>ThirdMeta</motion.span>
             {" "}
             <motion.span style={{ fontWeight: 700, opacity: tw8 }}>Enters</motion.span>
             {" "}

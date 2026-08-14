@@ -77,7 +77,7 @@ function TestimonialCard() {
       </div>
 
       <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 400, fontSize: 14, color: "#727272", lineHeight: "22px", margin: 0 }}>
-        "Hexanovate scaled our monthly inbound leads from 10 to 55 and MQLs by 3x."
+        "ThirdMeta scaled our monthly inbound leads from 10 to 55 and MQLs by 3x."
       </p>
 
       <div style={{ display: "flex", gap: 12, alignItems: "center" }}>

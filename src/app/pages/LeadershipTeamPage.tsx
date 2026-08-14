@@ -41,8 +41,8 @@ const VP   = { once: true, margin: "-80px" } as const;
 
 export default function LeadershipTeamPage() {
   useMeta(
-    "Leadership & Team — Hexanovate",
-    "Meet the strategists and builders behind Hexanovate's growth ecosystem — outcome-obsessed thinkers driving real results."
+    "Leadership & Team — ThirdMeta",
+    "Meet the strategists and builders behind ThirdMeta's growth ecosystem — outcome-obsessed thinkers driving real results."
   );
   const [vw, setVw] = useState(typeof window !== "undefined" ? window.innerWidth : 1440);
 
