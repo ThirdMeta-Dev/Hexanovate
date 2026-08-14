@@ -138,7 +138,7 @@ function Navbar() {
             lineHeight: 1.4,
           }}
         >
-          ThirdMeta
+          Hexanovate
         </span>
       </div>
 
@@ -569,7 +569,7 @@ export function HexanovateHero() {
                     marginTop: "4px",
                   }}
                 >
-                  Short explanation that ThirdMeta powers two specialized domains.
+                  Short explanation that Hexanovate powers two specialized domains.
                 </p>
               </motion.div>
             </div>

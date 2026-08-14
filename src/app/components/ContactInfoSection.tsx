@@ -249,7 +249,7 @@ export function ContactInfoSection() {
             background: "rgba(210,210,210,0.2)",
           }}>
             <iframe
-              title="ThirdMeta Location"
+              title="Hexanovate Location"
               src={mapEmbedUrl}
               width="100%"
               height="100%"

@@ -65,7 +65,7 @@ async function sendContactEmail(data: {
 <body>
   <div class="container">
     <div class="header">
-      <h1>New Enquiry — ThirdMeta</h1>
+      <h1>New Enquiry — Hexanovate</h1>
       <p>Submitted on ${new Date(data.submittedAt).toLocaleString("en-IN", { timeZone: "Asia/Kolkata", dateStyle: "full", timeStyle: "short" })} IST</p>
     </div>
     <div class="body">
@@ -92,7 +92,7 @@ async function sendContactEmail(data: {
       </div>` : ""}
     </div>
     <div class="footer">
-      This email was sent automatically from the ThirdMeta website contact form.
+      This email was sent automatically from the Hexanovate website contact form.
     </div>
   </div>
 </body>
@@ -104,7 +104,7 @@ async function sendContactEmail(data: {
   const toHeader = recipients.join(", ");
 
   const rawMessage = [
-    `From: "ThirdMeta Website" <${smtpUser}>`,
+    `From: "Hexanovate Website" <${smtpUser}>`,
     `To: ${toHeader}`,
     `Subject: ${subject}`,
     `MIME-Version: 1.0`,

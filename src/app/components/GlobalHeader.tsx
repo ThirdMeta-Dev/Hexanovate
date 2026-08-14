@@ -51,7 +51,7 @@ const NAV_DROPDOWNS: Record<string, { label: string; sub?: string; href?: string
     { label: "EduHexa", sub: "Education Growth Solutions", href: "https://eduhexa.in/" },
   ],
   Company: [
-    { label: "About ThirdMeta", sub: "Our story & mission", href: "/about-us" },
+    { label: "About Hexanovate", sub: "Our story & mission", href: "/about-us" },
     { label: "Our Team", sub: "Leadership & team", href: "/leadership-and-team" },
   ],
 };
@@ -181,7 +181,7 @@ function MobileNav() {
           onClick={() => navigate("/")}
         >
           <div style={{ transform: "rotate(180deg) scaleY(-1)", flexShrink: 0 }}><HexaLogo /></div>
-          <span style={{ fontFamily: "Poppins, sans-serif", fontWeight: 600, fontSize: 20, lineHeight: "1.4", color: "white", whiteSpace: "nowrap" }}>ThirdMeta</span>
+          <span style={{ fontFamily: "Poppins, sans-serif", fontWeight: 600, fontSize: 20, lineHeight: "1.4", color: "white", whiteSpace: "nowrap" }}>Hexanovate</span>
         </div>
 
         {/* Hamburger */}
@@ -311,7 +311,7 @@ export function GlobalHeader() {
               onClick={() => navigate("/")}
             >
               <div style={{ transform: "rotate(180deg) scaleY(-1)", flexShrink: 0 }}><HexaLogo /></div>
-              <span style={{ fontFamily: "Poppins, sans-serif", fontWeight: 600, fontSize: 22, lineHeight: "1.4", color: "white", whiteSpace: "nowrap" }}>ThirdMeta</span>
+              <span style={{ fontFamily: "Poppins, sans-serif", fontWeight: 600, fontSize: 22, lineHeight: "1.4", color: "white", whiteSpace: "nowrap" }}>Hexanovate</span>
             </motion.div>
 
             <GlassNavPill />

@@ -219,7 +219,7 @@ function WhyChooseUsBadge() {
 }
 
 const DEFAULT_FEATURES = [
-  { title: "Strategy That Actually Executes.", description: `Vision without execution is just a slide deck. Everything inside ThirdMeta is built to move from thinking to doing without losing momentum.` },
+  { title: "Strategy That Actually Executes.", description: `Vision without execution is just a slide deck. Everything inside Hexanovate is built to move from thinking to doing without losing momentum.` },
   { title: "Empathy Built Into Everything.", description: `We understand businesses because we spent years watching brilliant ones struggle needlessly.` },
   { title: "Human Intelligence, System Powered.", description: `Technology handles the scale. People handle the thinking. Together they produce outcomes that neither could ever manage alone.` },
   { title: "Built for Every Stage.", description: `Startup or scaling, early or established, the ecosystem was designed to hold every ambition at every stage without asking you to outgrow it.` },

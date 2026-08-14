@@ -13,7 +13,7 @@ import { useMeta } from "../hooks/useMeta";
 
 export default function ThankYouPage() {
   useMeta(
-    "Thank You — ThirdMeta",
+    "Thank You — Hexanovate",
     "Your submission has been received. We will confirm your strategy call slot within 24 hours."
   );
   const P = "thank-you";

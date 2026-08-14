@@ -524,7 +524,7 @@ function QuoteText({ scrollYProgress }: { scrollYProgress: MotionValue<number> }
           }}
         >
           <p style={{ width: "100%", margin: 0 }}>
-            {["We", "didn’t", "start", "ThirdMeta", "to", "just", "build", "another", "agency.", "We", "started", "it", "to", "build", "the", "infrastructure", "of", "growth."].flatMap((word, wi) => [
+            {["We", "didn’t", "start", "Hexanovate", "to", "just", "build", "another", "agency.", "We", "started", "it", "to", "build", "the", "infrastructure", "of", "growth."].flatMap((word, wi) => [
               wi > 0 ? " " : null,
               <RevealWord
                 key={wi}
@@ -953,7 +953,7 @@ function TabletLayout({ transparent = false, videoSrc }: { transparent?: boolean
               ])}
             </p>
             <p style={{ margin: 0 }}>
-              {["We", "were", "engineers.", "Building", "came", "naturally.", "Marketing", "and", "Sales", "didn't.", "We", "hired", "people", "to", "fix", "that.", "Got", "tasks,", "got", "reports,", "got", "invoices.", "Got", "nothing", "that", "moved", "the", "needle.", "So", "we", "stepped", "in", "and", "fixed", "it", "ourselves.", "With", "time,", "we", "found", "the", "real", "gap:", "EFFORT", "and", "OUTCOME", "gap.", "Outcomes", "only", "move", "when", "someone", "sees", "your", "vision", "through", "your", "eyes,", "with", "the", "same", "conviction", "you", "started", "with.", "That", "principle", "is", "the", "only", "reason", "ThirdMeta", "exists."].flatMap((word, wi) => [
+              {["We", "were", "engineers.", "Building", "came", "naturally.", "Marketing", "and", "Sales", "didn't.", "We", "hired", "people", "to", "fix", "that.", "Got", "tasks,", "got", "reports,", "got", "invoices.", "Got", "nothing", "that", "moved", "the", "needle.", "So", "we", "stepped", "in", "and", "fixed", "it", "ourselves.", "With", "time,", "we", "found", "the", "real", "gap:", "EFFORT", "and", "OUTCOME", "gap.", "Outcomes", "only", "move", "when", "someone", "sees", "your", "vision", "through", "your", "eyes,", "with", "the", "same", "conviction", "you", "started", "with.", "That", "principle", "is", "the", "only", "reason", "Hexanovate", "exists."].flatMap((word, wi) => [
                 wi > 0 ? " " : null,
                 <RevealWord
                   key={wi}
@@ -1092,7 +1092,7 @@ function MobileLayout({ transparent = false, videoSrc }: { transparent?: boolean
           }}
         >
           <p style={{ margin: 0 }}>
-            {["We", "didn’t", "start", "ThirdMeta", "to", "just", "build", "another", "agency.", "We", "started", "it", "to", "build", "the", "infrastructure", "of", "growth."].flatMap((word, wi) => [
+            {["We", "didn’t", "start", "Hexanovate", "to", "just", "build", "another", "agency.", "We", "started", "it", "to", "build", "the", "infrastructure", "of", "growth."].flatMap((word, wi) => [
               wi > 0 ? " " : null,
               <RevealWord
                 key={wi}

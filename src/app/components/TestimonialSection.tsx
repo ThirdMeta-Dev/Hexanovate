@@ -8,7 +8,7 @@ import { useCmsSectionContent } from "../context/CmsSectionContext";
 const DEFAULT_TESTIMONIALS = [
   {
     quote:
-      "ThirdMeta redefined how we approach revenue growth. The Native Unit’s data-driven FMCG strategy fixed our funnel leaks and compounded results month over month without extra spend.",
+      "Hexanovate redefined how we approach revenue growth. The Native Unit’s data-driven FMCG strategy fixed our funnel leaks and compounded results month over month without extra spend.",
     name: "Mr Vikram Mehta",
     role: "Supply Chain Head",
     metrics: [
@@ -32,7 +32,7 @@ const DEFAULT_TESTIMONIALS = [
   },
   {
     quote:
-      "ThirdMeta transformed our brand visibility entirely. Their FMCG marketing expertise brought measurable growth across all channels and target demographics.",
+      "Hexanovate transformed our brand visibility entirely. Their FMCG marketing expertise brought measurable growth across all channels and target demographics.",
     name: "Ms Priya Sharma",
     role: "Marketing Director",
     metrics: [

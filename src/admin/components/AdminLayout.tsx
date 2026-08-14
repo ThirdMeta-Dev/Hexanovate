@@ -37,7 +37,7 @@ export function AdminLayout({ children, title, backLink }: AdminLayoutProps) {
             <div style={{ width: 28, height: 28, background: "#FFA600", borderRadius: 6, display: "flex", alignItems: "center", justifyContent: "center" }}>
               <LayoutDashboard size={16} color="#000" />
             </div>
-            <span style={{ color: "#fff", fontWeight: 700, fontSize: 15 }}>ThirdMeta CMS</span>
+            <span style={{ color: "#fff", fontWeight: 700, fontSize: 15 }}>Hexanovate CMS</span>
           </Link>
         </div>
 

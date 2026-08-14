@@ -131,7 +131,7 @@ const NAV_DROPDOWNS: Record<string, { label: string; sub?: string; href?: string
     { label: "EduHexa", sub: "Education Growth Solutions" },
   ],
   Company: [
-    { label: "About ThirdMeta", sub: "Our story & mission", href: "/about-us" },
+    { label: "About Hexanovate", sub: "Our story & mission", href: "/about-us" },
     { label: "Our Team", sub: "Leadership & team", href: "/leadership-and-team" },
   ],
 };
@@ -529,7 +529,7 @@ function MobileNav() {
               whiteSpace: "nowrap",
             }}
           >
-            ThirdMeta
+            Hexanovate
           </span>
         </div>
 
@@ -1032,7 +1032,7 @@ export function BannerSection() {
                     whiteSpace: "nowrap",
                   }}
                 >
-                  ThirdMeta
+                  Hexanovate
                 </span>
               </motion.div>
 

@@ -12,7 +12,7 @@ const C = {
 interface Setting { key: string; value: unknown; }
 
 const PRESET_KEYS = [
-  { key: "site_name", label: "Site Name", placeholder: "ThirdMeta" },
+  { key: "site_name", label: "Site Name", placeholder: "Hexanovate" },
   { key: "site_tagline", label: "Tagline", placeholder: "Your tagline here" },
   { key: "contact_email", label: "Contact Email", placeholder: "hello@example.com" },
   { key: "contact_phone", label: "Contact Phone", placeholder: "+91 00000 00000" },
